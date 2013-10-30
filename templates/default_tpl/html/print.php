@@ -20,10 +20,6 @@ $pg_link = str_replace('index2.php', 'index.php', $pg_link);
 <div class="logo"><?php echo $mosConfig_sitename; ?></div>
 <div id="main"><?php echo $_MOS_OPTION['buffer'];?> </div>
 <div id="ju_foo">
-	<?php echo _PRINT_PAGE_LINK; ?> :
-	<br/>
-	<i><?php echo JSef::getUrlToSef($pg_link); ?></i>
-	<br/>
-	<br/>
-	&copy;<?php echo $mosConfig_sitename; ?>,&nbsp;'<?php echo date('Y'); ?>
+	<p><?php echo _PRINT_PAGE_LINK; ?>: <em><?php echo JSef::getUrlToSef($pg_link); ?></em></p>
+	<p>&copy;<?php echo $mosConfig_sitename; ?>,&nbsp;'<?php echo date('Y'); ?></p>
 </div>
