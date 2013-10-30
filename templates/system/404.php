@@ -40,7 +40,5 @@ include_once ('language/' . $mosConfig_lang . '/system.php');
 <h3>
 	<a href="<?php echo JPATH_SITE; ?>"><?php echo _404_RTS; ?></a>
 </h3>
-<br/>
-404
 </body>
 </html>
