@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-global $option;
+$option = JSef::getOption();
 require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/sajax.php');
 require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/ajaxtool.php');
 ?>
@@ -46,7 +46,7 @@ require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/ajaxt
 	</table>
 	<div id="DEFOperationList">
 		<script type="text/javascript">
-			dirSelectionHTML('<?php echo JPATH_BASE; ?>');
+			dirSelectionHTML('<?php echo _JLPATH_ROOT; ?>');
 		</script>
 	</div>
 </div>

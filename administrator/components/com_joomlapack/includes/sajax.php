@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-global $option;
+$option = JSef::getOption();
 
 if(!isset($SAJAX_INCLUDED)){
 	/*
@@ -54,7 +54,7 @@ if(!isset($SAJAX_INCLUDED)){
 	// Helper function to return the script's own URI.
 	//
 	function sajax_get_my_uri(){
-		$myURI = JPATH_SITE . "/" . JADMIN_BASE . "/ajax.index.php";
+		$myURI = _JLPATH_SITE . "/" . JADMIN_BASE . "/ajax.index.php";
 		return $myURI;
 	}
 
@@ -132,7 +132,7 @@ if(!isset($SAJAX_INCLUDED)){
 	}
 
 	function sajax_get_common_js(){
-		global $option;
+		$option = JSef::getOption();
 		global $sajax_debug_mode;
 		global $sajax_request_type;
 

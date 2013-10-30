@@ -17,23 +17,11 @@ define('_JLPATH_ROOT',dirname(dirname(__FILE__)));
 require_once _JLPATH_ROOT . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'defines.php';
 
 // корень файлов
-//define('JPATH_BASE', dirname(dirname(__FILE__)));
+//define('_JLPATH_ROOT', dirname(dirname(__FILE__)));
 
 if(!defined('IS_ADMIN')) define('IS_ADMIN', 1);
-(ini_get('register_globals') == 1) ? require_once (JPATH_BASE . DS . 'includes' . DS . 'globals.php') : null;
-require_once (JPATH_BASE . DS . 'configuration.php');
 
-// live_site
-define('JPATH_SITE', $mosConfig_live_site);
-
-// SSL check - $http_host returns <live site url>:<port number if it is 443>
-$http_host = explode(':', $_SERVER['HTTP_HOST']);
-if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site, 0, 8) != 'https://'){
-	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site, 7);
-}
-
-// для совместимости
-$mosConfig_absolute_path = JPATH_BASE;
+require_once (_JLPATH_ROOT . DS . 'configuration.php');
 
 // подключение главного файла - ядра системы
 require_once (_JLPATH_ROOT . DS . 'core' . DS . 'core.php');
@@ -42,23 +30,23 @@ require_once (_JLPATH_ROOT . DS . 'core' . DS . 'core.php');
 require_once(_JLPATH_ROOT . DS . 'core' . DS . 'language.php');
 
 // ядро
-require_once (JPATH_BASE . DS . 'includes' . DS . 'joostina.php');
+require_once (_JLPATH_ROOT . DS . 'includes' . DS . 'joostina.php');
 
 // подключение SEF
-require_once (JPATH_BASE . DS . 'includes' . DS . 'sef.php');
-JSef::getInstance($mosConfig_sef, $mosConfig_com_frontpage_clear);
+require_once (_JLPATH_ROOT . DS . 'includes' . DS . 'sef.php');
+JSef::getInstance(JCore::getCfg('sef'), JCore::getCfg('com_frontpage_clear'));
 
 $acl = &gacl::getInstance();
 
 // must start the session before we create the mainframe object
-session_name(md5($mosConfig_live_site));
+session_name(md5(_JLPATH_SITE));
 session_start();
 // заголовки
 header('Content-type: text/html; charset=UTF-8');
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
-$mainframe->set('lang', $mosConfig_lang);
+$mainframe->set('lang', JCore::getCfg('lang'));
 include_once($mainframe->getLangFile());
 
 // получение шаблона страницы
@@ -96,7 +84,7 @@ initGzip();
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title><?php echo $mosConfig_sitename; ?> - Joostina</title>
+	<title><?php echo JCore::getCfg('sitename'); ?> - Joostina</title>
 	<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/template_css.css" type="text/css"/>
 	<link rel="stylesheet" href="templates/<?php echo JTEMPLATE; ?>/css/theme.css" type="text/css"/>
 	<script language="JavaScript" src="../includes/js/JSCookMenu.js" type="text/javascript"></script>
@@ -105,16 +93,14 @@ initGzip();
 	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>"/>
 	<?php
 	$mainframe->set('loadEditor', true);
-	include_once (JPATH_BASE . '/includes/editor.php');
+    JCore::connectionEditor();
 	initEditor();
 	?>
 </head>
 <body>
 <?php
 if($mosmsg){
-	if(!get_magic_quotes_gpc()){
-		$mosmsg = addslashes($mosmsg);
-	}
+	$mosmsg = addslashes($mosmsg);
 	echo "\n<script language=\"javascript\" type=\"text/javascript\">alert('$mosmsg');</script>";
 }
 
@@ -123,7 +109,7 @@ if($path = $mainframe->getPath('admin')){
 	require $path;
 } else{
 	?>
-<img src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!"/>
+<img src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE;?>/images/ico/error.png" border="0" alt="Joostina!"/>
 <br/>
 	<?php } ?>
 </body>

@@ -20,7 +20,7 @@ defined('_JLINDEX') or die();
 class components_menu_html{
 
 
-	function edit(&$menu, &$components, &$lists, &$params, $option){
+	public static function edit(&$menu, &$components, &$lists, &$params, $option){
 		mosCommonHTML::loadOverlib();
 		if($menu->id){
 			$title = '[ ' . $lists['componentname'] . ' ]';
@@ -158,5 +158,3 @@ class components_menu_html{
 	<?php
 	}
 }
-
-?>

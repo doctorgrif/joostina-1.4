@@ -38,7 +38,6 @@ function get_server_software(){
 function system_info($version, $option){
 	$database = database::getInstance();
 	$version = joomlaVersion::get('CMS') . ' <strong style="color: red;">' . joomlaVersion::get('RELEASE') . '.' . joomlaVersion::get('DEV_LEVEL') . '</strong> ' . joomlaVersion::get('DEV_STATUS') . ' [ ' . joomlaVersion::get('CODENAME') . ' ] ' . joomlaVersion::get('RELDATE') . ' ' . joomlaVersion::get('RELTIME') . ' ' . joomlaVersion::get('RELTZ');
-	$width = 400;
 	$tabs = new mosTabs(0);
 	?>
 <br/>
@@ -153,22 +152,6 @@ function system_info($version, $option){
 			</tr>
 			<tr>
 				<td>
-					<?php echo $GLOBALS['messages']['simagicquotes']; ?>:
-				</td>
-				<td>
-					<?php echo get_php_setting('magic_quotes_gpc'); ?>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<?php echo $GLOBALS['messages']['siregglobals']; ?>:
-				</td>
-				<td>
-					<?php echo get_php_setting('register_globals', 0); ?>
-				</td>
-			</tr>
-			<tr>
-				<td>
 					<?php echo $GLOBALS['messages']['sioutputbuf']; ?>:
 				</td>
 				<td>
@@ -242,7 +225,7 @@ function system_info($version, $option){
 	</td>
 	<td>
 		<?php
-		$cf = file(JPATH_BASE . '/configuration.php');
+		$cf = file(_JLPATH_ROOT . '/configuration.php');
 		foreach($cf as $k => $v){
 			if(preg_match('/mosConfig_host/i', $v)){
 				$cf[$k] = '$mosConfig_host = \'xxxxxx\'';

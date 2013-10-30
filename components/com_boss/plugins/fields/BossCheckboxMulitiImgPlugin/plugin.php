@@ -1,135 +1,158 @@
-<?php
+<?php defined('_JLINDEX') or die;
 /**
- * @package Joostina BOSS
- * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
- * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
- * Joostina BOSS - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
- * Joostina BOSS основан на разработках Jdirectory от Thomas Papin
+ * Joostina BOSS Plugin
+ *
+ * @package   BOSS Plugin
+ * @version   1.0
+ * @author    Gold Dragon <illusive@bk.ru>
+ * @link      http://gd.joostina-cms.ru
+ * @copyright 2013 JLotos.
+ * @license   GNU GPL: http://www.gnu.org/licenses/gpl-3.0.html
+ *            Joostina Lotos CMS - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL. (help/copyright.php)
+ * @Date      21.07.2013
+ * @see       http://wiki.joostina-cms.ru/index.php/BossCheckboxMulitiImgPlugin
  */
-defined('_JLINDEX') or die();
 
-class BossCheckboxMulitiImgPlugin{
+class BossCheckboxMulitiImgPlugin
+{
 
-	//имя типа поля в выпадающем списке в настройках поля
-	var $name = 'Check Box (Muliple Images)';
+    //имя типа поля в выпадающем списке в настройках поля
+    var $name = 'Check Box (Muliple Images)';
 
-	//тип плагина для записи в таблицы
-	var $type = 'BossCheckboxMulitiImgPlugin';
+    //тип плагина для записи в таблицы
+    var $type = 'BossCheckboxMulitiImgPlugin';
 
-	//отображение поля в категории
-	function getListDisplay($directory, $content, $field, $field_values, $conf){
-		return $this->getDetailsDisplay($directory, $content, $field, $field_values, $conf);
-	}
+    //отображение поля в категории
+    function getListDisplay($directory, $content, $field, $field_values, $conf)
+    {
+        return $this->getDetailsDisplay($directory, $content, $field, $field_values, $conf);
+    }
 
-	//отображение поля в контенте
-	function getDetailsDisplay($directory, $content, $field, $field_values, $conf){
-		$fieldname = $field->name;
-		$value = (isset ($content->$fieldname)) ? $content->$fieldname : '';
-		$dataArray = array();
-		$return = '';
-		if(!empty($field->text_before))
-			$return .= '<span>' . $field->text_before . '</span>';
-		if(!empty($field->tags_open))
-			$return .= html_entity_decode($field->tags_open);
+    //отображение поля в контенте
+    function getDetailsDisplay($directory, $content, $field, $field_values, $conf)
+    {
+        $fieldname = $field->name;
+        $value = (isset ($content->$fieldname)) ? $content->$fieldname : '';
+        $dataArray = array();
+        $return = '';
+        if (!empty($field->text_before)) {
+            $return .= '<span>' . $field->text_before . '</span>';
+        }
+        if (!empty($field->tags_open)) {
+            $return .= html_entity_decode($field->tags_open);
+        }
 
-		for($i = 0, $nb = count($field_values); $i < $nb; $i++){
-			$fieldvalue = @$field_values[$i]->fieldvalue;
-			$fieldtitle = @$field_values[$i]->fieldtitle;
+        for ($i = 0, $nb = count($field_values); $i < $nb; $i++) {
+            $fieldvalue = @$field_values[$i]->fieldvalue;
+            $fieldtitle = @$field_values[$i]->fieldtitle;
 
-			if(strpos($value, $fieldvalue) !== false){
-				$dataArray[] = "<img src='" . JPATH_SITE . "/images/boss/$directory/fields/" . $fieldtitle . "' alt='$fieldtitle' />";
-			}
-		}
+            if (strpos($value, $fieldvalue) !== false) {
+                $dataArray[] = "<img src='" . _JLPATH_SITE . "/images/boss/$directory/fields/" . $fieldtitle . "' alt='$fieldtitle' />";
+            }
+        }
 
-		$return .= implode(html_entity_decode($field->tags_separator), $dataArray);
+        $return .= implode(html_entity_decode($field->tags_separator), $dataArray);
 
-		if(!empty($field->tags_close))
-			$return .= html_entity_decode($field->tags_close);
-		if(!empty($field->text_after))
-			$return .= '<span>' . $field->text_after . '</span>';
+        if (!empty($field->tags_close)) {
+            $return .= html_entity_decode($field->tags_close);
+        }
+        if (!empty($field->text_after)) {
+            $return .= '<span>' . $field->text_after . '</span>';
+        }
 
-		return $return;
-	}
+        return $return;
+    }
 
-	//функция вставки фрагмента ява-скрипта в скрипт
-	//сохранения формы при редактировании контента с фронта.
-	function addInWriteScript($field){
+    //функция вставки фрагмента ява-скрипта в скрипт
+    //сохранения формы при редактировании контента с фронта.
+    function addInWriteScript($field)
+    {
 
-	}
+    }
 
-	//отображение поля в админке в редактировании контента
-	function getFormDisplay($directory, $content, $field, $field_values, $nameform = 'adminForm', $mode = "write"){
-		$fieldname = $field->name;
-		$value = (isset ($content->$fieldname)) ? $content->$fieldname : '';
-		$strtitle = htmlentities(jdGetLangDefinition($field->title), ENT_QUOTES, 'utf-8');
-		$k = 0;
-		$return = "<table>";
-		for($i = 0; $i < $field->rows; $i++){
-			$return .= "<tr>";
-			for($j = 0; $j < $field->cols; $j++){
+    //отображение поля в админке в редактировании контента
+    function getFormDisplay($directory, $content, $field, $field_values, $nameform = 'adminForm', $mode = "write")
+    {
+        $fieldname = $field->name;
+        $value = (isset ($content->$fieldname)) ? $content->$fieldname : '';
+        $strtitle = htmlentities(jdGetLangDefinition($field->title), ENT_QUOTES, 'utf-8');
+        $k = 0;
+        $return = "<table>";
+        for ($i = 0; $i < $field->rows; $i++) {
+            $return .= "<tr>";
+            for ($j = 0; $j < $field->cols; $j++) {
 
-				$fieldvalue = @$field_values[$field->fieldid][$k]->fieldvalue;
-				$fieldtitle = @$field_values[$field->fieldid][$k]->fieldtitle;
-				if($field->type == 'multicheckbox'){
-					if(isset($fieldtitle))
-						$fieldtitle = jdGetLangDefinition($fieldtitle);
-				} else{
-					$fieldtitle = "<img src=\"" . JPATH_SITE . "/images/boss/" . $directory . "/fields/" . $fieldtitle . "\" alt='$fieldtitle' />";
-				}
+                $fieldvalue = @$field_values[$field->fieldid][$k]->fieldvalue;
+                $fieldtitle = @$field_values[$field->fieldid][$k]->fieldtitle;
+                if ($field->type == 'multicheckbox') {
+                    if (isset($fieldtitle)) {
+                        $fieldtitle = jdGetLangDefinition($fieldtitle);
+                    }
+                } else {
+                    $fieldtitle = "<img src=\"" . _JLPATH_SITE . "/images/boss/" . $directory . "/fields/" . $fieldtitle . "\" alt='$fieldtitle' />";
+                }
 
-				$mosReq = '';
-				$checked = '';
+                $mosReq = '';
+                $checked = '';
 
-				if(($mode == "write") && ($field->required == 1) && ($k == 0))
-					$mosReq = "mosReq='1'";
+                if (($mode == "write") && ($field->required == 1) && ($k == 0)) {
+                    $mosReq = "mosReq='1'";
+                }
 
-				if(!($mode == "write" && strpos($value, $fieldvalue) === false))
-					$checked = 'checked="checked"';
+                if (!($mode == "write" && strpos($value, $fieldvalue) === false)) {
+                    $checked = 'checked="checked"';
+                }
 
-				$return .= "<td>";
-				if(!empty($fieldvalue))
-					$return .= "<input class='inputbox' type='checkbox' mosLabel='" . $strtitle . "' name='" . $field->name . "[]' value='$fieldvalue' $mosReq $checked />&nbsp;$fieldtitle&nbsp;\n";
-				$return .= "</td>";
+                $return .= "<td>";
+                if (!empty($fieldvalue)) {
+                    $return .= "<input class='inputbox' type='checkbox' mosLabel='" . $strtitle . "' name='" . $field->name . "[]' value='$fieldvalue' $mosReq $checked />&nbsp;$fieldtitle&nbsp;\n";
+                }
+                $return .= "</td>";
 
-				$k++;
-			}
-			$return .= "</tr>";
-		}
-		$return .= "</table>";
+                $k++;
+            }
+            $return .= "</tr>";
+        }
+        $return .= "</table>";
 
-		return $return;
-	}
+        return $return;
+    }
 
-	function onFormSave($directory, $contentid, $field, $isUpdateMode){
-		$return = mosGetParam($_POST, $field->name, array());
-		$return = "," . implode(',', $return) . ",";
-		return $return;
-	}
+    function onFormSave($directory, $contentid, $field, $isUpdateMode)
+    {
+        $return = mosGetParam($_POST, $field->name, array());
+        $return = "," . implode(',', $return) . ",";
+        return $return;
+    }
 
-	function onDelete($directory, $content){
-		return;
-	}
+    function onDelete($directory, $content)
+    {
+        return;
+    }
 
-	//отображение поля в админке в настройках поля
-	function getEditFieldOptions($row, $directory, $fieldimages, $fieldvalues){
+    //отображение поля в админке в настройках поля
+    function getEditFieldOptions($row, $directory, $fieldimages, $fieldvalues)
+    {
 
-		$mainframe = mosMainFrame::getInstance();
-		$mainframe->addJS(JPATH_SITE . '/administrator/components/com_boss/js/upload.js');
-		$mainframe->addJS(JPATH_SITE . '/images/boss/' . $directory . '/plugins/fields/BossCheckboxMulitiImgPlugin/js/script.js');
+        $mainframe = mosMainFrame::getInstance();
+        $mainframe->addJS(_JLPATH_SITE . '/administrator/components/com_boss/js/upload.js');
+        $mainframe->addJS(_JLPATH_SITE . '/components/com_boss/plugins/fields/BossCheckboxMulitiImgPlugin/js/script.js');
 
-		$img = '';
-		if(isset($fieldimages)){
-			foreach($fieldimages as $image){
-				$img .= '
+        $img = '';
+        if (isset($fieldimages)) {
+            foreach ($fieldimages as $image) {
+                $img
+                    .= '
 			    			k++;
 			    			oSelect.length++;
 			    			oSelect.options[k].text = "' . $image . '";
 			    			oSelect.options[k].value = "' . $image . '";
 			    	        ';
 
-			}
-		}
-		$return = '
+            }
+        }
+        $return
+            = '
         <script type="text/javascript">
             function getSelectedValue(obj) {
                 var i = obj.selectedIndex;
@@ -142,9 +165,9 @@ class BossCheckboxMulitiImgPlugin{
 
             function showimage(preview, obj) {
                 if (getSelectedValue(obj) == "null" || !getSelectedValue(obj))
-                    var imgPath = "' . JPATH_SITE . '/templates/com_boss/default/images/nopic.gif";
+                    var imgPath = "' . _JLPATH_SITE . '/templates/com_boss/default/images/nopic.gif";
                 else
-                    imgPath = "' . JPATH_SITE . '/images/boss/' . $directory . '/fields/" + getSelectedValue(obj);
+                    imgPath = "' . _JLPATH_SITE . '/images/boss/' . $directory . '/fields/" + getSelectedValue(obj);
                 var img = getObject(preview);
                 img.src = imgPath;
             }
@@ -175,7 +198,7 @@ class BossCheckboxMulitiImgPlugin{
             ' . $img . '
             oCell.appendChild(oSelect);
             oImage = document.createElement("img");
-            oImage.setAttribute("src", "' . JPATH_SITE . '/images/boss/' . $directory . '/fields/' . $row->link_image . '");
+            oImage.setAttribute("src", "' . _JLPATH_SITE . '/images/boss/' . $directory . '/fields/' . $row->link_image . '");
             oImage.setAttribute("id", "preview" + i);
             oImage.setAttribute("name", "preview" + i);
             oCell.appendChild(oImage);
@@ -226,31 +249,34 @@ class BossCheckboxMulitiImgPlugin{
                     </td>
                 </tr>
                 ';
-		$j = 0;
-		if(count($fieldvalues) > 0){
-			foreach($fieldvalues as $fieldvalue){
+        $j = 0;
+        if (count($fieldvalues) > 0) {
+            foreach ($fieldvalues as $fieldvalue) {
 
-				$return .= '
+                $return
+                    .= '
                         <tr>
                             <td width="20%">
                                 <select class="img_select" id="vSelectImages[' . $j . ']" mosLabel="Image" mosReq=0
                                         name="vSelectImages[' . $j . ']" onchange="showimage(\'preview' . $j . '\',this)">
                                     <option value="null" selected="selected">No Image</option>
                                 ';
-				if(isset($fieldimages)){
-					foreach($fieldimages as $image){
-						$return .= '
+                if (isset($fieldimages)) {
+                    foreach ($fieldimages as $image) {
+                        $return
+                            .= '
                                             <option value="' . $image . '"';
-						if(stripslashes($fieldvalue->fieldtitle) == $image){
-							$return .= ' selected="selected" ';
-						}
-						$return .= '>' . $image . '</option>';
-					}
-				}
+                        if (stripslashes($fieldvalue->fieldtitle) == $image) {
+                            $return .= ' selected="selected" ';
+                        }
+                        $return .= '>' . $image . '</option>';
+                    }
+                }
 
-				$return .= '
+                $return
+                    .= '
                                 </select>
-                                <img src="' . JPATH_SITE . '/images/boss/' . $directory . '/fields/' . stripslashes($fieldvalue->fieldtitle) . '"
+                                <img src="' . _JLPATH_SITE . '/images/boss/' . $directory . '/fields/' . stripslashes($fieldvalue->fieldtitle) . '"
                                      id="preview' . $j . '" name="preview' . $j . '" alt="' . @$row->image . '"/>
                             </td>
                             <td width="20%">
@@ -259,12 +285,14 @@ class BossCheckboxMulitiImgPlugin{
                             </td>
                         </tr>';
 
-			}
-		}
-		if($j > 0)
-			$j--;
-		if(count($fieldvalues) < 1){
-			$return .= '
+            }
+        }
+        if ($j > 0) {
+            $j--;
+        }
+        if (count($fieldvalues) < 1) {
+            $return
+                .= '
                     <tr>
                         <td width="20%">
                             <select class="img_select" id="vSelectImages[0]" name="vSelectImages[0]" mosReq=0
@@ -272,19 +300,21 @@ class BossCheckboxMulitiImgPlugin{
                                     onchange="showimage(\'preview0\',this)">
                                 <option value="null" selected="selected">No Image</option>';
 
-			if(isset($fieldimages)){
-				foreach($fieldimages as $image){
-					$return .= '
+            if (isset($fieldimages)) {
+                foreach ($fieldimages as $image) {
+                    $return
+                        .= '
                                         <option value="' . $image . '"';
-					if($row->link_image == $image){
-						$return .= ' selected="selected" ';
-					}
-					$return .= '>' . $image . '</option>';
+                    if ($row->link_image == $image) {
+                        $return .= ' selected="selected" ';
+                    }
+                    $return .= '>' . $image . '</option>';
 
 
-				}
-			}
-			$return .= '
+                }
+            }
+            $return
+                .= '
                             </select>
                             <img src="" id="preview0" name="preview0" alt="' . $row->link_image . '"/>
                         </td>
@@ -294,76 +324,81 @@ class BossCheckboxMulitiImgPlugin{
                         </td>
                     </tr> ';
 
-			$j = 0;
-		}
-		$return .= '
+            $j = 0;
+        }
+        $return
+            .= '
                 </tbody>
             </table>
         </div>
         <input type="hidden" name="ImagevalueCount" value="' . $j . '"/>
             ';
-		return $return;
-	}
+        return $return;
+    }
 
-	//действия при сохранении настроек поля
-	function saveFieldOptions($directory, $field){
-		$database = database::getInstance();
-		$fieldImagesSelect = $_POST['vSelectImages'];
-		$fieldImagesValues = $_POST['vImagesValues'];
-		$j = 0;
-		$i = 0;
-		$values = array();
+    //действия при сохранении настроек поля
+    function saveFieldOptions($directory, $field)
+    {
+        $database = database::getInstance();
+        $fieldImagesSelect = $_POST['vSelectImages'];
+        $fieldImagesValues = $_POST['vImagesValues'];
+        $j = 0;
+        $i = 0;
+        $values = array();
 
-		while(isset($fieldImagesSelect[$i])){
-			$fieldName = $fieldImagesSelect[$i];
-			$fieldValue = $fieldImagesValues[$i];
-			$i++;
+        while (isset($fieldImagesSelect[$i])) {
+            $fieldName = $fieldImagesSelect[$i];
+            $fieldValue = $fieldImagesValues[$i];
+            $i++;
 
-			if(trim($fieldName) != null && trim($fieldName) != '' && trim($fieldName) != 'null'){
-				$values[] = "('$field->fieldid','" . htmlspecialchars($fieldName) . "','" . htmlspecialchars($fieldValue) . "',$j)";
-				$j++;
-			}
-		}
+            if (trim($fieldName) != null && trim($fieldName) != '' && trim($fieldName) != 'null') {
+                $values[] = "('$field->fieldid','" . htmlspecialchars($fieldName) . "','" . htmlspecialchars($fieldValue) . "',$j)";
+                $j++;
+            }
+        }
 
-		$database->setQuery("INSERT INTO #__boss_" . $directory . "_field_values "
-				. "(fieldid,fieldtitle,fieldvalue,ordering)"
-				. " VALUES"
-				. implode(', ', $values)
-		)->query();
-		//если плагин не создает собственных таблиц а пользется таблицами босса то возвращаем false
-		//иначе true
-		return false;
-	}
+        $database->setQuery(
+            "INSERT INTO #__boss_" . $directory . "_field_values "
+            . "(fieldid,fieldtitle,fieldvalue,ordering)"
+            . " VALUES"
+            . implode(', ', $values)
+        )->query();
+        //если плагин не создает собственных таблиц а пользется таблицами босса то возвращаем false
+        //иначе true
+        return false;
+    }
 
-	//расположение иконки плагина начиная со слеша от корня сайта
-	function getFieldIcon($directory){
-		return "/images/boss/$directory/plugins/fields/" . __CLASS__ . "/images/checkbox.png";
-	}
+    //расположение иконки плагина начиная со слеша от корня сайта
+    function getFieldIcon()
+    {
+        return "/components/com_boss/plugins/fields/" . __CLASS__ . "/images/checkbox.png";
+    }
 
-	//действия при установке плагина
-	function install($directory){
-		return;
-	}
+    //действия при установке плагина
+    function install($directory)
+    {
+        return;
+    }
 
-	//действия при удалении плагина
-	function uninstall($directory){
-		return;
-	}
+    //действия при удалении плагина
+    function uninstall($directory)
+    {
+        return;
+    }
 
-	//действия при поиске
-	function search($directory, $fieldName){
-		$values = mosGetParam($_REQUEST, $fieldName, array());
-		$search = '';
-		$tmp = array();
-		foreach($values as $value){
-			$tmp[] = "FIND_IN_SET( '$value', a.$fieldName )>0";
-		}
+    //действия при поиске
+    function search($directory, $fieldName)
+    {
+        $values = mosGetParam($_REQUEST, $fieldName, array());
+        $search = '';
+        $tmp = array();
+        foreach ($values as $value) {
+            $tmp[] = "FIND_IN_SET( '$value', a.$fieldName )>0";
+        }
 
-		if(is_array($values) && count($values) > 0){
-			$search = " AND ( " . implode(" OR ", $tmp) . " ) ";
-		}
-		return $search;
-	}
+        if (is_array($values) && count($values) > 0) {
+            $search = " AND ( " . implode(" OR ", $tmp) . " ) ";
+        }
+        return $search;
+    }
 }
-
-?>

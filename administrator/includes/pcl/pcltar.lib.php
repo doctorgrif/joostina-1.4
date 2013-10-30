@@ -25,7 +25,6 @@ if(!defined("PCL_TAR")){
 	function PclTarCreate($p_tarname, $p_filelist = "", $p_mode = "", $p_add_dir = "",
 		$p_remove_dir = ""){
 		TrFctStart(__file__, __line__, "PclTarCreate", "tar=$p_tarname, file='$p_filelist', mode=$p_mode, add_dir='$p_add_dir', remove_dir='$p_remove_dir'");
-		$v_result = 1;
 		if(($p_mode == "") || (($p_mode != "tar") && ($p_mode != "tgz"))){
 			if(($p_mode = PclTarHandleExtension($p_tarname)) == ""){
 				TrFctEnd(__file__, __line__, PclErrorCode(), PclErrorString());
@@ -49,7 +48,6 @@ if(!defined("PCL_TAR")){
 
 	function PclTarAdd($p_tarname, $p_filelist){
 		TrFctStart(__file__, __line__, "PclTarAdd", "tar=$p_tarname, file=$p_filelist");
-		$v_result = 1;
 		$v_list_detail = array();
 		if(($p_mode = PclTarHandleExtension($p_tarname)) == ""){
 			TrFctEnd(__file__, __line__, PclErrorCode(), PclErrorString());
@@ -74,7 +72,6 @@ if(!defined("PCL_TAR")){
 	function PclTarAddList($p_tarname, $p_filelist, $p_add_dir = "", $p_remove_dir = "",
 		$p_mode = ""){
 		TrFctStart(__file__, __line__, "PclTarAddList", "tar=$p_tarname, file=$p_filelist, p_add_dir='$p_add_dir', p_remove_dir='$p_remove_dir', mode=$p_mode");
-		$v_result = 1;
 		$p_list_detail = array();
 		if(($p_mode == "") || (($p_mode != "tar") && ($p_mode != "tgz"))){
 			if(($p_mode = PclTarHandleExtension($p_tarname)) == ""){
@@ -1781,4 +1778,4 @@ if(!defined("PCL_TAR")){
 		return $v_result;
 	}
 }
-?>
+

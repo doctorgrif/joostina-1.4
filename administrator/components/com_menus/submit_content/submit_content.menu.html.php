@@ -19,7 +19,7 @@ defined('_JLINDEX') or die();
  */
 class submit_content_menu_html{
 
-	function edit(&$menu, &$lists, &$params, $option){
+	public static function edit(&$menu, &$lists, &$params, $option){
 		mosCommonHTML::loadOverlib();
 
 		?>

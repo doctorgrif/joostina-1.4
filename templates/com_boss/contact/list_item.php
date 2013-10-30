@@ -1,13 +1,25 @@
-<!-- Вывод не выделенного материала в категории -->
-<div class="boss_tpl_list_item">
-	<div class="boss_tpl_img">
-		<?php $this->loadFieldsInGroup($content, "catImage", ""); ?>
-	</div>
-	<div class="boss_tpl_txt">
-		<h3><?php $this->displayContentTitle($content); ?></h3>
-		<h5><?php $this->displayCategoryTitle($content, 3); ?></h5>
+<article>
+	<h3>
+		<?php $this->displayContentTitle($content); ?>
+		<span class="boss_cat">/<?php $this->displayCategoryTitle($content, 2); ?></span>
+	</h3>
+	<table>
+		<tr>
+			<td><div class="tpl_image"><?php $this->loadFieldsInGroup($content, "CatImage", ""); ?></div></td>
+			<td><div class="tpl_description"><?php $this->loadFieldsInGroup($content, "CatSubtitle", "<br />"); ?></div></td>
+		</tr>
+	</table>
 
-		<div class="boss_tpl_subtitle"><?php $this->loadFieldsInGroup($content, "catSubtitle", "<br />"); ?></div>
+	<div class="comments">
+		<?php echo $this->displayListTags($content); ?>
 	</div>
-	<div class="boss_tpl_edit"><?php $this->displayContentEditDelete($content); ?></div>
-</div>
+	<div class="comments">
+		<?php $this->displayContentHits($content); ?>
+		<?php if ($this->isReviewAllowed()) {
+			echo '&nbsp;&nbsp;';
+			$this->comments->displayNumReviews($content, $this->reviews, $this->conf);
+		} ?>
+	</div>
+
+	<div class="edit"><?php $this->displayContentEditDelete($content); ?></div>
+</article>

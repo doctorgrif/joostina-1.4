@@ -94,7 +94,7 @@ class mosInstallerComponent extends mosInstaller{
 		// Set some vars
 		$e = $mosinstall->getElementsByPath('name', 1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE . DS . 'components' . DS . strtolower("com_" . str_replace(" ", "", $this->elementName())) . DS));
+		$this->elementDir(mosPathName(_JLPATH_ROOT . DS . 'components' . DS . strtolower("com_" . str_replace(" ", "", $this->elementName())) . DS));
 		$this->componentAdminDir(mosPathName(_JLPATH_ADMINISTRATOR . DS . 'components' . DS . strtolower('com_' . str_replace(' ', '', $this->elementName()))));
 
 		if(file_exists($this->elementDir())){
@@ -236,7 +236,6 @@ class mosInstallerComponent extends mosInstaller{
 
 		if($this->hasInstallfile()){
 			if(is_file($this->componentAdminDir() . DS . $this->installFile())){
-				$mosConfig_live_site = JPATH_SITE;
 				require_once ($this->componentAdminDir() . DS . $this->installFile());
 				$ret = com_install();
 				if($ret != ''){
@@ -367,7 +366,7 @@ class mosInstallerComponent extends mosInstaller{
 			if(is_dir($path)){
 				$result |= deldir($path);
 			}
-			$path = mosPathName(JPATH_BASE . DS . 'components' . DS . $row->option);
+			$path = mosPathName(_JLPATH_ROOT . DS . 'components' . DS . $row->option);
 			if(is_dir($path)){
 				$result |= deldir($path);
 			}
@@ -376,8 +375,6 @@ class mosInstallerComponent extends mosInstaller{
 			HTML_installer::showInstallMessage(_PARAM_FILED_EMPTY, _DELETE_ERROR, $option, 'component');
 			exit();
 		}
-
-		return $uninstallret;
 	}
 
 	/**
@@ -387,7 +384,7 @@ class mosInstallerComponent extends mosInstaller{
 		$config = Jconfig::getInstance();
 
 		josSpoofCheck();
-		$basepath = mosPathName(JPATH_BASE . DS . 'components' . DS . strtolower("com_" . str_replace(" ", "", $this->elementName())));
+		$basepath = mosPathName(_JLPATH_ROOT . DS . 'components' . DS . strtolower("com_" . str_replace(" ", "", $this->elementName())));
 		$adminpath = mosPathName(_JLPATH_ADMINISTRATOR . DS . 'components' . DS . strtolower("com_" . str_replace(" ", "", $this->elementName())));
 		;
 
@@ -424,8 +421,8 @@ class mosInstallerComponent extends mosInstaller{
 								unlink(_JLPATH_ADMINISTRATOR . DS . $file->getText());
 							}
 						} else{
-							if(file_exists(JPATH_BASE . DS . $file->getText())){
-								unlink(JPATH_BASE . DS . $file->getText());
+							if(file_exists(_JLPATH_ROOT . DS . $file->getText())){
+								unlink(_JLPATH_ROOT . DS . $file->getText());
 							}
 						}
 					}

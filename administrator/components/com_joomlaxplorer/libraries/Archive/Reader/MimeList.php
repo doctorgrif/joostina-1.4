@@ -910,4 +910,3 @@ function File_Archive_Reader_GetMime($filename){
 	}
 }
 
-?>

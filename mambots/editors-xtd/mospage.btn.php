@@ -17,7 +17,7 @@ $_MAMBOTS->registerFunction('onCustomEditorButton', 'botMosPageButton');
  * @return array - возвращает массив из двух элементов: imageName и textToInsert
  */
 function botMosPageButton(){
-	global $option;
+	$option = JSef::getOption();
 
 	// button is not active in specific content components
 	switch($option){

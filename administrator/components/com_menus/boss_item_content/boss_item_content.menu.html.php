@@ -19,7 +19,7 @@ defined('_JLINDEX') or die();
  */
 class boss_item_content_menu_html{
 
-	function editCategory(&$menu, &$lists, &$params, $option){
+	public static function editCategory(&$menu, &$lists, &$params, $option){
 		mosCommonHTML::loadOverlib();
 		?>
 	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>

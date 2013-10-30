@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 // ensure user has access to this function
 if(!$acl->acl_check('administration', 'manage', 'users', $my->usertype, 'components', 'com_menumanager')){
 	mosRedirect('index2.php', _NOT_AUTH);
@@ -20,10 +21,7 @@ require_once ($mainframe->getPath('admin_html'));
 $menu = stripslashes(strval(mosGetParam($_GET, 'menu', '')));
 $type = stripslashes(strval(mosGetParam($_POST, 'type', '')));
 $cid = mosGetParam($_POST, 'cid', '');
-if(isset($cid[0]) && get_magic_quotes_gpc()){
-	$cid[0] = stripslashes($cid[0]);
-}
-
+$task = JSef::getTask();
 switch($task){
 	case 'new':
 		editMenu($option, '');
@@ -172,7 +170,7 @@ function showMenu($option){
  */
 function editMenu($option, $menu){
 	$database = database::getInstance();
-	$row = null;
+	$row = new stdClass();
 	if($menu){
 		$row->menutype = $menu;
 	} else{

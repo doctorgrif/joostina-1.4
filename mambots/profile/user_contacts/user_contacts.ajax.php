@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-require_once (JPATH_BASE . DS . 'mambots' . DS . 'profile' . DS . 'user_contacts' . DS . 'user_contacts.class.php');
+require_once (_JLPATH_ROOT . DS . 'mambots' . DS . 'profile' . DS . 'user_contacts' . DS . 'user_contacts.class.php');
 
 $act = mosGetParam($_REQUEST, 'act', '');
 
@@ -34,9 +34,9 @@ switch($act){
 function display_form(){
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+	$my = JCore::getUser();
 
-	$ajax_handler = JPATH_SITE . '/ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
+	$ajax_handler = _JLPATH_SITE . '/ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
 	$user_id = intval(mosGetParam($_REQUEST, 'user_id', 0));
 
 	//Подключение плагина валидации форм

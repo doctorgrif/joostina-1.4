@@ -17,9 +17,9 @@ defined('_JLINDEX') or die();
  */
 class component_item_link_menu{
 
-	function edit($uid, $menutype, $option, $menu){
+	public static function edit($uid, $menutype, $option, $menu){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+        $my = JCore::getUser();
 		$database = database::getInstance();
 
 		// fail if checked out not by 'me'
@@ -79,5 +79,3 @@ class component_item_link_menu{
 		component_item_link_menu_html::edit($menu, $lists, $params, $option);
 	}
 }
-
-?>

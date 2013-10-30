@@ -23,7 +23,7 @@
 
             if (!l) {
 
-                var sel = $.browser.msie ? this.rte.selection.selected() : this.rte.selection.selected({wrap:false});
+                var sel = this.rte.selection.selected({wrap:false});
                 if (sel.length) {
                     for (var i = 0; i < sel.length; i++) {
                         if (isLink(sel[i])) {

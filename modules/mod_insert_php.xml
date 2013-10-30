@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosinstall type="module" version="1.4.3">
+    <name>Insert PHP</name>
+    <creationDate>25.07.2013</creationDate>
+    <modificationDate>25.07.2013</modificationDate>
+    <author>Gold Dragon</author>
+    <authorEmail>illusive@bk.ru</authorEmail>
+    <authorUrl>http://gd.joostina-cms.ru</authorUrl>
+    <copyright>(C) 2000-2013 Gold Dragon.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <version>1.0</version>
+    <description>
+        <![CDATA[
+		<p style="font-size:130%"><b>&laquo;Insert PHP&raquo;</b> - модуль для вставки PHP-кода в контент.</p>
+		<p><i><span style="color:#f00">Внимание!</span>
+		<br>- Не используйте в коде тег <b>&lt;br /></b></i>. Вместо этого вы можете использовать мнемоники, например, <b>&amp;lt;br /></b> или простой тег <b>&lt;br></b>
+		<br>- Не &laquo;обёртывайте&raquo; PHP-код в теги <b>&lt;?php ... ?></b>
+		</p>
+		]]>
+    </description>
+    <files>
+        <filename module="mod_insert_php">mod_insert_php.php</filename>
+    </files>
+    <params>
+
+        <param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
+
+        <param name="cache" type="yesno" default="0" label="Разрешить кэширование" description="Выберите, кэшировать ли содержимое этого модуля" />
+
+        <param name="cache_time" type="cachelist" label="Кэшировать" description="Выберите время на которое необходимо кэшировать данный модуль" />
+
+        <param name="code" type="textarea" default="" label="PHP-код" rows="7" cols="60" description="Введите PHP-код, без начальных и конечных тегов." />
+
+        <param name="error" type="yesno" default="0" label="Показывать ошибки" description="Если ДА, то будет выводится ошибки PHP-кода."/>
+
+        <param name="error_type" type="yesno" default="0" label="Показывать тип ошибки" description="Если ДА, то будет выводится номер константы ошибки."/>
+
+        <param name="error_message" type="yesno" default="0" label="Показывать сообщение ошибки" description="Если ДА, то будет выводится сообщение ошибки."/>
+
+        <param name="error_line" type="yesno" default="0" label="Показывать строку ошибки" description="Если ДА, то будет выводится номер строки, в которой произошла ошибка."/>
+
+    </params>
+</mosinstall>
+
+
+
+
+
+
+
+
+
+
+
+

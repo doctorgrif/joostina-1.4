@@ -14,6 +14,8 @@ defined('_JLINDEX') or die();
  * Make sure the user is authorized to view this page
  */
 
+$mainframe = mosMainFrame::getInstance();
+
 // ensure user has access to this function
 if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'all') | $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_cache'))){
 	mosRedirect('index2.php', _NOT_AUTH);
@@ -25,6 +27,7 @@ require_once ($mainframe->getPath('class'));
 
 $cid = mosGetParam($_REQUEST, 'cid', 0);
 
+$task = JSef::getTask();
 /*
  * This is our main control structure for the component
  *
@@ -54,8 +57,8 @@ class CacheController{
 	 * Show the cache
 	 * @since    1.3
 	 */
-	function showCache(){
-		global $option;
+	public static function showCache(){
+		$option = JSef::getOption();
 		$mainframe = mosMainFrame::getInstance();
 
 		$client = intval(mosGetParam($_REQUEST, 'client', 0));
@@ -63,18 +66,16 @@ class CacheController{
 		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'));
 		$limitstart = $mainframe->getUserStateFromRequest($option . '.limitstart', 'limitstart', 0);
 
-		$cmData = new CacheData(JPATH_BASE . '/cache');
+		$cmData = new CacheData(_JLPATH_ROOT . '/cache');
 
 		mosMainFrame::addLib('pagenavigation');
 		$pageNav = new mosPageNav($cmData->getGroupCount(), $limitstart, $limit);
 		CacheView::displayCache($cmData->getRows($limitstart, $limit), $client, $pageNav);
 	}
 
-	function deleteCache($cid){
+	public static function deleteCache($cid){
 
-		$client = intval(mosGetParam($_REQUEST, 'client', 0));
-
-		$cmData = new CacheData(JPATH_BASE . '/cache');
+		$cmData = new CacheData(_JLPATH_ROOT . '/cache');
 		$cmData->cleanCacheList($cid);
 	}
 

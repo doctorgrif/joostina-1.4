@@ -39,7 +39,7 @@ class BossRadioButtonImagePlugin{
 				if($field->type == 'radio')
 					$dataArray[] = $fieldtitle;
 				else
-					$dataArray[] = "<img src='" . JPATH_SITE . "/images/boss/$directory/fields/" . $fieldtitle . "' alt='$fieldtitle' />";
+					$dataArray[] = "<img src='" . _JLPATH_SITE . "/images/boss/$directory/fields/" . $fieldtitle . "' alt='$fieldtitle' />";
 			}
 		}
 
@@ -73,7 +73,7 @@ class BossRadioButtonImagePlugin{
 				$return .= "<td>";
 				$fieldvalue = @$field_values[$field->fieldid][$k]->fieldvalue;
 				$fieldtitle = @$field_values[$field->fieldid][$k]->fieldtitle;
-				$fieldtitle = "<img src='" . JPATH_SITE . "/images/boss/" . $directory . "/fields/" . $fieldtitle . "' alt='" . $fieldtitle . "' />";
+				$fieldtitle = "<img src='" . _JLPATH_SITE . "/images/boss/" . $directory . "/fields/" . $fieldtitle . "' alt='" . $fieldtitle . "' />";
 
 				if(isset($field_values[$field->fieldid][$k]->fieldtitle)){
 					if(($mode == "write") && ($field->required == 1) && ($k == 0))
@@ -109,8 +109,8 @@ class BossRadioButtonImagePlugin{
 	function getEditFieldOptions($row, $directory, $fieldimages, $fieldvalues){
 
 		$mainframe = mosMainFrame::getInstance();
-		$mainframe->addJS(JPATH_SITE . '/administrator/components/com_boss/js/upload.js');
-		$mainframe->addJS(JPATH_SITE . '/images/boss/' . $directory . '/plugins/fields/BossRadioButtonImagePlugin/js/script.js');
+		$mainframe->addJS(_JLPATH_SITE . '/administrator/components/com_boss/js/upload.js');
+		$mainframe->addJS(_JLPATH_SITE . '/components/com_boss/plugins/fields/BossRadioButtonImagePlugin/js/script.js');
 
 		$img = '';
 		if(isset($fieldimages)){
@@ -137,9 +137,9 @@ class BossRadioButtonImagePlugin{
 
             function showimage(preview, obj) {
                 if (getSelectedValue(obj) == "null" || !getSelectedValue(obj))
-                    var imgPath = "' . JPATH_SITE . '/templates/com_boss/default/images/nopic.gif";
+                    var imgPath = "' . _JLPATH_SITE . '/templates/com_boss/default/images/nopic.gif";
                 else
-                    imgPath = "' . JPATH_SITE . '/images/boss/' . $directory . '/fields/" + getSelectedValue(obj);
+                    imgPath = "' . _JLPATH_SITE . '/images/boss/' . $directory . '/fields/" + getSelectedValue(obj);
                 var img = getObject(preview);
                 img.src = imgPath;
             }
@@ -170,7 +170,7 @@ class BossRadioButtonImagePlugin{
             ' . $img . '
             oCell.appendChild(oSelect);
             oImage = document.createElement("img");
-            oImage.setAttribute("src", "' . JPATH_SITE . '/images/boss/' . $directory . '/fields/' . $row->link_image . '");
+            oImage.setAttribute("src", "' . _JLPATH_SITE . '/images/boss/' . $directory . '/fields/' . $row->link_image . '");
             oImage.setAttribute("id", "preview" + i);
             oImage.setAttribute("name", "preview" + i);
             oCell.appendChild(oImage);
@@ -245,7 +245,7 @@ class BossRadioButtonImagePlugin{
 
 				$return .= '
                             </select>
-                            <img src="' . JPATH_SITE . '/images/boss/' . $directory . '/fields/' . stripslashes($fieldvalue->fieldtitle) . '"
+                            <img src="' . _JLPATH_SITE . '/images/boss/' . $directory . '/fields/' . stripslashes($fieldvalue->fieldtitle) . '"
                                  id="preview' . $j . '" name="preview' . $j . '" alt="' . @$row->image . '"/>
                         </td>
                         <td width="20%">
@@ -331,8 +331,8 @@ class BossRadioButtonImagePlugin{
 	}
 
 	//расположение иконки плагина начиная со слеша от корня сайта
-	function getFieldIcon($directory){
-		return "/images/boss/$directory/plugins/fields/" . __CLASS__ . "/images/radio.png";
+	function getFieldIcon(){
+		return "/components/com_boss/plugins/fields/" . __CLASS__ . "/images/radio.png";
 	}
 
 	//действия при установке плагина
@@ -350,5 +350,3 @@ class BossRadioButtonImagePlugin{
 		return;
 	}
 }
-
-?>

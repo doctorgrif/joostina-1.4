@@ -14,7 +14,7 @@ if(!function_exists('showBanners')){
 	// function that selecting one or more banner/s
 	function showBanners(&$params, $mainframe){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 		$database = database::getInstance();
 
 		$random = $params->get('random', 0);
@@ -139,7 +139,7 @@ if(!function_exists('showBanners')){
 		if($banner->custom_banner_code != ""){
 			$result .= $banner->custom_banner_code;
 		} elseif(preg_match("/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/i", $banner->image_url)){
-			$image_url = JPATH_SITE . '/images/show/' . $banner->image_url;
+			$image_url = _JLPATH_SITE . '/images/show/' . $banner->image_url;
 			$target = $banner->target;
 			$border_value = $banner->border_value;
 			$border_style = $banner->border_style;
@@ -157,8 +157,8 @@ if(!function_exists('showBanners')){
 			}
 			$result = '<div class="banernblok' . $moduleclass_sfx . '">' . $result . '</div>';
 		} elseif(preg_match("/.swf/", $banner->image_url)){
-			$image_url = JPATH_SITE . '/images/show/' . $banner->image_url;
-			$swfinfo = @getimagesize(JPATH_BASE . '/images/banners/' . $banner->image_url);
+			$image_url = _JLPATH_SITE . '/images/show/' . $banner->image_url;
+			$swfinfo = @getimagesize(_JLPATH_ROOT . '/images/banners/' . $banner->image_url);
 			$result = "
                 <object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"
                 codebase=\"http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\"

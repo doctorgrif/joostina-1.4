@@ -14,8 +14,9 @@ defined('_JLINDEX') or die();
 class XmapAdminHtml{
 
 	/* Show the configuration options and menu ordering */
-	function show($config, $menus, $lists, $pluginList, $xmlfile){
-		global $xmapSiteURL, $xmapComponentURL, $xmapAdministratorURL, $xmapAdministratorPath, $mainframe;
+	public static function show($config, $menus, $lists, $pluginList, $xmlfile){
+		global $xmapSiteURL, $xmapComponentURL, $xmapAdministratorURL;
+        $mainframe = mosMainFrame::getInstance();
 		// загрузка скриптов mootols
 		mosCommonHTML::loadMootools();
 
@@ -104,7 +105,7 @@ class XmapAdminHtml{
 	<?php
 	}
 
-	function showSitemapInfo($sitemap, $default = false){
+	public static function showSitemapInfo($sitemap, $default = false){
 		global $xmapComponentURL;
 		?>
 	<form name="sitemapform<?php echo $sitemap->id; ?>" onsubmit="return false;">
@@ -168,7 +169,7 @@ class XmapAdminHtml{
 	<?php
 	}
 
-	function showSitemapSettings($sitemap, $lists){
+	public static function showSitemapSettings($sitemap, $lists){
 		global $xmapSiteURL;
 		?>
 	<table class="adminform">
@@ -319,7 +320,7 @@ class XmapAdminHtml{
 	<?php
 	}
 
-	function printMenusList($sitemap){
+	public static function printMenusList($sitemap){
 		$menus = $sitemap->getMenus();
 		$i = 0;
 		foreach($menus as $name => $menu){
@@ -328,7 +329,7 @@ class XmapAdminHtml{
 		}
 	}
 
-	function showMenuOptions($sitemap, $menu, $lists){
+	public static function showMenuOptions($sitemap, $menu, $lists){
 		if(is_object($menu)){
 			?>
 		<form name="frmMenuOptions" id="frmMenuOptions">
@@ -375,7 +376,7 @@ class XmapAdminHtml{
 		}
 	}
 
-	function showInstalledPlugins($rows, $option, $xmlfile, $lists){
+    public static function showInstalledPlugins($rows, $option, $xmlfile, $lists){
 		if(count($rows)){
 			?>
 						<form action="index2.php" method="post" name="installedPlugins">
@@ -409,9 +410,9 @@ class XmapAdminHtml{
 								<?php
 	}
 
-	function printPluginInfo($row, $k){
+    public static function printPluginInfo($row, $k){
 		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		?>
 	<tr id="plugin<?php echo $row->id; ?>" class="row<?php echo $k; ?>">
 		<td><a href="javascript:settingsPlugin(<?php echo $row->id; ?>);"><?php echo $row->name; ?></a></td>
@@ -426,15 +427,15 @@ class XmapAdminHtml{
 	<?php
 	}
 
-	function writableCell($folder){
+    public static function writableCell($folder){
 		echo '<tr>';
 		echo '<td class="item">' . $folder . '/</td>';
 		echo '<td align="left">';
-		echo is_writable(JPATH_BASE . DS . $folder) ? '<b><span style="color:green">' . _XMAP_WRITEABLE . '</span></b>' : '<b><span style="color:#ff0000">' . _XMAP_UNWRITEABLE . '</span></b>' . '</td>';
+		echo is_writable(_JLPATH_ROOT . DS . $folder) ? '<b><span style="color:green">' . _XMAP_WRITEABLE . '</span></b>' : '<b><span style="color:#ff0000">' . _XMAP_UNWRITEABLE . '</span></b>' . '</td>';
 		echo '</tr>';
 	}
 
-	function showInstallForm($title, $p_startdir){
+    public static function showInstallForm($title, $p_startdir){
 		?>
 	<script language="javascript" type="text/javascript">
 		function submitbutton3(pressbutton) {
@@ -503,8 +504,7 @@ class XmapAdminHtml{
 	 * @param string
 	 * @param string
 	 */
-	function showInstallMessage($message, $title, $url){
-		global $PHP_SELF;
+    public static function showInstallMessage($message, $title, $url){
 		?>
 	<table class="adminheading">
 		<tr>
@@ -527,7 +527,7 @@ class XmapAdminHtml{
 	<?php
 	}
 
-	function showPluginSettings($extension){
+    public static function showPluginSettings($extension){
 		// get params definitions
 		$xmlfile = $extension->getXmlPath();
 		$params = new mosParameters(true, $xmlfile, 'xmap_ext');

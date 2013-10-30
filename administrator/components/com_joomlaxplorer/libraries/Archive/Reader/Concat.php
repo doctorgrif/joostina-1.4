@@ -118,5 +118,3 @@ class File_Archive_Reader_Concat extends File_Archive_Reader{
 		return $this->source->makeWriter($fileModif, $seek);
 	}
 }
-
-?>

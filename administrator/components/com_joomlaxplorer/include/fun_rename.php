@@ -60,6 +60,3 @@ function rename_item($dir, $item){
 	echo "\"></td>\n<td><input type=\"button\" value=\"" . $GLOBALS["messages"]["btncancel"];
 	echo "\" onclick=\"javascript:location='" . make_link("list", $dir, null) . "';\">\n</td></tr></form></table><br />\n";
 }
-
-
-?>

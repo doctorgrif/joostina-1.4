@@ -109,8 +109,6 @@ function search_by_tag($tag){
 
 function viewSearch(){
 	$mainframe = mosMainFrame::getInstance();
-	$mosConfig_lang = $mainframe->getCfg('lang');
-	$mosConfig_list_limit = $mainframe->getCfg('list_limit');
 
 	$_MAMBOTS = mosMambotHandler::getInstance();
 	$database = database::getInstance();
@@ -157,7 +155,7 @@ function viewSearch(){
 			$restriction = 1;
 		}
 	}
-	include JPATH_BASE . DS . 'language' . DS . $mosConfig_lang . DS . 'ignore.php';
+	include _JLPATH_ROOT . DS . 'language' . DS . JCore::getCfg('lang') . DS . 'ignore.php';
 
 	$orders = array();
 	$orders[] = mosHTML::makeOption('newest', _SEARCH_NEWEST);
@@ -251,8 +249,8 @@ function viewSearch(){
 		$mainframe->setPageTitle(_SEARCH);
 
 		$total = $totalRows;
-		$limit = intval(mosGetParam($_GET, 'limit', $mosConfig_list_limit));
-		$limit = ($limit ? $limit : $mosConfig_list_limit);
+		$limit = intval(mosGetParam($_GET, 'limit', JCore::getCfg('list_limit')));
+		$limit = ($limit ? $limit : JCore::getCfg('list_limit'));
 		$limitstart = intval(mosGetParam($_GET, 'limitstart', 0));
 
 		$searchword_clean = urlencode($searchword_clean);
@@ -273,9 +271,8 @@ function viewSearch(){
 
 function mosLogSearch($search_term){
 	$database = database::getInstance();
-	global $mosConfig_enable_log_searches;
 
-	if(@$mosConfig_enable_log_searches){
+	if(@JCore::getCfg('enable_log_searches')){
 		$query = "SELECT hits FROM #__core_log_searches WHERE LOWER( search_term ) = " .
 			$database->Quote($search_term);
 		$database->setQuery($query);
@@ -292,5 +289,3 @@ function mosLogSearch($search_term){
 		}
 	}
 }
-
-?>

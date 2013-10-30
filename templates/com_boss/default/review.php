@@ -1,13 +1,7 @@
 <div class="dotteddiv">
-	<h3>
-		<?php $this->displayReviewTitle($review); ?>
+	<h3><?php $this->displayReviewTitle($review); ?></h3>
 
-	</h3>
+	<div class="text"><?php $this->displayReviewContent($review); ?></div>
 
-	<div>
-		<?php $this->displayReviewContent($review); ?>
-	</div>
-	<div align="right">
-		<i><?php echo BOSS_BY; ?><?php $this->displayReviewUser($review); ?> - <?php $this->displayReviewDate($review); ?></i>
-	</div>
+	<div class="user"><?php echo BOSS_BY; ?> <?php $this->displayReviewDate($review); ?></div>
 </div>

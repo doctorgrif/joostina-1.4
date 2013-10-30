@@ -66,12 +66,13 @@ class HTML_boss{
 		$edit_plugins = true;
 		$import_export = true;
 		$edit_users = true;
-
+        if(is_null($conf)){
+            $conf = new stdClass();
+        }
 		$conf->allow_rights = (isset($conf->allow_rights)) ? $conf->allow_rights : 0;
 
 		if(@$conf->allow_rights){
-			$mainframe = mosMainFrame::getInstance();
-			$my = $mainframe->getUser();
+            $my = JCore::getUser();
 
 			$rights = BossPlugins::get_plugin($directory, 'bossRights', 'other', array('conf_admin'));
 			$rights->bind_rights(@$conf->rights);
@@ -278,7 +279,7 @@ class HTML_boss{
 
 		function showimage() {
 			//if (!document.images) return;
-			document.images.preview.src = '<?php echo JPATH_SITE;?>/templates/com_boss/' + getSelectedValue('adminForm', 'template') + '/template_thumbnail.png';
+			document.images.preview.src = '<?php echo _JLPATH_SITE;?>/templates/com_boss/' + getSelectedValue('adminForm', 'template') + '/template_thumbnail.png';
 		}
 
 		function getSelectedValue(frmName, srcListName) {
@@ -486,7 +487,7 @@ class HTML_boss{
 				$selected = (!empty($row->template)) ? $row->template : '';
 				echo mosHTML::selectList($options, 'template', 'id="template" onchange="showimage()"', 'value', 'text', $selected);
 				$tmpl_tmp = (!empty($row->template)) ? $row->template : 'default' ?>
-				<img class="ml10" src="<?php echo JPATH_SITE . "/templates/com_boss/" . $tmpl_tmp . "/template_thumbnail.png";?>"
+				<img class="ml10" src="<?php echo _JLPATH_SITE . "/templates/com_boss/" . $tmpl_tmp . "/template_thumbnail.png";?>"
 					 name="preview" border="1" alt="<?php echo $tmpl_tmp;?>"/>
 			</td>
 			<td>
@@ -685,7 +686,7 @@ class HTML_boss{
 				$options = array();
 				$options[] = mosHTML::makeOption(1, BOSS_REVIEWS_SYS_IN);
 				//Если установлен jComments, то разрешаем его включить.
-				if(is_file(JPATH_BASE . "/components/com_jcomments/jcomments.php")){
+				if(is_file(_JLPATH_ROOT . "/components/com_jcomments/jcomments.php")){
 					$options[] = mosHTML::makeOption(0, BOSS_REVIEWS_SYS_OUT);
 				}
 				$selected = (!empty($row->comment_sys)) ? $row->comment_sys : '';
@@ -827,9 +828,9 @@ class HTML_boss{
 					$pict = "../images/boss/$directory/categories/" . $row->id . "cat_t.jpg";
 					$template_name = $row->template ? $row->template : $defaultTemplate;
 					if(file_exists($pict)){
-						echo '<img src="' . JPATH_SITE . '/images/boss/' . $directory . '/categories/' . $row->id . 'cat_t.jpg"/>';
+						echo '<img src="' . _JLPATH_SITE . '/images/boss/' . $directory . '/categories/' . $row->id . 'cat_t.jpg"/>';
 					} else{
-						echo '<img src="' . JPATH_SITE . '/templates/com_boss/' . $template_name . '/images/default.gif"/>';
+						echo '<img src="' . _JLPATH_SITE . '/templates/com_boss/' . $template_name . '/images/default.gif"/>';
 					}
 					?>
 				</td>
@@ -1362,7 +1363,7 @@ class HTML_boss{
 
 		function showimage() {
 			//if (!document.images) return;
-			document.images.preview.src = '<?php echo JPATH_SITE;?>/templates/com_boss/' + getSelectedValue('adminForm', 'template') + '/template_thumbnail.png';
+			document.images.preview.src = '<?php echo _JLPATH_SITE;?>/templates/com_boss/' + getSelectedValue('adminForm', 'template') + '/template_thumbnail.png';
 		}
 		function getSelectedValue(frmName, srcListName) {
 			var form = eval('document.' + frmName);
@@ -1411,7 +1412,7 @@ class HTML_boss{
 				<td>
 					<input type="file" name="cat_image"/>
 					<?php
-					$a_pic = JPATH_BASE . "/images/boss/$directory/categories/" . @$row->id . "cat.jpg";
+					$a_pic = _JLPATH_ROOT . "/images/boss/$directory/categories/" . @$row->id . "cat.jpg";
 					if(file_exists($a_pic)){
 						echo '<img src="/images/boss/' . $directory . '/categories/' . @$row->id . 'cat.jpg"/>';
 						echo "<input type='checkbox' name='cb_image' value='delete'>" . BOSS_CONTENT_DELETE_IMAGE;
@@ -1459,7 +1460,7 @@ class HTML_boss{
 					echo mosHTML::selectList($options, 'template', 'id="template"', 'value', 'text', $selected);
 					?>
 					<?php $tmpl_tmp = (@$row->template) ? @$row->template : 'default' ?>
-					<img class="ml10" src="<?php echo JPATH_SITE . "/templates/com_boss/" . $tmpl_tmp . "/template_thumbnail.png";?>"
+					<img class="ml10" src="<?php echo _JLPATH_SITE . "/templates/com_boss/" . $tmpl_tmp . "/template_thumbnail.png";?>"
 						 name="preview" border="1" alt="<?php echo $tmpl_tmp;?>"/>
 				</td>
 				<td>&nbsp;</td>
@@ -1538,7 +1539,7 @@ class HTML_boss{
 
 		<div class="block" id="div_field_<?php echo $row->fieldid; ?>">
 
-			<img class="field_img" src="<?php echo JPATH_SITE . $plugin->getFieldIcon($directory);?>" alt="<?php echo $plugin->name;?>"/>
+			<img class="field_img" src="<?php echo _JLPATH_SITE . $plugin->getFieldIcon();?>" alt="<?php echo $plugin->name;?>"/>
                 
                 
                 <span class="note pointer field_title title" id="span_title_<?php echo $row->fieldid; ?>" onmouseover="tooltip(this.id)" onclick="bossEditField(<?php echo $row->fieldid; ?>)">
@@ -1609,9 +1610,9 @@ class HTML_boss{
 			foreach($plugins as $key => $plugin){
 				$style = "";
 				if(method_exists($plugin, 'getFieldIcon')){
-					$icon = $plugin->getFieldIcon($directory);
-					if(is_file(JPATH_BASE . $icon)){
-						$style = 'style="background-image:url(' . JPATH_SITE . $icon . ');"';
+					$icon = $plugin->getFieldIcon();
+					if(is_file(_JLPATH_ROOT . $icon)){
+						$style = 'style="background-image:url(' . _JLPATH_SITE . $icon . ');"';
 					}
 				}
 				echo "<li id=\"" . $key . "\" class=\"toolbox\" " . $style . ">" . $plugin->name . "</li>";
@@ -1929,30 +1930,30 @@ class HTML_boss{
 						</td>
 						<td><?php echo $tpl; ?></td>
 						<td align="center">
-							<img src="<?php echo JPATH_SITE . "/templates/com_boss/" . $tpl . "/template_thumbnail.png";?>"
+							<img src="<?php echo _JLPATH_SITE . "/templates/com_boss/" . $tpl . "/template_thumbnail.png";?>"
 								 border="1"/>
 						</td>
 						<td align="center">
-							<a href="<?php echo JPATH_SITE; ?>/administrator/index2.php?option=com_boss&directory=<?php echo $directory; ?>&act=templates&task=edit_tmpl&template=<?php echo $tpl; ?>&type_tmpl=category">
-								<img src="<?php echo JPATH_SITE; ?>/administrator/components/com_boss/images/16x16/categories.png"
+							<a href="<?php echo _JLPATH_SITE; ?>/administrator/index2.php?option=com_boss&directory=<?php echo $directory; ?>&act=templates&task=edit_tmpl&template=<?php echo $tpl; ?>&type_tmpl=category">
+								<img src="<?php echo _JLPATH_SITE; ?>/administrator/components/com_boss/images/16x16/categories.png"
 									 title="<?php echo BOSS_EDIT_CAT_TMPL; ?>"/>
 							</a>
 						</td>
 						<td align="center">
-							<a href="<?php echo JPATH_SITE; ?>/administrator/index2.php?option=com_boss&directory=<?php echo $directory; ?>&act=templates&task=edit_tmpl&template=<?php echo $tpl; ?>&type_tmpl=content">
-								<img src="<?php echo JPATH_SITE; ?>/administrator/components/com_boss/images/16x16/contents.png"
+							<a href="<?php echo _JLPATH_SITE; ?>/administrator/index2.php?option=com_boss&directory=<?php echo $directory; ?>&act=templates&task=edit_tmpl&template=<?php echo $tpl; ?>&type_tmpl=content">
+								<img src="<?php echo _JLPATH_SITE; ?>/administrator/components/com_boss/images/16x16/contents.png"
 									 title="<?php echo BOSS_EDIT_CONTENT_TMPL; ?>"/>
 							</a>
 						</td>
 						<td align="center">
-							<a href="<?php echo JPATH_SITE; ?>/administrator/index2.php?option=com_boss&directory=<?php echo $directory; ?>&act=templates&task=list_tmpl_fields&template=<?php echo $tpl; ?>">
-								<img src="<?php echo JPATH_SITE; ?>/administrator/components/com_boss/images/16x16/template_fields.png"
+							<a href="<?php echo _JLPATH_SITE; ?>/administrator/index2.php?option=com_boss&directory=<?php echo $directory; ?>&act=templates&task=list_tmpl_fields&template=<?php echo $tpl; ?>">
+								<img src="<?php echo _JLPATH_SITE; ?>/administrator/components/com_boss/images/16x16/template_fields.png"
 									 title="<?php echo BOSS_EDIT_TMPL_FIELDS; ?>"/>
 							</a>
 						</td>
 						<td align="center">
-							<a href="<?php echo JPATH_SITE; ?>/administrator/index2.php?option=com_boss&directory=<?php echo $directory; ?>&act=templates&task=edit_tmpl_source&source_file=&template=<?php echo $tpl; ?>">
-								<img src="<?php echo JPATH_SITE; ?>/administrator/components/com_boss/images/16x16/code.png"
+							<a href="<?php echo _JLPATH_SITE; ?>/administrator/index2.php?option=com_boss&directory=<?php echo $directory; ?>&act=templates&task=edit_tmpl_source&source_file=&template=<?php echo $tpl; ?>">
+								<img src="<?php echo _JLPATH_SITE; ?>/administrator/components/com_boss/images/16x16/code.png"
 									 title="<?php echo BOSS_TH_EDIT_SOURCE_TMPL_LONG; ?>"/>
 							</a>
 						</td>
@@ -2073,7 +2074,7 @@ class HTML_boss{
 		<br/>
 
 		<div style="text-align: center;">
-			<img src="<?php echo JPATH_SITE . "/templates/com_boss/$template/$img"; ?>"/>
+			<img src="<?php echo _JLPATH_SITE . "/templates/com_boss/$template/$img"; ?>"/>
 		</div>
 		<input type="hidden" name="option" value="com_boss"/>
 		<input type="hidden" name="act" value="templates"/>
@@ -2372,7 +2373,7 @@ class HTML_boss{
 							<?php if($plugin['folder'] != 'fields'){
 							$bossPlugin = BossPlugins::get_plugin($directory, $plugin['file'], $plugin['folder']);
 							if(method_exists($bossPlugin, 'displaySettingsForm'))
-								echo '<a href="' . JPATH_SITE . '/administrator/index2.php?option=com_boss&act=plugins&task=edit&directory=' . $directory . '&folder=' . $plugin['folder'] . '&plugin=' . $plugin['file'] . '">' . BOSS_EDIT . '</a>';
+								echo '<a href="' . _JLPATH_SITE . '/administrator/index2.php?option=com_boss&act=plugins&task=edit&directory=' . $directory . '&folder=' . $plugin['folder'] . '&plugin=' . $plugin['file'] . '">' . BOSS_EDIT . '</a>';
 						}
 							?>
 						</td>
@@ -2452,7 +2453,7 @@ class HTML_boss{
 								   value="<?php echo $fieldimage;?>" onclick="isChecked(this.checked);"/>
 						</td>
 						<td>
-							<img src="<?php echo JPATH_SITE . "/images/boss/$directory/fields/$fieldimage";?>"
+							<img src="<?php echo _JLPATH_SITE . "/images/boss/$directory/fields/$fieldimage";?>"
 								 border="1"/>
 						</td>
 						<td>
@@ -2535,7 +2536,7 @@ class HTML_boss{
 										<table>
 											<tr>
 												<td><img src="/administrator/images/downarrow0.png"/></td>
-												<td><a href="<?php echo JPATH_SITE; ?>/images/boss/<?php echo $directory . '/' . $pack; ?>"><?php echo BOSS_DOWNLOAD_FILE . " " . $pack;?></a></td>
+												<td><a href="<?php echo _JLPATH_SITE; ?>/images/boss/<?php echo $directory . '/' . $pack; ?>"><?php echo BOSS_DOWNLOAD_FILE . " " . $pack;?></a></td>
 												<td><img src="/administrator/images/trash_mini.png"/></td>
 												<td><a href="" onClick="delete_pack('<?php echo $directory; ?>', '<?php echo $id; ?>'); return false;"><?php echo BOSS_CONTENT_DELETE;?></a></td>
 											</tr>
@@ -2597,7 +2598,7 @@ class HTML_boss{
 
 	public static function listUsers($directory, $directories, $pageNav, $users, $conf){
 		HTML_boss::header(BOSS_TH_USERS, $directory, $directories, $conf);
-		$pathToImg = JPATH_SITE . '/administrator/components/com_boss/images/16x16/'
+		$pathToImg = _JLPATH_SITE . '/administrator/components/com_boss/images/16x16/'
 		?>
 	<form action="index2.php" method="get" name="adminForm">
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">

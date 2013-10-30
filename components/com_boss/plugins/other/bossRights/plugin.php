@@ -25,6 +25,8 @@ class bossRights extends joiBossRights{
 	var $edit_all_content = null;
 	var $delete_user_content = null;
 	var $delete_all_content = null;
+    public $delete_comments = null;
+
 	//для админки
 	var $edit_category = null;
 	var $edit_content = null;
@@ -71,8 +73,7 @@ class bossRights extends joiBossRights{
 				'edit_user_content'     => 'Редактирование своего контента',
 				'edit_all_content'      => 'Редактирование всего контента',
 				'delete_user_content'   => 'Удаление своего контента',
-				'delete_all_content'    => 'Удаление всего контента'
-
+                'delete_comments'       => 'Удаление комментариев'
 			);
 		} else if($params[0] == 'category'){
 			$rights_label = array(
@@ -84,7 +85,8 @@ class bossRights extends joiBossRights{
 				'edit_user_content'     => 'Редактирование своего контента',
 				'edit_all_content'      => 'Редактирование всего контента',
 				'delete_user_content'   => 'Удаление своего контента',
-				'delete_all_content'    => 'Удаление всего контента'
+				'delete_all_content'    => 'Удаление всего контента',
+                'delete_comments'       => 'Удаление комментариев'
 			);
 		} else{
 			$rights_label = array();
@@ -101,7 +103,8 @@ class bossRights extends joiBossRights{
 			'edit_user_content'     => 'Извините, у Вас не достаточно прав для редактирование своего контента',
 			'edit_all_content'      => 'Извините, у Вас не достаточно прав для редактирование контента',
 			'delete_user_content'   => 'Извините, у Вас не достаточно прав для удаления своего контента',
-			'delete_all_content'    => 'Извините, у Вас не достаточно прав для удаления чужого контента'
+			'delete_all_content'    => 'Извините, у Вас не достаточно прав для удаления чужого контента',
+            'delete_comments'       => 'Извините, у Вас не достаточно прав для удаления комментария'
 		);
 
 		parent::__construct($rights_label, $error_messages);
@@ -196,7 +199,7 @@ class joiBossRights{
 		$return = '<table class="adminlist" width="100%">
                             <tr>
                              <th>
-                              <span id="check-all">
+                              <span id="check-all-' . $object . '">
                                <a class="check_it checker active" id="check_' . $object . '" href="#">Отметить все</a>
                                <a class="uncheck_it checker" id="uncheck_' . $object . '" href="#">Снять отметки</a>
                               </span>

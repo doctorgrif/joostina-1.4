@@ -120,7 +120,7 @@ function ftp_authentication($ftp_login = '', $ftp_pass = ''){
 		show_header(null);
 		?><br/>
 
-	<form name="ftp_auth_form" method="post" action="<?php echo JPATH_SITE ?>/<?php echo JADMIN_BASE?>/index3.php" onsubmit="return checkFTPAuth('<?php echo JPATH_SITE ?>/<?php echo JADMIN_BASE?>/index3.php');" id="adminform">
+	<form name="ftp_auth_form" method="post" action="<?php echo _JLPATH_SITE ?>/<?php echo JADMIN_BASE?>/index3.php" onsubmit="return checkFTPAuth('<?php echo _JLPATH_SITE ?>/<?php echo JADMIN_BASE?>/index3.php');" id="adminform">
 
 		<input type="hidden" name="no_html" value="1"/>
 		<table class="adminform" style="width:400px;">

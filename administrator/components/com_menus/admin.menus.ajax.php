@@ -9,9 +9,6 @@
 
 // запрет прямого доступа
 defined('_JLINDEX') or die();
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
-
 
 $task = mosGetParam($_GET, 'task', 'publish');
 $id = intval(mosGetParam($_GET, 'id', '0'));
@@ -79,8 +76,7 @@ function x_access($id){
 }
 
 function x_publish($id = null){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if(!$id) return 'error-id';
@@ -113,8 +109,7 @@ function getCategoryContent(){
 	$directory = mosGetParam($_REQUEST, 'directory', 0);
 
 	if($catid == 0 || $directory == 0)
-		return;
-
+		return null;
 	$q = "SELECT content.id, content.name ";
 	$q .= "FROM #__boss_" . $directory . "_contents as content, ";
 	$q .= "#__boss_" . $directory . "_content_category_href as cch ";
@@ -130,4 +125,3 @@ function getCategoryContent(){
 	return $options;
 }
 
-?>

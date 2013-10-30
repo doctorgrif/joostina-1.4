@@ -38,10 +38,9 @@ class File_Archive_Writer{
 			}
 		}
 		fclose($handle);
+		return null;
 	}
 
 	function close(){
 	}
 }
-
-?>

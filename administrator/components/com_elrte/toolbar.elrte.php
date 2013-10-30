@@ -12,7 +12,7 @@
  **/
 
 defined('_JLINDEX') or die();
-
+$task = JSef::getTask();
 switch($task){
 
 	case 'config_elrte':

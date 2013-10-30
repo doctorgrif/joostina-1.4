@@ -22,7 +22,7 @@ class patTemplate_Function_Translate extends patTemplate_Function{
 		$escape = isset($params['escape']) ? $params['escape'] : '';
 		if(class_exists('JText')){
 
-			if(count($params) > 0 && key_exists('key', $params)){
+			if(count($params) > 0 &&  array_key_exists('key', $params)){
 				$text = JText::_($params['key']);
 			} else{
 				$text = JText::_($content);

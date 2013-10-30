@@ -35,8 +35,8 @@ class BossURLPlugin{
 			$return .= html_entity_decode($field->tags_open);
 
 		$linkObj = '';
-		if((isset($field->link_image)) && (file_exists(JPATH_BASE . "/images/boss/$directory/fields/" . $field->link_image))){
-			$linkObj .= "<img src='" . JPATH_SITE . "/images/boss/$directory/fields/" . $field->link_image . "' />";
+		if((isset($field->link_image)) && (file_exists(_JLPATH_ROOT . "/images/boss/$directory/fields/" . $field->link_image))){
+			$linkObj .= "<img src='" . _JLPATH_SITE . "/images/boss/$directory/fields/" . $field->link_image . "' />";
 		}
 		if((isset($field->link_text)) && ($field->link_text != "")){
 			$linkObj .= $field->link_text;
@@ -134,7 +134,7 @@ class BossURLPlugin{
 
                     </td>
                     <td>
-                        <img src="' . JPATH_SITE . '/images/boss/$directory/fields/' . $row->link_image . '"
+                        <img src="' . _JLPATH_SITE . '/images/boss/$directory/fields/' . $row->link_image . '"
                              id="previewlink" name="previewlink"/>
                     </td>
                 </tr>
@@ -152,8 +152,8 @@ class BossURLPlugin{
 	}
 
 	//расположение иконки плагина начиная со слеша от корня сайта
-	function getFieldIcon($directory){
-		return "/images/boss/$directory/plugins/fields/" . __CLASS__ . "/images/link.png";
+	function getFieldIcon(){
+		return "/components/com_boss/plugins/fields/" . __CLASS__ . "/images/link.png";
 	}
 
 	//действия при установке плагина
@@ -176,5 +176,3 @@ class BossURLPlugin{
 		return $search;
 	}
 }
-
-?>

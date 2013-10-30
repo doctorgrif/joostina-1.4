@@ -9,19 +9,18 @@
 
 // запрет прямого доступа
 defined('_JLINDEX') or die();
-// loads english language file by default
-if($mosConfig_lang == ''){
-	$mosConfig_lang = 'russian';
-}
+
 // load language file
-include_once ('language/' . $mosConfig_lang . '/system.php');
+include_once ('language/' . JCore::getCfg('lang') . '/system.php');
 
 ?>
+<!-- Change doctipe to html5, clean html output, change charset
+@doctorgrif (30.10.13 09:04 -->
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo _404; ?> - <?php echo $mosConfig_sitename; ?></title>
-	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title><?php echo _404; ?> - <?php echo JCore::getCfg('sitename'); ?></title>
 	<style type="text/css">
 		body {
 			font-family: Arial, Helvetica, Sans Serif;
@@ -33,12 +32,12 @@ include_once ('language/' . $mosConfig_lang . '/system.php');
 	</style>
 </head>
 <body>
-<h2><?php echo $mosConfig_sitename; ?></h2>
+<h2><?php echo JCore::getCfg('sitename'); ?></h2>
 
 <h2><?php echo _404; ?></h2>
 
 <h3>
-	<a href="<?php echo JPATH_SITE; ?>"><?php echo _404_RTS; ?></a>
+	<a href="<?php echo _JLPATH_SITE; ?>"><?php echo _404_RTS; ?></a>
 </h3>
 </body>
 </html>

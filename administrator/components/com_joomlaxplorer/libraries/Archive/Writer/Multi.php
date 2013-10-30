@@ -78,4 +78,3 @@ class File_Archive_Writer_Multi extends File_Archive_Writer{
 	}
 }
 
-?>

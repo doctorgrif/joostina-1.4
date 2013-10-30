@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosinstall version="1.0.0" type="mambot" group="editors-xtd">
+    <name>Кнопка запреты использования JLImage</name>
+    <version>1.1.0</version>
+    <creationDate>01.02.2013</creationDate>
+    <modificationDate>09.02.2013</modificationDate>
+    <copyright>(C) 2000-2013 Gold Dragon.</copyright>
+    <license>http://www.gnu.org/licenses/gpl.htm GNU/GPL</license>
+    <author>Gold Dragon</author>
+    <authorEmail>illusive@bk.ru</authorEmail>
+    <authorUrl>gd.joostina-cms.ru</authorUrl>
+    <description>
+        <![CDATA[
+        Предоставляет возможность с помощью кнопки принудительно блокировать применение плагина JLImage путём вставки в любое место контента {{jlimage}}
+        ]]>
+    </description>
+    <files>
+        <filename mambot="jlimage.btn">jlimage.btn.php</filename>
+        <filename mambot="jlimage.btn">jlimage.png</filename>
+    </files>
+</mosinstall>

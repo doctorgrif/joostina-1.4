@@ -22,7 +22,7 @@ $GLOBALS['_pat_errorClass'] = 'patError';
 $GLOBALS['_pat_errorIgnores'] = array();
 $GLOBALS['_pat_errorExpects'] = array();
 class patErrorManager{
-	function isError(&$object){
+	public static function isError(&$object){
 		if(!is_object($object)){
 			return false;
 		}
@@ -32,19 +32,19 @@ class patErrorManager{
 		return true;
 	}
 
-	function &raiseError($code, $msg, $info = null){
+    public static function raiseError($code, $msg, $info = null){
 		return patErrorManager::raise(E_ERROR, $code, $msg, $info);
 	}
 
-	function &raiseWarning($code, $msg, $info = null){
+    public static function raiseWarning($code, $msg, $info = null){
 		return patErrorManager::raise(E_WARNING, $code, $msg, $info);
 	}
 
-	function &raiseNotice($code, $msg, $info = null){
+    public static function raiseNotice($code, $msg, $info = null){
 		return patErrorManager::raise(E_NOTICE, $code, $msg, $info);
 	}
 
-	function &raise($level, $code, $msg, $info = null){
+    public static function raise($level, $code, $msg, $info = null){
 
 		if(in_array($code, $GLOBALS['_pat_errorIgnores'])){
 			return false;
@@ -69,7 +69,7 @@ class patErrorManager{
 		return patErrorManager::$function($error, $handling);
 	}
 
-	function registerErrorLevel($level, $name){
+    public static function registerErrorLevel($level, $name){
 		if(isset($GLOBALS['_pat_errorLevels'][$level])){
 			return false;
 		}
@@ -78,7 +78,7 @@ class patErrorManager{
 		return true;
 	}
 
-	function setErrorHandling($level, $mode, $options = null){
+    public static function setErrorHandling($level, $mode, $options = null){
 		$levels = $GLOBALS['_pat_errorLevels'];
 		$function = 'handleError' . ucfirst($mode);
 		if(!is_callable(array('patErrorManager', $function))){
@@ -113,18 +113,18 @@ class patErrorManager{
 		return true;
 	}
 
-	function getErrorHandling($level){
+    public static function getErrorHandling($level){
 		return $GLOBALS['_pat_errorHandling'][$level];
 	}
 
-	function translateErrorLevel($level){
+    public static function translateErrorLevel($level){
 		if(isset($GLOBALS['_pat_errorLevels'][$level])){
 			return $GLOBALS['_pat_errorLevels'][$level];
 		}
 		return 'Unknown error level';
 	}
 
-	function setErrorClass($name){
+    public static function setErrorClass($name){
 
 		if($name !== $GLOBALS['_pat_errorClass'] && !class_exists($GLOBALS['_pat_errorClass'])){
 			include_once dirname(__file__) . '/' . $GLOBALS['_pat_errorClass'] . '.php';
@@ -133,7 +133,7 @@ class patErrorManager{
 		return true;
 	}
 
-	function addIgnore($codes){
+    public static function addIgnore($codes){
 		if(!is_array($codes)){
 			$codes = array($codes);
 		}
@@ -142,7 +142,7 @@ class patErrorManager{
 		return true;
 	}
 
-	function removeIgnore($codes){
+    public static function removeIgnore($codes){
 		if(!is_array($codes)){
 			$codes = array($codes);
 		}
@@ -158,16 +158,16 @@ class patErrorManager{
 		return true;
 	}
 
-	function getIgnore(){
+    public static function getIgnore(){
 		return $GLOBALS['_pat_errorIgnores'];
 	}
 
-	function clearIgnore(){
+    public static function clearIgnore(){
 		$GLOBALS['_pat_errorIgnores'] = array();
 		return true;
 	}
 
-	function pushExpect($codes){
+    public static function pushExpect($codes){
 		if(!is_array($codes)){
 			$codes = array($codes);
 		}
@@ -175,7 +175,7 @@ class patErrorManager{
 		return true;
 	}
 
-	function popExpect(){
+    public static function popExpect(){
 		if(empty($GLOBALS['_pat_errorExpects'])){
 			return false;
 		}
@@ -183,20 +183,20 @@ class patErrorManager{
 		return true;
 	}
 
-	function getExpect(){
+    public static function getExpect(){
 		return $GLOBALS['_pat_errorExpects'];
 	}
 
-	function clearExpect(){
+    public static function clearExpect(){
 		$GLOBALS['_pat_errorExpects'] = array();
 		return true;
 	}
 
-	function &handleErrorIgnore(&$error, $options){
+    public static function &handleErrorIgnore(&$error, $options){
 		return $error;
 	}
 
-	function &handleErrorEcho(&$error, $options){
+    public static function &handleErrorEcho(&$error, $options){
 		$level_human = patErrorManager::translateErrorLevel($error->getLevel());
 		if(isset($_SERVER['HTTP_HOST'])){
 
@@ -212,7 +212,7 @@ class patErrorManager{
 		return $error;
 	}
 
-	function &handleErrorVerbose(&$error, $options){
+    public static function handleErrorVerbose(&$error, $options){
 		$level_human = patErrorManager::translateErrorLevel($error->getLevel());
 		$info = $error->getInfo();
 		if(isset($_SERVER['HTTP_HOST'])){
@@ -232,7 +232,7 @@ class patErrorManager{
 		return $error;
 	}
 
-	function &handleErrorDie(&$error, $options){
+    public static function handleErrorDie(&$error, $options){
 		$level_human = patErrorManager::translateErrorLevel($error->getLevel());
 		if(isset($_SERVER['HTTP_HOST'])){
 
@@ -248,9 +248,9 @@ class patErrorManager{
 		return $error;
 	}
 
-	function &handleErrorTrigger(&$error, $options){
+    public static function handleErrorTrigger(&$error, $options){
 		switch($error->getLevel()){
-			case E_NOTICE:
+			case E_USER_NOTICE:
 				$level = E_USER_NOTICE;
 				break;
 			case E_WARNING:
@@ -267,11 +267,9 @@ class patErrorManager{
 		return $error;
 	}
 
-	function &handleErrorCallback(&$error, $options){
+    public static function handleErrorCallback(&$error, $options){
 		$opt = $options['options'];
 		$result = call_user_func($opt, $error);
 		return $result;
 	}
 }
-
-?>

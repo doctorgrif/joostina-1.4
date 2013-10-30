@@ -10,8 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+$my = JCore::getUser();
 
 $acl = gacl::getInstance();
 
@@ -44,6 +43,11 @@ switch($task){
 		return;
 }
 
+/**
+ * @return string
+ *
+ * @modification 12.08.2013
+ */
 function x_apply(){
 	josSpoofCheck();
 
@@ -171,8 +175,7 @@ function x_access($id){
 }
 
 function x_publish($id = null){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if(!$id) return 'error-id';
@@ -224,8 +227,7 @@ function x_get_position($id){
 }
 
 function x_save_position($id){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$new_pos = strval(mosGetParam($_GET, 'new_pos', 'left'));

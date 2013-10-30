@@ -14,8 +14,7 @@ class HTML_banners{
 
 	public static function showBanners($rows, $clist, $clientlist, $myid, $pageNav, $option){
 		mosCommonHTML::loadOverlib();
-		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 		?>
 	<table border="0" class="adminheading">
@@ -216,8 +215,7 @@ class HTML_banners{
 	} // end showBanners
 
 	public static function editBanner($row, $clientlist, $categorylist, $imagelist, $glist, $option, $dimension){
-		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 		mosMakeHtmlSafe($row, ENT_QUOTES, 'custombannercode');
 		mosCommonHTML::loadOverlib();
@@ -278,7 +276,7 @@ class HTML_banners{
 
 				bid = <?php echo ($row->id) ? $row->id : '\'idbannernew\''; ?>;
 
-				document.getElementById("flashDivText").innerHTML = '<br><?php echo JPATH_SITE; ?>/index.php?option=com_banners&task=clk&id=' + bid;
+				document.getElementById("flashDivText").innerHTML = '<br><?php echo _JLPATH_SITE; ?>/index.php?option=com_banners&task=clk&id=' + bid;
 				if (msg == 1) {
 					alert("<?php echo _ABP_ALERT_BANNER_FLASH; ?>" + bid);
 				}
@@ -547,8 +545,8 @@ class HTML_banners{
 					if($row->image_url != ''){
 						if(preg_match("/.swf/", $row->image_url)){
 
-							$image_url = JPATH_SITE . '/images/show/' . $row->image_url;
-							$swfinfo = @getimagesize(JPATH_BASE . '/images/banners/' . $row->image_url);
+							$image_url = _JLPATH_SITE . '/images/show/' . $row->image_url;
+							$swfinfo = @getimagesize(_JLPATH_ROOT . '/images/banners/' . $row->image_url);
 							$result = "
                                         <object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"
                                             codebase=\"http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\"
@@ -932,8 +930,7 @@ class HTML_banners{
 class HTML_bannerClient{
 	public static function showClients($rows, $info_banner, $myid, $pageNav, $option, $stateslist){
 
-		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		?>
 	<table class="adminheading">
 		<tbody>
@@ -1071,10 +1068,8 @@ class HTML_bannerCategory{
 	 * @param string The name of the category section
 	 */
 	public static function showCategories($rows, $myid, $pageNav, $option, $stateslist){
-		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+        $my = JCore::getUser();
 		?>
 	<form action="index2.php" method="POST" name="adminForm">
 		<table border="0" class="adminheading">

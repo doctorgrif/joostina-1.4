@@ -19,10 +19,9 @@ class boss_search_menu{
 	 * @param database A database connector object
 	 * @param integer The unique id of the category to edit (0 if new)
 	 */
-	function editCategory($uid, $menutype, $option, $menu, $directory){
+	public static function editCategory($uid, $menutype, $option, $menu, $directory){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$database = database::getInstance();
+        $my = JCore::getUser();
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id){
@@ -66,5 +65,3 @@ class boss_search_menu{
 		boss_search_menu_html::editCategory($menu, $lists, $params, $option);
 	}
 }
-
-?>

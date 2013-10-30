@@ -46,9 +46,9 @@ function get_abs_dir($dir){
 		return $dir;
 	}
 	$abs_dir = $GLOBALS["home_dir"];
-	if($dir != "" && !stristr($dir, $abs_dir))
+	if($dir != "" and $abs_dir != "" and !stristr($dir, $abs_dir))
 		$abs_dir .= "/" . $dir;
-	elseif(stristr($dir, $abs_dir))
+	elseif($abs_dir != "" and stristr($dir, $abs_dir))
 		$abs_dir = "/" . $dir;
 	$realpath = realpath($abs_dir);
 	return $realpath;
@@ -481,7 +481,7 @@ if(!function_exists('mosToolTip')){
 			$title = ', CAPTION, \'' . $title . '\'';
 		}
 		if(!$text){
-			$image = JPATH_SITE . '/includes/js/ThemeOffice/' . $image;
+			$image = _JLPATH_SITE . '/includes/js/ThemeOffice/' . $image;
 			$text = '<img src="' . $image . '" border="0" />';
 		}
 		$style = 'style="text-decoration: none; color: #333;"';
@@ -642,4 +642,4 @@ if(!function_exists('scandir')){
 		return $dirArray;
 	}
 }
-?>
+

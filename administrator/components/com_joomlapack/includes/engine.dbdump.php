@@ -107,15 +107,15 @@ class CDBBackupEngine{
 	 * @param boolean $onlyDBDumpMode If true, notifies the engine that we are backing up only the database and not the entire site.
 	 */
 	function CDBBackupEngine($onlyDBDumpMode = false){
-		global $mosConfig_dbprefix;
-		global $JPConfiguration, $database;
+		global $JPConfiguration;
+		$database = database::getInstance();
 
 		// SECTION 1.
 		// Populate basic global variables
 		CJPLogger::WriteLog(_JP_LOG_DEBUG, 'CDBBackupEngine :: Начали');
 		// Initialize private variables
 		$this->_onlyDBDumpMode = $onlyDBDumpMode;
-		$this->_dbprefix = $mosConfig_dbprefix;
+		$this->_dbprefix = JCore::getCfg('dbprefix');
 		// Detect JoomFish
 		if(file_exists(_JLPATH_ADMINISTRATOR . '/components/com_joomfish/config.joomfish.php')){
 			$this->_hasJoomFish = true;
@@ -169,7 +169,9 @@ class CDBBackupEngine{
 	}
 
 	function tick(){
-		global $database, $JPConfiguration;
+		global $JPConfiguration;
+		$database =database::getInstance();
+
 		$out = ''; // joostina pach
 		if($this->_isFinished){
 			// Indicate we're done
@@ -253,7 +255,7 @@ class CDBBackupEngine{
 									break;
 								case 1:
 									// архивирование в tar.gz
-									require_once (JPATH_BASE . '/includes/Archive/Tar.php');
+									require_once (_JLPATH_ROOT . '/includes/Archive/Tar.php');
 									$filename = $filename . '.tar.gz';
 									$tar = new Archive_Tar($filename);
 									$tar->setErrorHandling(PEAR_ERROR_PRINT);
@@ -363,11 +365,7 @@ class CDBBackupEngine{
 					$nf = mysql_num_fields($database->_cursor);
 					for($k = 0; $k < $nf; $k++){
 						if(!is_null($row2[$k])){
-							if(get_magic_quotes_runtime()){
-								$value = stripslashes($row2[$k]);
-							} else{
-								$value = $row2[$k];
-							}
+							$value = $row2[$k];
 							$value = '\'' . $database->getEscaped($value) . '\'';
 						} else{
 							$value = 'null';

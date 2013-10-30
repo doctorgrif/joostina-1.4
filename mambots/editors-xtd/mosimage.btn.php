@@ -17,7 +17,7 @@ $_MAMBOTS->registerFunction('onCustomEditorButton', 'botMosImageButton');
  * @return array - возвращает массив из двух элементов: ( imageName, textToInsert )
  */
 function botMosImageButton(){
-	global $option;
+	$option = JSef::getOption();
 
 	// button is not active in specific content components
 	switch($option){

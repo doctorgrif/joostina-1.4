@@ -73,7 +73,7 @@ class HTML_menumanager{
 					</td>
 					<td align="center">
 						<a href="<?php echo $linkA; ?>" title="<?php echo _CHANGE_MENU_ITEMS?>">
-							<img src="<?php echo JPATH_SITE; ?>/includes/js/ThemeOffice/mainmenu.png" border="0"/>
+							<img src="<?php echo _JLPATH_SITE; ?>/includes/js/ThemeOffice/mainmenu.png" border="0"/>
 						</a>
 					</td>
 					<td align="center">
@@ -232,7 +232,7 @@ class HTML_menumanager{
 	 */
 	public static function showDelete($option, $type, $items, $modules){
 		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		?>
 	<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
@@ -362,7 +362,9 @@ class HTML_menumanager{
 						<?php echo _MENU_TO_COPY?>:
 					</strong>
 					<br/>
-				<span style="color:##000066">
+                                       <!-- Correct css inline style
+                                        @doctorgrif (30.10.13 09:29) -->
+				<span style="color:#000066">
 					<strong>
 						<?php echo $type; ?>
 					</strong>

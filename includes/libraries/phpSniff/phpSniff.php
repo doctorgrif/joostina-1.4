@@ -338,7 +338,7 @@ class phpSniff{
 		preg_match('/' . $this->_browser_search_regex . '/i', $s, $match);
 		if($match)
 			return $this->_perform_browser_search($match);
-		return;
+		return null;
 	}
 
 	/**
@@ -351,7 +351,7 @@ class phpSniff{
 		preg_match('/' . $this->_language_search_regex . '/i', $s, $match);
 		if($match)
 			return $this->_perform_language_search($match);
-		return;
+		return null;
 	}
 
 	/**

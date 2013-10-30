@@ -31,7 +31,7 @@
         this.command = function () {
             var self = this, url = this.url, d, opts, img;
 
-            this.rte.browser.msie && this.rte.selection.saveIERange();
+//            this.rte.browser.msie && this.rte.selection.saveIERange();
 
             opts = {
                 dialog:{
@@ -56,7 +56,7 @@
         }
 
         this.set = function (s, d) {
-            this.rte.browser.msie && this.rte.selection.restoreIERange();
+//            this.rte.browser.msie && this.rte.selection.restoreIERange();
             if (this.smileys[s]) {
                 this.img = $(this.rte.doc.createElement('img'));
                 this.img.attr({

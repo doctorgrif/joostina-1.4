@@ -12,7 +12,6 @@
  **/
 defined('_JLINDEX') or die();
 function download_item($dir, $item, $unlink = false){
-	global $action, $mosConfig_cache_path;
 	$item = basename($item);
 	while(@ob_end_clean())
 		;
@@ -57,6 +56,3 @@ function download_item($dir, $item, $unlink = false){
 	ob_end_flush();
 	jx_exit();
 }
-
-
-?>

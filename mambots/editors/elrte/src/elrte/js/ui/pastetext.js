@@ -14,7 +14,7 @@
         var self = this;
 
         this.command = function () {
-            this.rte.browser.msie && this.rte.selection.saveIERange();
+//            this.rte.browser.msie && this.rte.selection.saveIERange();
             var opts = {
                 submit:function (e, d) {
                     e.stopPropagation();
@@ -35,7 +35,7 @@
             var txt = $.trim(this.input.val());
             if (txt) {
                 this.rte.history.add();
-                this.rte.browser.msie && this.rte.selection.restoreIERange();
+//                this.rte.browser.msie && this.rte.selection.restoreIERange();
                 this.rte.selection.insertText(txt.replace(/\r?\n/g, '<br />'), true);
                 this.rte.ui.update(true);
             }

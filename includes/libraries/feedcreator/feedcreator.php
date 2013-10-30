@@ -14,8 +14,7 @@
  */
 
 defined('_JLINDEX') or die();
-global $mosConfig_feed_timeoffset;
-define("TIME_ZONE", $mosConfig_feed_timeoffset);
+define("TIME_ZONE", JCore::getCfg('feed_timeoffset'));
 
 define("FEEDCREATOR_VERSION", "Joostina CMS");
 
@@ -155,7 +154,7 @@ class FeedCreator extends HtmlDescribable{
 		$this->items[] = $item;
 	}
 
-	function iTrunc($string, $length){
+	public static function iTrunc($string, $length){
 		if(strlen($string) <= $length){
 			return $string;
 		}
@@ -824,7 +823,6 @@ class GoogleSiteMapIndex extends FeedCreator{
 
 class Yandex extends FeedCreator{
 	function createFeed(){
-		global $mosConfig_sef;
 		$feed = "<?xml version=\"1.0\" encoding=\"" . $this->encoding . "\"?>\n";
 		$feed .= "<rss version=\"2.0\"\n";
 		$feed .= "xmlns=\"http://backend.userland.com/rss2\"\n";
@@ -853,7 +851,7 @@ class Yandex extends FeedCreator{
 			$feed .= "<item>\n";
 			$feed .= "<title>" . FeedCreator::iTrunc(htmlspecialchars(strip_tags($this->items[$i]->title)), 100) . "</title>\n";
 			// при отключенном SEF допишем к адресу ленты полный путь от корня
-			//if(!$mosConfig_sef) $this->items[$i]->link = JPATH_SITE.'/'.$this->items[$i]->link;
+			//if(!JCore::getCfg('sef')) $this->items[$i]->link = _JLPATH_SITE.'/'.$this->items[$i]->link;
 			$feed .= "<link>" . htmlspecialchars($this->items[$i]->link) . "</link>\n";
 			$feed .= "<description>" . $this->items[$i]->getDescription() . "</description>\n";
 			if($this->items[$i]->author != ""){
@@ -865,11 +863,11 @@ class Yandex extends FeedCreator{
 			if(is_array(@$this->items[$i]->images)){
 				foreach($this->items[$i]->images as $image){
 					if(function_exists('getimagesize')){
-						$type = @getimagesize(JPATH_BASE . $image);
+						$type = @getimagesize(_JLPATH_ROOT . $image);
 					} else{
 						$type = array();
 					}
-					$feed .= "<enclosure url=\"" . JPATH_SITE . $image . "\" type=\"" . $type['mime'] . "\"/>\n";
+					$feed .= "<enclosure url=\"" . _JLPATH_SITE . $image . "\" type=\"" . $type['mime'] . "\"/>\n";
 				}
 			}
 			if($this->items[$i]->date != ""){

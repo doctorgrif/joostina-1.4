@@ -116,7 +116,6 @@ class php_text_cache extends php_http_connector{
 			$fileContents = &php_file_utilities::getDataFromFile($filename, 'r');
 			return $fileContents;
 		}
-		return '';
 	}
 
 }

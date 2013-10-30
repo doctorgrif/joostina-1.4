@@ -1,47 +1,46 @@
-/* ----------------------------------------------------- com_poll - "Опросы" */
-.poll_quest {
-    /* Текст вопроса   */
-    background: url(../images/elements/arrow2.png) no-repeat left;
-    padding: 2px 0 2px 20px;
-    vertical-align: middle;
+/* Карта сайта
+------------------------------------------------------*/
+div.sitemap article{
+    border: 1px #ccc solid;
+    margin: 10px 0;
+    position: relative;
+    background-color: #fff;
+}
+div.sitemap article > h1{
 }
 
-table.com_poll {
-    width: 100%;
+div.sitemap article > h1{
+    background-color: #ccc;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: -1px 110px 0 -1px;
+    border: none;
 }
 
-table.com_poll th {
-    padding: 10px 0 0 0;
+/* Поиск
+------------------------------------------------------*/
+#com_search{
+    border: 1px #ccc solid;
+    margin: 10px;
+    position: relative;
+    background-color: #fff;
+    padding: 10px;;
 }
 
-table.com_poll th.poll_question {
-    width: 35%;
+#com_search h1{
+    background-color: #ccc;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: -10px 110px 0 -10px;
+    border: none;
 }
-
-table.com_poll th.poll_hits {
-    width: 7%;
-}
-
-table.com_poll th.poll_percent {
-    width: 7%;
-}
-
-table.com_poll th.poll_graph {
-}
-
-table.com_poll td {
-    font-size: 11px;
-    padding: 4px;
-}
-
-table.com_poll td.poll_hits {
-    text-align: center;
-}
-
-table.com_poll td.poll_percent {
-    text-align: center;
-}
-
-table.com_poll th.poll_graph {
-    text-align: center;
+#com_search .nofollow a{
+    border: none;
+    text-decoration: none;
 }

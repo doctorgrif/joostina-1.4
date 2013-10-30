@@ -11,12 +11,8 @@
 defined('_JLINDEX') or die();
 
 if(!defined('_JOS_EDITOR_INCLUDED')){
-	global $mosConfig_editor;
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
-	if($mosConfig_editor == ''){
-		$mosConfig_editor = 'none';
-	}
+	$my = JCore::getUser();
 
 	// проверка сессии на параметр отключения редактора, если такой имеется - то вместо выбранного или прописанного по умолчанию редактора используется параметр 'none' - отсутствующий визуальный редактор
 	if(intval(mosGetParam($_SESSION, 'user_editor_off', 0))){
@@ -25,7 +21,7 @@ if(!defined('_JOS_EDITOR_INCLUDED')){
 		$params = new mosParameters($my->params);
 		$editor = $params->get('editor', '');
 		if(!$editor){
-			$editor = $mosConfig_editor;
+			$editor = JCore::getCfg('editor');
 		}
 	}
 

@@ -26,5 +26,3 @@ function show_footer(){
 	<hr/>";
 }
 
-
-?>

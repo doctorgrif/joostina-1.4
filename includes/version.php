@@ -15,30 +15,26 @@ defined('_JLINDEX') or die();
  * @package Joostina
  */
 class joomlaVersion{
-	/** @var строка Продукт*/
-	var $PRODUCT = 'Joostina';
 	/** @var строка CMS*/
-	var $CMS = 'Joostina';
+	var $CMS = 'Joostina Lotos';
 	/** @var версия*/
-	var $CMS_ver = '1.4.1';
-	/** @var int Номер основной версии*/
-	var $RELEASE = '1.4';
-	/** @var строка  статус разработки*/
-	var $DEV_STATUS = 'beta';
+	var $CMS_VER = '1.4.4';
 	/** @var int Подверсия*/
-	var $DEV_LEVEL = '1040102';
+	var $DEV_LEVEL = '0';
 	/** @var int Номер сборки*/
-	var $BUILD = '201212121212';
+	var $BUILD = 'r147';
+    /** @var строка  статус разработки*/
+    var $DEV_STATUS = 'beta';
 	/** @var string Кодовое имя*/
-	var $CODENAME = 'Lotos';
+	var $CODENAME = 'Сaspica';
 	/** @var string Дата*/
-	var $RELDATE = '12.12.2012';
+	var $RELDATE = '20.09.2013';
 	/** @var string Время*/
-	var $RELTIME = '12:12';
+	var $RELTIME = '20:06';
 	/** @var string Временная зона*/
 	var $RELTZ = '+3 GMT';
 	/** @var string Текст авторских прав*/
-	var $COPYRIGHT = 'Авторские права &copy; 2011-2012 Joostina Lotos. Все права защищены.';
+	var $COPYRIGHT = 'Авторские права &copy; 2011-2013 Joostina Lotos. Все права защищены.';
 	/** @var string URL*/
 	var $URL = '<a href="http://joostina-cms.ru" target="_blank" title="Система создания и управления сайтами Joostina Lotos CMS">Joostina Lotos!</a> - бесплатное и свободное программное обеспечение для создания сайтов, распространяемое по лицензии GNU/GPL.';
 	/** @var string для реального использования сайта установите = 1 для демонстраций = 0: 1 используется по умолчанию*/
@@ -53,18 +49,20 @@ class joomlaVersion{
 	var $SUPPORT = 'Поддержка: <a href="http://joostina-cms.ru" target="_blank" title="Официальный сайт CMS Joostina">joostina-cms.ru</a> | <a href="http://wiki.joostina-cms.ru" target="_blank" title="Wiki-документация">wiki.joostina-cms.ru</a>';
 
 	/** * @return string Длинный формат версии */
-	function getLongVersion(){
-		return $this->CMS . ' ' . $this->RELEASE . '. ' . $this->CMS_ver . ' [ ' . $this->CODENAME . ' ] ' . $this->RELDATE . ' ' . $this->RELTIME . ' ' . $this->RELTZ;
+	public static function getLongVersion(){
+        $_version = new joomlaVersion();
+        $version = $_version->CMS . ' ' . $_version->CODENAME . ' ' . $_version->CMS_VER . '.' . $_version->DEV_LEVEL . ' [' . $_version->DEV_STATUS . ' : ' . $_version->BUILD . '] ';
+        return $version;
 	}
 
 	/*** @return string Краткий формат версии */
-	function getShortVersion(){
-		return $this->RELEASE . '.' . $this->DEV_LEVEL;
+    public function getShortVersion(){
+		return $this->CMS_VER . '.' . $this->DEV_LEVEL;
 	}
 
 	/*** @return string Version suffix for help files*/
-	function getHelpVersion(){
-		return '.' . str_replace('.', '', $this->RELEASE);
+    public function getHelpVersion(){
+		return '.' . str_replace('.', '', $this->CMS_VER);
 	}
 
 	// получение переменных окружения информации осистеме

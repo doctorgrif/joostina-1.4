@@ -41,8 +41,6 @@ class mosInstallerTemplate extends mosInstaller{
 	 * @param boolean True if installing from directory
 	 */
 	function install($p_fromdir = null){
-		$database = database::getInstance();
-		$database = database::getInstance();
 
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir, 'template')){
@@ -70,8 +68,8 @@ class mosInstallerTemplate extends mosInstaller{
 		$f = (!empty($f)) ? $f = $f . DS : '';
 
 		$this->elementName($f . $e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE . ($client == 'admin' ? DS . JADMIN_BASE : '') . DS . 'templates' . DS . strtolower(str_replace(" ", "_", $this->elementName()))));
-		$base = mosPathName(JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates');
+		$this->elementDir(mosPathName(_JLPATH_ROOT . ($client == 'admin' ? DS . JADMIN_BASE : '') . DS . 'templates' . DS . strtolower(str_replace(" ", "_", $this->elementName()))));
+		$base = mosPathName(_JLPATH_ROOT . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates');
 		$path = strtolower(str_replace(" ", "_", $this->elementName()));
 		if(!file_exists($this->elementDir()) && !mosMakePath($base, $path)){
 			$this->setError(1, _CANNOT_CREATE_DIR . ' "' . $this->elementDir() . '"');
@@ -111,7 +109,7 @@ class mosInstallerTemplate extends mosInstaller{
 		$database = database::getInstance();
 		josSpoofCheck(null, null, 'request');
 		// Delete directories
-		$path = JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $id;
+		$path = _JLPATH_ROOT . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $id;
 
 		$id = str_replace('..', '', $id);
 		if(trim($id)){
@@ -137,7 +135,7 @@ class mosInstallerTemplate extends mosInstaller{
 		$database = database::getInstance();
 		josSpoofCheck(null, null, 'request');
 		// Delete directories
-		$path = JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $this->elementName();
+		$path = _JLPATH_ROOT . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $this->elementName();
 		// get the files element
 		if(is_dir($path)){
 			return deldir(mosPathName($path));

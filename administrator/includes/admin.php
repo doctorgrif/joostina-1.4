@@ -72,8 +72,7 @@ function mosCountAdminModules($position = 'left'){
  */
 function mosLoadAdminModules($position = 'left', $style = 0){
 	$acl = &gacl::getInstance();
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 
 	static $all_modules;
 	if(!isset($all_modules)){
@@ -147,15 +146,8 @@ function mosLoadAdminModules($position = 'left', $style = 0){
  * Loads an admin module
  */
 function mosLoadAdminModule($name, $params = null){
-	global $task, $option;
 
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
-	$database = database::getInstance();
-	$acl = &gacl::getInstance();
-
-	// legacy support for $act
-	$act = mosGetParam($_REQUEST, 'act', '');
 
 	$name = str_replace('/', '', $name);
 	$name = str_replace('\\', '', $name);
@@ -169,14 +161,12 @@ function mosLoadAdminModule($name, $params = null){
 }
 
 function mosLoadCustomModule($module, $params){
-	global $mosConfig_cachepath;
-
 	$rssurl = $params->get('rssurl', '');
 	$rssitems = $params->get('rssitems', '');
 	$rssdesc = $params->get('rssdesc', '');
 	$moduleclass_sfx = $params->get('moduleclass_sfx', '');
 	$rsscache = $params->get('rsscache', 3600);
-	$cachePath = $mosConfig_cachepath . '/';
+	$cachePath = JCore::getCfg('cachepath') . '/';
 
 	echo '<table cellpadding="0" cellspacing="0" class="moduletable' . $moduleclass_sfx . '">';
 
@@ -189,8 +179,8 @@ function mosLoadCustomModule($module, $params){
 		if(!is_writable($cachePath)){
 			echo '<tr><td>' . _CACHE_DIR_IS_NOT_WRITEABLE . '</td></tr>';
 		} else{
-			$LitePath = JPATH_BASE . '/includes/Cache/Lite.php';
-			require_once (JPATH_BASE . '/includes/domit/xml_domit_rss_lite.php');
+			$LitePath = _JLPATH_ROOT . '/includes/Cache/Lite.php';
+			require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_rss_lite.php');
 			$rssDoc = new xml_domit_rss_document_lite();
 			$rssDoc->setRSSTimeout(5);
 			$rssDoc->useHTTPClient(true);
@@ -297,8 +287,6 @@ function mosIsChmodable($file){
  * @return boolean True if successful
  */
 function mosMakePath($base, $path = '', $mode = null){
-	global $mosConfig_dirperms;
-
 	// convert windows paths
 	$path = str_replace('\\', '/', $path);
 	$path = str_replace('//', '/', $path);
@@ -314,12 +302,12 @@ function mosMakePath($base, $path = '', $mode = null){
 	if(isset($mode)){
 		$origmask = @umask(0);
 	} else{
-		if($mosConfig_dirperms == ''){
+		if(JCore::getCfg('dirperms') == ''){
 			// rely on umask
 			$mode = 0777;
 		} else{
 			$origmask = @umask(0);
-			$mode = octdec($mosConfig_dirperms);
+			$mode = octdec(JCore::getCfg('dirperms'));
 		} // if
 	} // if
 
@@ -359,13 +347,12 @@ function mosMainBody_Admin(){
 
 // boston, кэширование меню администратора
 function js_menu_cache($data, $usertype, $state = 0){
-	global $mosConfig_secret, $mosConfig_cachepath, $mosConfig_adm_menu_cache;
-	if(!is_writeable($mosConfig_cachepath) && $mosConfig_adm_menu_cache){
+	if(!is_writeable(JCore::getCfg('cachepath')) && JCore::getCfg('adm_menu_cache')){
 		echo '<script>alert(\'' . _CACHE_DIR_IS_NOT_WRITEABLE . '\');</script>';
 		return false;
 	}
-	$menuname = md5($usertype . $mosConfig_secret);
-	$file = $mosConfig_cachepath . '/adm_menu_' . $menuname . '.js';
+	$menuname = md5($usertype . JCore::getCfg('secret'));
+	$file = JCore::getCfg('cachepath') . '/adm_menu_' . $menuname . '.js';
 	if(!file_exists($file)){ // файла нету
 		if($state == 1) return false; // файла у нас не было и получен сигнал 0 - продолжаем вызывающую функцию, а отсюда выходим
 		touch($file);
@@ -382,14 +369,9 @@ function js_menu_cache($data, $usertype, $state = 0){
 * Добавлено в версии 1.0.11
 */
 function josSecurityCheck($width = '95%'){
-	global $mosConfig_cachepath, $mosConfig_caching;
 	$wrongSettingsTexts = array();
 	// проверка на запись  в каталог кэша
-	if(!is_writeable($mosConfig_cachepath) && $mosConfig_caching) $wrongSettingsTexts[] = _CACHE_DIR_IS_NOT_WRITEABLE2;
-	// проверка magic_quotes_gpc
-	if(ini_get('magic_quotes_gpc') != '1') $wrongSettingsTexts[] = _PHP_MAGIC_QUOTES_ON_OFF;
-	// проверка регистрации глобальных переменных
-	if(ini_get('register_globals') == '1') $wrongSettingsTexts[] = _PHP_REGISTER_GLOBALS_ON_OFF;
+	if(!is_writeable(JCore::getCfg('cachepath')) && JCore::getCfg('caching')) $wrongSettingsTexts[] = _CACHE_DIR_IS_NOT_WRITEABLE2;
 
 	if(count($wrongSettingsTexts)){
 		?>
@@ -411,15 +393,13 @@ function josSecurityCheck($width = '95%'){
 
 //boston, удаление кэша меню панели управления
 function js_menu_cache_clear($echo = true){
-	global $mosConfig_secret, $mosConfig_adm_menu_cache;
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 
-	if(!$mosConfig_adm_menu_cache) return;
+	if(!JCore::getCfg('adm_menu_cache')) return;
 
 	$usertype = str_replace(' ', '_', $my->usertype);
-	$menuname = md5($usertype . $mosConfig_secret);
-	$file = JPATH_BASE . '/cache/adm_menu_' . $menuname . '.js';
+	$menuname = md5($usertype . JCore::getCfg('secret'));
+	$file = _JLPATH_ROOT . '/cache/adm_menu_' . $menuname . '.js';
 	if(file_exists($file)){
 		if(unlink($file))
 			echo $echo ? joost_info(_MENU_CACHE_CLEANED) : null;

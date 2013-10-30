@@ -59,4 +59,3 @@ function del_items($dir){
 }
 
 
-?>

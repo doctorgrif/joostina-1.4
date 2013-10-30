@@ -19,17 +19,17 @@ if(!($acl->acl_check('administration', 'config', 'users', $my->usertype)) || $ac
 $cid = mosGetParam($_POST, 'cid', array(0));
 $task = mosGetParam($_REQUEST, 'task', '');
 
-global $mosConfig_lang, $xmapComponentURL, $xmapSiteURL, $xmapComponentPath, $xmapAdministratorURL, $xmapLang, $xmapAdministratorPath;
+global $xmapComponentURL, $xmapSiteURL, $xmapComponentPath, $xmapAdministratorURL, $xmapLang, $xmapAdministratorPath;
 
 define ('_XMAP_JOOMLA15', 0);
 define('_XMAP_MAMBO', 0);
 
-$xmapLang = strtolower($mosConfig_lang);
+$xmapLang = strtolower(JCore::getCfg('lang'));
 $xmapComponentPath = _JLPATH_ADMINISTRATOR . '/components/com_xmap';
 $xmapAdministratorPath = _JLPATH_ADMINISTRATOR;
-$xmapComponentURL = JPATH_SITE . '/' . JADMIN_BASE . '/components/com_xmap';
-$xmapAdministratorURL = JPATH_SITE . '/' . JADMIN_BASE;
-$xmapSiteURL = JPATH_SITE;
+$xmapComponentURL = _JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_xmap';
+$xmapAdministratorURL = _JLPATH_SITE . '/' . JADMIN_BASE;
+$xmapSiteURL = _JLPATH_SITE;
 
 require_once($xmapComponentPath . '/classes/XmapAdmin.php');
 

@@ -19,4 +19,3 @@ class File_Archive_Predicate_Current extends File_Archive_Predicate{
 	}
 }
 
-?>

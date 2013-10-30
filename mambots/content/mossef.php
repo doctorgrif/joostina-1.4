@@ -18,15 +18,13 @@ $_MAMBOTS->registerFunction('onPrepareContent', 'botMosSef');
  * <code><a href="...относительная ссылка..."></code>
  */
 function botMosSef($published, &$row, &$params, $page = 0){
-	global $mosConfig_sef;
-
 	// check whether mambot has been unpublished
 	if(!$published){
 		return true;
 	}
 
 	// check whether SEF is off
-	if(!$mosConfig_sef){
+	if(!JCore::getCfg('sef')){
 		return true;
 	}
 

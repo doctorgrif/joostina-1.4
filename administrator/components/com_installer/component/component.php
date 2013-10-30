@@ -10,13 +10,15 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
+
 if(!$acl->acl_check('administration', 'install', 'users', $my->usertype, $element . 's', 'all')){
 	mosRedirect('index2.php', _NOT_AUTH);
 }
 
 require_once ($mainframe->getPath('installer_html', 'component'));
 require_once ($mainframe->getPath('installer_class', 'component'));
-
+$task = JSef::getTask();
 switch($task){
 	case 'remove':
 		removeElement($client);
@@ -64,7 +66,6 @@ function showInstalledComponents($option){
 
 	// Read the component dir to find components
 	$componentBaseDir = mosPathName(_JLPATH_ADMINISTRATOR . DS . 'components');
-	$componentDirs = mosReadDirectory($componentBaseDir);
 
 	$n = count($rows);
 	for($i = 0; $i < $n; $i++){

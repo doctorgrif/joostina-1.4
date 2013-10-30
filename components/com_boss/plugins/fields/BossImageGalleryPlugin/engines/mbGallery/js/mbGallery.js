@@ -180,12 +180,6 @@
                     marginLeft:-(gallery.options.minWidth / 2)
                 });
 
-            if ($.browser.msie && $.browser.version < 8) {
-                galleryScreen.css({
-                    width:gallery.options.minWidth,
-                    height:gallery.options.minHeight
-                });
-            }
             galleryImg.css({
                 minWidth:gallery.options.minWidth,
                 minHeight:gallery.options.minHeight
@@ -261,13 +255,6 @@
                         marginLeft:-(w / 2)
                     }, "slow",
                     function () {
-                        if ($.browser.msie && $.browser.version < 8) {
-                            galleryScreen.css(
-                                {
-                                    width:"",
-                                    height:""
-                                });
-                        }
                     });
             }
             galleryImg.animate({
@@ -445,20 +432,15 @@
             galleryThumbs.slideUp();
         },
 
-        closeGallery:function () {
+        closeGallery: function () {
             var gallery = $(this).get(0);
             if (gallery.options.onBeforeClose) gallery.options.onBeforeClose();
-            if (!$.browser.msie)
-                $("#" + gallery.galleryID).animate({position:"absolute", top:-1000}, "slow",
-                    function () {
-                        $("#" + gallery.galleryID).remove();
-                        $("#" + gallery.options.containment).slideUp();
-                        if (gallery.options.onClose) gallery.options.onClose();
-                    });
-            else {
-                $("#" + gallery.galleryID).remove();
-                $("#" + gallery.options.containment).hide();
-            }
+            $("#" + gallery.galleryID).animate({position: "absolute", top: -1000}, "slow",
+                function () {
+                    $("#" + gallery.galleryID).remove();
+                    $("#" + gallery.options.containment).slideUp();
+                    if (gallery.options.onClose) gallery.options.onClose();
+                });
             $(".mb_overlay").slideUp("slow", function () {
                 $(".mb_overlay").remove();
             });

@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
+
 // разрешим доступ только пользователям с правами супер-администратора
 if(!$acl->acl_check('administration', 'config', 'users', $my->usertype)){
 	mosRedirect('index2.php', _NOT_AUTH);

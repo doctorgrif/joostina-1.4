@@ -10,9 +10,10 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('installer_html', 'module'));
 require_once ($mainframe->getPath('installer_class', 'module'));
-
+$task = JSef::getTask();
 switch($task){
 	case 'remove':
 		removeElement($client);
@@ -75,9 +76,9 @@ function showInstalledModules($_option){
 
 		// path to module directory
 		if($row->client_id == "1"){
-			$moduleBaseDir = mosPathName(mosPathName(JPATH_BASE) . JADMIN_BASE . DS . 'modules');
+			$moduleBaseDir = mosPathName(mosPathName(_JLPATH_ROOT) . JADMIN_BASE . DS . 'modules');
 		} else{
-			$moduleBaseDir = mosPathName(mosPathName(JPATH_BASE) . 'modules');
+			$moduleBaseDir = mosPathName(mosPathName(_JLPATH_ROOT) . 'modules');
 		}
 
 		// xml file for module
@@ -90,7 +91,7 @@ function showInstalledModules($_option){
 				continue;
 			}
 
-			$root = &$xmlDoc->documentElement;
+			$root = $xmlDoc->documentElement;
 
 			if($root->getTagName() != 'mosinstall'){
 				continue;

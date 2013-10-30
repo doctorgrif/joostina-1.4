@@ -152,7 +152,7 @@ DEFINE('_ABP_OTHER', 'Другое ');
 DEFINE('_ABP_CATEGORY_UNPUBLISH', 'категория скрыта');
 DEFINE('_ABP_CLIENT_UNPUBLISH', 'клиент скрыт');
 DEFINE('_ABP_PRICE_IMPRESSION', 'Цена показа (Ед./Всего)');
-DEFINE('_ABP_ALERT_BANNER_FLASH', 'Вы выбрали флеш-баннер.\\n' . 'Для того чтобы работал счетчик нажатий, Вы должны ' . 'установить ссылку к файлу .swf, соответсвующую с \\n' . '$mosConfig_live_site/index.php?option=com_artbannersplus&task=clk&id=');
+DEFINE('_ABP_ALERT_BANNER_FLASH', 'Вы выбрали флеш-баннер.\\n' . 'Для того чтобы работал счетчик нажатий, Вы должны ' . 'установить ссылку к файлу .swf, соответсвующую с \\n' . _JLPATH_SITE.'/index.php?option=com_artbannersplus&task=clk&id=');
 DEFINE('_ABP_BANNER_IN_USE', 'Баннер %s в настоящее время изменяется другим администратором');
 DEFINE('_ABP_BANNER_STATE_TOOL_TIP', 'Да: <u>активный</u> баннер<br>Нет: <u>не активный</u> баннер.');
 DEFINE('_ABP_TOT', 'Всего&nbsp;Руб.');

@@ -1,12 +1,17 @@
-<?php
+<?php defined('_JLINDEX') or die;
 /**
- * @package Joostina BOSS
- * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
- * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
- * Joostina BOSS - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
- * Joostina BOSS основан на разработках Jdirectory от Thomas Papin
+ * Joostina BOSS Plugin
+ *
+ * @package   BOSS Plugin
+ * @version   1.0
+ * @author    Gold Dragon <illusive@bk.ru>
+ * @link      http://gd.joostina-cms.ru
+ * @copyright 2013 JLotos.
+ * @license   GNU GPL: http://www.gnu.org/licenses/gpl-3.0.html
+ *            Joostina Lotos CMS - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL. (help/copyright.php)
+ * @Date      21.07.2013
+ * @see       http://wiki.joostina-cms.ru/index.php/BossCheckboxMulitiPlugin
  */
-defined('_JLINDEX') or die();
 
 class BossCheckboxMulitiPlugin{
 
@@ -23,9 +28,6 @@ class BossCheckboxMulitiPlugin{
 
 	//отображение поля в контенте
 	function getDetailsDisplay($directory, $content, $field, $field_values, $conf){
-
-		if(!isset($field_values[$field->fieldid]))
-			return false;
 
 		$dataArray = array();
 		$fieldname = $field->name;
@@ -165,7 +167,7 @@ class BossCheckboxMulitiPlugin{
         </div>
         <div id=divValues style="text-align:left;">
         ' . BOSS_FIELD_VALUES_EXPLANATION . '
-            <input type=button onclick="insertRow();" value="Add a Value"/>
+            <input type=button onclick="insertRow();" value="'.BOSS_FIELD_ADD_VALUES.'"/>
             <table align=left id="divFieldValues" cellpadding="4" cellspacing="1" border="0" width="100%"
                    class="adminform">
                 <tr>
@@ -248,8 +250,8 @@ class BossCheckboxMulitiPlugin{
 	}
 
 	//расположение иконки плагина начиная со слеша от корня сайта
-	function getFieldIcon($directory){
-		return "/images/boss/$directory/plugins/fields/" . __CLASS__ . "/images/checkbox.png";
+	function getFieldIcon(){
+		return "/components/com_boss/plugins/fields/" . __CLASS__ . "/images/checkbox.png";
 	}
 
 	//действия при установке плагина
@@ -278,5 +280,3 @@ class BossCheckboxMulitiPlugin{
 		return $search;
 	}
 }
-
-?>

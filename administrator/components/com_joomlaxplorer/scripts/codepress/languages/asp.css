@@ -1,3 +1,5 @@
+/* Correct css
+@doctorgrif  (30.10.13 09:30)*/
 /*
  * CodePress color styles for ASP-VB syntax highlighting by Martin
  */
@@ -28,7 +30,7 @@ s, s b, strong s u, strong s cite {
 /* Syntax */
 strong a, strong a u {
     color: #0000FF;
-    font-weight:;
+    /*font-weight:;*/
 }
 
 /* Native Keywords */

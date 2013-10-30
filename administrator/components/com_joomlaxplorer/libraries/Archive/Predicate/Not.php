@@ -20,5 +20,3 @@ class File_Archive_Predicate_Not extends File_Archive_Predicate{
 		return !$this->pred->isTrue($source);
 	}
 }
-
-?>

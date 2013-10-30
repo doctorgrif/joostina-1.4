@@ -15,7 +15,7 @@ $act = mosGetParam($_REQUEST, 'act', 'default');
 
 global $JPConfiguration, $option;
 
-$siteRoot = JPATH_BASE;
+$siteRoot = _JLPATH_ROOT;
 
 ?>
 <table class="adminheading">

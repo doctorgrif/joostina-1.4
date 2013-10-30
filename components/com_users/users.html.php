@@ -29,7 +29,7 @@ class HTML_user{
 	public static function profile($user, $option, $params, $config){
 		$_MAMBOTS = mosMambotHandler::getInstance();
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 
 		$mainframe = mosMainFrame::getInstance();
 		$database = database::getInstance();
@@ -51,7 +51,7 @@ class HTML_user{
 		}
 
 		//Переменные для шаблона
-		$avatar_pic = '<img class="avatar" src="' . JPATH_SITE . '/' . $user->get_avatar($user) . '" />';
+		$avatar_pic = '<img class="avatar" src="' . _JLPATH_SITE . '/' . $user->get_avatar($user) . '" />';
 		$user_id = $user->id;
 		$user_real_name = $user->name;
 		$user_nickname = $user->username;
@@ -81,7 +81,7 @@ class HTML_user{
 		if($config->get('template_dir')){
 			$template_dir = 'templates' . DS . JTEMPLATE . '/html/com_users/profile';
 		}
-		$template_file = JPATH_BASE . DS . $template_dir . DS . $template;
+		$template_file = _JLPATH_ROOT . DS . $template_dir . DS . $template;
 
 		//Находим плагины профиля пользователя
 		$plugins = new userPlugins();
@@ -124,12 +124,12 @@ class HTML_user{
 		//Шаблон
 		$template_file = 'default.php';
 		if(!$user_config->get('template_edit')){
-			if(is_file(JPATH_BASE . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'edit' . DS . strtolower(str_replace(' ', '', $user->usertype)) . '.php')){
+			if(is_file(_JLPATH_ROOT . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'edit' . DS . strtolower(str_replace(' ', '', $user->usertype)) . '.php')){
 				$template_file = strtolower(str_replace(' ', '', $user->usertype)) . '.php';
 			}
 		}
 
-		include (JPATH_BASE . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'edit' . DS . $template_file);
+		include (_JLPATH_ROOT . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'edit' . DS . $template_file);
 
 	}
 

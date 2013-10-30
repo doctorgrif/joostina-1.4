@@ -10,10 +10,10 @@
 /** проверка включения этого файла файлом-источником*/
 defined('_JLINDEX') or die();
 
-require_once (JPATH_BASE . '/includes/joostina.php');
-include_once (JPATH_BASE . DS . 'language' . DS . $mosConfig_lang . DS . 'system.php');
+require_once (_JLPATH_ROOT . '/includes/joostina.php');
+include_once (_JLPATH_ROOT . DS . 'language' . DS . JCore::getCfg('lang') . DS . 'system.php');
 
-global $option;
+$option = JSef::getOption();
 $database = database::getInstance();
 
 // получение шаблона страницы
@@ -29,10 +29,15 @@ $iso = explode('=', _ISO);
 // xml prolog
 echo '<?xml version="1.0" encoding="' . $iso[1] . '"?' . '>';
 ?>
+<!-- Change doctipe to html5, clean html output, change charset
+@doctorgrif (30.10.13 09:04 -->
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title><?php echo JCore::getCfg('sitename'); ?> - <?php echo _SITE_OFFLINE?></title>
+	<link rel="stylesheet" href="<?php echo _JLPATH_SITE; ?>/templates/<?php echo $cur_template; ?>/css/template_css.css" type="text/css"/>
+        <style>
 		table.moswarning {
 			font-size: 200%;
 			background-color: #c00;
@@ -48,23 +53,20 @@ echo '<?xml version="1.0" encoding="' . $iso[1] . '"?' . '>';
 		}
 
 	</style>
-	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>"/>
-	<title><?php echo $mosConfig_sitename; ?> - <?php echo _SITE_OFFLINE?></title>
-	<link rel="stylesheet" href="<?php echo JPATH_SITE; ?>/templates/<?php echo $cur_template; ?>/css/template_css.css" type="text/css"/>
 </head>
 <body style="margin: 0px; padding: 0px;">
 
 <table width="100%" align="center" class="moswarning">
 	<?php
-	if($mosConfig_offline == 1){
+	if(JCore::getCfg('offline') == 1){
 		?>
 		<tr>
 			<td>
 				<h2>
 					<?php
-					echo $mosConfig_sitename;
+					echo JCore::getCfg('sitename');
 					echo ' - ';
-					echo $mosConfig_offline_message;
+					echo JCore::getCfg('offline_message');
 					?>
 				</h2>
 			</td>
@@ -76,7 +78,7 @@ echo '<?xml version="1.0" encoding="' . $iso[1] . '"?' . '>';
 		<tr>
 			<td>
 				<h2>
-					<?php echo $mosConfig_error_message; ?>
+					<?php echo JCore::getCfg('error_message'); ?>
 				</h2>
 				<?php echo $mosSystemError; ?>
 			</td>

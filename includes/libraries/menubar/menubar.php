@@ -336,7 +336,7 @@ if(!class_exists('mosMenuBar')){
 		 * @param string The name of the popup file (excluding the file extension)
 		 */
 		public static function preview(){
-			global $task;
+			$task = JSef::getTask();
 			?>
 		<li>
 			<script language="javascript" type="text/javascript">
@@ -344,7 +344,7 @@ if(!class_exists('mosMenuBar')){
 				function popup() {
 					document.adminForm.target = '_blank';
 					var action = document.adminForm.action;
-					document.adminForm.action = '<?php echo JPATH_SITE; ?>/<?php echo JADMIN_BASE?>/popups/contentwindow.php';
+					document.adminForm.action = '<?php echo _JLPATH_SITE; ?>/<?php echo JADMIN_BASE?>/popups/contentwindow.php';
 					submitbutton('<?php echo $task; ?>');
 					document.adminForm.target = '_self';
 					document.adminForm.action = action;
@@ -362,8 +362,7 @@ if(!class_exists('mosMenuBar')){
 		 * @param boolean Use the help file in the component directory
 		 */
 		public static function help($ref, $com = false){
-			global $mosConfig_disable_button_help;
-			if($mosConfig_disable_button_help) return; // при активном отключении кнопки "Помощь" функция прерывается в самом начале
+			if(JCore::getCfg('disable_button_help')) return; // при активном отключении кнопки "Помощь" функция прерывается в самом начале
 			$url = 'http://wiki.joostinadev.ru/';
 
 			?>
@@ -481,10 +480,7 @@ if(!class_exists('mosMenuBar')){
 		 * @param string The width for the cell
 		 */
 		public static function spacer($width = '0'){
-			return;
-			?>
-		<li style="width:<?php echo $width;?>px;">&nbsp;</li>
-			<?php
+			return '<li style="width:' . $width . 'px;">&nbsp;</li>';
 		}
 
 		/**

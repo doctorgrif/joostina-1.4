@@ -16,9 +16,7 @@ defined('_JLINDEX') or die();
  */
 class loginHTML{
 
-	function loginpage($params, $image){
-		global $mosConfig_lang;
-
+	public static function loginpage($params, $image){
 		// used for spoof hardening
 		$validate = josSpoofValue(1);
 
@@ -121,16 +119,14 @@ class loginHTML{
 
 		<input type="hidden" name="op2" value="login"/>
 		<input type="hidden" name="return" value="<?php echo JSef::getUrlToSef($return); ?>"/>
-		<input type="hidden" name="lang" value="<?php echo $mosConfig_lang; ?>"/>
+		<input type="hidden" name="lang" value="<?php echo JCore::getCfg('lang'); ?>"/>
 		<input type="hidden" name="message" value="<?php echo $params->get('login_message'); ?>"/>
 		<input type="hidden" name="<?php echo $validate; ?>" value="1"/>
 	</form>
 	<?php
 	}
 
-	function logoutpage($params, $image){
-		global $mosConfig_lang;
-
+	public static function logoutpage($params, $image){
 		$return = $params->get('logout');
 		?>
 	<form action="<?php echo JSef::getUrlToSef('index.php?option=logout'); ?>" method="post" name="login" id="login">
@@ -173,7 +169,7 @@ class loginHTML{
 		<?php mosHTML::BackButton($params); ?>
 		<input type="hidden" name="op2" value="logout"/>
 		<input type="hidden" name="return" value="<?php echo JSef::getUrlToSef($return); ?>"/>
-		<input type="hidden" name="lang" value="<?php echo $mosConfig_lang; ?>"/>
+		<input type="hidden" name="lang" value="<?php echo JCore::getCfg('lang'); ?>"/>
 		<input type="hidden" name="message" value="<?php echo $params->get('logout_message'); ?>"/>
 	</form>
 	<?php

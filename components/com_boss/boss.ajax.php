@@ -8,7 +8,7 @@
  */
 
 defined('_JLINDEX') or die();
-require_once(JPATH_BASE . DS . 'components' . DS . 'com_boss' . DS . 'boss.tools.php');
+require_once(_JLPATH_ROOT . DS . 'components' . DS . 'com_boss' . DS . 'boss.tools.php');
 require_once($mainframe->getPath('front_html'));
 require_once($mainframe->getPath('class'));
 
@@ -37,10 +37,6 @@ switch($act){
 		}
 		break;
 
-	case "upload_image":
-		boss_helpers::upload_image($directory);
-		break;
-
 	case "upload_file":
 		$folder = mosGetParam($_REQUEST, 'folder', '');
 		boss_helpers::upload_file($directory, $folder);
@@ -53,4 +49,3 @@ switch($act){
 	default :
 		break;
 }
-?>

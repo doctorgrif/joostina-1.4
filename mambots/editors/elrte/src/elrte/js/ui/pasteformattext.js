@@ -40,15 +40,11 @@
             this.doc.write(html);
             this.doc.close();
 
-            if (!this.rte.browser.msie) {
                 try {
                     this.doc.designMode = "on";
                 }
                 catch (e) {
                 }
-            } else {
-                this.doc.body.contentEditable = true;
-            }
             setTimeout(function () {
                 self.iframe[0].contentWindow.focus();
             }, 50);

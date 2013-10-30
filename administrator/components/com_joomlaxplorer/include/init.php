@@ -156,5 +156,3 @@ $_SESSION['jx_' . $GLOBALS['file_mode'] . 'dir'] = $dir;
 
 
 
-
-?>

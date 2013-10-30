@@ -28,7 +28,7 @@ class Image
         $name_file = $this->field_name;
         $up = 0;
 
-        $dir_name = JPATH_BASE . "/" . $this->directory;
+        $dir_name = _JLPATH_ROOT . "/" . $this->directory;
         if (!is_dir($dir_name)) {
             mkdir($dir_name, 0700);
         }
@@ -108,16 +108,13 @@ class Image
             echo "<script> alert('Ошибка при добавлении файла. Файл не существует или поврежден'); window.history.go(-1); </script>\n";
             exit();
         }
-
-
-        return false;
     }
 
 
     function isFileIsset($file)
     {
 
-        $file_name = JPATH_BASE . DS . $file;
+        $file_name = _JLPATH_ROOT . DS . $file;
 
         if (file_exists($file_name)) {
             return true;
@@ -132,7 +129,7 @@ class Image
         $file_name = $file->directory . DS . $file->name;
 
         if (self::isFileIsset($file_name)) {
-            unlink(JPATH_BASE . DS . $file_name);
+            unlink(_JLPATH_ROOT . DS . $file_name);
             return true;
         }
         return false;

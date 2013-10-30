@@ -12,7 +12,7 @@ define('_JLINDEX', 1);
 require_once ('../includes/auth.php');
 
 $mainframe = mosMainFrame::getInstance(true);
-$mainframe->set('lang', $mosConfig_lang);
+$mainframe->set('lang', JCore::getCfg('lang'));
 include_once($mainframe->getLangFile());
 
 // limit access to functionality
@@ -38,7 +38,7 @@ $css = mosGetParam($_REQUEST, 't', $mainframe->getTemplate());
 $row = null;
 
 $database = database::getInstance();
-$database->debug($mosConfig_debug);
+$database->debug(JCore::getCfg('debug'));
 
 $query = "SELECT* FROM #__modules WHERE title = " . $database->Quote($title);
 $database->setQuery($query);
@@ -54,7 +54,7 @@ $title = preg_replace('/' . $pat2 . '/iu', $replace2, $row->title);
 
 // css file handling
 // check to see if template exists
-if($css == '' || !is_file(JPATH_BASE . DS . 'templates' . DS . $css . DS . 'css/template_css.css')){
+if($css == '' || !is_file(_JLPATH_ROOT . DS . 'templates' . DS . $css . DS . 'css/template_css.css')){
 	$css = 'newline2';
 }
 

@@ -1,12 +1,17 @@
-<?php
+<?php defined('_JLINDEX') or die();
 /**
- * @package Joostina BOSS
- * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
- * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
- * Joostina BOSS - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
- * Joostina BOSS основан на разработках Jdirectory от Thomas Papin
+ * Joostina BOSS Plugin
+ *
+ * @package   BOSS Plugin
+ * @version   1.0
+ * @author    Gold Dragon <illusive@bk.ru>
+ * @link      http://gd.joostina-cms.ru
+ * @copyright 2013 JLotos.
+ * @license   GNU GPL: http://www.gnu.org/licenses/gpl-3.0.html
+ *            Joostina Lotos CMS - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL. (help/copyright.php)
+ * @Date      22.08.2013
+ * @see       http://wiki.joostina-cms.ru/index.php/BossTextFieldPlugin
  */
-defined('_JLINDEX') or die();
 
 class BossTextFieldPlugin{
 
@@ -116,8 +121,8 @@ class BossTextFieldPlugin{
 	}
 
 	//расположение иконки плагина начиная со слеша от корня сайта
-	function getFieldIcon($directory){
-		return "/images/boss/$directory/plugins/fields/" . __CLASS__ . "/images/textfield.png";
+	function getFieldIcon(){
+		return "/components/com_boss/plugins/fields/" . __CLASS__ . "/images/textfield.png";
 	}
 
 	//действия при установке плагина
@@ -140,5 +145,3 @@ class BossTextFieldPlugin{
 		return $search;
 	}
 }
-
-?>

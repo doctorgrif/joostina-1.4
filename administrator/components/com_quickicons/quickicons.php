@@ -10,14 +10,13 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+$my = JCore::getUser();
 $database = database::getInstance();
 
 function quickiButton($row, $newWindow){
 	$title = $row->title ? $row->title : $row->text;
 	?><span><a href="<?php echo htmlentities($row->target); ?>" title="<?php echo $title; ?>"<?php echo $newWindow; ?>><?php
-	$icon = '<img src="' . JPATH_SITE . $row->icon . '" alt="' . $title . '" border="0" />';
+	$icon = '<img src="' . _JLPATH_SITE . $row->icon . '" alt="' . $title . '" border="0" />';
 	if($row->display == 1){
 		?><p><?php echo $row->text; ?></p><?php
 	} elseif($row->display == 2){
@@ -42,7 +41,7 @@ function quickiButton($row, $newWindow){
 	<div style="display: block; clear: both; text-align:left; padding-top:10px;">
 		<?php if($my->usertype == 'Super Administrator'){ ?>
 		<a href="index2.php?option=com_quickicons">
-			<img border="0" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE;?>/images/file_ico/shortcut.png"/><?php echo _CHANGE_QUICK_BUTTONS?>
+			<img border="0" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE;?>/images/file_ico/shortcut.png"/><?php echo _CHANGE_QUICK_BUTTONS?>
 		</a>
 		<?php } ?>
 	</div>

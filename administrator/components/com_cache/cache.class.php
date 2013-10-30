@@ -54,13 +54,12 @@ class CacheData{
 	 */
 	function _parse(){
 
-		require_once(JPATH_BASE . '/includes/libraries/filesystem/folder.php');
-		require_once(JPATH_BASE . '/includes/libraries/filesystem/file.php');
+		require_once(_JLPATH_ROOT . '/includes/libraries/filesystem/folder.php');
+		require_once(_JLPATH_ROOT . '/includes/libraries/filesystem/file.php');
 
 		$folders = JFolder::folders($this->_path);
 
 		foreach($folders as $folder){
-			$files = array();
 			$files = JFolder::files($this->_path . DS . $folder);
 			$this->_items[$folder] = new CacheItem($folder);
 

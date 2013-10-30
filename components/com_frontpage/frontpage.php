@@ -11,11 +11,17 @@
 defined('_JLINDEX') or die();
 
 require_once ($mainframe->getPath('class', 'com_frontpage'));
+
 $frontpageConf = (object)null;
 $configObject = new frontpageConfig();
-$frontpageConf->directory = $configObject->get('directory', 0);
-$frontpageConf->task = $configObject->get('page', 'front');
-$isFrontpage = 1;
+
+$database = JCore::getDB();
+
+$sql = "SELECT `value` FROM #__config WHERE `name` = ? AND `group` = ? AND `subgroup` = ?";
+$frontpageConf->directory = $configObject->_parseValue($database->selectCell($sql, 'directory', 'com_frontpage', 'default'));
+
+$sql = "SELECT `value` FROM #__config WHERE `name` = ? AND `group` = ? AND `subgroup` = ?";
+$frontpageConf->task = $configObject->_parseValue($database->selectCell($sql, 'page', 'com_frontpage', 'default'));
 
 // code handling has been shifted into content.php
-require_once (JPATH_BASE . '/components/com_boss/boss.php');
+require_once (_JLPATH_ROOT . '/components/com_boss/boss.php');

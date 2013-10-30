@@ -42,8 +42,7 @@ class JCachePage extends JCache{
 		$this->_uri = $URI;
 		//$this->_data = $data;
 		$this->_option = $option;
-		global $mosConfig_secret;
-		$file = md5('' . '-' . $this->_makeId() . '-' . $mosConfig_secret . '-' . $this->_options['language']) . '.php';
+		$file = md5('' . '-' . $this->_makeId() . '-' . JCore::getCfg('secret') . '-' . $this->_options['language']) . '.php';
 		$this->_cache_filename = $GLOBALS['mosConfig_cachepath'] . '/page/' . $file;
 	}
 

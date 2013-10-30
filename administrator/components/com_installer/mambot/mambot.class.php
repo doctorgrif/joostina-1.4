@@ -48,14 +48,14 @@ class mosInstallerMambot extends mosInstaller{
 		}
 
 		$xmlDoc = $this->xmlDoc();
-		$mosinstall = &$xmlDoc->documentElement;
+		$mosinstall = $xmlDoc->documentElement;
 
 		// Set some vars
-		$e = &$mosinstall->getElementsByPath('name', 1);
+		$e = $mosinstall->getElementsByPath('name', 1);
 		$this->elementName($e->getText());
 
 		$folder = $mosinstall->getAttribute('group');
-		$this->elementDir(mosPathName(JPATH_BASE . DS . 'mambots' . DS . $folder));
+		$this->elementDir(mosPathName(_JLPATH_ROOT . DS . 'mambots' . DS . $folder));
 
 		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())){
 			$this->setError(1, _CANNOT_CREATE_DIR . ' "' . $this->elementDir() . '"');
@@ -68,7 +68,7 @@ class mosInstallerMambot extends mosInstaller{
 		}
 
 		// Are there any SQL queries??
-		$query_element = &$mosinstall->getElementsByPath('install/queries', 1);
+		$query_element = $mosinstall->getElementsByPath('install/queries', 1);
 		if(!is_null($query_element)){
 			$queries = $query_element->childNodes;
 			foreach($queries as $query){
@@ -127,7 +127,7 @@ class mosInstallerMambot extends mosInstaller{
 			$this->setError(1, sprintf(_COM_INSTALLER_MAMBOT_EXIST, $this->elementName()));
 			return false;
 		}
-		if($e = &$mosinstall->getElementsByPath('description', 1)){
+		if($e = $mosinstall->getElementsByPath('description', 1)){
 			$this->setError(0, $this->elementName() . '<p>' . $e->getText() . '</p>');
 		}
 
@@ -164,7 +164,7 @@ class mosInstallerMambot extends mosInstaller{
 			exit();
 		}
 
-		$basepath = JPATH_BASE . DS . 'mambots' . DS . $row->folder . DS;
+		$basepath = _JLPATH_ROOT . DS . 'mambots' . DS . $row->folder . DS;
 		$xmlfile = $basepath . $row->element . '.xml';
 
 		// see if there is an xml install file, must be same name as element
@@ -173,10 +173,10 @@ class mosInstallerMambot extends mosInstaller{
 			$this->i_xmldoc->resolveErrors(true);
 
 			if($this->i_xmldoc->loadXML($xmlfile, false, true)){
-				$mosinstall = &$this->i_xmldoc->documentElement;
+				$mosinstall = $this->i_xmldoc->documentElement;
 
 				// Are there any SQL queries??
-				$query_element = &$mosinstall->getElementsbyPath('uninstall/queries', 1);
+				$query_element = $mosinstall->getElementsbyPath('uninstall/queries', 1);
 				if(!is_null($query_element)){
 					$queries = $query_element->childNodes;
 					foreach($queries as $query){
@@ -189,7 +189,7 @@ class mosInstallerMambot extends mosInstaller{
 				}
 
 				// get the files element
-				$files_element = &$mosinstall->getElementsByPath('files', 1);
+				$files_element = $mosinstall->getElementsByPath('files', 1);
 				if(!is_null($files_element)){
 					$files = $files_element->childNodes;
 					foreach($files as $file){
@@ -244,9 +244,9 @@ class mosInstallerMambot extends mosInstaller{
 		josSpoofCheck();
 
 		$basepath = $this->elementDir();
-		$mosinstall = &$this->i_xmldoc->documentElement;
+		$mosinstall = $this->i_xmldoc->documentElement;
 		// get the files element
-		$files_element = &$mosinstall->getElementsByPath('files', 1);
+		$files_element = $mosinstall->getElementsByPath('files', 1);
 
 		// Search the install dir for an xml file
 		$files = mosReadDirectory($this->installDir(), '.xml$', true, true);

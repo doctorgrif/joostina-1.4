@@ -81,11 +81,8 @@
             var s = selection(),
                 r = this.getRangeAt();
             r.collapse(st ? true : false);
-            if (!$.browser.msie) {
                 s.removeAllRanges();
                 s.addRange(r);
-
-            }
             return this;
         }
 
@@ -97,13 +94,6 @@
          * @return  range|w3cRange
          **/
         this.getRangeAt = function (updateW3cRange) {
-            if (this.rte.browser.msie) {
-                if (!this.w3cRange) {
-                    this.w3cRange = new this.rte.w3cRange(this.rte);
-                }
-                updateW3cRange && this.w3cRange.update();
-                return this.w3cRange;
-            }
 
             var s = selection();
             var r = s.rangeCount > 0 ? s.getRangeAt(0) : this.rte.doc.createRange();
@@ -125,30 +115,18 @@
         }
 
         this.saveIERange = function () {
-            if ($.browser.msie) {
-                bm = this.getRangeAt().getBookmark();
-            }
         }
 
         this.restoreIERange = function () {
-            $.browser.msie && bm && this.getRangeAt().moveToBookmark(bm);
+//            $.browser.msie && bm && this.getRangeAt().moveToBookmark(bm);
         }
 
         this.cloneContents = function () {
             var n = this.rte.dom.create('div'), r, c, i;
-            if ($.browser.msie) {
-                try {
-                    r = this.rte.window.document.selection.createRange();
-                } catch (e) {
-                    r = this.rte.doc.body.createTextRange();
-                }
-                $(n).html(r.htmlText);
-            } else {
                 c = this.getRangeAt().cloneContents();
                 for (i = 0; i < c.childNodes.length; i++) {
                     n.appendChild(c.childNodes[i].cloneNode(true));
                 }
-            }
             return n;
         }
 
@@ -162,25 +140,12 @@
         this.select = function (s, e) {
             e = e || s;
 
-            if (this.rte.browser.msie) {
-                var r = this.rte.doc.body.createTextRange(),
-                    r1 = r.duplicate(),
-                    r2 = r.duplicate();
-
-                r1.moveToElementText(s);
-                r2.moveToElementText(e);
-                r.setEndPoint('StartToStart', r1);
-                r.setEndPoint('EndToEnd', r2);
-                r.select();
-            } else {
-
-                var sel = selection(),
-                    r = this.getRangeAt();
-                r.setStartBefore(s);
-                r.setEndAfter(e);
-                sel.removeAllRanges();
-                sel.addRange(r);
-            }
+            var sel = selection(),
+                r = this.getRangeAt();
+            r.setStartBefore(s);
+            r.setEndAfter(e);
+            sel.removeAllRanges();
+            sel.addRange(r);
             return this.cleanCache();
         }
 
@@ -193,11 +158,6 @@
         this.selectContents = function (n) {
             var r = this.getRangeAt();
             if (n && n.nodeType == 1) {
-                if (this.rte.browser.msie) {
-                    r.range();
-                    r.r.moveToElementText(n.parentNode);
-                    r.r.select();
-                } else {
                     try {
                         r.selectNodeContents(n);
                     } catch (e) {
@@ -206,15 +166,12 @@
                     var s = selection();
                     s.removeAllRanges();
                     s.addRange(r);
-                }
             }
             return this;
         }
 
         this.deleteContents = function () {
-            if (!$.browser.msie) {
                 this.getRangeAt().deleteContents();
-            }
             return this;
         }
 
@@ -229,11 +186,6 @@
                 this.collapse();
             }
 
-            if (this.rte.browser.msie) {
-                var html = n.nodeType == 3 ? n.nodeValue : $(this.rte.dom.create('span')).append($(n)).html();
-                var r = this.getRangeAt();
-                r.insertNode(html);
-            } else {
                 var r = this.getRangeAt();
                 r.insertNode(n);
                 r.setStartAfter(n);
@@ -241,7 +193,6 @@
                 var s = selection();
                 s.removeAllRanges();
                 s.addRange(r);
-            }
             return this.cleanCache();
         }
 
@@ -256,13 +207,9 @@
                 this.collapse();
             }
 
-            if (this.rte.browser.msie) {
-                this.getRangeAt().range().pasteHTML(html);
-            } else {
                 var n = $(this.rte.dom.create('span')).html(html || '').get(0);
                 this.insertNode(n);
                 $(n).replaceWith($(n).html());
-            }
             return this.cleanCache();
         }
 
@@ -284,47 +231,20 @@
                 e = this.rte.dom.createBookmark();
 
 
-            if ($.browser.msie) {
-                try {
-                    r = this.rte.window.document.selection.createRange();
-                } catch (e) {
-                    r = this.rte.doc.body.createTextRange();
-                }
+            var sel = selection();
+            var r = sel.rangeCount > 0 ? sel.getRangeAt(0) : this.rte.doc.createRange();
 
-                if (r.item) {
-                    var n = r.item(0);
-                    r = this.rte.doc.body.createTextRange();
-                    r.moveToElementText(n);
-                }
+            // r  = this.getRangeAt();
+            r1 = r.cloneRange();
+            r2 = r.cloneRange();
 
-                r1 = r.duplicate();
-                r2 = r.duplicate();
-                _s = this.rte.dom.create('span');
-                _e = this.rte.dom.create('span');
-
-                _s.appendChild(s);
-                _e.appendChild(e);
-
-                r1.collapse(true);
-                r1.pasteHTML(_s.innerHTML);
-                r2.collapse(false);
-                r2.pasteHTML(_e.innerHTML);
-            } else {
-                var sel = selection();
-                var r = sel.rangeCount > 0 ? sel.getRangeAt(0) : this.rte.doc.createRange();
-
-                // r  = this.getRangeAt();
-                r1 = r.cloneRange();
-                r2 = r.cloneRange();
-
-                // this.insertNode(this.rte.dom.create('hr'))
-                // return
-                r2.collapse(false);
-                r2.insertNode(e);
-                r1.collapse(true);
-                r1.insertNode(s);
-                this.select(s, e);
-            }
+            // this.insertNode(this.rte.dom.create('hr'))
+            // return
+            r2.collapse(false);
+            r2.insertNode(e);
+            r1.collapse(true);
+            r1.insertNode(s);
+            this.select(s, e);
 
             return [s.id, e.id];
         }
@@ -341,12 +261,10 @@
                     if (this.rte.dom.next(s) == e) {
                         this.collapse(true);
                     }
-                    if (!$.browser.msie) {
                         sel = selection();
                         r = sel.rangeCount > 0 ? sel.getRangeAt(0) : this.rte.doc.createRange();
                         sel.removeAllRanges();
                         sel.addRange(r);
-                    }
 
                     s.parentNode.removeChild(s);
                     e.parentNode.removeChild(e);

@@ -43,5 +43,3 @@ class File_Archive_Reader_Filter extends File_Archive_Reader_Relay{
 		return true;
 	}
 }
-
-?>

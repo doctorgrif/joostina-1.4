@@ -41,19 +41,19 @@ if($s_autoplay){
 
 
 // if folder includes livesite info, remove
-if(strpos($folder, JPATH_SITE) === 0){
-	$folder = str_replace(JPATH_SITE, '', $folder);
+if(strpos($folder, _JLPATH_SITE) === 0){
+	$folder = str_replace(_JLPATH_SITE, '', $folder);
 }
 // if folder includes absolute path, remove
-if(strpos($folder, JPATH_BASE) === 0){
-	$folder = str_replace(JPATH_BASE, '', $folder);
+if(strpos($folder, _JLPATH_ROOT) === 0){
+	$folder = str_replace(_JLPATH_ROOT, '', $folder);
 }
 // if folder doesnt contain slash to start, add
 if(strpos($folder, '/') !== 0){
 	$folder = '/' . $folder;
 }
 // construct absolute path to directory
-$abspath_folder = JPATH_BASE . $folder;
+$abspath_folder = _JLPATH_ROOT . $folder;
 // check if directory exists
 if(is_dir($abspath_folder)){
 	if($handle = opendir($abspath_folder)){
@@ -103,7 +103,7 @@ if(is_dir($abspath_folder)){
 				$height = (int)($width / $coeff);
 			}
 
-			$image = JPATH_SITE . $folder . '/' . $v;
+			$image = _JLPATH_SITE . $folder . '/' . $v;
 
 			if(!$rotate_type){
 				break;
@@ -142,7 +142,7 @@ if(is_dir($abspath_folder)){
 				} else{
 					$pics_str = implode(',', $pics);
 					echo mosCommonHTML::loadJqueryPlugins('jquery.simplegallery', true);
-					include (JPATH_BASE . '/modules/mod_random_image/slide_show.php');
+					include (_JLPATH_ROOT . '/modules/mod_random_image/slide_show.php');
 					?>
 				<div id="<?php echo $slideshow_name;?>"></div>
 				<?php

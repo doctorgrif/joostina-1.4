@@ -42,7 +42,7 @@ class HTML_checkin{
 			echo "</td>\n<td>\n";
 			echo $itemlist[$i]["cotime"];
 			echo "</td>\n<td>\n";
-			echo "<a href=\"" . JPATH_SITE . "/" . JADMIN_BASE . "/index2.php?option=$option&task=checkin&component="
+			echo "<a href=\"" . _JLPATH_SITE . "/" . JADMIN_BASE . "/index2.php?option=$option&task=checkin&component="
 				. $itemlist[$i]["component"] . "&pkey="
 				. $itemlist[$i]["PKEY"] . "&checkid="
 				. $itemlist[$i]["id"] . "&editor="

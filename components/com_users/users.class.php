@@ -235,11 +235,11 @@ class mosUser extends mosDBTable{
 	/**
 	 * функция получения аватара пользователя, возвращает путь к изображения аватара от корня сайта
 	 */
-	function get_avatar($user){
+	public static function get_avatar($user){
 
 		$mainframe = mosMainFrame::getInstance();
 
-		$avatar_file = JPATH_BASE . '/images/avatars/' . $user->avatar;
+		$avatar_file = _JLPATH_ROOT . '/images/avatars/' . $user->avatar;
 
 		if(is_file($avatar_file)){
 			$img = 'images/avatars/' . $user->avatar;
@@ -302,7 +302,7 @@ class mosUser extends mosDBTable{
 		$this->_db->query();
 
 		if($del){
-			if(file_exists($file_name = JPATH_BASE . DS . 'images' . DS . 'avatars' . DS . $img)){
+			if(file_exists($file_name = _JLPATH_ROOT . DS . 'images' . DS . 'avatars' . DS . $img)){
 				unlink($file_name);
 			}
 		}
@@ -452,7 +452,7 @@ class userHelper{
 
 	public static function _load_core_js(){
 		$mainframe = mosMainFrame::getInstance();
-		$mainframe->addJS(JPATH_SITE . '/components/com_users/js/com_users.js', 'custom');
+		$mainframe->addJS(_JLPATH_SITE . '/components/com_users/js/com_users.js', 'custom');
 	}
 
 	public static function _load_jquery_form(){
@@ -468,13 +468,13 @@ class userHelper{
 		$(document).ready(function () {
 
 			//---Кнопка "Сменить"
-			$("a#reupload_<?php echo $form_params->img_field;?>").live('click', function () {
+			$("a#reupload_<?php echo $form_params->img_field;?>").on('click', function () {
 				$(".upload_area_<?php echo $form_params->img_field;?>").fadeIn(1000);
 				$("#<?php echo $form_params->img_field;?>").addClass("required");
 				return false;
 			});
 			//---Кнопка "Удалить"
-			$('a#del_<?php echo $form_params->img_field;?>').live('click', function () {
+			$('a#del_<?php echo $form_params->img_field;?>').on('click', function () {
 				//Индикатор выполнения
 				$('#indicate_<?php echo $form_params->img_field;?>').fadeIn(1000, function () {
 					$("#indicate_<?php echo $form_params->img_field;?>").addClass("inprogress");
@@ -491,7 +491,7 @@ class userHelper{
 						//Плавная смена изображения
 						//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
 						$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function () {
-							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/' + data + '" />');
+							$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo _JLPATH_SITE;?>/<?php echo $form_params->img_path;?>/' + data + '" />');
 							//Скрываем индикатор
 							$("#indicate_<?php echo $form_params->img_field;?>").removeClass("inprogress");
 							$("#indicate_<?php echo $form_params->img_field;?>").html("");
@@ -510,7 +510,7 @@ class userHelper{
 	<?php if($state != 'upload'){ ?>
 		<div id="current_<?php echo $form_params->img_field;?>">
 			<div class="current_img" id="current_<?php echo $form_params->img_field;?>_img">
-				<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/<?php echo $obj->$field;?>"/>
+				<img class="avatar" src="<?php echo _JLPATH_SITE;?>/<?php echo $form_params->img_path;?>/<?php echo $obj->$field;?>"/>
 				<input type="hidden" name="curr_<?php echo $form_params->img_field;?>" id="curr_<?php echo $form_params->img_field;?>" value="<?php echo $obj->$field;?>"/>
 			</div>
 			<div class="indicator" id="indicate_<?php echo $form_params->img_field;?>">&nbsp;</div>
@@ -529,7 +529,7 @@ class userHelper{
 		<?php } else{ ?>
 		<div id="current_<?php echo $form_params->img_field;?>">
 			<div class="current_img" id="current_<?php echo $form_params->img_field;?>_img">
-				<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->default_img;?>"/>
+				<img class="avatar" src="<?php echo _JLPATH_SITE;?>/<?php echo $form_params->default_img;?>"/>
 			</div>
 			<div class="indicator" id="indicate_<?php echo $form_params->img_field;?>">&nbsp;</div>
 			<div class="user_buttons buttons_<?php echo $form_params->img_field;?>" style="display:none;">
@@ -561,7 +561,7 @@ class userHelper{
 		?>
 	<script type="text/javascript">
 		$(document).ready(function () {
-			$('#<?php echo $form_params->img_field;?>_upload_button').live('click', function () {
+			$('#<?php echo $form_params->img_field;?>_upload_button').on('click', function () {
 				$('#<?php echo $form_params->img_field;?>_uploadForm').ajaxSubmit({
 					beforeSubmit:function (a, f, o) {
 						o.dataType = "html";
@@ -588,7 +588,7 @@ class userHelper{
 							$(".buttons_<?php echo $form_params->img_field;?>").fadeOut(1000);
 							//$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000);
 							$('#current_<?php echo $form_params->img_field;?>_img').fadeOut(1000, function () {
-								$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo JPATH_SITE;?>/<?php echo $form_params->img_path;?>/' + data + '?r=' + Math.random() + '" />');
+								$('#current_<?php echo $form_params->img_field;?>_img').html('<img class="avatar" src="<?php echo _JLPATH_SITE;?>/<?php echo $form_params->img_path;?>/' + data + '?r=' + Math.random() + '" />');
 							});
 							$('#current_<?php echo $form_params->img_field;?>_img').fadeIn(1000, function () {
 								$('#current_<?php echo $form_params->img_field;?>_img').show('slow', function () {

@@ -44,7 +44,7 @@ class Jstring{
 			}
 
 			if(!function_exists('cp1259_to_utf8')){ // конвертируем собственнвми средствами
-				include_once JPATH_BASE . '/includes/libraries/utf8/to_utf8.php';
+				include_once _JLPATH_ROOT . '/includes/libraries/utf8/to_utf8.php';
 			}
 			return cp1259_to_utf8($text);
 		}
@@ -110,7 +110,7 @@ class Jstring{
 			return strrpos($str, $search, $offset);
 		}
 
-		include_once JPATH_BASE . '/includes/libraries/utf8/strrpos.php';
+		include_once _JLPATH_ROOT . '/includes/libraries/utf8/strrpos.php';
 		return _strrpos($str, $search, $offset);
 	}
 
@@ -126,7 +126,7 @@ class Jstring{
 			return strpos($str, $search, $offset);
 		}
 
-		include_once JPATH_BASE . '/includes/libraries/utf8/strpos.php';
+		include_once _JLPATH_ROOT . '/includes/libraries/utf8/strpos.php';
 		return _strpos($str, $search, $offset);
 	}
 
@@ -134,7 +134,7 @@ class Jstring{
 
 	}
 
-	function strtolower($str){
+	public static function strtolower($str){
 		if(SERVER_UTF8){
 			return mb_strtolower($str);
 		}
@@ -142,7 +142,7 @@ class Jstring{
 			return strtolower($str);
 		}
 
-		include_once JPATH_BASE . '/includes/libraries/utf8/strtolower.php';
+		include_once _JLPATH_ROOT . '/includes/libraries/utf8/strtolower.php';
 		return _strtolower($str);
 	}
 
@@ -159,7 +159,7 @@ class Jstring{
 			return substr($str, $offset, $length);
 		}
 
-		include_once JPATH_BASE . '/includes/libraries/utf8/substr.php';
+		include_once _JLPATH_ROOT . '/includes/libraries/utf8/substr.php';
 		return _substr($str, $offset, $length);
 	}
 
@@ -320,7 +320,7 @@ class Jstring{
 
 	}
 
-	function trim($data){
+	public static function trim($data){
 		return $data;
 	}
 

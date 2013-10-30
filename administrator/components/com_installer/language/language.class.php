@@ -21,7 +21,6 @@ class mosInstallerLanguage extends mosInstaller{
 	 * @param boolean True if installing from directory
 	 */
 	function install($p_fromdir = null){
-		$database = database::getInstance();
 
 		josSpoofCheck();
 		if(!$this->preInstallCheck($p_fromdir, 'language')){
@@ -34,7 +33,7 @@ class mosInstallerLanguage extends mosInstaller{
 		// Set some vars
 		$e = &$root->getElementsByPath('name', 1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE . DS . 'language' . DS));
+		$this->elementDir(mosPathName(_JLPATH_ROOT . DS . 'language' . DS));
 
 		// Find files to copy
 		if($this->parseFiles('files', 'language') === false){
@@ -57,7 +56,7 @@ class mosInstallerLanguage extends mosInstaller{
 
 		josSpoofCheck(null, null, 'request');
 		$id = str_replace(array('\\', '/'), '', $id);
-		$basepath = JPATH_BASE . DS . 'language' . DS;
+		$basepath = _JLPATH_ROOT . DS . 'language' . DS;
 		$xmlfile = $basepath . $id . '.xml';
 
 		// see if there is an xml install file, must be same name as element

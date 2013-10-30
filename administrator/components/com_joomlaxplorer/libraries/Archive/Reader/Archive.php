@@ -34,7 +34,7 @@ class File_Archive_Reader_Archive extends File_Archive_Reader{
 				return $this->source->close();
 			}
 		}
+		return null;
 	}
 }
 
-?>

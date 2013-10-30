@@ -157,7 +157,7 @@ class XmapSitemap{
 			foreach(get_object_vars($this) as $k => $v){
 				if(substr($k, 0, 1) != '_'){ // internal attributes of an object are ignored
 					if(isset($array[$k])){
-						$this->$k = get_magic_quotes_gpc() ? mosStripslashes($array[$k]) : $array[$k];
+						$this->$k = $array[$k];
 					} elseif(!in_array($k, array('id', 'count_xml', 'views_xml', 'views_html', 'lastvisit_xml', 'count_html', 'views_html', 'lastvisit_html'))){
 						$this->$k = '';
 					}

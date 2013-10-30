@@ -211,8 +211,8 @@ class BossDirectoryMultiHrefPlugin{
 	}
 
 	//расположение иконки плагина начиная со слеша от корня сайта
-	function getFieldIcon($directory){
-		return "/images/boss/$directory/plugins/fields/" . __CLASS__ . "/images/folder_image.png";
+	function getFieldIcon(){
+		return "/components/com_boss/plugins/fields/" . __CLASS__ . "/images/folder_image.png";
 	}
 
 	//действия при установке плагина
@@ -251,7 +251,7 @@ class BossDirectoryMultiHrefPlugin{
 		$fieldname = mosGetParam($_REQUEST, 'fieldname', '');
 		$database = database::getInstance();
 
-		require_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_boss' . DS . 'admin.boss.html.php');
+		require_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_boss' . DS . 'admin.boss.html.php');
 
 		$rows = $database->setQuery("SELECT * FROM #__boss_" . $directory . "_categories ORDER BY parent, ordering")->loadObjectList();
 
@@ -312,7 +312,7 @@ class BossDirectoryMultiHrefPlugin{
 			. " WHERE c.id = " . $sel_cont . " LIMIT 1";
 		$row = null;
 		$database->setQuery($q)->loadObject($row);
-		echo '<a href="' . JPATH_SITE . '/index.php?option=com_boss&task=show_content&contentid=' . $sel_cont . '&catid=' . $sel_cat . '&directory=' . $sel_dir . '">' . $row->name . '</a>';
+		echo '<a href="' . _JLPATH_SITE . '/index.php?option=com_boss&task=show_content&contentid=' . $sel_cont . '&catid=' . $sel_cat . '&directory=' . $sel_dir . '">' . $row->name . '</a>';
 	}
 }
 

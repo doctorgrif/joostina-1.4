@@ -11,11 +11,12 @@
 defined('_JLINDEX') or die();
 
 // корень Медиа - менеджера из глобальной конфигурации
-global $mosConfig_media_dir, $mosConfig_cachepath;
-$jwmmxtd_browsepath = $mosConfig_media_dir;
+$jwmmxtd_browsepath = JCore::getCfg('media_dir');
 
-define('JWMMXTD_STARTABSPATH', JPATH_BASE . DS . $jwmmxtd_browsepath);
-define('JWMMXTD_STARTURLPATH', JPATH_SITE . '/' . $jwmmxtd_browsepath);
+define('JWMMXTD_STARTABSPATH', _JLPATH_ROOT . DS . $jwmmxtd_browsepath);
+define('JWMMXTD_STARTURLPATH', _JLPATH_SITE . '/' . $jwmmxtd_browsepath);
+
+$mainframe = mosMainFrame::getInstance();
 
 require_once ($mainframe->getPath('admin_html'));
 
@@ -43,14 +44,15 @@ if(is_int(strpos($curdirectory, ".."))){
 // очистка каталога кэша
 $tmpimage = mosGetParam($_REQUEST, 'tmpimage', '');
 if($tmpimage != ""){
-	@unlink($mosConfig_cachepath . DS . $tmpimage);
+	@unlink(JCore::getCfg('cachepath') . DS . $tmpimage);
 }
 
-$mainframe->addCSS(JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/css/jw_mmxtd.css');
+$mainframe->addCSS(_JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/css/jw_mmxtd.css');
 
+$task = JSef::getTask();
 
 if($task == 'edit'){
-	$mainframe->addJS(JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/js/jw_mmxtd_edit.php');
+	$mainframe->addJS(_JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/js/jw_mmxtd_edit.php');
 } else{
 	$jw_mmxtd_head = '
 	<script type="text/javascript">
@@ -220,11 +222,11 @@ function saveImage($cur){
 	$orname = str_replace(substr($ornamewithext, -4), "", $ornamewithext);
 
 	if($orname){
-		$pic = new upload(JPATH_BASE . DS . 'media' . DS . $primage);
+		$pic = new upload(_JLPATH_ROOT . DS . 'media' . DS . $primage);
 		if($pic->uploaded){
 			$pic->file_src_name_body = $orname . "_edit" . rand(100, 999);
 			$pic->Process($cur);
-			@unlink(JPATH_BASE . DS . 'media' . DS . $primage);
+			@unlink(_JLPATH_ROOT . DS . 'media' . DS . $primage);
 			$ok = true;
 		} else $ok = false;
 	} else $ok = false;
@@ -238,11 +240,11 @@ function saveImage($cur){
 function returnFromEdit(){
 	require_once ('class.upload.php');
 	$primage = mosGetParam($_REQUEST, 'primage', '');
-	@unlink(JPATH_BASE . DS . 'media' . DS . $primage);
+	@unlink(_JLPATH_ROOT . DS . 'media' . DS . $primage);
 }
 
 function emptyTmp(){
-	$dir = JPATH_BASE . DS . 'media';
+	$dir = _JLPATH_ROOT . DS . 'media';
 	if(is_dir($dir)){
 		$d = dir($dir);
 		while(false !== ($entry = $d->read())){
@@ -423,15 +425,15 @@ function listofImages($listdir){
 				echo '<fieldset><legend>' . _JWMM_FILE . '</legend>';
 				for($i = 0; $i < count($docs); $i++){
 					$doc_name = key($docs);
-					//$iconfile = JPATH_BASE.'/images/icons/'.substr($doc_name,-3).'.png';
+					//$iconfile = _JLPATH_ROOT.'/images/icons/'.substr($doc_name,-3).'.png';
 
 					$mainframe = mosMainFrame::getInstance(true);
-					$iconfile = JPATH_BASE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/' . substr($doc_name, -3) . '.png';
+					$iconfile = _JLPATH_ROOT . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/' . substr($doc_name, -3) . '.png';
 
 					if(file_exists($iconfile)){
-						$icon = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/' . substr($doc_name, -3) . '.png';
+						$icon = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/' . substr($doc_name, -3) . '.png';
 					} else{
-						$icon = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/file.png';
+						$icon = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/file.png';
 					}
 					$icon = strtolower($icon);
 					HTML_mmxtd::show_doc($doc_name, $docs[$doc_name]['size'], str_replace(JWMMXTD_STARTABSPATH, '', $listdir), $icon);
@@ -489,10 +491,9 @@ function listofdirectories($base){
 // отображение медиа-менеджера
 function viewMediaManager($curdirectory = "", $mosmsg = "", $selectedfile = ""){
 	global $subtask;
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 
-	$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico';
+	$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico';
 
 	$imgFiles = listofdirectories(JWMMXTD_STARTABSPATH);
 	$folders = array();
@@ -611,7 +612,7 @@ function viewMediaManager($curdirectory = "", $mosmsg = "", $selectedfile = ""){
 	<div id="jwmmxtd_tmp">
 		<?php if($my->gid == 25 || $my->gid == 24){
 		echo _NUMBER_OF_IMAGES_IN_TMP_DIR . ': ';
-		$dir = JPATH_BASE . '/media/';
+		$dir = _JLPATH_ROOT . '/media/';
 		$total_file = 0;
 		if(is_dir($dir)){
 			$d = dir($dir);
@@ -637,7 +638,7 @@ function OriginalImage($aFormValues){
 	$primage = $aFormValues['primage'];
 	$orimage = $aFormValues['originalimage'];
 	$curdirectory = $aFormValues['curdirectory'];
-	@unlink(JPATH_BASE . DS . 'media' . DS . $primage);
+	@unlink(_JLPATH_ROOT . DS . 'media' . DS . $primage);
 	$objResponse = new xajaxResponse();
 	$objResponse->addAssign("mmxtd", "innerHTML", "<img name=\"mainimage\" id=\"mainimage\" src='" . JWMMXTD_STARTURLPATH . $curdirectory . "/" . $orimage . "'>");
 	$objResponse->addAssign("imagepath", "value", JWMMXTD_STARTURLPATH . $curdirectory . "/" . $orimage);
@@ -811,10 +812,10 @@ function UpdateImage($aFormValues){
 				$pic->image_text_y = $textabsolutey;
 			}
 		}
-		$pic->Process(JPATH_BASE . '/media/');
+		$pic->Process(_JLPATH_ROOT . '/media/');
 		if($pic->processed){
-			$img2out = '<img name="mainimage" id="mainimage" src="' . JPATH_SITE . '/media/' . $pic->file_dst_name . '" />';
-			@unlink(JPATH_BASE . '/media/' . $primage);
+			$img2out = '<img name="mainimage" id="mainimage" src="' . _JLPATH_SITE . '/media/' . $pic->file_dst_name . '" />';
+			@unlink(_JLPATH_ROOT . '/media/' . $primage);
 			$primage = $pic->file_dst_name;
 		}
 	} else $img2out = _JWMM_ERROR_EDIT_FILE . " " . $imagepath;
@@ -826,7 +827,7 @@ function UpdateImage($aFormValues){
 	$objResponse->addAssign("loading_placeholder", "innerHTML", '');
 	$objResponse->addAssign("mmxtd", "innerHTML", $img2out);
 	$objResponse->addAssign("primage", "innerHTML", "<input type=\"hidden\" name=\"primage\" id=\"primage\" value=\"" . $primage . "\">");
-	$objResponse->addAssign("imagepath", "value", JPATH_BASE . '/media/' . $primage);
+	$objResponse->addAssign("imagepath", "value", _JLPATH_ROOT . '/media/' . $primage);
 	$objResponse->addAssign("width", "value", "");
 	$objResponse->addAssign("height", "value", "");
 	$objResponse->addAssign("rotation", "value", "0");
@@ -866,8 +867,8 @@ function UpdateImage($aFormValues){
 }
 
 function editImage($img, $cur){
-	global $option;
-	require_once (JPATH_BASE . '/includes/libraries/xajax/xajax.inc.php');
+	$option = JSef::getOption();
+	require_once (_JLPATH_ROOT . '/includes/libraries/xajax/xajax.inc.php');
 	$path = JWMMXTD_STARTURLPATH . $cur . '/' . $img;
 	$xajax = new xajax();
 	//$xajax->debugOn();
@@ -875,7 +876,7 @@ function editImage($img, $cur){
 	$xajax->registerFunction('OriginalImage');
 	$xajax->registerFunction('MoveImage');
 	$xajax->processRequests();
-	$xajax->printJavascript(JPATH_SITE . '/includes/libraries/xajax');
+	$xajax->printJavascript(_JLPATH_SITE . '/includes/libraries/xajax');
 	?>
 <script type="text/javascript">
 	function UpdateImg(value) {
@@ -980,14 +981,14 @@ function editImage($img, $cur){
 			<td><?php echo _JWMM_TOP_LEFT?></td>
 			<td><input id="beveltl" name="beveltl" type="text"/>
 				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.beveltl)">
-					<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>">
+					<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>">
 				</a>
 			</td>
 		</tr>
 		<tr>
 			<td><?php echo _JWMM_BOTTOM_RIGHT?></td>
 			<td><input id="bevelrb" name="bevelrb" type="text"/>
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bevelrb)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bevelrb)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
 		</tr>
 	</table>
 </fieldset>
@@ -1005,7 +1006,7 @@ function editImage($img, $cur){
 			<tr>
 				<td><?php echo _COLOR?></td>
 				<td><input id="borderc" name="borderc" type="text"/>
-					<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+					<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc)"><img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
 			</tr>
 		</table>
 	</fieldset>
@@ -1026,7 +1027,7 @@ function editImage($img, $cur){
 					<?php echo _JWMM_BOTTOM?><br/>
 					<?php echo _COLOR?>
 					<input id="borderc2" name="borderc2" type="text"/>
-					<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc2)"><img width="16" height="16" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
+					<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.borderc2)"><img width="16" height="16" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"></a></td>
 			</tr>
 		</table>
 	</fieldset>
@@ -1035,7 +1036,7 @@ function editImage($img, $cur){
 	<legend>Tint Color</legend>
 	<?php echo _COLOR?>
 	<input id="tint" name="tint" type="text"/>
-	<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.tint)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a>
+	<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.tint)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a>
 </fieldset>
 <fieldset>
 	<legend>Overlay</legend>
@@ -1047,7 +1048,7 @@ function editImage($img, $cur){
 		<tr>
 			<td><?php echo _COLOR?></td>
 			<td><input id="overlayc" name="overlayc" type="text"/>
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.overlayc)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.overlayc)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
 		</tr>
 	</table>
 </fieldset>
@@ -1079,7 +1080,7 @@ function editImage($img, $cur){
 		<tr>
 			<td><?php echo _JWMM_TEXT_COLOR?></td>
 			<td><input type="text" name="textcolor" id="textcolor">
-				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.textcolor)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.textcolor)"> <img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
 		</tr>
 		<tr>
 			<td><?php echo _JWMM_TEXT_FONT?></td>
@@ -1123,7 +1124,7 @@ function editImage($img, $cur){
 			<td><?php echo _JWMM_BG_COLOR?></td>
 			<td><input type="text" name="bgcolor" id="bgcolor">
 				<a style="cursor:pointer;" onClick="showColorPicker(this,document.adminForm.bgcolor)">
-					<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
+					<img width="16" height="16" border="0" alt="<?php echo _JWMM_PRESS_TO_CHOOSE_COLOR?>" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_jwmmxtd/images/color_wheel.png'; ?>"> </a></td>
 		</tr>
 		<tr>
 			<td><?php echo _JWMM_XY_POSITION?></td>

@@ -21,7 +21,7 @@ class mod_ml_login_Helper{
 
 	function prepare_logout_form($params){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 
 		//Отображаемое имя пользователя
 		if($params->get('user_name', 1)){
@@ -48,7 +48,7 @@ class mod_ml_login_Helper{
 
 	function prepare_login_form($params){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 
 		$params->def('ml_login_text', _USER);
 		$params->def('ml_pass_text', _PASSWORDWORD);
@@ -113,7 +113,7 @@ class mod_ml_login_Helper{
 		} else{
 			$return = 'index.php';
 		}
-		$return = str_replace(JPATH_SITE . '/', '', $return);
+		$return = str_replace(_JLPATH_SITE . '/', '', $return);
 		$return = ampReplace($return);
 
 		return htmlentities(JSef::getUrlToSef($return));

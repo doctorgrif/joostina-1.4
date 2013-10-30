@@ -21,9 +21,8 @@ class HTML_templates{
 	 * @param string The option
 	 */
 	public static function showTemplates(&$rows, &$pageNav, $option, $client){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+        $my = JCore::getUser();
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		foreach($rows as $row){
 			if(isset($row->authorUrl) && $row->authorUrl != ''){
 				$row->authorUrl = str_replace('http://', '', $row->authorUrl);
@@ -38,7 +37,7 @@ class HTML_templates{
 				name = name.replace(pattern,'_');
 				name = name.toLowerCase();
 				if (document.adminForm.doPreview.checked) {
-					var src = '<?php echo JPATH_SITE . ($client == 'admin' ? '/' . JADMIN_BASE : ''); ?>/templates/'+dir+'/template_thumbnail.png';
+					var src = '<?php echo _JLPATH_SITE . ($client == 'admin' ? '/' . JADMIN_BASE : ''); ?>/templates/'+dir+'/template_thumbnail.png';
 			var html=name;
 			html = '<br /><img border="1" src="'+src+'" name="imagelib" alt="<?php echo _COM_INSTALLER_NO_PREVIEW?>" width="206" height="145" />';
 			return overlib(html, CAPTION, name)
@@ -151,16 +150,15 @@ class HTML_templates{
 	 * @param string The option
 	 */
 	function editTemplateSource($template, &$content, $option, $client){
-		global $mosConfig_codepress;
-		$template_path = JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $template . '/index.php';
+		$template_path = _JLPATH_ROOT . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $template . '/index.php';
 		/* подключение js файла codepress*/
-		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
+		if(JCore::getCfg('codepress')) mosCommonHTML::loadCodepress();
 		?>
 	<script language="javascript" type="text/javascript">
 
 		function ch_apply() {
 			SRAX.get('tb-apply').className = 'tb-load';
-			<?php if($mosConfig_codepress) echo 'document.adminForm.filecontent.value=codearea.getCode();';?>
+			<?php if(JCore::getCfg('codepress')) echo 'document.adminForm.filecontent.value=codearea.getCode();';?>
 			dax({
 				url:'ajax.index.php?option=com_templates&task=source',
 				id:'publ-1',
@@ -175,7 +173,7 @@ class HTML_templates{
 
 	</script>
 
-	<form action="index2.php" method="post" name="adminForm" id="adminForm" <?php if($mosConfig_codepress) echo 'onsubmit="document.adminForm.filecontent.value=codearea.getCode();document.adminForm.submit();"';?>>
+	<form action="index2.php" method="post" name="adminForm" id="adminForm" <?php if(JCore::getCfg('codepress')) echo 'onsubmit="document.adminForm.filecontent.value=codearea.getCode();document.adminForm.submit();"';?>>
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 			<tr>
 				<td width="290">
@@ -211,7 +209,7 @@ class HTML_templates{
 			</tr>
 		</table>
 		<table class="adminform">
-			<?php if($mosConfig_codepress){ ?>
+			<?php if(JCore::getCfg('codepress')){ ?>
 			<tr>
 				<th><a href="#" onclick="codearea.toggleEditor();return false;"><?php echo _CHANGE_EDITOR?></a>: <?php echo $template_path; ?></th>
 			</tr>
@@ -245,16 +243,15 @@ class HTML_templates{
 	 * @param string The option
 	 */
 	function editCSSSource($template, &$content, $option, $client){
-		global $mosConfig_codepress;
-		$css_path = JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $template . '/css/template_css.css';
+		$css_path = _JLPATH_ROOT . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $template . '/css/template_css.css';
 		/* подключение js файла codepress*/
-		if($mosConfig_codepress) mosCommonHTML::loadCodepress();
+		if(JCore::getCfg('codepress')) mosCommonHTML::loadCodepress();
 		?>
 	<script language="javascript" type="text/javascript">
 
 		function ch_apply() {
 			SRAX.get('tb-apply').className = 'tb-load';
-			<?php if($mosConfig_codepress) echo 'document.adminForm.filecontent.value=codearea.getCode();';?>
+			<?php if(JCore::getCfg('codepress')) echo 'document.adminForm.filecontent.value=codearea.getCode();';?>
 			dax({
 				url:'ajax.index.php?option=com_templates&task=css',
 				id:'publ-1',
@@ -269,7 +266,7 @@ class HTML_templates{
 
 	</script>
 
-	<form action="index2.php" method="post" name="adminForm" id="adminForm" <?php if($mosConfig_codepress) echo 'onsubmit="document.adminForm.filecontent.value=codearea.getCode();document.adminForm.submit();"';?>>
+	<form action="index2.php" method="post" name="adminForm" id="adminForm" <?php if(JCore::getCfg('codepress')) echo 'onsubmit="document.adminForm.filecontent.value=codearea.getCode();document.adminForm.submit();"';?>>
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 			<tr>
 				<td width="280">
@@ -307,7 +304,7 @@ class HTML_templates{
 			</tr>
 		</table>
 		<table class="adminform">
-			<?php if($mosConfig_codepress){ ?>
+			<?php if(JCore::getCfg('codepress')){ ?>
 			<tr>
 				<th><a href="#" onclick="codearea.toggleEditor();return false;"><?php echo _CHANGE_EDITOR?></a>: <?php echo $css_path; ?></th>
 			</tr>
@@ -340,7 +337,7 @@ class HTML_templates{
 	 * @param string Menu list
 	 * @param string The option
 	 */
-	function assignTemplate($template, &$menulist, $option){
+	public static function assignTemplate($template, &$menulist, $option){
 		?>
 	<form action="index2.php" method="post" name="adminForm">
 		<table class="adminform">

@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 // ensure user has access to this function
 if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'all') | $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_poll'))){
 	mosRedirect('index2.php', _NOT_AUTH);
@@ -19,7 +20,7 @@ require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
 
 $cid = josGetArrayInts('cid');
-
+$task = JSef::getTask();
 switch($task){
 	case 'new':
 		editPoll(0, $option);
@@ -59,11 +60,10 @@ switch($task){
 }
 
 function showPolls($option){
-	global $mosConfig_list_limit;
 	$mainframe = mosMainFrame::getInstance();
 	$database = database::getInstance();
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0));
 
 	$query = "SELECT COUNT(*)" . "\n FROM #__polls";
@@ -86,8 +86,7 @@ function showPolls($option){
 }
 
 function editPoll($uid = 0, $option = 'com_poll'){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$row = new mosPoll($database);
@@ -132,8 +131,6 @@ function editPoll($uid = 0, $option = 'com_poll'){
 }
 
 function savePoll($option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
 	$database = database::getInstance();
 	josSpoofCheck();
 	// save the poll parent information
@@ -158,11 +155,7 @@ function savePoll($option){
 	$options = mosGetParam($_POST, 'polloption', array());
 
 	foreach($options as $i => $text){
-		if(!get_magic_quotes_gpc()){
-			// The poll module has always been this way, so we'll just stick with that and add
-			// additional backslashes if needed. They will be stripped upon display
-			$text = addslashes($text);
-		}
+		$text = addslashes($text);
 		if($isNew){
 			$query = "INSERT INTO #__poll_data ( pollid, text ) VALUES ( " . (int)$row->id . ", " . $database->Quote($text) . " )";
 			$database->setQuery($query);
@@ -236,8 +229,7 @@ function removePoll($cid, $option){
  * @param string The current url option
  */
 function publishPolls($cid = null, $publish = 1, $option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 	josSpoofCheck();
 	if(!is_array($cid) || count($cid) < 1){

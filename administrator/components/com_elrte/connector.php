@@ -6,8 +6,8 @@ if(function_exists('date_default_timezone_set')){
 	date_default_timezone_set('Europe/Moscow');
 }
 $mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
-include_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elfinder.php');
+$my = JCore::getUser();
+include_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elfinder.php');
 
 //подготавливаем массив разрешенных для загрузки типов файлов
 $upload_allow = (is_array($upload_allow[$my->gid])) ? $upload_allow[$my->gid] : array();
@@ -22,11 +22,11 @@ $root_alias = (!empty($root_alias)) ? $root_alias : 'Home';
 //подготавливаем корневую папку
 $root = (substr($file_manager_dir, 0, 1) == '/') ? $file_manager_dir : '/' . $file_manager_dir;
 //если нет такой директории, создаем
-if(!is_dir(JPATH_BASE . $root)) mkdir(JPATH_BASE . $root, $dir_mode);
+if(!is_dir(_JLPATH_ROOT . $root)) mkdir(_JLPATH_ROOT . $root, $dir_mode);
 //если разные директории для пользователей
-if(@$file_manager_owndir == 1) $root = $root . '/' . $my->username;
+if(@$file_manager_owndir == 1) $root = $root . '/' . $my->id;
 //если нет такой директории, создаем
-if(!is_dir(JPATH_BASE . $root)) mkdir(JPATH_BASE . $root, $dir_mode);
+if(!is_dir(_JLPATH_ROOT . $root)) mkdir(_JLPATH_ROOT . $root, $dir_mode);
 
 //массив запрещенных команд для пользователя
 $disabled_command[$my->gid] = (is_array($disabled_command[$my->gid])) ? $disabled_command[$my->gid] : array();
@@ -42,7 +42,7 @@ $img_lib = (!empty($img_lib)) ? $img_lib : 'auto';
 
 //папка для тумбинашек
 $tmb_dir = (!empty($tmb_dir)) ? $tmb_dir : '';
-if(!is_dir(JPATH_BASE . $root . '/.tmb')) mkdir(JPATH_BASE . $root . '/' . $tmb_dir, $dir_mode);
+if(!is_dir(_JLPATH_ROOT . $root . '/.tmb')) mkdir(_JLPATH_ROOT . $root . '/' . $tmb_dir, $dir_mode);
 
 //очистка папки тумбинашек
 $tmb_clean_prob = (@$tmb_clean_prob > 0) ? $tmb_clean_prob : 0;
@@ -57,8 +57,8 @@ $tmb_size = (@$tmb_size > 0) ? $tmb_size : 30;
 $file_url = (@$file_url == 1) ? true : false;
 
 $opts = array(
-	'root'         => JPATH_BASE . $root, // path to root directory
-	'URL'          => JPATH_SITE . $root . '/', // root directory URL
+	'root'         => _JLPATH_ROOT . $root, // path to root directory
+	'URL'          => _JLPATH_SITE . $root . '/', // root directory URL
 	'rootAlias'    => $root_alias, // display this instead of root directory name
 	'uploadAllow'  => $upload_allow, // mimetypes which allowed to upload
 	'uploadDeny'   => array('all'), // mimetypes which not allowed to upload
@@ -1838,4 +1838,3 @@ class elFinder{
 
 }
 
-?>

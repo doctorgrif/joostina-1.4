@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('installer_html', 'installer'));
 require_once ($mainframe->getPath('installer_class', 'installer'));
 
@@ -24,18 +25,18 @@ $classMap = array(
 
 $generalInstaller = new mosGeneralInstaller();
 js_menu_cache_clear();
-
+$task = JSef::getTask();
 switch($task){
 	case 'installfromurl':
-		$generalInstaller->getPackageFromUrl($url, $client);
+		$generalInstaller->getPackageFromUrl($url, $client, $classMap);
 		break;
 
 	case 'uploadfile':
-		$generalInstaller->uploadPackage($option, $element, $client);
+		$generalInstaller->uploadPackage($option, $element, $client, $classMap);
 		break;
 
 	case 'installfromdir':
-		$generalInstaller->installFromDirectory($option, $element, $client);
+		$generalInstaller->installFromDirectory($option, $element, $client, $classMap);
 		break;
 
 	default:
@@ -46,12 +47,12 @@ switch($task){
 class mosGeneralInstaller{
 
 	function showInstallForm(){
-		HTML_installer_core::showInstallForm(_INSTALL_MANAGER, 'com_installer', 'installer', '', JPATH_BASE . '/media');
+		HTML_installer_core::showInstallForm(_INSTALL_MANAGER, 'com_installer', 'installer', '', _JLPATH_ROOT . '/media');
 	}
 
 	function uploadFile($filename, $userfile_name, &$msg){
 		josSpoofCheck();
-		$baseDir = mosPathName(JPATH_BASE . '/media');
+		$baseDir = mosPathName(_JLPATH_ROOT . '/media');
 
 		if(file_exists($baseDir)){
 			if(is_writable($baseDir)){
@@ -78,8 +79,7 @@ class mosGeneralInstaller{
 	 * @param string The URL option
 	 * @param string The element name
 	 */
-	function getPackageFromUrl($url, $client){
-		global $classMap;
+	function getPackageFromUrl($url, $client, $classMap){
 		$pre_installer = new mosInstaller();
 		josSpoofCheck();
 		$msg = '';
@@ -116,11 +116,7 @@ class mosGeneralInstaller{
 		}
 	}
 
-	function uploadPackage($option, $element, $client){
-		global $classMap;
-
-		$config = Jconfig::getInstance();
-
+	function uploadPackage($option, $element, $client, $classMap){
 		$pre_installer = new mosInstaller();
 		josSpoofCheck();
 
@@ -175,9 +171,7 @@ class mosGeneralInstaller{
 	 * Install a template from a directory
 	 * @param string The URL option
 	 */
-	function installFromDirectory($option, $element, $client){
-		global $classMap;
-		$config = Jconfig::getInstance();
+	function installFromDirectory($option, $element, $client, $classMap){
 
 		$pre_installer = new mosInstaller();
 		$userfile = mosGetParam($_REQUEST, 'userfile', '');

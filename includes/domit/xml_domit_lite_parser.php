@@ -620,7 +620,6 @@ class DOMIT_Lite_Document extends DOMIT_Lite_ChildNodes_Interface{
 				$fileContents = &php_file_utilities::getDataFromFile($filename, 'r');
 				return $fileContents;
 			}
-		return '';
 	}
 
 	function saveXML_utf8($filename, $normalized = false){

@@ -731,13 +731,7 @@
                     nodes = [],
                     w = [];
 
-                if ($.browser.msie) {
-                    for (var i = 0; i < n[0].childNodes.length; i++) {
-                        nodes.push(n[0].childNodes[i])
-                    }
-                } else {
-                    nodes = Array.prototype.slice.call(n[0].childNodes);
-                }
+                nodes = Array.prototype.slice.call(n[0].childNodes);
 
 
                 function wrap() {

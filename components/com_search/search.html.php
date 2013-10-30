@@ -26,9 +26,7 @@ class search_html{
 		?>
 	<br/>
 
-	<form action="index.php" method="get" name="searchForm" id="searchForm">
-		<input type="hidden" name="option" value="com_search"/>
-
+	<form action="<?php echo JSef::getUrlToSef('index.php?option=com_search')?>" method="get" name="searchForm" id="searchForm">
 		<div class="contentpaneopen<?php echo $params->get('pageclass_sfx'); ?>">
 			<label for="search_searchword"><?php echo _PROMPT_KEYWORD; ?>:</label>
 			<br/>
@@ -64,17 +62,7 @@ class search_html{
 	}
 
 	public static function display($rows, $params, $pageNav, $limitstart, $limit, $total, $totalRows, $searchword){
-		global $mosConfig_showCreateDate;
-		global $option;
-		$image = mosAdminMenus::ImageCheck('aport.gif', '/components/com_search/images/', null, null, 'Aport', 'Aport', 1);
-		$image1 = mosAdminMenus::ImageCheck('bing.gif', '/components/com_search/images/', null, null, 'Bing', 'Bing', 1);
-		$image2 = mosAdminMenus::ImageCheck('gogo.gif', '/components/com_search/images/', null, null, 'GoGo', 'GoGo', 1);
-		$image3 = mosAdminMenus::ImageCheck('google.gif', '/components/com_search/images/', null, null, 'Google', 'Google', 1);
-		$image4 = mosAdminMenus::ImageCheck('mail.gif', '/components/com_search/images/', null, null, 'Mail', 'Mail', 1);
-		$image5 = mosAdminMenus::ImageCheck('nigma.gif', '/components/com_search/images/', null, null, 'Nigma', 'Nigma', 1);
-		$image6 = mosAdminMenus::ImageCheck('rambler.gif', '/components/com_search/images/', null, null, 'Rambler', 'Rambler', 1);
-		$image7 = mosAdminMenus::ImageCheck('yahoo.gif', '/components/com_search/images/', null, null, 'Yahoo', 'Yahoo', 1);
-		$image8 = mosAdminMenus::ImageCheck('yandex.gif', '/components/com_search/images/', null, null, 'Yandex', 'Yandex', 1);
+		$option = JSef::getOption();
 		$searchword = urldecode($searchword);
 		$searchword = htmlspecialchars($searchword, ENT_QUOTES, 'UTF-8');
 		?>
@@ -88,7 +76,7 @@ class search_html{
 		$searchphrase = strtolower(strval(mosGetParam($_REQUEST, 'searchphrase', 'any')));
 		$searchphrase = htmlspecialchars($searchphrase, ENT_QUOTES, 'UTF-8');
 		$cleanWord = htmlspecialchars($searchword, ENT_QUOTES, 'UTF-8');
-		$link = JPATH_SITE . "/index.php?option=$option&amp;searchword=$cleanWord&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
+		$link = _JLPATH_SITE . "/index.php?option=$option&amp;searchword=$cleanWord&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
 		//if($total>0){
 		echo $pageNav->getLimitBox($link);
 		//}
@@ -143,7 +131,7 @@ class search_html{
 						</div>
 						<div><?php echo ampReplace($row->text); ?></div>
 						<?php
-						if($mosConfig_showCreateDate){
+						if(JCore::getCfg('showCreateDate')){
 							?>
 							<div class="small<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $created; ?></div>
 							<?php
@@ -158,28 +146,27 @@ class search_html{
 	</table>
 	<br/>
 	<div class="nofollow">
-		<a href="http://sm.aport.ru/search?That=std&r=<?php echo $searchword; ?>" target="_blank"><?php echo $image; ?></a>
-		<a href="http://www.bing.com/search?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image1; ?></a>
-		<a href="http://gogo.ru/go?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image2; ?></a>
-		<a href="http://www.google.ru/webhp#hl=ru&q=<?php echo $searchword; ?>" target="_blank"><?php echo $image3; ?></a>
-		<a href="http://go.mail.ru/search?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image4; ?></a>
-		<a href="http://www.nigma.ru/index.php?s=<?php echo $searchword; ?>" target="_blank"><?php echo $image5; ?></a>
-		<a href="http://nova.rambler.ru/srch?words=<?php echo $searchword; ?>" target="_blank"><?php echo $image6; ?></a>
-		<a href="http://ru.search.yahoo.com/search?p=<?php echo $searchword; ?>" target="_blank"><?php echo $image7; ?></a>
-		<a href="http://yandex.ru/yandsearch?text=<?php echo $searchword; ?>" target="_blank"><?php echo $image8; ?></a>
+        В других поисковиках:
+        <a href="http://www.yandex.ru/yandsearch?text=<?php echo $searchword; ?>" target="_blank">Яндекс</a>&nbsp;|
+        <a href="http://www.google.ru/search?hl=ru&amp;q=<?php echo $searchword; ?>&amp;aq=f" target="_blank">Google</a>&nbsp;|
+        <a href="http://www.nova.rambler.ru/srch?&amp;words=<?php echo $searchword; ?>" target="_blank">Rambler</a>&nbsp;|
+        <a href="http://ru.wikipedia.org/wiki/<?php echo $searchword; ?>" target="_blank">Википедия</a>&nbsp;|
+        <a href="http://ru.search.yahoo.com/search?p=<?php echo $searchword; ?>" target="_blank">Yahoo</a>&nbsp;|
+        <a href="http://bing.com/search?q=<?php echo $searchword; ?>" target="_blank">Bing</a>&nbsp;|
+        <a href="http://go.mail.ru/search?rch=l&amp;q=<?php echo $searchword; ?>" target="_blank">Поиск@Mail.ru</a>
 	</div>
 	<br/>
 	<?php
 	}
 
 	public static function conclusion($searchword, $pageNav){
-		global $option;
+		$option = JSef::getOption();
 		$ordering = strtolower(strval(mosGetParam($_REQUEST, 'ordering', 'newest')));
 		$ordering_exist = array('newest', 'oldest', 'popular', 'alpha', 'category');
 		$ordering = isset($ordering_exist[$ordering]) ? $ordering : 'newest';
 		$searchphrase = strtolower(strval(mosGetParam($_REQUEST, 'searchphrase', 'any')));
 		$searchphrase = htmlspecialchars($searchphrase);
-		$link = JPATH_SITE . "/index.php?option=$option&amp;searchword=$searchword&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
+		$link = _JLPATH_SITE . "/index.php?option=$option&amp;searchword=$searchword&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
 		echo $pageNav->writePagesLinks($link);
 	}
 

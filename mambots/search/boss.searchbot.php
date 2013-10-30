@@ -27,7 +27,7 @@ $_MAMBOTS->registerFunction('onSearch', 'botSearchBoss');
 function botSearchBoss($text, $phrase = '', $ordering = ''){
 	$_MAMBOTS = mosMambotHandler::getInstance();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_search_mambot_params['boss'])){
 		// load mambot params info

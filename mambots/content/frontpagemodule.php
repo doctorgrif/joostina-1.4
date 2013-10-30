@@ -13,7 +13,7 @@ defined('_JLINDEX') or die();
 $_MAMBOTS->registerFunction('onAfterDisplayContent', 'frontpagemodule');
 
 function frontpagemodule($row, &$params){
-	global $option;
+	$option = JSef::getOption();
 	$_MAMBOTS = mosMambotHandler::getInstance();
 	$database = database::getInstance();
 

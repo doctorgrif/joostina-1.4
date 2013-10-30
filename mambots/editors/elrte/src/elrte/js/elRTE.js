@@ -24,7 +24,6 @@
         this.version = '1.3';
         this.build = '2011-06-23';
         this.options = $.extend(true, {}, this.options, opts);
-        this.browser = $.browser;
         this.target = $(target);
 
         this.lang = ('' + this.options.lang);
@@ -111,10 +110,7 @@
                         } else {
                             self.updateSource();
                             self.source.focus();
-                            if ($.browser.msie) {
-                            } else {
-                                self.source[0].setSelectionRange(0, 0);
-                            }
+                            self.source[0].setSelectionRange(0, 0);
                             self.ui.disable();
                             self.statusbar.empty();
 
@@ -140,16 +136,12 @@
         this.doc.close();
 
         /* make iframe editable */
-        if ($.browser.msie) {
-            this.doc.body.contentEditable = true;
-        } else {
             try {
                 this.doc.designMode = "on";
             }
             catch (e) {
             }
             this.doc.execCommand('styleWithCSS', false, this.options.styleWithCSS);
-        }
 
         if (this.options.height > 0) {
             this.workzone.height(this.options.height);
@@ -181,16 +173,10 @@
             if (e.keyCode == 9) {
                 e.preventDefault();
 
-                if ($.browser.msie) {
-                    var r = document.selection.createRange();
-                    r.text = "\t" + r.text;
-                    this.focus();
-                } else {
                     var before = this.value.substr(0, this.selectionStart),
                         after = this.value.substr(this.selectionEnd);
                     this.value = before + "\t" + after;
                     this.setSelectionRange(before.length + 1, before.length + 1);
-                }
             }
         });
 
@@ -231,9 +217,6 @@
                     if (self.dom.selfOrParent(n, /^PRE$/)) {
                         self.selection.insertNode(self.doc.createTextNode("\r\n"));
                         return false;
-                    } else if ($.browser.safari && e.shiftKey) {
-                        self.selection.insertNode(self.doc.createElement('br'))
-                        return false;
                     }
                 }
 
@@ -251,10 +234,6 @@
                     self.typing = false;
                 }
 
-                if (e.keyCode == 32 && $.browser.opera) {
-                    self.selection.insertNode(self.doc.createTextNode(" "));
-                    return false
-                }
             })
             .bind('paste', function (e) {
                 if (!self.options.allowPaste) {
@@ -291,32 +270,6 @@
                     }, 15);
                 }
             });
-
-        if ($.browser.msie) {
-            this.$doc.bind('keyup', function (e) {
-                if (e.keyCode == 86 && (e.metaKey || e.ctrlKey)) {
-                    self.history.add(true);
-                    self.typing = true;
-                    self.lastKey = null;
-                    self.selection.saveIERange();
-                    self.val(self.filter.proccess('paste', self.filter.wysiwyg2wysiwyg($(self.doc.body).html())));
-                    self.selection.restoreIERange();
-                    $(self.doc.body).mouseup();
-                    this.ui.update();
-                }
-            });
-        }
-
-        if ($.browser.safari) {
-            this.$doc.bind('click',function (e) {
-                $(self.doc.body).find('.elrte-webkit-hl').removeClass('elrte-webkit-hl');
-                if (e.target.nodeName == 'IMG') {
-                    $(e.target).addClass('elrte-webkit-hl');
-                }
-            }).bind('keyup', function (e) {
-                    $(self.doc.body).find('.elrte-webkit-hl').removeClass('elrte-webkit-hl');
-                })
-        }
 
         this.window.focus();
 
@@ -379,13 +332,7 @@
             if (this.source.is(':visible')) {
                 this.source.val(this.filter.source2source(v));
             } else {
-                if ($.browser.msie) {
-                    this.doc.body.innerHTML = '<br />' + this.filter.wysiwyg(v);
-                    this.doc.body.removeChild(this.doc.body.firstChild);
-                } else {
-                    this.doc.body.innerHTML = this.filter.wysiwyg(v);
-                }
-
+                this.doc.body.innerHTML = this.filter.wysiwyg(v);
             }
         } else {
             if (this.source.is(':visible')) {

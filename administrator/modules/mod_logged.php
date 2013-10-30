@@ -10,14 +10,14 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-global $mosConfig_list_limit, $option;
+$option = JSef::getOption();
 $mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
-$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+$my = JCore::getUser();
+$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 mosMainFrame::addLib('pagenavigation');
 
-$limit = $mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit);
+$limit = $mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit'));
 $limitstart = $mainframe->getUserStateFromRequest("view{$option}", 'limitstart', 0);
 
 // hides Administrator or Super Administrator from list depending on usertype
@@ -31,6 +31,7 @@ if($my->gid == 23){
 	$and = "\n AND userid != '25' AND userid != '24'";
 }
 
+$database = database::getInstance();
 // полное число авторизованных пользователей
 $query = "SELECT COUNT(*) FROM #__session WHERE userid != 0" . $and;
 $database->setQuery($query);
@@ -52,6 +53,7 @@ $rows = $database->loadObjectList();
 	<?php
 	$i = 0;
 	$k = 0;
+    $acl = gacl::getInstance();
 	foreach($rows as $row){
 		if($acl->acl_check('administration', 'manage', 'users', $my->usertype, 'components', 'com_users')){
 			$link = 'index2.php?option=com_users&task=editA&hidemainmenu=1&id=' . $row->userid;

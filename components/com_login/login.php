@@ -14,12 +14,11 @@ defined('_JLINDEX') or die();
 require_once ($mainframe->getPath('front_html'));
 
 $mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+$my = JCore::getUser();
 $database = database::getInstance();
 $acl = &gacl::getInstance();
-global $mosConfig_frontend_login, $mosConfig_db, $mosConfig_no_session_front;
 
-if($mosConfig_frontend_login != null && ($mosConfig_frontend_login === 0 || $mosConfig_frontend_login === '0' || $mosConfig_no_session_front != 0)){
+if(JCore::getCfg('frontend_login') != null && (JCore::getCfg('frontend_login') === 0 || JCore::getCfg('frontend_login') === '0' || JCore::getCfg('no_session_front') != 0)){
 	header("HTTP/1.0 403 Forbidden");
 	echo _NOT_AUTH;
 	return;
@@ -33,8 +32,8 @@ $params->def('header_login', $menu->name);
 $params->def('header_logout', $menu->name);
 $params->def('pageclass_sfx', '');
 $params->def('back_button', $mainframe->getCfg('back_button'));
-$params->def('login', JPATH_SITE);
-$params->def('logout', JPATH_SITE);
+$params->def('login', _JLPATH_SITE);
+$params->def('logout', _JLPATH_SITE);
 $params->def('login_message', 0);
 $params->def('logout_message', 0);
 $params->def('description_login', 1);
@@ -50,11 +49,11 @@ $params->def('registration', $mainframe->getCfg('allowUserRegistration'));
 $image_login = '';
 $image_logout = '';
 if($params->get('image_login') != -1){
-	$image = JPATH_SITE . '/images/stories/' . $params->get('image_login');
+	$image = _JLPATH_SITE . '/images/stories/' . $params->get('image_login');
 	$image_login = '<img src="' . $image . '" align="' . $params->get('image_login_align') . '" hspace="10" alt="" />';
 }
 if($params->get('image_logout') != -1){
-	$image = JPATH_SITE . '/images/stories/' . $params->get('image_logout');
+	$image = _JLPATH_SITE . '/images/stories/' . $params->get('image_logout');
 	$image_logout = '<img src="' . $image . '" align="' . $params->get('image_logout_align') . '" hspace="10" alt="" />';
 }
 

@@ -21,9 +21,8 @@ class HTML_modules{
 	 * @param array An array of category objects
 	 */
 	public static function showModules($rows, $myid, $client, $pageNav, $option, $lists, $search){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+        $my = JCore::getUser();
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 		mosCommonHTML::loadOverlib();
 		?>
@@ -191,9 +190,7 @@ class HTML_modules{
 	 * @param object Parameters
 	 */
 	public static function editModule($row, $orders2, $lists, $params, $option){
-		global $mosConfig_cachepath;
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+        $my = JCore::getUser();
 		$row->title = htmlspecialchars($row->title);
 		$row->titleA = '';
 		if($row->id){
@@ -319,7 +316,7 @@ class HTML_modules{
 										if($my->gid == 25){
 											$visible = 1;
 										}
-										mosHTML::writableCell($mosConfig_cachepath, 0, '<strong>' . _CACHE_DIR . '</strong> ', $visible);
+										mosHTML::writableCell(JCore::getCfg('cachepath'), 0, '<strong>' . _CACHE_DIR . '</strong> ', $visible);
 										?>
 									</table>
 								</td>

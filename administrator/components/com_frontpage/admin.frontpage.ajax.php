@@ -10,10 +10,6 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
-
 $task = mosGetParam($_GET, 'task', 'rem_front');
 $id = intval(mosGetParam($_GET, 'id', '0'));
 
@@ -81,8 +77,7 @@ function x_access($id){
 * $id - идентификатор объекта
 */
 function x_publish($id = null){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 	// id содержимого для обработки не получен - выдаём ошибку
 	if(!$id) return _UNKNOWN_ID;

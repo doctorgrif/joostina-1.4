@@ -53,4 +53,3 @@ class File_Archive_Writer_Memory extends File_Archive_Writer{
 	}
 }
 
-?>

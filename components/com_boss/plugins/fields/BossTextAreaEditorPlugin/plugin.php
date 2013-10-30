@@ -162,8 +162,8 @@ class BossTextAreaEditorPlugin{
 	}
 
 	//расположение иконки плагина начиная со слеша от корня сайта
-	function getFieldIcon($directory){
-		return "/images/boss/$directory/plugins/fields/" . __CLASS__ . "/images/application_edit.png";
+	function getFieldIcon(){
+		return "/components/com_boss/plugins/fields/" . __CLASS__ . "/images/application_edit.png";
 	}
 
 	//действия при установке плагина
@@ -186,5 +186,3 @@ class BossTextAreaEditorPlugin{
 		return $search;
 	}
 }
-
-?>

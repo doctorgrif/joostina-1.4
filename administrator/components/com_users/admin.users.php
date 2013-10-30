@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
+
 if(!$acl->acl_check('administration', 'manage', 'users', $my->usertype, 'components', 'com_users')){
 	mosRedirect('index2.php', _NOT_AUTH);
 }
@@ -17,9 +19,11 @@ if(!$acl->acl_check('administration', 'manage', 'users', $my->usertype, 'compone
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
 require_once ($mainframe->getPath('config', 'com_users'));
-//require_once (JPATH_BASE.'/components/com_users/users.config.php');
+//require_once (_JLPATH_ROOT.'/components/com_users/users.config.php');
 
 $cid = josGetArrayInts('cid');
+$task = JSef::getTask();
+$option = JSef::getOption();
 
 switch($task){
 	case 'new':
@@ -116,19 +120,15 @@ function save_config(){
 
 function showUsers($option){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 	$acl = &gacl::getInstance();
 
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}", 'filter_type', 0);
 	$filter_logged = intval($mainframe->getUserStateFromRequest("filter_logged{$option}", 'filter_logged', 0));
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0));
 	$search = $mainframe->getUserStateFromRequest("search{$option}", 'search', '');
-	if(get_magic_quotes_gpc()){
-		$filter_type = stripslashes($filter_type);
-		$search = stripslashes($search);
-	}
 	$where = array();
 
 	if(isset($search) && $search != ""){
@@ -223,9 +223,9 @@ function showUsers($option){
  */
 function editUser($uid = '0', $option = 'users'){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	$msg = checkUserPermissions(array($uid), "edit", true);
 	if($msg){
@@ -237,20 +237,12 @@ function editUser($uid = '0', $option = 'users'){
 	// load the row from the db table
 	$row->load((int)$uid);
 
-	if($uid){
-		$query = "SELECT* FROM #__contact_details WHERE user_id = " . (int)$row->id;
-		$database->setQuery($query);
-		$contact = $database->loadObjectList();
+	$row->name = trim($row->name);
+	$row->email = trim($row->email);
+	$row->username = trim($row->username);
+	$row->password = trim($row->password);
 
-		$row->name = trim($row->name);
-		$row->email = trim($row->email);
-		$row->username = trim($row->username);
-		$row->password = trim($row->password);
-
-	} else{
-		$contact = null;
-		$row->block = 0;
-	}
+    if(!$uid) $row->block = 0;
 
 	// check to ensure only super admins can edit super admin info
 	if(($my->gid < 25) && ($row->gid == 25)){
@@ -295,16 +287,13 @@ function editUser($uid = '0', $option = 'users'){
 	$user_extra->load((int)$uid);
 	$row->user_extra = $user_extra;
 
-	HTML_users::edituser($row, $contact, $lists, $option, $uid, $params);
+	HTML_users::edituser($row, $lists, $option, $uid, $params);
 }
 
 function saveUser($task){
-	global $mosConfig_mailfrom, $mosConfig_fromname, $mosConfig_sitename;
-
 	josSpoofCheck();
 
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 	$acl = &gacl::getInstance();
 
@@ -478,11 +467,11 @@ function saveUser($task){
 		$adminEmail = $database->loadResult();
 
 		$subject = _NEW_USER_MESSAGE_SUBJECT;
-		$message = sprintf(_NEW_USER_MESSAGE, $row->name, $mosConfig_sitename, JPATH_SITE, $row->username, $pwd);
+		$message = sprintf(_NEW_USER_MESSAGE, $row->name, JCore::getCfg('sitename'), _JLPATH_SITE, $row->username, $pwd);
 
-		if($mosConfig_mailfrom != "" && $mosConfig_fromname != ""){
-			$adminName = $mosConfig_fromname;
-			$adminEmail = $mosConfig_mailfrom;
+		if(JCore::getCfg('mailfrom') != "" && JCore::getCfg('fromname') != ""){
+			$adminName = JCore::getCfg('fromname');
+			$adminEmail = JCore::getCfg('mailfrom');
 		} else{
 			$query = "SELECT name, email FROM #__users WHERE gid = 25";
 			$database->setQuery($query);
@@ -527,10 +516,8 @@ function cancelUser($option){
 
 function removeUsers($cid, $option){
 	josSpoofCheck();
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+
 	$database = database::getInstance();
-	$acl = &gacl::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1){
 		echo "<script> alert('" . _CHOOSE_OBJ_DELETE . "'); window.history.go(-1);</script>\n";
@@ -626,8 +613,7 @@ function changeUserBlock($cid = null, $block = 1, $option){
 function logoutUser($cid = null, $option, $task){
 
 	josSpoofCheck(null, null, 'request');
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if(is_array($cid)){
@@ -687,8 +673,7 @@ function logoutUser($cid = null, $option, $task){
  * Added 1.0.11
  */
 function checkUserPermissions($cid, $actionName, $allowActionToMyself = false){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 	$acl = &gacl::getInstance();
 

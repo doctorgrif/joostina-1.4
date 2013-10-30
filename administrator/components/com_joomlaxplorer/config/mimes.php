@@ -53,5 +53,3 @@ $GLOBALS["used_mime_types"] = array( // text
 	"word"  => array($GLOBALS["mimes"]["word"], "word.png", "\.doc$"),
 	"excel" => array($GLOBALS["mimes"]["excel"], "excel.png", "\.xls$"),
 	"pdf"   => array($GLOBALS["mimes"]["pdf"], "pdf.png", "\.pdf$"));
-
-?>

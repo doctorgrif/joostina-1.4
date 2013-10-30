@@ -3,15 +3,14 @@ defined('_JLINDEX') or die();
 
 $positions = array(
 	'category' => array(
-		'catImage'   => 'catImage',
-		'catFio'     => 'catFio',
-		'catSubtitle'=> 'catSubtitle'
+		'CatImage'   => 'CatImage',
+		'CatFio'     => 'CatFio',
+		'CatSubtitle'=> 'CatSubtitle'
 	),
 	'content'  => array(
-		'conImage'      => 'conImage',
-		'conFio'        => 'conFio',
-		'conSubtitle'   => 'conSubtitle',
-		'conDescription'=> 'conDescription',
+		'ConImage'      => 'ConImage',
+		'ConFio'        => 'ConFio',
+		'ConSubtitle'   => 'ConSubtitle',
+		'ConDescription'=> 'ConDescription',
 	)
 );
-?>

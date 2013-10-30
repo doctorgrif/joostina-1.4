@@ -90,7 +90,7 @@ if (typeof olInfo == 'undefined' || typeof olInfo.meets == 'undefined' || !olInf
             var ls = MMStr.search(strRe);
             ls += f[1].length;
             var le = MMStr.substring(ls).search(/[;|}]\n/);
-            MMStr = MMStr.substring(0, ls) + ' {runHook("placeLayer",FREPLACE);if(olHideForm)hideSelectBox();' + MMStr.substring(ls + (le != -1 ? le + 3 : 0));
+            MMStr = MMStr.substring(0, ls) + ' ;if(olHideForm)hideSelectBox();' + MMStr.substring(ls + (le != -1 ? le + 3 : 0));
             document.writeln('<script type="text/javascript">\n<!--\n' + MMStr + '\n//-->\n</' + 'script>');
         }
         f = capExtent.onmousemove.toString().match(/function[ ]+(\w*)\(/);

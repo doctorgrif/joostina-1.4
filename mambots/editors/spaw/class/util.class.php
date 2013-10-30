@@ -130,9 +130,6 @@ class SpawVars
    */              
   public static function stripSlashes($var)
   {
-    if (get_magic_quotes_gpc()) {
-      return stripslashes($var);
-    }
     return $var;
   }
 

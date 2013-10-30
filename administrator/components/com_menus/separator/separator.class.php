@@ -22,8 +22,7 @@ class separator_menu{
 	 */
 	public static function edit($uid, $menutype, $option, $menu){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$database = database::getInstance();
+        $my = JCore::getUser();
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id){
@@ -65,4 +64,3 @@ class separator_menu{
 	}
 }
 
-?>

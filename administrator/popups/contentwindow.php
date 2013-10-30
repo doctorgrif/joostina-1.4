@@ -12,7 +12,7 @@ define('_JLINDEX', 1);
 require_once ('../includes/auth.php');
 
 $mainframe = mosMainFrame::getInstance(true);
-$mainframe->set('lang', $mosConfig_lang);
+$mainframe->set('lang', JCore::getCfg('lang'));
 include_once($mainframe->getLangFile());
 
 // limit access to functionality
@@ -37,7 +37,7 @@ $css = mosGetParam($_REQUEST, 't', '');
 
 // css file handling
 // check to see if template exists
-if($css != '' && is_file(JPATH_BASE . DS . 'templates' . DS . $css . '/css/template_css.css')){
+if($css != '' && is_file(_JLPATH_ROOT . DS . 'templates' . DS . $css . '/css/template_css.css')){
 	$css = $css;
 } else{
 	if($css == ''){
@@ -51,7 +51,7 @@ echo '<?xml version="1.0" encoding="' . $iso[1] . '"?' . '>';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<base href="<?php echo (JPATH_SITE); ?>/"/>
+<base href="<?php echo (_JLPATH_SITE); ?>/"/>
 <head>
 	<title><?php echo _CONTENT_PREVIEW?></title>
 	<link rel="stylesheet" href="templates/<?php echo $css; ?>/css/template_css.css" type="text/css"/>

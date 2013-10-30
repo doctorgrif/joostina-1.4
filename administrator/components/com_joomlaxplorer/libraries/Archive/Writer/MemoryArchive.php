@@ -101,4 +101,3 @@ class File_Archive_Writer_MemoryArchive extends File_Archive_Writer_Archive{
 	}
 }
 
-?>

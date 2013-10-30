@@ -10,9 +10,10 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('toolbar_html'));
 require_once ($mainframe->getPath('toolbar_default'));
-
+$task = JSef::getTask();
 switch($task){
 	case 'settings':
 		TOOLBAR_FrontPage::_SETTINGS();

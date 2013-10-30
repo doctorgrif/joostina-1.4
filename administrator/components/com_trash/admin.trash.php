@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 // ensure user has access to this function
 if(!($acl->acl_check('administration', 'manage', 'users', $my->usertype, 'components', 'com_trash'))){
 	mosRedirect('index2.php', _NOT_AUTH);
@@ -52,12 +53,11 @@ switch($task){
  * Compiles a list of trash items
  */
 function viewTrash($option){
-	global $mosConfig_list_limit;
 
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance();
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0));
 
 	mosMainFrame::addLib('pagenavigation');

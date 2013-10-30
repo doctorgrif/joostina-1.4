@@ -30,4 +30,3 @@ class File_Archive_Predicate_Or extends File_Archive_Predicate{
 	}
 }
 
-?>

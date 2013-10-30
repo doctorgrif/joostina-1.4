@@ -39,7 +39,7 @@ class CDirExclusionFilter{
 	 * @return array The exclusion filters
 	 */
 	function getFilters(){
-		global $JPConfiguration, $mosConfig_cachepath;
+		global $JPConfiguration;
 
 		// Initialize with existing filters
 		if(is_null($this->_filterArray)){
@@ -55,7 +55,7 @@ class CDirExclusionFilter{
 		// каталоги которые изначально не надо резервировать
 		$myArray[] = $this->ReplaceSlashes($JPConfiguration->OutputDirectory);
 		$myArray[] = $this->ReplaceSlashes($JPConfiguration->TempDirectory);
-		$myArray[] = $this->ReplaceSlashes($mosConfig_cachepath);
+		$myArray[] = $this->ReplaceSlashes(JCore::getCfg('cachepath'));
 		return $myArray;
 	}
 
@@ -66,7 +66,7 @@ class CDirExclusionFilter{
 	 */
 	function getDirectory($root){
 		// If there's no root directory specified, use the site's root
-		$root = is_null($root) ? JPATH_BASE : $root;
+		$root = is_null($root) ? _JLPATH_ROOT : $root;
 
 		// Initialize filter list
 		$tempFilterArray = $this->getFilters();
@@ -90,7 +90,7 @@ class CDirExclusionFilter{
 				$fileName = $fileDef['name'];
 				if($fileDef['type'] == 'dir'){
 					$fileName = basename($fileName);
-					if(($this->ReplaceSlashes($root) == $this->ReplaceSlashes(JPATH_BASE)) &&
+					if(($this->ReplaceSlashes($root) == $this->ReplaceSlashes(_JLPATH_ROOT)) &&
 						(($fileName == ".") || ($fileName == '..'))
 					){
 					} else{

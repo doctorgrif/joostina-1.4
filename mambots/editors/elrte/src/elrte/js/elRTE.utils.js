@@ -126,6 +126,7 @@
                 //this.rte.log('Invalid URL: '+url)
                 return '';
             }
+
             if (!this.rte.options.absoluteURLs) {
                 return url;
             }

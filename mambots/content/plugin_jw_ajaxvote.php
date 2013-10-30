@@ -29,8 +29,8 @@ function pluginJWAjaxVote(&$row, &$params){
 		$rating_sum = intval($vote->rating_sum);
 		$rating_count = intval($vote->rating_count);
 		$thmess = $mainframe->config->config_caching ? _AV_THANKS_CACHE : _AV_THANKS;
-		$script = '<script type="text/javascript">var live_site = \'' . JPATH_SITE . '\';var jwajaxvote_lang = new Array();jwajaxvote_lang[\'UPDATING\'] = \'' . _AV_UPDATING . '\';jwajaxvote_lang[\'THANKS\'] = \'' . $thmess . '\';jwajaxvote_lang[\'ALREADY_VOTE\'] = \'' . _AV_ALREADY_VOTE . '\';jwajaxvote_lang[\'VOTES\'] = \'' . _POLL_VOTES . '\';jwajaxvote_lang[\'VOTE\'] = \'' . _AV_VOTE . '\';</script>' . "\n";
-		$script .= '<script type="text/javascript" src="' . JPATH_SITE . '/mambots/content/plugin_jw_ajaxvote/js/ajaxvote.js"></script>' . "\n";
+		$script = '<script type="text/javascript">var live_site = \'' . _JLPATH_SITE . '\';var jwajaxvote_lang = new Array();jwajaxvote_lang[\'UPDATING\'] = \'' . _AV_UPDATING . '\';jwajaxvote_lang[\'THANKS\'] = \'' . $thmess . '\';jwajaxvote_lang[\'ALREADY_VOTE\'] = \'' . _AV_ALREADY_VOTE . '\';jwajaxvote_lang[\'VOTES\'] = \'' . _POLL_VOTES . '\';jwajaxvote_lang[\'VOTE\'] = \'' . _AV_VOTE . '\';</script>' . "\n";
+		$script .= '<script type="text/javascript" src="' . _JLPATH_SITE . '/mambots/content/plugin_jw_ajaxvote/js/ajaxvote.js"></script>' . "\n";
 		if(!defined('_ADD_SCRIPT_AJAXVOTE')){
 			define('_ADD_SCRIPT_AJAXVOTE', 1);
 			/* при включенном кэшировании выведем подключение js кода вместе с первым выводом кнопок голосования*/

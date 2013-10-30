@@ -17,11 +17,6 @@ define('JPATH_ISWIN', (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'));
 /** boolean True if a Mac based host */
 define('JPATH_ISMAC', (strtoupper(substr(PHP_OS, 0, 3)) === 'MAC'));
 
-if(!defined('JPATH_ROOT')){
-	/** string The root directory of the file system in native format */
-	define('JPATH_ROOT', JPATH_BASE);
-}
-
 /**
  * A Path handling class
  * @static
@@ -128,7 +123,7 @@ class JPath{
 			jexit();
 		}
 		$path = JPath::clean($path);
-		if(strpos($path, JPath::clean(JPATH_ROOT)) !== 0){
+		if(strpos($path, JPath::clean(_JLPATH_ROOT)) !== 0){
 			echo 'JPath::check Snooping out of bounds @ '; // don't translate
 			exit();
 		}
@@ -146,7 +141,7 @@ class JPath{
 		$path = trim($path);
 
 		if(empty($path)){
-			$path = JPATH_ROOT;
+			$path = _JLPATH_ROOT;
 		} else{
 			// Remove double slashes and backslahses and convert all slashes and backslashes to DS
 			$path = preg_replace('#[/\\\\]+#', $ds, $path);
@@ -168,7 +163,7 @@ class JPath{
 
 		$tmp = md5(JUserHelper::genRandomPassword(16));
 		$ssp = ini_get('session.save_path');
-		$jtp = JPATH_SITE . DS . 'tmp';
+		$jtp = _JLPATH_SITE . DS . 'tmp';
 
 		// Try to find a writable directory
 		$dir = is_writable('/tmp') ? '/tmp' : false;

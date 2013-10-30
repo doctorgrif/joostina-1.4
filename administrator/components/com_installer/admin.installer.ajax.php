@@ -10,9 +10,6 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
-
 $task = mosGetParam($_GET, 'task', 'publish');
 $id = intval(mosGetParam($_REQUEST, 'id', 0));
 

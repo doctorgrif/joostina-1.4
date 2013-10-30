@@ -10,17 +10,17 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+$my = JCore::getUser();
 
-$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
-$query = "SELECT COUNT(*)"
-	. "\n FROM #__messages"
-	. "\n WHERE state = 0"
-	. "\n AND user_id_to = " . (int)$my->id;
-$database->setQuery($query);
-$unread = $database->loadResult();
+$sql = "SELECT COUNT(*)
+		FROM #__messages
+		WHERE state = ?
+			AND user_id_to = ?";
+
+$database = JCore::getDB();
+$unread = $database->selectCell($sql, 0, $my->id);
 
 if($unread){
 	echo "<a class=\"adminmail\" href=\"index2.php?option=com_messages\" style=\"color: red; text-decoration: none;  font-weight: bold\"><img  src=\"" . $cur_file_icons_path . "/mail.png\" align=\"top\" border=\"0\" alt=\"Почта\" /> $unread </a>";

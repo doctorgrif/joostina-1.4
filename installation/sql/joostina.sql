@@ -1,16 +1,3 @@
-# --------------------------------------------------------
-# Автор:                        Gold Dragon
-# --------------------------------------------------------
-# Host:                         localhost
-# Server version:               5.1.62-community-log - MySQL Community Server (GPL)
-# Server OS:                    Win32
-# HeidiSQL version:             7.0.0.4053
-# Date/time:                    2012-06-17 21:55:56
-# Автор:
-# --------------------------------------------------------
-
-# Dumping structure for table #__banners
-
 CREATE TABLE IF NOT EXISTS `#__banners` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cid` int(11) NOT NULL DEFAULT '0',
@@ -50,8 +37,6 @@ CREATE TABLE IF NOT EXISTS `#__banners` (
   KEY `ibx_select` (`state`,`last_show`,`msec`,`publish_up_date`,`publish_up_time`,`publish_down_date`,`publish_down_time`,`reccurtype`,`reccurweekdays`(2),`access`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__banners_categories
-
 CREATE TABLE IF NOT EXISTS `#__banners_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
@@ -62,8 +47,6 @@ CREATE TABLE IF NOT EXISTS `#__banners_categories` (
   PRIMARY KEY (`id`),
   KEY `published` (`published`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__banners_clients
 
 CREATE TABLE IF NOT EXISTS `#__banners_clients` (
   `cid` int(11) NOT NULL AUTO_INCREMENT,
@@ -78,17 +61,15 @@ CREATE TABLE IF NOT EXISTS `#__banners_clients` (
   KEY `published` (`published`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__boss_5_categories
-
 CREATE TABLE IF NOT EXISTS `#__boss_5_categories` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent` int(10) unsigned DEFAULT '0',
-  `name` varchar(50) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `slug` varchar(100) NOT NULL,
   `meta_title` varchar(60) NOT NULL,
   `meta_desc` varchar(200) NOT NULL,
   `meta_keys` varchar(200) NOT NULL,
-  `description` varchar(250) DEFAULT NULL,
+  `description` TEXT NULL,
   `ordering` int(11) DEFAULT '0',
   `published` tinyint(1) DEFAULT '0',
   `content_types` int(11) DEFAULT '0',
@@ -96,8 +77,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_categories` (
   `rights` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_5_contents
 
 CREATE TABLE IF NOT EXISTS `#__boss_5_contents` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -123,8 +102,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_contents` (
   KEY `published` (`published`)
 ) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__boss_5_content_category_href
-
 CREATE TABLE IF NOT EXISTS `#__boss_5_content_category_href` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
@@ -132,8 +109,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_content_category_href` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`,`content_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 COMMENT='Привязка контента к категориям';
-
-# Dumping structure for table #__boss_5_content_types
 
 CREATE TABLE IF NOT EXISTS `#__boss_5_content_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -145,12 +120,8 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_content_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_5_content_types: 1 rows
-
 INSERT INTO `#__boss_5_content_types` (`id`, `name`, `desc`, `fields`, `published`, `ordering`) VALUES
 	(1, 'Статьи', 'Обычные статьи без изысков, аналог ком-контент', 0, 1, 1);
-
-# Dumping structure for table #__boss_5_fields
 
 CREATE TABLE IF NOT EXISTS `#__boss_5_fields` (
   `fieldid` int(11) NOT NULL AUTO_INCREMENT,
@@ -183,13 +154,9 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_fields` (
   PRIMARY KEY (`fieldid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_5_fields: 2 rows
-
 INSERT INTO `#__boss_5_fields` (`fieldid`, `name`, `title`, `display_title`, `description`, `type`, `text_before`, `text_after`, `tags_open`, `tags_separator`, `tags_close`, `maxlength`, `size`, `required`, `link_text`, `link_image`, `ordering`, `cols`, `rows`, `profile`, `editable`, `searchable`, `sort`, `sort_direction`, `catsid`, `published`, `filter`) VALUES
 	(20, 'content_editor', 'Краткое описание', 0, 'Здесь пишем то, что будет отображаться в списке контента (поиск, категории и т.п.)', 'BossTextAreaEditorPlugin', '', '', '', '', '', 2000, 0, 1, '', '', 2, 200, 20, 0, 1, 1, 0, 'DESC', ',-1,', 1, 0),
 	(21, 'content_editorfull', 'Полное описание', 0, 'Здесь пишем основной текст', 'BossTextAreaEditorPlugin', '', '', '', '', '', 2000, 0, 1, '', '', 3, 50, 5, 0, 1, 1, 0, 'DESC', ',-1,', 1, 0);
-
-# Dumping structure for table #__boss_5_field_values
 
 CREATE TABLE IF NOT EXISTS `#__boss_5_field_values` (
   `fieldvalueid` int(11) NOT NULL AUTO_INCREMENT,
@@ -202,8 +169,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_field_values` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-# Dumping structure for table #__boss_5_groupfields
-
 CREATE TABLE IF NOT EXISTS `#__boss_5_groupfields` (
   `fieldid` int(11) NOT NULL DEFAULT '0',
   `groupid` int(11) NOT NULL DEFAULT '0',
@@ -215,15 +180,11 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_groupfields` (
   KEY `type_tmpl` (`type_tmpl`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_5_groupfields: 10 rows
-
 INSERT INTO `#__boss_5_groupfields` (`fieldid`, `groupid`, `template`, `type_tmpl`, `ordering`) VALUES
 	(20, 28, 'default', 'category', 0),
 	(21, 29, 'default', 'category', 0),
 	(20, 30, 'default', 'content', 0),
 	(21, 31, 'default', 'content', 0);
-
-# Dumping structure for table #__boss_5_groups
 
 CREATE TABLE IF NOT EXISTS `#__boss_5_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -236,8 +197,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_groups` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_5_groups: 20 rows
-
 INSERT INTO `#__boss_5_groups` (`id`, `name`, `desc`, `template`, `type_tmpl`, `catsid`, `published`) VALUES
 	(31, 'ConFull', 'ConFull', 'default', 'content', ',-1,', 1),
 	(30, 'ConShort', 'ConShort', 'default', 'content', ',-1,', 1),
@@ -245,14 +204,10 @@ INSERT INTO `#__boss_5_groups` (`id`, `name`, `desc`, `template`, `type_tmpl`, `
 	(28, 'CatShort', 'CatShort', 'default', 'category', ',-1,', 1);
 
 
-# Dumping structure for table #__boss_5_profile
-
 CREATE TABLE IF NOT EXISTS `#__boss_5_profile` (
   `userid` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_5_rating
 
 CREATE TABLE IF NOT EXISTS `#__boss_5_rating` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -262,9 +217,7 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_rating` (
   `ip` int(11) DEFAULT '0',
   `date` int(10) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_5_reviews
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `#__boss_5_reviews` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -275,19 +228,17 @@ CREATE TABLE IF NOT EXISTS `#__boss_5_reviews` (
   `date` date DEFAULT NULL,
   `published` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_6_categories
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `#__boss_6_categories` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent` int(10) unsigned DEFAULT '0',
-  `name` varchar(50) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `slug` varchar(100) NOT NULL,
   `meta_title` varchar(60) NOT NULL,
   `meta_desc` varchar(200) NOT NULL,
   `meta_keys` varchar(200) NOT NULL,
-  `description` varchar(250) DEFAULT NULL,
+  `description` TEXT NULL,
   `ordering` int(11) DEFAULT '0',
   `published` tinyint(1) DEFAULT '0',
   `content_types` int(11) DEFAULT '0',
@@ -295,8 +246,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_6_categories` (
   `rights` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_6_contents
 
 CREATE TABLE IF NOT EXISTS `#__boss_6_contents` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -333,17 +282,13 @@ CREATE TABLE IF NOT EXISTS `#__boss_6_contents` (
   KEY `published` (`published`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__boss_6_content_category_href
-
 CREATE TABLE IF NOT EXISTS `#__boss_6_content_category_href` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
   `content_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`,`content_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='Привязка контента к категориям';
-
-# Dumping structure for table #__boss_6_content_types
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='Привязка контента к категориям';
 
 CREATE TABLE IF NOT EXISTS `#__boss_6_content_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -355,12 +300,8 @@ CREATE TABLE IF NOT EXISTS `#__boss_6_content_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_6_content_types: 1 rows
-
 INSERT INTO `#__boss_6_content_types` (`id`, `name`, `desc`, `fields`, `published`, `ordering`) VALUES
 	(1, 'Архив файла', '', 0, 1, 1);
-
-# Dumping structure for table #__boss_6_fields
 
 CREATE TABLE IF NOT EXISTS `#__boss_6_fields` (
   `fieldid` int(11) NOT NULL AUTO_INCREMENT,
@@ -393,8 +334,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_6_fields` (
   PRIMARY KEY (`fieldid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_6_fields: 13 rows
-
 INSERT INTO `#__boss_6_fields` (`fieldid`, `name`, `title`, `display_title`, `description`, `type`, `text_before`, `text_after`, `tags_open`, `tags_separator`, `tags_close`, `maxlength`, `size`, `required`, `link_text`, `link_image`, `ordering`, `cols`, `rows`, `profile`, `editable`, `searchable`, `sort`, `sort_direction`, `catsid`, `published`, `filter`) VALUES
 	(1, 'content_version', 'Версия', 3, '', 'BossTextFieldPlugin', '', '', '', '', '', 20, 0, 0, '', '', 0, 0, 0, 0, 1, 0, 0, 'DESC', ',1,', 1, 0),
 	(2, 'content_os', 'Платформа', 3, '', 'BossSelectMultiPlugin', '', '', '', '', '', 75, 0, 0, ',-1,', ',-1,', 2, 0, 0, 0, 1, 1, 1, 'DESC', ',1,', 1, 1),
@@ -410,8 +349,6 @@ INSERT INTO `#__boss_6_fields` (`fieldid`, `name`, `title`, `display_title`, `de
 	(12, 'content_email', 'EMail', 3, '', 'BossEmailPlugin', '', '', '', '', '', 75, 0, 0, '', '', 12, 0, 0, 0, 1, 0, 0, 'DESC', ',1,', 1, 0),
 	(13, 'content_url', 'URL проекта', 3, '', 'BossURLPlugin', '', '', '', '', '', 200, 50, 0, '', 'null', 5, 0, 0, 0, 1, 1, 1, 'DESC', ',1,', 1, 0);
 
-# Dumping structure for table #__boss_6_field_values
-
 CREATE TABLE IF NOT EXISTS `#__boss_6_field_values` (
   `fieldvalueid` int(11) NOT NULL AUTO_INCREMENT,
   `fieldid` int(11) NOT NULL DEFAULT '0',
@@ -421,8 +358,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_6_field_values` (
   `sys` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`fieldvalueid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__boss_6_field_values: 42 rows
 
 INSERT INTO `#__boss_6_field_values` (`fieldvalueid`, `fieldid`, `fieldtitle`, `fieldvalue`, `ordering`, `sys`) VALUES
 	(1, 2, 'Joostina 1.0.x', '10', 0, 0),
@@ -468,8 +403,6 @@ INSERT INTO `#__boss_6_field_values` (`fieldvalueid`, `fieldid`, `fieldtitle`, `
 	(118, 3, 'nb_files', '1', 1, 0),
 	(126, 3, 'show_img', '1', 9, 0);
 
-# Dumping structure for table #__boss_6_groupfields
-
 CREATE TABLE IF NOT EXISTS `#__boss_6_groupfields` (
   `fieldid` int(11) NOT NULL DEFAULT '0',
   `groupid` int(11) NOT NULL DEFAULT '0',
@@ -480,8 +413,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_6_groupfields` (
   KEY `template` (`template`),
   KEY `type_tmpl` (`type_tmpl`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__boss_6_groupfields: 17 rows
 
 INSERT INTO `#__boss_6_groupfields` (`fieldid`, `groupid`, `template`, `type_tmpl`, `ordering`) VALUES
 	(3, 3, 'files', 'category', 1),
@@ -502,8 +433,6 @@ INSERT INTO `#__boss_6_groupfields` (`fieldid`, `groupid`, `template`, `type_tmp
 	(12, 5, 'files', 'content', 10),
 	(7, 5, 'files', 'content', 5);
 
-# Dumping structure for table #__boss_6_groups
-
 CREATE TABLE IF NOT EXISTS `#__boss_6_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
@@ -514,8 +443,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_6_groups` (
   `published` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__boss_6_groups: 17 rows
 
 INSERT INTO `#__boss_6_groups` (`id`, `name`, `desc`, `template`, `type_tmpl`, `catsid`, `published`) VALUES
 	(1, 'CatImage', 'Изображение', 'files', 'category', ',-1,', 1),
@@ -536,14 +463,10 @@ INSERT INTO `#__boss_6_groups` (`id`, `name`, `desc`, `template`, `type_tmpl`, `
 	(16, 'DetailsBottom', 'DetailsBottom', 'default', 'content', ',-1,', 1),
 	(17, 'DetailsImage', 'DetailsImage', 'default', 'content', ',-1,', 1);
 
-# Dumping structure for table #__boss_6_profile
-
 CREATE TABLE IF NOT EXISTS `#__boss_6_profile` (
   `userid` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_6_rating
 
 CREATE TABLE IF NOT EXISTS `#__boss_6_rating` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -554,8 +477,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_6_rating` (
   `date` int(10) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_6_reviews
 
 CREATE TABLE IF NOT EXISTS `#__boss_6_reviews` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -568,17 +489,15 @@ CREATE TABLE IF NOT EXISTS `#__boss_6_reviews` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__boss_7_categories
-
 CREATE TABLE IF NOT EXISTS `#__boss_7_categories` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent` int(10) unsigned DEFAULT '0',
-  `name` varchar(50) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `slug` varchar(100) NOT NULL,
   `meta_title` varchar(60) NOT NULL,
   `meta_desc` varchar(200) NOT NULL,
   `meta_keys` varchar(200) NOT NULL,
-  `description` varchar(250) DEFAULT NULL,
+  `description` TEXT NULL,
   `ordering` int(11) DEFAULT '0',
   `published` tinyint(1) DEFAULT '0',
   `content_types` int(11) DEFAULT '0',
@@ -586,8 +505,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_categories` (
   `rights` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_7_contents
 
 CREATE TABLE IF NOT EXISTS `#__boss_7_contents` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -622,9 +539,7 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_contents` (
   `content_url` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `published` (`published`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_7_content_category_href
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `#__boss_7_content_category_href` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -632,9 +547,7 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_content_category_href` (
   `content_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`,`content_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COMMENT='Привязка контента к категориям';
-
-# Dumping structure for table #__boss_7_content_types
+) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=utf8 COMMENT='Привязка контента к категориям';
 
 CREATE TABLE IF NOT EXISTS `#__boss_7_content_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -646,12 +559,8 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_content_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_7_content_types: 1 rows
-
 INSERT INTO `#__boss_7_content_types` (`id`, `name`, `desc`, `fields`, `published`, `ordering`) VALUES
 	(1, 'Основные контакты', '', 0, 1, 1);
-
-# Dumping structure for table #__boss_7_fields
 
 CREATE TABLE IF NOT EXISTS `#__boss_7_fields` (
   `fieldid` int(11) NOT NULL AUTO_INCREMENT,
@@ -684,8 +593,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_fields` (
   PRIMARY KEY (`fieldid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_7_fields: 13 rows
-
 INSERT INTO `#__boss_7_fields` (`fieldid`, `name`, `title`, `display_title`, `description`, `type`, `text_before`, `text_after`, `tags_open`, `tags_separator`, `tags_close`, `maxlength`, `size`, `required`, `link_text`, `link_image`, `ordering`, `cols`, `rows`, `profile`, `editable`, `searchable`, `sort`, `sort_direction`, `catsid`, `published`, `filter`) VALUES
 	(1, 'content_fam', 'Фамилия', 3, '', 'BossTextFieldPlugin', '', '', '', '', '', 30, 30, 0, '', '', 0, 0, 0, 0, 1, 1, 1, 'ASC', ',-1,', 1, 1),
 	(9, 'content_stel', 'Рабочий телефон', 3, '', 'BossNumberTextPlugin', '', '', '', '', '', 11, 0, 0, ',-1,', ',-1,', 6, 0, 0, 0, 1, 0, 0, 'DESC', ',-1,', 1, 0),
@@ -701,8 +608,6 @@ INSERT INTO `#__boss_7_fields` (`fieldid`, `name`, `title`, `display_title`, `de
 	(13, 'content_jid', 'JID', 3, '', 'BossTextFieldPlugin', '', '', '', '', '', 100, 0, 0, ',-1,', ',-1,', 10, 0, 0, 0, 1, 1, 0, 'DESC', ',-1,', 1, 0),
 	(15, 'content_url', 'Сайт', 3, '', 'BossURLPlugin', '', '', '', '', '', 150, 0, 0, '', 'null', 12, 0, 0, 0, 1, 0, 0, 'DESC', ',-1,', 1, 0);
 
-# Dumping structure for table #__boss_7_field_values
-
 CREATE TABLE IF NOT EXISTS `#__boss_7_field_values` (
   `fieldvalueid` int(11) NOT NULL AUTO_INCREMENT,
   `fieldid` int(11) NOT NULL DEFAULT '0',
@@ -712,8 +617,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_field_values` (
   `sys` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`fieldvalueid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__boss_7_field_values: 13 rows
 
 INSERT INTO `#__boss_7_field_values` (`fieldvalueid`, `fieldid`, `fieldtitle`, `fieldvalue`, `ordering`, `sys`) VALUES
 	(45, 6, 'email_display', '2', 1, 0),
@@ -730,8 +633,6 @@ INSERT INTO `#__boss_7_field_values` (`fieldvalueid`, `fieldid`, `fieldtitle`, `
 	(38, 7, 'cat_max_width_t', '0', 11, 0),
 	(39, 7, 'cat_max_height_t', '0', 12, 0);
 
-# Dumping structure for table #__boss_7_groupfields
-
 CREATE TABLE IF NOT EXISTS `#__boss_7_groupfields` (
   `fieldid` int(11) NOT NULL DEFAULT '0',
   `groupid` int(11) NOT NULL DEFAULT '0',
@@ -742,8 +643,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_groupfields` (
   KEY `template` (`template`),
   KEY `type_tmpl` (`type_tmpl`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__boss_7_groupfields: 19 rows
 
 INSERT INTO `#__boss_7_groupfields` (`fieldid`, `groupid`, `template`, `type_tmpl`, `ordering`) VALUES
 	(7, 5, 'contact', 'content', 0),
@@ -766,8 +665,6 @@ INSERT INTO `#__boss_7_groupfields` (`fieldid`, `groupid`, `template`, `type_tmp
 	(12, 3, 'contact', 'content', 7),
 	(6, 3, 'contact', 'content', 10);
 
-# Dumping structure for table #__boss_7_groups
-
 CREATE TABLE IF NOT EXISTS `#__boss_7_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
@@ -779,23 +676,17 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_groups` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_7_groups: 5 rows
-
 INSERT INTO `#__boss_7_groups` (`id`, `name`, `desc`, `template`, `type_tmpl`, `catsid`, `published`) VALUES
-	(1, 'catSubtitle', 'catSubtitle', 'contact', 'category', ',-1,', 1),
-	(2, 'catImage', 'catImage', 'contact', 'category', ',-1,', 1),
-	(3, 'conSubtitle', 'conSubtitle', 'contact', 'content', ',-1,', 1),
-	(4, 'conDescription', 'conDescription', 'contact', 'content', ',-1,', 1),
-	(5, 'conImage', 'conImage', 'contact', 'content', ',-1,', 1);
-
-# Dumping structure for table #__boss_7_profile
+	(1, 'CatSubtitle', 'CatSubtitle', 'contact', 'category', ',-1,', 1),
+	(2, 'CatImage', 'CatImage', 'contact', 'category', ',-1,', 1),
+	(3, 'ConSubtitle', 'ConSubtitle', 'contact', 'content', ',-1,', 1),
+	(4, 'ConDescription', 'ConDescription', 'contact', 'content', ',-1,', 1),
+	(5, 'ConImage', 'ConImage', 'contact', 'content', ',-1,', 1);
 
 CREATE TABLE IF NOT EXISTS `#__boss_7_profile` (
   `userid` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_7_rating
 
 CREATE TABLE IF NOT EXISTS `#__boss_7_rating` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -807,8 +698,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_rating` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__boss_7_reviews
-
 CREATE TABLE IF NOT EXISTS `#__boss_7_reviews` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contentid` int(10) unsigned DEFAULT NULL,
@@ -819,8 +708,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_7_reviews` (
   `published` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__boss_config
 
 CREATE TABLE IF NOT EXISTS `#__boss_config` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -870,14 +757,10 @@ CREATE TABLE IF NOT EXISTS `#__boss_config` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__boss_config: 3 rows
-
 INSERT INTO `#__boss_config` (`id`, `name`, `slug`, `meta_title`, `meta_desc`, `meta_keys`, `default_order_by`, `contents_per_page`, `root_allowed`, `show_contact`, `send_email_on_new`, `send_email_on_update`, `auto_publish`, `fronttext`, `email_display`, `display_fullname`, `rules_text`, `expiration`, `content_duration`, `recall`, `recall_time`, `recall_text`, `empty_cat`, `cat_max_width`, `cat_max_height`, `cat_max_width_t`, `cat_max_height_t`, `submission_type`, `nb_contents_by_user`, `allow_attachement`, `allow_contact_by_pms`, `allow_comments`, `rating`, `secure_comment`, `comment_sys`, `allow_unregisered_comment`, `allow_ratings`, `secure_new_content`, `use_content_mambot`, `show_rss`, `filter`, `template`, `allow_rights`, `rights`) VALUES
-	(6, 'Файловый архив', 'files', '', '', '', '0', 5, 0, 2, 0, 0, 1, '<br />', 0, 0, 'Это правила... // /', 0, 30, 1, 7, '<br /> ', 0, 250, 250, 80, 80, 0, -1, 0, 0, 1, 'GDRating', 1, 1, 0, 1, 0, 1, 1, '0', 'files', '1', 'edit_category=23,24,25*edit_content=23,24,25*edit_directories=23,24,25*edit_conf=23,24,25*edit_types=23,24,25*edit_fields=23,24,25*edit_fieldimages=23,24,25*edit_templates=23,24,25*edit_plugins=23,24,25*import_export=23,24,25*edit_users=23,24,25*show_user_content=0,18,19,20,21,23,24,25*show_all=0,18,19,20,21,23,24,25*show_search=0,18,19,20,21,23,24,25*show_all_content=0,18,19,20,21,23,24,25*show_category=0,18,19,20,21,23,24,25*show_my_content=0,18,19,20,21,23,24,25*show_category_content=0,18,19,20,21,23,24,25*create_content=19,20,21,23,24,25*edit_user_content=20,21,23,24,25*edit_all_content=21,23,24,25*delete_user_content=20,21,23,24,25*delete_all_content=21,23,24,25*'),
-	(5, 'Основной', 'content', '', '', '', '0', 5, 0, 2, 0, 0, 1, ' ', 0, 0, ' ', 0, 30, 1, 7, ' ', 1, 150, 150, 30, 30, 0, -1, 0, 0, 1, 'GDRating', 0, 1, 1, 1, 1, 1, 1, '0', 'default', '1', 'edit_category=23,24,25*edit_content=20,21,23,24,25*edit_directories=23,24,25*edit_conf=23,24,25*edit_types=23,24,25*edit_fields=23,24,25*edit_fieldimages=23,24,25*edit_templates=23,24,25*edit_plugins=23,24,25*import_export=23,24,25*edit_users=24,25*show_user_content=0,18,19,20,21,23,24,25*show_all=0,18,19,20,21,23,24,25*show_search=0,18,19,20,21,23,24,25*show_all_content=0,18,19,20,21,23,24,25*show_category=0,18,19,20,21,23,24,25*show_my_content=0,18,19,20,21,23,24,25*show_category_content=0,18,19,20,21,23,24,25*create_content=19,20,21,23,24,25*edit_user_content=20,21,23,24,25*edit_all_content=21,23,24,25*delete_user_content=20,21,23,24,25*delete_all_content=21,23,24,25*'),
-	(7, 'Контакты', 'contact', '', '', '', '1', 5, 0, 1, 0, 0, 1, 'Текст приветствия ', 0, 0, 'Это правила... ', 0, 30, 1, 7, ' ', 1, 150, 150, 80, 80, 0, -1, 0, 0, 1, 'GDRating', 1, 1, 0, 1, 0, 1, 0, '0', 'contact', '1', 'edit_category=23,24,25*edit_content=23,24,25*edit_directories=23,24,25*edit_conf=23,24,25*edit_types=23,24,25*edit_fields=23,24,25*edit_fieldimages=23,24,25*edit_templates=23,24,25*edit_plugins=23,24,25*import_export=23,24,25*edit_users=23,24,25*show_user_content=0,18,19,20,21,23,24,25*show_all=0,18,19,20,21,23,24,25*show_search=0,18,19,20,21,23,24,25*show_all_content=0,18,19,20,21,23,24,25*show_category=0,18,19,20,21,23,24,25*show_my_content=0,18,19,20,21,23,24,25*show_category_content=0,18,19,20,21,23,24,25*create_content=19,20,21,23,24,25*edit_user_content=19,20,21,23,24,25*edit_all_content=23,24,25*delete_user_content=19,20,21,23,24,25*delete_all_content=23,24,25*');
-
-# Dumping structure for table #__boss_plug_config
+	(6, 'Файловый архив', 'files', '', '', '', '0', 5, 0, 2, 0, 0, 1, 'Текст правил правила...', 0, 0, 'Текст правил правила...', 0, 30, 1, 7, '<br /> ', 0, 250, 250, 80, 80, 0, -1, 0, 0, 1, 'GDRating', 1, 1, 0, 1, 0, 1, 1, '0', 'files', '1', 'edit_category=23,24,25*edit_content=23,24,25*edit_directories=23,24,25*edit_conf=23,24,25*edit_types=23,24,25*edit_fields=23,24,25*edit_fieldimages=23,24,25*edit_templates=23,24,25*edit_plugins=23,24,25*import_export=23,24,25*edit_users=23,24,25*show_user_content=0,18,19,20,21,23,24,25*show_all=0,18,19,20,21,23,24,25*show_search=0,18,19,20,21,23,24,25*show_all_content=0,18,19,20,21,23,24,25*show_category=0,18,19,20,21,23,24,25*show_my_content=0,18,19,20,21,23,24,25*show_category_content=0,18,19,20,21,23,24,25*create_content=19,20,21,23,24,25*edit_user_content=20,21,23,24,25*edit_all_content=21,23,24,25*delete_user_content=20,21,23,24,25*delete_all_content=21,23,24,25*'),
+	(5, 'Основной', 'content', '', '', '', '0', 5, 0, 2, 0, 0, 1, ' ', 0, 0, 'Текст правил правила...', 0, 30, 1, 7, 'Текст правил правила...', 1, 150, 150, 30, 30, 0, -1, 0, 0, 1, 'GDRating', 1, 1, 1, 1, 1, 1, 1, '0', 'default', '1', 'edit_category=23,24,25*edit_content=20,21,23,24,25*edit_directories=23,24,25*edit_conf=23,24,25*edit_types=23,24,25*edit_fields=23,24,25*edit_fieldimages=23,24,25*edit_templates=23,24,25*edit_plugins=23,24,25*import_export=23,24,25*edit_users=24,25*show_user_content=0,18,19,20,21,23,24,25*show_all=0,18,19,20,21,23,24,25*show_search=0,18,19,20,21,23,24,25*show_all_content=0,18,19,20,21,23,24,25*show_category=0,18,19,20,21,23,24,25*show_my_content=0,18,19,20,21,23,24,25*show_category_content=0,18,19,20,21,23,24,25*create_content=19,20,21,23,24,25*edit_user_content=20,21,23,24,25*edit_all_content=21,23,24,25*delete_user_content=20,21,23,24,25*delete_comments=20,21,23,24,25*'),
+	(7, 'Контакты', 'contact', '', '', '', '1', 5, 0, 1, 0, 0, 1, 'Текст правил правила...', 0, 0, 'Текст правил правила...', 0, 30, 1, 7, ' ', 1, 150, 150, 80, 80, 0, -1, 0, 0, 1, 'GDRating', 1, 1, 0, 1, 0, 1, 0, '0', 'contact', '1', 'edit_category=23,24,25*edit_content=23,24,25*edit_directories=23,24,25*edit_conf=23,24,25*edit_types=23,24,25*edit_fields=23,24,25*edit_fieldimages=23,24,25*edit_templates=23,24,25*edit_plugins=23,24,25*import_export=23,24,25*edit_users=23,24,25*show_user_content=0,18,19,20,21,23,24,25*show_all=0,18,19,20,21,23,24,25*show_search=0,18,19,20,21,23,24,25*show_all_content=0,18,19,20,21,23,24,25*show_category=0,18,19,20,21,23,24,25*show_my_content=0,18,19,20,21,23,24,25*show_category_content=0,18,19,20,21,23,24,25*create_content=19,20,21,23,24,25*edit_user_content=19,20,21,23,24,25*edit_all_content=23,24,25*delete_user_content=19,20,21,23,24,25*delete_all_content=23,24,25*');
 
 CREATE TABLE IF NOT EXISTS `#__boss_plug_config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -889,8 +772,6 @@ CREATE TABLE IF NOT EXISTS `#__boss_plug_config` (
   PRIMARY KEY (`id`),
   KEY `directory` (`directory`,`plug_type`,`plug_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__components
 
 CREATE TABLE IF NOT EXISTS `#__components` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -907,8 +788,6 @@ CREATE TABLE IF NOT EXISTS `#__components` (
   `params` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__components: 36 rows
 
 INSERT INTO `#__components` (`id`, `name`, `link`, `menuid`, `parent`, `admin_menu_link`, `admin_menu_alt`, `option`, `ordering`, `admin_menu_img`, `iscore`, `params`) VALUES
 	(1, 'Баннеры', '', 0, 0, 'option=com_banners', 'Управление баннерами', 'com_banners', 0, 'js/ThemeOffice/component.png', 0, ''),
@@ -937,9 +816,12 @@ INSERT INTO `#__components` (`id`, `name`, `link`, `menuid`, `parent`, `admin_me
 	(32, 'Медиа менеджер elFinder', '', 0, 31, 'option=com_elrte', 'Медиа менеджер elFinder', 'com_elrte', 0, 'js/ThemeOffice/component.png', 0, NULL),
 	(33, 'Конфигурация elRTE', '', 0, 31, 'option=com_elrte&task=config_elrte', 'Конфигурация elRTE', 'com_elrte', 1, 'js/ThemeOffice/component.png', 0, NULL),
 	(34, 'Конфигурация elFinder', '', 0, 31, 'option=com_elrte&task=config_elfinder', 'Конфигурация elFinder', 'com_elrte', 2, 'js/ThemeOffice/component.png', 0, NULL),
-	(35, 'Инфо', '', 0, 31, 'option=com_elrte&task=info', 'Инфо', 'com_elrte', 3, 'js/ThemeOffice/component.png', 0, NULL);
-
-# Dumping structure for table #__config
+	(35, 'Инфо', '', 0, 31, 'option=com_elrte&task=info', 'Инфо', 'com_elrte', 3, 'js/ThemeOffice/component.png', 0, NULL),
+  (52, 'JLotos SEF', 'option=com_jlotossef', 0, 0, 'option=com_jlotossef', 'JLotos SEF', 'com_jlotossef', 0, '../administrator/components/com_jlotossef/images/jlsef.png', 0, ''),
+  (53, 'Настройки', '', 0, 52, 'option=com_jlotossef&task=configuration', 'Настройки', 'com_jlotossef', 0, '../administrator/components/com_jlotossef/images/configuration.png', 0, NULL),
+  (54, 'Ссылки', '', 0, 52, 'option=com_jlotossef&task=references', 'Ссылки', 'com_jlotossef', 1, '../administrator/components/com_jlotossef/images/references.png', 0, NULL),
+  (55, 'Дубликаты', '', 0, 52, 'option=com_jlotossef&task=duplicates', 'Дубликаты', 'com_jlotossef', 2, '../administrator/components/com_jlotossef/images/duplicates.png', 0, NULL),
+  (56, 'Описание SEF-файлов', '', 0, 52, 'option=com_jlotossef&task=description', 'Описание SEF-файлов', 'com_jlotossef', 3, '../administrator/components/com_jlotossef/images/description.png', 0, NULL);
 
 CREATE TABLE IF NOT EXISTS `#__config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -951,13 +833,9 @@ CREATE TABLE IF NOT EXISTS `#__config` (
   KEY `name` (`name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__config: 2 rows
-
 INSERT INTO `#__config` (`id`, `group`, `subgroup`, `name`, `value`) VALUES
 	(1, 'com_frontpage', 'default', 'directory', 's:1{5}'),
 	(2, 'com_frontpage', 'default', 'page', 's:14{show_frontpage}');
-
-# Dumping structure for table #__content_rating
 
 CREATE TABLE IF NOT EXISTS `#__content_rating` (
   `content_id` int(11) NOT NULL DEFAULT '0',
@@ -966,8 +844,6 @@ CREATE TABLE IF NOT EXISTS `#__content_rating` (
   `lastip` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`content_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__content_tags
 
 CREATE TABLE IF NOT EXISTS `#__content_tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -978,8 +854,6 @@ CREATE TABLE IF NOT EXISTS `#__content_tags` (
   KEY `obj_id` (`obj_id`,`tag`),
   KEY `obj_type` (`obj_type`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__core_acl_aro
 
 CREATE TABLE IF NOT EXISTS `#__core_acl_aro` (
   `aro_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -994,8 +868,6 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro` (
   KEY `#__gacl_hidden_aro` (`hidden`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__core_acl_aro_groups
-
 CREATE TABLE IF NOT EXISTS `#__core_acl_aro_groups` (
   `group_id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL DEFAULT '0',
@@ -1006,8 +878,6 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro_groups` (
   KEY `#__gacl_parent_id_aro_groups` (`parent_id`),
   KEY `#__gacl_lft_rgt_aro_groups` (`lft`,`rgt`)
 ) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__core_acl_aro_groups: 11 rows
 
 INSERT INTO `#__core_acl_aro_groups` (`group_id`, `parent_id`, `name`, `lft`, `rgt`) VALUES
 	(17, 0, 'ROOT', 1, 22),
@@ -1022,8 +892,6 @@ INSERT INTO `#__core_acl_aro_groups` (`group_id`, `parent_id`, `name`, `lft`, `r
 	(24, 23, 'Administrator', 15, 18),
 	(25, 24, 'Super Administrator', 16, 17);
 
-# Dumping structure for table #__core_acl_aro_sections
-
 CREATE TABLE IF NOT EXISTS `#__core_acl_aro_sections` (
   `section_id` int(11) NOT NULL AUTO_INCREMENT,
   `value` varchar(230) NOT NULL DEFAULT '',
@@ -1035,12 +903,8 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_aro_sections` (
   KEY `hidden_aro_sections` (`hidden`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__core_acl_aro_sections: 1 rows
-
 INSERT INTO `#__core_acl_aro_sections` (`section_id`, `value`, `order_value`, `name`, `hidden`) VALUES
 	(10, 'users', 1, 'Users', 0);
-
-# Dumping structure for table #__core_acl_groups_aro_map
 
 CREATE TABLE IF NOT EXISTS `#__core_acl_groups_aro_map` (
   `group_id` int(11) NOT NULL DEFAULT '0',
@@ -1050,13 +914,9 @@ CREATE TABLE IF NOT EXISTS `#__core_acl_groups_aro_map` (
   KEY `aro_id` (`aro_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__core_acl_groups_aro_map: 2 rows
-
 INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
 	(18, '', 11),
 	(25, '', 10);
-
-# Dumping structure for table #__core_log_items
 
 CREATE TABLE IF NOT EXISTS `#__core_log_items` (
   `time_stamp` date NOT NULL DEFAULT '0000-00-00',
@@ -1065,8 +925,6 @@ CREATE TABLE IF NOT EXISTS `#__core_log_items` (
   `hits` int(11) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__core_log_searches
-
 CREATE TABLE IF NOT EXISTS `#__core_log_searches` (
   `search_term` varchar(128) NOT NULL DEFAULT '',
   `hits` int(11) unsigned NOT NULL DEFAULT '0',
@@ -1074,30 +932,22 @@ CREATE TABLE IF NOT EXISTS `#__core_log_searches` (
   KEY `search_term` (`search_term`(16))
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__groups
-
 CREATE TABLE IF NOT EXISTS `#__groups` (
   `id` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__groups: 3 rows
-
 INSERT INTO `#__groups` (`id`, `name`) VALUES
 	(0, 'Общий'),
 	(1, 'Участники'),
 	(2, 'Специальный');
-
-# Dumping structure for table #__jp_def
 
 CREATE TABLE IF NOT EXISTS `#__jp_def` (
   `def_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `directory` varchar(255) NOT NULL,
   PRIMARY KEY (`def_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__jp_packvars
 
 CREATE TABLE IF NOT EXISTS `#__jp_packvars` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1106,8 +956,6 @@ CREATE TABLE IF NOT EXISTS `#__jp_packvars` (
   `value2` longtext,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__mambots
 
 CREATE TABLE IF NOT EXISTS `#__mambots` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1125,8 +973,6 @@ CREATE TABLE IF NOT EXISTS `#__mambots` (
   PRIMARY KEY (`id`),
   KEY `idx_folder` (`published`,`client_id`,`access`,`folder`)
 ) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__mambots: 22 rows
 
 INSERT INTO `#__mambots` (`id`, `name`, `element`, `folder`, `access`, `ordering`, `published`, `iscore`, `client_id`, `checked_out`, `checked_out_time`, `params`) VALUES
 	(1, 'Изображение MOS', 'mosimage', 'content', 0, -10000, 1, 1, 0, 0, '0000-00-00 00:00:00', ''),
@@ -1146,9 +992,9 @@ INSERT INTO `#__mambots` (`id`, `name`, `element`, `folder`, `access`, `ordering
 	(23, 'Библиотека MyLib', 'mylib', 'system', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', NULL),
 	(24, 'System - JQuery', 'jquery', 'system', 0, 1, 1, 1, 0, 0, '0000-00-00 00:00:00', NULL),
 	(25, 'elRTE Mambot', 'elrte', 'editors', 0, 3, 1, 0, 0, 0, '2011-10-22 22:19:50', NULL),
-	(26, 'Spaw', 'spaw', 'editors', 0, 2, 1, 0, 0, 0, '0000-00-00 00:00:00', 'default_width=98%\ndefault_height=400px\nresizing_directions=vertical\nbeautify_xhtml_output=1\ndefault_toolbarset=all\ntemplate=1\nstrip_absolute_urls=1\nrendering_mode=xhtml\nconvert_html_entities=0\nallow_modify=0\nallow_upload=1\nuser_dir=0\nmax_upload_filesize=200000\ndropdown_data_core_style=contact_email\r<br />sectiontableheader\r<br />sectiontableentry1\r<br />sectiontableentry2 \r<br />date\r<br />small\r<br />smalldark\r<br />contentheading\r<br />footer\r<br />lcol\r<br />rcol\r<br />contentdescription\r<br />blog_more\ntable_styles=moduletable\r<br />content\r<br />contenttoc\r<br />contentpane\r<br />prctable пример таблицы');
-
-# Dumping structure for table #__menu
+	(26, 'Spaw', 'spaw', 'editors', 0, 2, 1, 0, 0, 0, '0000-00-00 00:00:00', 'default_width=98%\ndefault_height=400px\nresizing_directions=vertical\nbeautify_xhtml_output=1\ndefault_toolbarset=all\ntemplate=1\nstrip_absolute_urls=1\nrendering_mode=xhtml\nconvert_html_entities=0\nallow_modify=0\nallow_upload=1\nuser_dir=0\nmax_upload_filesize=200000\ndropdown_data_core_style=contact_email\r<br />sectiontableheader\r<br />sectiontableentry1\r<br />sectiontableentry2 \r<br />date\r<br />small\r<br />smalldark\r<br />contentheading\r<br />footer\r<br />lcol\r<br />rcol\r<br />contentdescription\r<br />blog_more\ntable_styles=moduletable\r<br />content\r<br />contenttoc\r<br />contentpane\r<br />prctable пример таблицы'),
+	(27, 'Кнопка запреты использования JLImage', 'jlimage.btn', 'editors-xtd', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', NULL),
+	(28, 'JLImage', 'jlimage', 'content', 0, 2, 1, 0, 0, 0, '0000-00-00 00:00:00', 'directory=5\ncatid=\nsize=200\nquality=75\nstyle=0\nstyle_default=left\ncorrect=1\nignor_small=1\noverlay_opacity=0.5\noverlay_color=#000\ntransition_in=elastic\ntransition_out=fade\nspeed_in=600\nspeed_out=600');
 
 CREATE TABLE IF NOT EXISTS `#__menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1171,25 +1017,26 @@ CREATE TABLE IF NOT EXISTS `#__menu` (
   PRIMARY KEY (`id`),
   KEY `componentid` (`componentid`,`menutype`,`published`,`access`),
   KEY `menutype` (`menutype`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__menu: 33 rows
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__menu` (`id`, `menutype`, `name`, `link`, `type`, `published`, `parent`, `componentid`, `sublevel`, `ordering`, `checked_out`, `checked_out_time`, `pollid`, `browserNav`, `access`, `utaccess`, `params`) VALUES
 	(1, 'mainmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 12, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=-1\npageclass_sfx=\nheader=Добро пожаловать на главную страницу\npage_title=0\nback_button=0\nleading=2\nintro=2\ncolumns=1\nlink=0\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=0\nimage=1\nsection=0\nsection_link=0\nsection_link_type=blog\ncategory=1\ncategory_link=0\ncat_link_type=blog\nitem_title=1\nlink_titles=1\nintro_only=1\nview_introtext=1\nintrotext_limit=\nview_tags=1\nreadmore=0\nrating=0\nauthor=1\nauthor_name=0\ncreatedate=1\nmodifydate=0\nhits=\nprint=0\nemail=0\nunpublished=0'),
-	(15, 'usermenu', 'Панель управления', 'administrator/', 'url', 1, 0, 0, 0, 6, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'menu_image=-1'),
+	(15, 'usermenu', 'Панель управления', 'administrator/', 'url', 1, 0, 0, 0, 1, 0, '0000-00-00 00:00:00', 0, 1, 1, 3, 'title=\nmenu_image='),
 	(17, 'usermenu', 'Разблокировать содержимое', 'index.php?option=com_users&task=CheckIn', 'url', 1, 0, 0, 0, 5, 0, '0000-00-00 00:00:00', 0, 0, 1, 2, ''),
 	(31, 'mainmenu', 'Файловый архив', 'index.php?option=com_boss&task=show_all&directory=6', 'boss_all_content', 1, 0, 0, 0, 15, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\nmenu_image='),
 	(32, 'mainmenu', 'Контакты', 'index.php?option=com_boss&task=show_all&directory=7', 'boss_all_content', 1, 0, 0, 0, 16, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\nmenu_image='),
 	(33, 'othermenu', 'Сайт поддержки', 'http://joostina-cms/', 'url', 1, 0, 0, 0, 7, 0, '0000-00-00 00:00:00', 0, 1, 0, 0, 'title=\nmenu_image='),
 	(34, 'othermenu', 'Форум поддержки', 'http://joostina-cms/redirection/forum.html', 'url', 1, 0, 0, 0, 8, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\nmenu_image='),
 	(35, 'othermenu', 'Wiki-Справка', 'http://wiki.joostina-cms/', 'url', 1, 0, 0, 0, 9, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\nmenu_image='),
-	(36, 'topmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 7, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=\npageclass_sfx=\nheader=\npage_title=1\nback_button=0\nleading=1\nintro=4\ncolumns=2\nlink=4\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=1\nimage=1\nsection=0\nsection_link=0\nsection_link_type=blog\ncategory=0\ncategory_link=0\ncat_link_type=blog\nitem_title=1\nlink_titles=\nintro_only=1\nview_introtext=1\nintrotext_limit=\nreadmore=\nrating=\nauthor=\nauthor_name=0\ncreatedate=\nmodifydate=\nview_tags=\nhits=\nprint=\nemail=\nunpublished=0'),
-	(37, 'topmenu', 'Карта сайта', 'index.php?option=com_xmap', 'components', 1, 0, 19, 0, 8, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title='),
-	(38, 'topmenu', 'Почта', 'info@joostina-cms.ru', 'url', 1, 0, 0, 0, 9, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\nmenu_image=');
-
-
-# Dumping structure for table #__messages
+	(36, 'topmenu', 'Главная', 'index.php?option=com_frontpage', 'components', 1, 0, 10, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\npage_name=\nno_site_name=0\nrobots=-1\nmeta_description=\nmeta_keywords=\nmeta_author=\nmenu_image=\npageclass_sfx=\nheader=\npage_title=1\nback_button=0\nleading=1\nintro=4\ncolumns=2\nlink=4\norderby_pri=\norderby_sec=front\npagination=2\npagination_results=1\nimage=1\nsection=0\nsection_link=0\nsection_link_type=blog\ncategory=0\ncategory_link=0\ncat_link_type=blog\nitem_title=1\nlink_titles=\nintro_only=1\nview_introtext=1\nintrotext_limit=\nreadmore=\nrating=\nauthor=\nauthor_name=0\ncreatedate=\nmodifydate=\nview_tags=\nhits=\nprint=\nemail=\nunpublished=0'),
+	(37, 'topmenu', 'Карта сайта', 'index.php?option=com_xmap', 'components', 1, 0, 19, 0, 3, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title='),
+	(38, 'topmenu', 'Почта', 'info@joostina-cms.ru', 'url', -2, 0, 0, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\nmenu_image='),
+	(28, 'mainmenu', 'Новости', 'index.php?option=com_boss&task=show_category&catid=1&directory=5', 'boss_category_content', 1, 0, 0, 0, 13, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\nmenu_image='),
+	(29, 'mainmenu', 'Статьи', 'index.php?option=com_boss&task=show_category&catid=2&directory=5', 'boss_category_content', 1, 0, 0, 0, 14, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'title=\nmenu_image='),
+	(49, 'usermenu', 'Добавить контакт', 'index.php?option=com_boss&task=write_content&directory=7', 'boss_write_content', 1, 0, 0, 0, 4, 0, '0000-00-00 00:00:00', 0, 0, 1, 0, 'title=\nmenu_image='),
+	(48, 'usermenu', 'Добавить файл', 'index.php?option=com_boss&task=write_content&directory=6', 'boss_write_content', 1, 0, 0, 0, 3, 0, '0000-00-00 00:00:00', 0, 0, 1, 0, 'title=\nmenu_image='),
+	(46, 'topmenu', 'RSS', 'index2.php?option=com_rss&feed=RSS2.0&no_html=1', 'url', 1, 0, 0, 0, 4, 0, '0000-00-00 00:00:00', 0, 2, 0, 0, 'title=\nmenu_image='),
+	(47, 'usermenu', 'Добавить материал', 'index.php?option=com_boss&task=write_content&directory=5', 'boss_write_content', 1, 0, 0, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 1, 0, 'title=\nmenu_image=');
 
 CREATE TABLE IF NOT EXISTS `#__messages` (
   `message_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -1204,16 +1051,12 @@ CREATE TABLE IF NOT EXISTS `#__messages` (
   PRIMARY KEY (`message_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__messages_cfg
-
 CREATE TABLE IF NOT EXISTS `#__messages_cfg` (
   `user_id` int(10) unsigned NOT NULL DEFAULT '0',
   `cfg_name` varchar(100) NOT NULL DEFAULT '',
   `cfg_value` varchar(255) NOT NULL DEFAULT '',
   UNIQUE KEY `idx_user_var_name` (`user_id`,`cfg_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__modules
 
 CREATE TABLE IF NOT EXISTS `#__modules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1234,26 +1077,23 @@ CREATE TABLE IF NOT EXISTS `#__modules` (
   PRIMARY KEY (`id`),
   KEY `published` (`published`,`access`),
   KEY `newsfeeds` (`module`,`published`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__modules: 37 rows
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__modules` (`id`, `title`, `content`, `ordering`, `position`, `checked_out`, `checked_out_time`, `published`, `module`, `numnews`, `access`, `showtitle`, `params`, `iscore`, `client_id`) VALUES
-	(1, 'Ваше мнение', '', 4, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_poll', 0, 0, 1, 'cache_time=0\nmoduleclass_sfx=-poll', 0, 0),
-	(2, 'Меню пользователя', '', 1, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 1, 1, 'moduleclass_sfx=-new2\nclass_sfx=\nmenutype=usermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=1\nnumrow=Все\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=aload.gif\nindent_image2=aload.gif\nindent_image3=aload.gif\nindent_image4=aload.gif\nindent_image5=aload.gif\nindent_image6=aload.gif\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=\nml_image2=\nml_image3=\nml_image4=\nml_image5=\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=\nml_image_roll_2=\nml_image_roll_3=\nml_image_roll_4=\nml_image_roll_5=\nml_image_roll_6=\nml_image_roll_7=\nml_image_roll_8=\nml_image_roll_9=\nml_image_roll_10=\nml_image_roll_11=\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0),
-	(3, 'Главное меню', '', 1, 'menu1', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 0, 'moduleclass_sfx=-menu1\nclass_sfx=\nmenutype=mainmenu\nmenu_style=linksonly\nml_imaged=0\nml_module_number=1\nnumrow=10\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0),
-	(4, 'Авторизация', '', 2, 'header', 0, '0000-00-00 00:00:00', 1, 'mod_ml_login', 0, 0, 0, 'moduleclass_sfx=\ntemplate=popup.php\ntemplate_dir=1\ndr_login_text=Вход / Регистрация\nml_avatar=0\npretext=\nposttext=\nlogin=\nlogin_message=0\ngreeting=1\nuser_name=0\nprofile_link=0\nprofile_link_text=Личный кабинет\nlogout=\nlogout_message=0\nshow_login_text=1\nml_login_text=Логин\nshow_pass_text=1\nml_pass_text=\nshow_remember=0\nml_rem_text=\nshow_lost_pass=1\nml_rem_pass_text=\nshow_register=1\nml_reg_text=\nsubmit_button_text=', 1, 0),
-	(5, 'Экспорт новостей', '', 3, 'bottom', 0, '0000-00-00 00:00:00', 1, 'mod_rssfeed', 0, 0, 0, 'cache_time=0\nmoduleclass_sfx=\ntext=\nyandex=0\nrss091=0\nrss10=0\nrss20=1\natom=0\nopml=0\nrss091_image=-1\nrss10_image=-1\nrss20_image=rss-new.png\natom_image=-1\nopml_image=-1\nyandex_image=-1', 1, 0),
-	(46, 'Фото', NULL, 2, 'left', 0, '0000-00-00 00:00:00', 0, 'mod_gdnlotos', 0, 0, 1, 'cache=0\ncache_time=0\nmoduleclass_sfx=-foto\ntemplate=foto\ntemplate_dir=0\nmodul_link=1\nmodul_link_cat=0\ndirectory=5\ncatid=\ndirectory_name=1\ndirectory_link=1\ncategory_name=1\ncategory_link=1\ncontent_field=0\ncount_special=0\ncount_basic=3\ncolumns=1\ncount_reference=0\nshow_front=1\norderby=rand\ntime=30\nimage=1\nimage_link=1\nimage_default=1\nimage_prev=width\nimage_size_s=200\nimage_quality_s=75\nimage_size_b=150\nimage_quality_b=75\nitem_title=1\nlink_titles=1\ntext=1\ncrop_text=word\ncrop_text_limit=20\ncrop_text_format=0\nshow_date=1\ndate_format=%d-%m-%Y %H:%M\nshow_author=4\nreadmore=1\nlink_text=\nhits=1', 0, 0),
-	(7, 'Статистика', '', 3, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_stats', 0, 0, 0, 'cache=1\nserverinfo=1\nsiteinfo=0\ncounter=0\nincrease=0\nmoduleclass_sfx=-stat', 0, 0),
-	(8, 'Пользователи', '', 3, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_whosonline', 0, 0, 1, 'cache_time=0\nmoduleclass_sfx=-new2\nmodule_orientation=1\nall_user=1\nonline_user_count=1\nonline_users=1\nuser_avatar=1', 0, 0),
-	(49, 'Помощь on-line', '', 2, 'right', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 1, 1, 'moduleclass_sfx=-new2\nclass_sfx=\nmenutype=othermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=6\nnumrow=Все\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=aload.gif\nindent_image2=aload.gif\nindent_image3=aload.gif\nindent_image4=aload.gif\nindent_image5=aload.gif\nindent_image6=aload.gif\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=\nml_image2=\nml_image3=\nml_image4=\nml_image5=\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=\nml_image_roll_2=\nml_image_roll_3=\nml_image_roll_4=\nml_image_roll_5=\nml_image_roll_6=\nml_image_roll_7=\nml_image_roll_8=\nml_image_roll_9=\nml_image_roll_10=\nml_image_roll_11=\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0),
-	(10, 'Выбор шаблона', '', 4, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_templatechooser', 0, 0, 1, 'show_preview=1', 0, 0),
-	(14, 'Взаимосвязанные элементы', '', 1, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_related_items', 0, 0, 1, 'cache_time=0\nmoduleclass_sfx=-new1\nlimit=5', 0, 0),
-	(15, 'Поиск', '', 1, 'user1', 0, '0000-00-00 00:00:00', 1, 'mod_search', 0, 0, 0, 'moduleclass_sfx=-search\ncache_time=0\ntemplate=default.php\ntemplate_dir=0\nwidth=30\ntext=Поиск...\ntext_pos=inside\nbutton=0\nbutton_pos=bottom\nbutton_text=', 0, 0),
-	(16, 'Слайдшоу', '', 1, 'banner1', 0, '0000-00-00 00:00:00', 0, 'mod_random_image', 0, 0, 0, 'rotate_type=1\ntype=jpg\nfolder=images/rotate\nlink=http://joostina-cms.ru\nwidth=500\nheight=300\nmoduleclass_sfx=\nimg_pref=slide\ns_autoplay=1\ns_pause=6000\ns_fadeduration=600\npanel_height=55px\npanel_opacity=0.4\npanel_padding=5px\npanel_font=bold 11px Verdana', 0, 0),
-	(40, 'Приветствие', '<h3>Добро пожаловать на Ваш первый сайт!</h3>\r\n<div style="text-align:justify">\r\n<p style="text-align:left">Поздравляем! Если Вы видите это сообщение, то Joostina «Lotos» успешно \r\nустановлена и готова к работе. Благодарим за выбор CMS Joostina, \r\nнадеемся что она оправдает возложенные на неё ожидания.\r\n</p><p style="text-align:left">После установки система уже содержит некоторое количество встроенных расширений, все они настроены для быстрого начала работы. </p><p style="text-align:left">Ваш первый тестовый сайт посвящён прекрасному цветку Лотос. Лотос - священный цветок древних египтян, символ красоты, чистоты, стремления к солнцу, свету. Этот образ пронизывает всё египетское искусство, начиная от лотосовидных капителей храмовых колонн и заканчивая миниатюрными туалетными сосудами и ювелирными украшениями.<br /></p></div>  ', 1, 'top', 62, '2012-05-24 08:29:09', 0, '', 0, 0, 0, 'moduleclass_sfx=-top\ncache_time=172800\nrssurl=\nrsstitle=1\nrssdesc=1\nrssimage=1\nrssitems=3\nrssitemdesc=1\nword_count=0\nrsscache=3600', 0, 0),
-	(18, 'Баннеры-3', '', 1, 'banner3', 0, '0000-00-00 00:00:00', 0, 'mod_banners', 0, 0, 0, 'moduleclass_sfx=-ban1\ncategories=3\nbanners=\nclients=\ncount=1\nrandom=1\ntext=0\norientation=0', 1, 0),
+	(1, 'Ваше мнение', '', 13, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_poll', 0, 0, 1, 'cache_time=0\nmoduleclass_sfx=-poll', 0, 0),
+	(2, 'Меню пользователя', '', 3, 'user1', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 1, 0, 'moduleclass_sfx=-new2\nclass_sfx=\nmenutype=usermenu\nmenu_style=linksonly\nml_imaged=0\nml_module_number=1\nnumrow=Все\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=aload.gif\nindent_image2=aload.gif\nindent_image3=aload.gif\nindent_image4=aload.gif\nindent_image5=aload.gif\nindent_image6=aload.gif\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=\nml_image2=\nml_image3=\nml_image4=\nml_image5=\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=\nml_image_roll_2=\nml_image_roll_3=\nml_image_roll_4=\nml_image_roll_5=\nml_image_roll_6=\nml_image_roll_7=\nml_image_roll_8=\nml_image_roll_9=\nml_image_roll_10=\nml_image_roll_11=\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 1, 0),
+	(4, 'Авторизация', '', 2, 'user1', 0, '0000-00-00 00:00:00', 1, 'mod_ml_login', 0, 0, 0, 'moduleclass_sfx=\ntemplate=popup.php\ntemplate_dir=0\ndr_login_text=Вход / Регистрация\nml_avatar=0\npretext=\nposttext=\nlogin=\nlogin_message=0\ngreeting=1\nuser_name=0\nprofile_link=0\nprofile_link_text=Личный кабинет\nlogout=\nlogout_message=0\nshow_login_text=1\nml_login_text=Логин\nshow_pass_text=1\nml_pass_text=\nshow_remember=1\nml_rem_text=\nshow_lost_pass=1\nml_rem_pass_text=\nshow_register=1\nml_reg_text=\nsubmit_button_text=', 1, 0),
+	(5, 'Экспорт новостей', '', 11, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_rssfeed', 0, 0, 0, 'cache_time=0\nmoduleclass_sfx=\ntext=\nyandex=0\nrss091=0\nrss10=0\nrss20=1\natom=0\nopml=0\nrss091_image=-1\nrss10_image=-1\nrss20_image=rss-new.png\natom_image=-1\nopml_image=-1\nyandex_image=-1', 1, 0),
+	(46, 'Контакты', NULL, 3, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_gdnlotos', 0, 0, 1, 'cache=0\ncache_time=0\nmoduleclass_sfx=-foto\ntemplate=foto\ntemplate_dir=0\nmodul_link=1\nmodul_link_cat=0\ndirectory=7\ncatid=\ndirectory_name=1\ndirectory_link=1\ncategory_name=1\ncategory_link=1\ncontent_field=7-content_foto\ncount_special=0\ncount_basic=3\ncolumns=1\ncount_reference=0\nshow_front=1\norderby=rand\ntime=0\nimage=1\nimage_link=1\nimage_default=1\nimage_prev=width\nimage_size_s=200\nimage_quality_s=75\nimage_size_b=150\nimage_quality_b=75\nitem_title=1\nlink_titles=1\ntext=1\ncrop_text=word\ncrop_text_limit=20\ncrop_text_format=0\nshow_date=1\ndate_format=%d-%m-%Y %H:%M\nshow_author=4\nreadmore=1\nlink_text=\nhits=1', 0, 0),
+	(7, 'Статистика', '', 1, 'user2', 0, '0000-00-00 00:00:00', 0, 'mod_stats', 0, 0, 1, 'cache_time=0\nserverinfo=1\nsiteinfo=1\ncounter=1\nincrease=0\nmoduleclass_sfx=-stat', 0, 0),
+	(8, 'Пользователи', '', 9, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_whosonline', 0, 0, 1, 'cache_time=0\nmoduleclass_sfx=-new2\nmodule_orientation=1\nall_user=1\nonline_user_count=1\nonline_users=1\nuser_avatar=1', 0, 0),
+	(49, 'Помощь on-line', '', 7, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_mljoostinamenu', 0, 1, 1, 'moduleclass_sfx=-new2\nclass_sfx=\nmenutype=othermenu\nmenu_style=ulli\nml_imaged=0\nml_module_number=6\nnumrow=Все\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=aload.gif\nindent_image2=aload.gif\nindent_image3=aload.gif\nindent_image4=aload.gif\nindent_image5=aload.gif\nindent_image6=aload.gif\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=\nml_image2=\nml_image3=\nml_image4=\nml_image5=\nml_image6=-1\nml_image7=-1\nml_image8=-1\nml_image9=-1\nml_image10=-1\nml_image11=-1\nml_image_roll_1=\nml_image_roll_2=\nml_image_roll_3=\nml_image_roll_4=\nml_image_roll_5=\nml_image_roll_6=\nml_image_roll_7=\nml_image_roll_8=\nml_image_roll_9=\nml_image_roll_10=\nml_image_roll_11=\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0),
+	(10, 'Выбор шаблона', '', 12, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_templatechooser', 0, 0, 1, 'show_preview=1', 0, 0),
+	(14, 'Взаимосвязанные элементы', '', 4, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_related_items', 0, 0, 1, 'cache_time=0\nmoduleclass_sfx=-new1\nlimit=5', 0, 0),
+	(15, 'Поиск', '', 1, 'user1', 0, '0000-00-00 00:00:00', 1, 'mod_search', 0, 0, 0, 'moduleclass_sfx=-search\ncache_time=0\ntemplate=default.php\ntemplate_dir=0\nwidth=20\ntext=Поиск...\ntext_pos=inside\nbutton=0\nbutton_pos=bottom\nbutton_text=', 0, 0),
+	(16, 'Слайдшоу', '', 1, 'banner1', 0, '0000-00-00 00:00:00', 1, 'mod_random_image', 0, 0, 0, 'rotate_type=1\ntype=jpg\nfolder=images/rotate\nlink=http://joostina-cms.ru\nwidth=700\nheight=300\nmoduleclass_sfx=-slider\nimg_pref=slide\ns_autoplay=1\ns_pause=6000\ns_fadeduration=600\npanel_height=55px\npanel_opacity=0.4\npanel_padding=5px\npanel_font=bold 11px Verdana', 0, 0),
+	(40, 'Приветствие', '<h3>Добро пожаловать на Ваш первый сайт!</h3>\r\n<div style="text-align:justify">\r\n<p style="text-align:left">Поздравляем! Если Вы видите это сообщение, то Joostina «Lotos» успешно \r\nустановлена и готова к работе. Благодарим за выбор CMS Joostina, \r\nнадеемся что она оправдает возложенные на неё ожидания.\r\n</p><p style="text-align:left">После установки система уже содержит некоторое количество встроенных расширений, все они настроены для быстрого начала работы. </p><p style="text-align:left">Ваш первый тестовый сайт посвящён прекрасному цветку Лотос. Лотос - священный цветок древних египтян, символ красоты, чистоты, стремления к солнцу, свету. Этот образ пронизывает всё египетское искусство, начиная от лотосовидных капителей храмовых колонн и заканчивая миниатюрными туалетными сосудами и ювелирными украшениями.<br /></p></div>  ', 5, 'zero', 62, '2012-05-24 08:29:09', 0, '', 0, 0, 0, 'moduleclass_sfx=-top\ncache_time=172800\nrssurl=\nrsstitle=1\nrssdesc=1\nrssimage=1\nrssitems=3\nrssitemdesc=1\nword_count=0\nrsscache=3600', 0, 0),
+	(18, 'Баннеры-3', '', 3, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_banners', 0, 0, 0, 'moduleclass_sfx=-ban1\ncategories=3\nbanners=\nclients=\ncount=1\nrandom=1\ntext=0\norientation=0', 1, 0),
 	(19, 'Компоненты', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 0, 'mod_components', 0, 99, 1, '', 1, 1),
 	(22, 'Меню', '', 5, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_stats', 0, 99, 1, '', 0, 1),
 	(23, 'Последние зарегистрированные пользователи', '', 1, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_latest_users', 0, 99, 1, 'num=10\nshow_logged=1\nshow_total=1\nshow_today=1\nshow_week=1\nshow_month=1', 1, 1),
@@ -1264,68 +1104,82 @@ INSERT INTO `#__modules` (`id`, `title`, `content`, `ordering`, `position`, `che
 	(28, 'Панель инструментов', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_toolbar', 0, 99, 1, '', 1, 1),
 	(29, 'Системные сообщения', '', 1, 'inset', 0, '0000-00-00 00:00:00', 1, 'mod_mosmsg', 0, 99, 1, '', 1, 1),
 	(30, 'Кнопки быстрого доступа', '', 2, 'icon', 0, '0000-00-00 00:00:00', 1, 'mod_quickicons', 0, 99, 1, '', 1, 1),
-	(50, 'Новое в архиве', NULL, 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_gdnlotos', 0, 0, 1, 'moduleclass_sfx=-text\ntemplate=text\ncatid=\ncount_special=0\ncount_basic=5\ncolumns=1\ncount_reference=0\ntime=0\nimage_size_s=200\nimage_quality_s=75\nimage_size_b=80\nimage_quality_b=75\ncrop_text_limit=20\ndate_format=%d-%m-%Y %H:%M\nlink_text=\ncache=0\ncache_time=0\ntemplate_dir=0\nmodul_link=1\nmodul_link_cat=0\ndirectory=6\ndirectory_name=1\ndirectory_link=1\ncategory_name=1\ncategory_link=1\ncontent_field=6-content_smalldes\nshow_front=1\norderby=rdate\nimage=1\nimage_link=2\nimage_default=1\nimage_prev=width\nitem_title=1\nlink_titles=1\ntext=1\ncrop_text=word\ncrop_text_format=0\nshow_date=1\nshow_author=4\nreadmore=1\nhits=1', 0, 0),
-	(51, 'Горячие новости', NULL, 1, 'user3', 0, '0000-00-00 00:00:00', 0, 'mod_gdnlotos', 0, 0, 1, 'cache=0\ncache_time=0\nmoduleclass_sfx=-default\ntemplate=default\ntemplate_dir=0\nmodul_link=0\nmodul_link_cat=0\ndirectory=5\ncatid=\ndirectory_name=0\ndirectory_link=1\ncategory_name=0\ncategory_link=1\ncontent_field=0\ncount_special=1\ncount_basic=0\ncolumns=2\ncount_reference=4\nshow_front=1\norderby=rand\ntime=0\nimage=1\nimage_link=2\nimage_default=1\nimage_prev=width\nimage_size_s=100\nimage_quality_s=75\nimage_size_b=80\nimage_quality_b=75\nitem_title=1\nlink_titles=1\ntext=2\ncrop_text=word\ncrop_text_limit=30\ncrop_text_format=0\nshow_date=0\ndate_format=%d-%m-%Y %H:%M\nshow_author=0\nreadmore=0\nlink_text=\nhits=0', 0, 0),
-	(32, 'Wrapper', '', 3, 'header', 0, '0000-00-00 00:00:00', 0, 'mod_wrapper', 0, 0, 1, 'category_a=2-1', 0, 0),
+	(50, 'Новое в архиве', NULL, 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_gdnlotos', 0, 0, 1, 'moduleclass_sfx=-text\ntemplate=text\ncatid=\ncount_special=0\ncount_basic=5\ncolumns=1\ncount_reference=0\ntime=0\nimage_size_s=200\nimage_quality_s=75\nimage_size_b=80\nimage_quality_b=75\ncrop_text_limit=20\ndate_format=%d-%m-%Y %H:%M\nlink_text=\ncache=0\ncache_time=0\ntemplate_dir=0\nmodul_link=1\nmodul_link_cat=0\ndirectory=6\ndirectory_name=1\ndirectory_link=1\ncategory_name=1\ncategory_link=1\ncontent_field=6-content_smalldes\nshow_front=1\norderby=rdate\nimage=1\nimage_link=2\nimage_default=1\nimage_prev=width\nitem_title=1\nlink_titles=1\ntext=1\ncrop_text=word\ncrop_text_format=0\nshow_date=1\nshow_author=4\nreadmore=1\nhits=1', 0, 0),
+	(51, 'Горячие новости', NULL, 1, 'user3', 0, '0000-00-00 00:00:00', 0, 'mod_gdnlotos', 0, 0, 1, 'cache=0\ncache_time=0\nmoduleclass_sfx=-default\ntemplate=default\ntemplate_dir=0\nmodul_link=0\nmodul_link_cat=0\ndirectory=5\ncatid=\ndirectory_name=0\ndirectory_link=1\ncategory_name=0\ncategory_link=1\ncontent_field=5-content_editor\ncount_special=1\ncount_basic=0\ncolumns=2\ncount_reference=4\nshow_front=1\norderby=rhits\ntime=0\nimage=1\nimage_link=2\nimage_default=1\nimage_prev=width\nimage_size_s=100\nimage_quality_s=75\nimage_size_b=80\nimage_quality_b=75\nitem_title=1\nlink_titles=1\ntext=2\ncrop_text=word\ncrop_text_limit=30\ncrop_text_format=0\nshow_date=0\ndate_format=%d-%m-%Y %H:%M\nshow_author=0\nreadmore=0\nlink_text=\nhits=0', 0, 0),
+	(32, 'Wrapper', '', 8, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_wrapper', 0, 0, 1, 'users=62', 0, 0),
 	(33, 'На сайте', '', 2, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_logged', 0, 99, 1, '', 0, 1),
-	(34, 'Случайное фото', '', 2, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_random_image', 0, 0, 1, 'rotate_type=0\ntype=jpg\nfolder=images/rotate\nlink=http://joostina-cms.ru\nwidth=180\nheight=150\nmoduleclass_sfx=\nslideshow_name=jstSlideShow_1\nimg_pref=pic\ns_autoplay=1\ns_pause=2500\ns_fadeduration=500\npanel_height=55px\npanel_opacity=0.4\npanel_padding=5px\npanel_font=bold 11px Verdana', 0, 0),
-	(41, 'Популярные статьи', NULL, 3, 'left', 0, '0000-00-00 00:00:00', 0, 'mod_gdnlotos', 0, 0, 1, 'cache=0\ncache_time=0\nmoduleclass_sfx=-text\ntemplate=text\ntemplate_dir=0\nmodul_link=1\nmodul_link_cat=0\ndirectory=5\ncatid=\ndirectory_name=1\ndirectory_link=1\ncategory_name=1\ncategory_link=1\ncontent_field=0\ncount_special=0\ncount_basic=5\ncolumns=1\ncount_reference=0\nshow_front=1\norderby=rhits\ntime=0\nimage=1\nimage_link=2\nimage_default=1\nimage_prev=width\nimage_size_s=200\nimage_quality_s=75\nimage_size_b=80\nimage_quality_b=75\nitem_title=1\nlink_titles=1\ntext=1\ncrop_text=word\ncrop_text_limit=20\ncrop_text_format=0\nshow_date=1\ndate_format=%d-%m-%Y %H:%M\nshow_author=4\nreadmore=1\nlink_text=\nhits=1', 0, 0),
-	(42, 'Баннеры-2', '', 1, 'banner2', 0, '0000-00-00 00:00:00', 0, 'mod_banners', 0, 0, 0, 'moduleclass_sfx=\ncategories=1\nbanners=\nclients=\ncount=1\nrandom=1\ntext=0\norientation=0', 0, 0),
-	(43, 'Баннеры-4', '', 1, 'banner4', 0, '0000-00-00 00:00:00', 0, 'mod_banners', 0, 0, 0, 'moduleclass_sfx=\ncategories=2\nbanners=\nclients=\ncount=1\nrandom=1\ntext=0\norientation=0', 0, 0),
-	(44, 'Копия Главное меню', '', 1, 'menu2', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 0, 'moduleclass_sfx=-menu2\nclass_sfx=\nmenutype=mainmenu\nmenu_style=linksonly\nml_imaged=0\nml_module_number=1\nnumrow=10\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=\nindent_image2=\nindent_image3=\nindent_image4=\nindent_image5=\nindent_image6=\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=-1\nml_image2=-1\nml_image3=-1\nml_image4=-1\nml_image5=-1\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=-1\nml_image_roll_2=-1\nml_image_roll_3=-1\nml_image_roll_4=-1\nml_image_roll_5=-1\nml_image_roll_6=-1\nml_image_roll_7=-1\nml_image_roll_8=-1\nml_image_roll_9=-1\nml_image_roll_10=-1\nml_image_roll_11=-1\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0),
+	(34, 'Случайное фото', '', 6, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_random_image', 0, 0, 1, 'rotate_type=0\ntype=jpg\nfolder=images/rotate\nlink=http://joostina-cms.ru\nwidth=180\nheight=150\nmoduleclass_sfx=\nslideshow_name=jstSlideShow_1\nimg_pref=pic\ns_autoplay=1\ns_pause=2500\ns_fadeduration=500\npanel_height=55px\npanel_opacity=0.4\npanel_padding=5px\npanel_font=bold 11px Verdana', 0, 0),
+	(41, 'Популярные статьи', NULL, 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_gdnlotos', 0, 0, 1, 'cache=0\ncache_time=0\nmoduleclass_sfx=-top\ntemplate=top\ntemplate_dir=0\nmodul_link=1\nmodul_link_cat=0\ndirectory=5\ncatid=\ndirectory_name=0\ndirectory_link=0\ncategory_name=0\ncategory_link=1\ncontent_field=5-content_editor\ncount_special=0\ncount_basic=5\ncolumns=1\ncount_reference=0\nshow_front=1\norderby=rhits\ntime=0\nimage=1\nimage_link=2\nimage_default=1\nimage_prev=width\nimage_size_s=200\nimage_quality_s=75\nimage_size_b=60\nimage_quality_b=75\nitem_title=1\nlink_titles=1\ntext=1\ncrop_text=word\ncrop_text_limit=20\ncrop_text_format=0\nshow_date=1\ndate_format=%d-%m-%Y %H:%M\nshow_author=4\nreadmore=1\nlink_text=\nhits=1', 0, 0),
+	(42, 'Баннеры-2', '', 2, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_banners', 0, 0, 0, 'moduleclass_sfx=\ncategories=1\nbanners=\nclients=\ncount=1\nrandom=1\ntext=0\norientation=0', 0, 0),
+	(43, 'Баннеры-4', '', 1, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_banners', 0, 0, 0, 'moduleclass_sfx=\ncategories=2\nbanners=\nclients=\ncount=1\nrandom=1\ntext=0\norientation=0', 0, 0),
 	(21, 'BOSS - Объекты компонента', '', 1, 'advert1', 0, '0000-00-00 00:00:00', 1, 'mod_boss_admin_contents', 0, 99, 1, 'moduleclass_sfx=\ncache=0\nlimit=15\npubl=0\ndisplaycategory=1\ncontent_title=Последние добавленные объекты\ncontent_title_link=Все объекты\nsort=5\ndate_field=date_created\ndisplay_author=1\ndirectory=5\ncat_ids=', 1, 1),
-	(45, 'Авторские права', '<div style="text-align:center">Авторские права (с) <a href="http://joostina-cms.ru">Joostina Lotos</a>, 2012<br />Разработка шаблона (с) <a href="http://gd.joostina-cms.ru">Gold Dragon</a>, 2000-2012</div>  ', 1, 'footer', 0, '0000-00-00 00:00:00', 1, '', 0, 0, 0, 'moduleclass_sfx=-footer\ncache_time=0\nrssurl=\nrsstitle=1\nrssdesc=1\nrssimage=1\nrssitems=3\nrssitemdesc=1\nword_count=0\nrsscache=3600', 0, 0),
-	(52, 'Верхнее меню', '', 1, 'header', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 0, 'moduleclass_sfx=-topnemu\nclass_sfx=\nmenutype=topmenu\nmenu_style=divs\nml_imaged=1\nml_module_number=4\nnumrow=5\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=aload.gif\nindent_image2=aload.gif\nindent_image3=aload.gif\nindent_image4=aload.gif\nindent_image5=aload.gif\nindent_image6=aload.gif\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=0\nml_image1=home_new.png\nml_image2=network.png\nml_image3=email.png\nml_image4=\nml_image5=\nml_image6=apply.png\nml_image7=apply.png\nml_image8=apply.png\nml_image9=apply.png\nml_image10=apply.png\nml_image11=apply.png\nml_image_roll_1=\nml_image_roll_2=\nml_image_roll_3=\nml_image_roll_4=\nml_image_roll_5=\nml_image_roll_6=\nml_image_roll_7=\nml_image_roll_8=\nml_image_roll_9=\nml_image_roll_10=\nml_image_roll_11=\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0);
+	(54, 'Случайная статья', NULL, 2, 'banner1', 0, '0000-00-00 00:00:00', 1, 'mod_gdnlotos', 0, 0, 0, 'cache=0\ncache_time=0\nmoduleclass_sfx=-stop\ntemplate=top\ntemplate_dir=0\nmodul_link=1\nmodul_link_cat=0\ndirectory=5\ncatid=\ndirectory_name=0\ndirectory_link=0\ncategory_name=0\ncategory_link=1\ncontent_field=5-content_editor\ncount_special=0\ncount_basic=3\ncolumns=3\ncount_reference=0\nshow_front=1\norderby=rand\ntime=0\nimage=1\nimage_link=2\nimage_default=1\nimage_prev=height\nimage_size_s=200\nimage_quality_s=75\nimage_size_b=80\nimage_quality_b=75\nitem_title=1\nlink_titles=1\ntext=1\ncrop_text=word\ncrop_text_limit=20\ncrop_text_format=0\nshow_date=0\ndate_format=%d-%m-%Y %H:%M\nshow_author=4\nreadmore=1\nlink_text=\nhits=1', 0, 0),
+	(52, 'Верхнее меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_mljoostinamenu', 0, 0, 0, 'moduleclass_sfx=-topnemu\nclass_sfx=\nmenutype=topmenu\nmenu_style=linksonly\nml_imaged=1\nml_module_number=4\nnumrow=5\nml_first_hidden=0\nfull_active_id=0\nmenu_images=0\nmenu_images_align=0\nexpand_menu=0\nactivate_parent=0\nindent_image=0\nindent_image1=aload.gif\nindent_image2=aload.gif\nindent_image3=aload.gif\nindent_image4=aload.gif\nindent_image5=aload.gif\nindent_image6=aload.gif\nml_separated_link=0\nml_linked_sep=0\nml_separated_link_first=0\nml_separated_link_last=0\nml_hide_active=0\nml_separated_active=0\nml_linked_sep_active=0\nml_separated_active_first=0\nml_separated_active_last=0\nml_separated_element=0\nml_separated_element_first=0\nml_separated_element_last=0\nml_td_width=0\nml_div=0\nml_aligner=left\nml_rollover_use=1\nml_image1=home_off.png\nml_image2=site_map_off.png\nml_image3=rss_feed_off.png\nml_image4=\nml_image5=\nml_image6=\nml_image7=\nml_image8=\nml_image9=\nml_image10=\nml_image11=\nml_image_roll_1=home_on.png\nml_image_roll_2=site_map_on.png\nml_image_roll_3=rss_feed_on.png\nml_image_roll_4=\nml_image_roll_5=\nml_image_roll_6=\nml_image_roll_7=\nml_image_roll_8=\nml_image_roll_9=\nml_image_roll_10=\nml_image_roll_11=\nml_hide_logged1=1\nml_hide_logged2=1\nml_hide_logged3=1\nml_hide_logged4=1\nml_hide_logged5=1\nml_hide_logged6=1\nml_hide_logged7=1\nml_hide_logged8=1\nml_hide_logged9=1\nml_hide_logged10=1\nml_hide_logged11=1', 0, 0),
+	(56, 'Главное меню', NULL, 2, 'menu1', 0, '0000-00-00 00:00:00', 1, 'mod_menu_easy', 0, 0, 0, 'moduleclass_sfx=-menu1\ncache=0\ncache_time=0\nmenutype=mainmenu\nlink_type=1\nlink_active=1\nimage_template=0\nimage_prefix=prfxmenu_\nimage_roller=0\nimage_active=1\nlink_null=1\nlink_frame=0', 0, 0),
+	(57, 'Insert PHP', NULL, 1, 'zero', 0, '0000-00-00 00:00:00', 0, 'mod_insert_php', 0, 0, 0, 'moduleclass_sfx=\ncache=0\ncache_time=0\ncode=echo \'Привет МИР! Сегодня: \' . date(\'d.m.Y\');\nerror=1\nerror_type=0\nerror_message=0\nerror_line=0', 0, 0);
 
-# Dumping structure for table #__modules_com
 
-CREATE TABLE `#__modules_com` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`moduleid` INT(11) NOT NULL DEFAULT '0',
-	`option` VARCHAR(20) NOT NULL DEFAULT '',
-	`directory` INT(4) NOT NULL DEFAULT '0',
-	`category` INT(4) NOT NULL DEFAULT '0',
-	`task` VARCHAR(20) NOT NULL DEFAULT '',
-	PRIMARY KEY (`id`),
-	UNIQUE INDEX `index2` (`moduleid`, `directory`, `category`, `option`, `task`)
-)
-COLLATE='utf8_general_ci'
-ENGINE=MyISAM;
+CREATE TABLE IF NOT EXISTS `#__modules_com` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `moduleid` int(11) NOT NULL DEFAULT '0',
+  `option` varchar(20) NOT NULL DEFAULT '',
+  `directory` int(4) NOT NULL DEFAULT '0',
+  `category` int(4) NOT NULL DEFAULT '0',
+  `task` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index2` (`moduleid`,`directory`,`category`,`option`,`task`)
+) ENGINE=MyISAM AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
 
--- Dumping data for table joostina141.jos_modules_com: 27 rows
 
 INSERT INTO `#__modules_com` (`id`, `moduleid`, `option`, `directory`, `category`, `task`) VALUES
 	(1, 1, '', 0, 0, ''),
-	(2, 2, '', 0, 0, ''),
-	(3, 3, '', 0, 0, ''),
-	(4, 4, '', 0, 0, ''),
+	(73, 2, 'com_frontpage', 0, 0, ''),
+	(49, 3, '', 0, 0, ''),
+	(83, 4, '', 0, 0, ''),
 	(5, 5, '', 0, 0, ''),
-	(7, 7, 'com_frontpage', 0, 0, ''),
+	(81, 7, 'com_frontpage', 0, 0, ''),
 	(8, 8, '', 0, 0, ''),
 	(9, 10, 'com_frontpage', 0, 0, ''),
 	(10, 14, '', 0, 0, ''),
-	(11, 15, '', 0, 0, ''),
-	(12, 16, 'com_frontpage', 0, 0, ''),
+	(82, 15, '', 0, 0, ''),
+	(48, 16, 'com_frontpage', 0, 0, ''),
 	(13, 18, '', 0, 0, ''),
 	(31, 21, '0', 0, 0, ''),
 	(15, 30, '', 0, 0, ''),
-	(16, 32, '', 0, 0, ''),
+	(76, 32, '', 0, 0, ''),
 	(17, 34, 'com_frontpage', 0, 0, ''),
 	(19, 40, '', 0, 0, ''),
-	(20, 41, '', 0, 0, ''),
+	(91, 41, '', 0, 0, ''),
 	(21, 42, '', 0, 0, ''),
 	(22, 43, '', 0, 0, ''),
-	(23, 44, '', 0, 0, ''),
-	(24, 45, '', 0, 0, ''),
-	(25, 46, '', 0, 0, ''),
+	(144, 46, '', 0, 0, ''),
 	(26, 49, 'com_boss', 0, 0, ''),
 	(27, 50, '', 0, 0, ''),
-	(28, 51, '', 0, 0, ''),
-	(29, 52, '', 0, 0, ''),
+	(84, 51, 'com_frontpage', 0, 0, ''),
+	(70, 52, '', 0, 0, ''),
 	(30, 33, '0', 0, 0, ''),
-	(32, 23, '0', 0, 0, '');
+	(32, 23, '0', 0, 0, ''),
+	(141, 54, 'com_massmail', 0, 0, ''),
+	(140, 54, 'com_syndicate', 0, 0, ''),
+	(139, 54, 'com_search', 0, 0, ''),
+	(138, 54, 'com_login', 0, 0, ''),
+	(137, 54, 'com_poll', 0, 0, ''),
+	(136, 54, 'com_banners', 0, 0, ''),
+	(135, 54, 'com_boss', 7, 8, ''),
+	(134, 54, 'com_boss', 7, 7, ''),
+	(133, 54, 'com_boss', 7, 6, ''),
+	(132, 54, 'com_boss', 7, 5, ''),
+	(131, 54, 'com_boss', 7, 4, ''),
+	(130, 54, 'com_boss', 5, 2, ''),
+	(129, 54, 'com_boss', 5, 1, ''),
+	(128, 54, 'com_boss', 6, 8, ''),
+	(127, 54, 'com_boss', 6, 6, ''),
+	(142, 54, 'com_xmap', 0, 0, ''),
+	(143, 54, 'com_elrte', 0, 0, ''),
+	(148, 56, '', 0, 0, ''),
+	(182, 57, '0', 0, 0, '');
 
-# Dumping structure for table #__polls
+
 
 CREATE TABLE IF NOT EXISTS `#__polls` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -1339,8 +1193,6 @@ CREATE TABLE IF NOT EXISTS `#__polls` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__poll_data
-
 CREATE TABLE IF NOT EXISTS `#__poll_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pollid` int(4) NOT NULL DEFAULT '0',
@@ -1349,8 +1201,6 @@ CREATE TABLE IF NOT EXISTS `#__poll_data` (
   PRIMARY KEY (`id`),
   KEY `pollid` (`pollid`,`text`(1))
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__poll_date
 
 CREATE TABLE IF NOT EXISTS `#__poll_date` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -1361,8 +1211,6 @@ CREATE TABLE IF NOT EXISTS `#__poll_date` (
   KEY `poll_id` (`poll_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__poll_menu
-
 CREATE TABLE `#__poll_menu` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`pollid` INT(11) NOT NULL DEFAULT '0',
@@ -1372,17 +1220,10 @@ CREATE TABLE `#__poll_menu` (
 	`task` VARCHAR(20) NOT NULL DEFAULT '',
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `index2` (`pollid`, `directory`, `category`, `option`, `task`)
-)
-COLLATE='utf8_general_ci'
-ENGINE=MyISAM
-AUTO_INCREMENT=2;
-
-# Dumping data for table #__poll_menu: 1 rows
+) COLLATE='utf8_general_ci' ENGINE=MyISAM AUTO_INCREMENT=2;
 
 INSERT INTO `#__poll_menu` (`id`, `pollid`, `option`, `directory`, `category`, `task`) VALUES
 	(1, 14, '', 0, 0, '');
-
-# Dumping structure for table #__quickicons
 
 CREATE TABLE IF NOT EXISTS `#__quickicons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1399,40 +1240,51 @@ CREATE TABLE IF NOT EXISTS `#__quickicons` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__quickicons: 10 rows
-
 INSERT INTO `#__quickicons` (`id`, `text`, `target`, `icon`, `ordering`, `new_window`, `published`, `title`, `display`, `access`, `gid`) VALUES
 	(1, 'Контент JoiBoss', 'index2.php?option=com_boss', '/administrator/templates/joostfree/images/cpanel_ico/all_content.png', 1, 0, 1, 'Управление объектами содержимого', 0, 0, 0),
-	(2, 'Главная страница', 'index2.php?option=com_frontpage', '/administrator/templates/joostfree/images/cpanel_ico/frontpage.png', 2, 0, 1, 'Управление объектами главной страницы', 0, 0, 0),
-	(3, 'Медиа менеджер', 'index2.php?option=com_jwmmxtd', '/administrator/templates/joostfree/images/cpanel_ico/mediamanager.png', 3, 0, 1, 'Управление медиа файлами', 0, 0, 0),
-	(4, 'Корзина', 'index2.php?option=com_trash', '/administrator/templates/joostfree/images/cpanel_ico/trash.png', 4, 0, 1, 'Управление корзиной удаленных объектов', 0, 0, 0),
-	(5, 'Редактор меню', 'index2.php?option=com_menumanager', '/administrator/templates/joostfree/images/cpanel_ico/menu.png', 5, 0, 1, 'Управление объектами меню', 0, 0, 24),
-	(6, 'Файловый менеджер', 'index2.php?option=com_joomlaxplorer', '/administrator/templates/joostfree/images/cpanel_ico/filemanager.png', 6, 0, 1, 'Управление всеми файлами', 0, 0, 25),
-	(7, 'Пользователи', 'index2.php?option=com_users', '/administrator/templates/joostfree/images/cpanel_ico/user.png', 7, 0, 1, 'Управление пользователями', 0, 0, 24),
-	(8, 'Глобальная конфигурация', 'index2.php?option=com_config&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/config.png', 8, 0, 1, 'Глобальная конфигурация сайта', 0, 0, 25),
-	(9, 'Резервное копирование', 'index2.php?option=com_joomlapack&act=pack&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/backup.png', 9, 0, 1, 'Резервное копирование информации сайта', 0, 0, 24),
-	(10, 'Очистить весь кэш', 'index2.php?option=com_admin&task=clean_all_cache', '/administrator/templates/joostfree/images/cpanel_ico/clear.png', 10, 0, 1, 'Очистить весь кэш сайта', 0, 0, 24);
-
-# Dumping structure for table #__sef_duplicate
-
-CREATE TABLE `#__sef_duplicate` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`url` VARCHAR(255) NULL DEFAULT NULL,
-	`sef` VARCHAR(255) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`)
-) COLLATE='utf8_general_ci' ENGINE=MyISAM;
-
-# Dumping structure for table #__sef_link
+	(2, 'Главная страница', 'index2.php?option=com_frontpage', '/administrator/templates/joostfree/images/cpanel_ico/frontpage.png', 0, 0, 1, 'Управление объектами главной страницы', 0, 0, 0),
+	(3, 'Медиа менеджер', 'index2.php?option=com_jwmmxtd', '/administrator/templates/joostfree/images/cpanel_ico/mediamanager.png', 2, 0, 1, 'Управление медиа файлами', 0, 0, 0),
+	(4, 'Корзина', 'index2.php?option=com_trash', '/administrator/templates/joostfree/images/cpanel_ico/trash.png', 10, 0, 1, 'Управление корзиной удаленных объектов', 0, 0, 0),
+	(5, 'Редактор меню', 'index2.php?option=com_menumanager', '/administrator/templates/joostfree/images/cpanel_ico/menu.png', 8, 0, 1, 'Управление объектами меню', 0, 0, 24),
+	(6, 'Файловый менеджер', 'index2.php?option=com_joomlaxplorer', '/administrator/templates/joostfree/images/cpanel_ico/filemanager.png', 3, 0, 1, 'Управление всеми файлами', 0, 0, 25),
+	(7, 'Пользователи', 'index2.php?option=com_users', '/administrator/templates/joostfree/images/cpanel_ico/user.png', 4, 0, 1, 'Управление пользователями', 0, 0, 24),
+	(8, 'Глобальная конфигурация', 'index2.php?option=com_config&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/config.png', 6, 0, 1, 'Глобальная конфигурация сайта', 0, 0, 25),
+	(9, 'Резервное копирование', 'index2.php?option=com_joomlapack&act=pack&hidemainmenu=1', '/administrator/templates/joostfree/images/cpanel_ico/backup.png', 7, 0, 1, 'Резервное копирование информации сайта', 0, 0, 24),
+	(10, 'Очистить весь кэш', 'index2.php?option=com_admin&task=clean_all_cache', '/administrator/templates/joostfree/images/cpanel_ico/clear.png', 9, 0, 1, 'Очистить весь кэш сайта', 0, 0, 24),
+	(11, 'Управление SEF', 'index2.php?option=com_jlotossef', '/administrator/templates/joostfree/images/cpanel_ico/config.png', 5, 0, 1, '', 0, 0, 25);
 	
-CREATE TABLE `#__sef_link` (
-	`url` VARCHAR(255) NULL DEFAULT NULL,
-	`sef` VARCHAR(255) NULL DEFAULT NULL,
-	INDEX `Index 1` (`sef`)
-)
-COLLATE='utf8_general_ci'
-ENGINE=MyISAM;
-	
-# Dumping structure for table #__session
+CREATE TABLE IF NOT EXISTS `#__sef_config` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL DEFAULT '',
+  `value` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Index 2` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+INSERT INTO `#__sef_config` (`id`, `name`, `value`) VALUES
+(1, 'pack_ref', '2'),
+(2, 'pack_dup', '1'),
+(3, 'pack_path', '/administrator/backups/'),
+(5, 'pack_pref', 'sef_'),
+(7, 'pack_format', '2');
+
+CREATE TABLE IF NOT EXISTS `#__sef_duplicate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) DEFAULT NULL,
+  `sef` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `url` (`url`),
+  KEY `sef` (`sef`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `#__sef_link` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) DEFAULT NULL,
+  `sef` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `url` (`url`),
+  KEY `sef` (`sef`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `#__session` (
   `username` varchar(50) DEFAULT '',
@@ -1448,16 +1300,12 @@ CREATE TABLE IF NOT EXISTS `#__session` (
   KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__stats_agents
-
 CREATE TABLE IF NOT EXISTS `#__stats_agents` (
   `agent` varchar(255) NOT NULL DEFAULT '',
   `type` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `hits` int(11) unsigned NOT NULL DEFAULT '1',
   KEY `type_agent` (`type`,`agent`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping structure for table #__templates_menu
 
 CREATE TABLE IF NOT EXISTS `#__templates_menu` (
   `template` varchar(50) NOT NULL DEFAULT '',
@@ -1466,22 +1314,16 @@ CREATE TABLE IF NOT EXISTS `#__templates_menu` (
   PRIMARY KEY (`template`,`menuid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__templates_menu: 2 rows
-
 INSERT INTO `#__templates_menu` (`template`, `menuid`, `client_id`) VALUES
 	('default_tpl', 0, 0),
 	('joostfree', 0, 1);
-
-# Dumping structure for table #__template_positions
 
 CREATE TABLE IF NOT EXISTS `#__template_positions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `position` varchar(10) NOT NULL DEFAULT '',
   `description` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__template_positions: 24 rows
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__template_positions` (`id`, `position`, `description`) VALUES
 	(1, 'header', 'header'),
@@ -1498,7 +1340,7 @@ INSERT INTO `#__template_positions` (`id`, `position`, `description`) VALUES
 	(12, 'banner2', 'banner2'),
 	(13, 'banner3', 'banner3'),
 	(14, 'banner4', 'banner44'),
-	(15, 'user1', 'user1 1'),
+	(15, 'user1', 'user1'),
 	(16, 'user2', 'user2'),
 	(17, 'user3', 'user3'),
 	(18, 'user4', 'user4'),
@@ -1513,8 +1355,6 @@ INSERT INTO `#__template_positions` (`id`, `position`, `description`) VALUES
 	(27, 'icon', 'icon (admin)'),
 	(28, 'inset', 'inset (admin)'),
 	(29, 'toolbar', 'toolbar (admin)');
-
-# Dumping structure for table #__users
 
 CREATE TABLE IF NOT EXISTS `#__users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1540,8 +1380,6 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   KEY `username` (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__users_extra
-
 CREATE TABLE IF NOT EXISTS `#__users_extra` (
   `user_id` int(11) NOT NULL,
   `gender` varchar(10) NOT NULL,
@@ -1560,16 +1398,12 @@ CREATE TABLE IF NOT EXISTS `#__users_extra` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# Dumping structure for table #__usertypes
-
 CREATE TABLE IF NOT EXISTS `#__usertypes` (
   `id` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
   `mask` varchar(11) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__usertypes: 7 rows
 
 INSERT INTO `#__usertypes` (`id`, `name`, `mask`) VALUES
 	(0, 'superadministrator', ''),
@@ -1580,15 +1414,11 @@ INSERT INTO `#__usertypes` (`id`, `name`, `mask`) VALUES
 	(5, 'publisher', ''),
 	(6, 'manager', '');
 
-# Dumping structure for table #__xmap
-
 CREATE TABLE IF NOT EXISTS `#__xmap` (
   `name` varchar(30) NOT NULL DEFAULT '',
   `value` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# Dumping data for table #__xmap: 11 rows
 
 INSERT INTO `#__xmap` (`name`, `value`) VALUES
 	('version', '1.0'),
@@ -1603,8 +1433,6 @@ INSERT INTO `#__xmap` (`name`, `value`) VALUES
 	('includelink', '1'),
 	('sitemap_default', '1');
 
-# Dumping structure for table #__xmap_ext
-
 CREATE TABLE IF NOT EXISTS `#__xmap_ext` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `extension` varchar(100) NOT NULL,
@@ -1613,13 +1441,8 @@ CREATE TABLE IF NOT EXISTS `#__xmap_ext` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__xmap_ext: 2 rows
-DELETE FROM `#__xmap_ext`;
-/*!40000 ALTER TABLE `#__xmap_ext` DISABLE KEYS */;
 INSERT INTO `#__xmap_ext` (`id`, `extension`, `published`, `params`) VALUES
 	(1, 'com_boss', 1, '-1{expand_categories=1\nexpand_sections=1\nshow_unauth=0\ncat_priority=-1\ncat_changefreq=-1\nart_priority=-1\nart_changefreq=-1}');
-
-# Dumping structure for table #__xmap_sitemap
 
 CREATE TABLE IF NOT EXISTS `#__xmap_sitemap` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1645,7 +1468,5 @@ CREATE TABLE IF NOT EXISTS `#__xmap_sitemap` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-# Dumping data for table #__xmap_sitemap: 1 rows
-
 INSERT INTO `#__xmap_sitemap` (`id`, `name`, `expand_category`, `expand_section`, `show_menutitle`, `columns`, `exlinks`, `ext_image`, `menus`, `exclmenus`, `includelink`, `usecache`, `cachelifetime`, `classname`, `count_xml`, `count_html`, `views_xml`, `views_html`, `lastvisit_xml`, `lastvisit_html`) VALUES
-	(1, 'Карта сайта', 0, 0, 0, 1, 1, 'img_grey.gif', 'mainmenu,0,1,1,0.5,daily\ntopmenu,1,1,1,0.5,daily', '', 1, 1, 1800, 'sitemap', 0, 14, 0, 44, 0, 1337496336);
+	(1, 'Карта сайта', 0, 0, 0, 1, 1, 'img_grey.gif', 'mainmenu,0,1,1,0.5,daily\ntopmenu,1,1,1,0.5,daily', '', 1, 1, 1800, 'sitemap', 0, 32, 0, 59, 0, 1357229700);

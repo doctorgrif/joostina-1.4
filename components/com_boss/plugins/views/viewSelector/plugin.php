@@ -98,7 +98,7 @@ class viewSelector{
 			echo $database->stderr();
 			return false;
 		}
-		mosRedirect(JPATH_SITE . '/administrator/index2.php?option=com_boss&act=plugins&directory=' . $directory, BOSS_PLUG_SAVE_OK);
+		mosRedirect(_JLPATH_SITE . '/administrator/index2.php?option=com_boss&act=plugins&directory=' . $directory, BOSS_PLUG_SAVE_OK);
 	}
 
 	public function contentViews($content, $options){

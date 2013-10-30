@@ -15,13 +15,13 @@ if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'componen
 }
 
 $mainframe = mosMainFrame::getInstance();
-mosCommonHTML::loadJquery();
-$mainframe->addJS(JPATH_SITE . '/administrator/components/com_boss/js/function.js');
-$mainframe->addCSS(JPATH_SITE . '/administrator/components/com_boss/css/boss_admin.css');
+mosCommonHTML::loadJquery(false);
+$mainframe->addJS(_JLPATH_SITE . '/administrator/components/com_boss/js/function.js');
+$mainframe->addCSS(_JLPATH_SITE . '/administrator/components/com_boss/css/boss_admin.css');
 
 require_once($mainframe->getPath('admin_html'));
 require_once($mainframe->getPath('class'));
-require_once(JPATH_BASE . '/components/com_boss/boss.tools.php');
+require_once(_JLPATH_ROOT . '/components/com_boss/boss.tools.php');
 
 $directory = intval(mosGetParam($_REQUEST, 'directory', 0));
 
@@ -34,7 +34,8 @@ if($directory == 0){
 }
 
 $act = mosGetParam($_REQUEST, 'act', "");
-$task = mosGetParam($_REQUEST, 'task', "");
+$task = JSef::getTask();
+
 
 $params = HTML_boss::getLayout();
 

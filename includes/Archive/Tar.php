@@ -8,7 +8,7 @@
  **/
 
 defined('_JLINDEX') or die();
-require_once JPATH_BASE . '/includes/PEAR/PEAR.php';
+require_once _JLPATH_ROOT . '/includes/PEAR/PEAR.php';
 define('ARCHIVE_TAR_ATT_SEPARATOR', 90001);
 define('ARCHIVE_TAR_END_BLOCK', pack("a512", ''));
 class Archive_Tar extends PEAR{
@@ -56,7 +56,6 @@ class Archive_Tar extends PEAR{
 				} else{
 					die("Unsupported compression type '$p_compress'\n" .
 						"Supported types are 'gz' and 'bz2'.\n");
-					return false;
 				}
 		}
 		$this->_tarname = $p_tarname;
@@ -72,7 +71,6 @@ class Archive_Tar extends PEAR{
 			if(!extension_loaded($extname)){
 				die("The extension '$extname' couldn't be found.\n" .
 					"Please make sure your version of PHP was built " . "with '$extname' support.\n");
-				return false;
 			}
 		}
 	}

@@ -1,10 +1,33 @@
-<tr>
-	<td>
-		<?php $this->displayContentTitle($content); ?>
-	</td>
-	<?php
-	foreach($this->fieldsgroup as $fieldsgroup){
-		$this->loadFieldsInGroup($content, $fieldsgroup[0]->gname, null, "<td>", "</td>", 0, 0, 0);
-	}
-	?>
-</tr>
+<article>
+    <h3>
+        <?php $this->displayContentTitle($content); ?>
+        <span class="boss_cat">/<?php $this->displayCategoryTitle($content, 2); ?></span>
+    </h3>
+
+    <div class="boss_vote">
+        <?php $this->rating->displayVoteResult($content, $this->directory, $this->conf); ?>
+    </div>
+
+    <div class="boss_date">
+        <?php $this->displayContentDate($content); ?>
+    </div>
+
+    <div class="boss_content">
+        <?php if ($this->countFieldsInGroup("CatShort")) {
+        $this->loadFieldsInGroup($content, "CatShort", "&nbsp;");
+    } ?>
+    </div>
+
+    <div class="comments">
+        <?php echo $this->displayListTags($content); ?>
+    </div>
+    <div class="comments">
+        <?php $this->displayContentHits($content); ?>
+        <?php if ($this->isReviewAllowed()) {
+        echo '&nbsp;&nbsp;';
+        $this->comments->displayNumReviews($content, $this->reviews, $this->conf);
+    } ?>
+    </div>
+    <div class="edit"><?php $this->displayContentEditDelete($content); ?></div>
+</article>
+

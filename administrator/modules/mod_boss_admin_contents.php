@@ -13,15 +13,17 @@
 defined('_JLINDEX') or die();
 
 $mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
-$mainframe->addJS(JPATH_SITE . '/' . JADMIN_BASE . '/components/com_boss/js/function.js');
+$my = JCore::getUser();
+
+mosCommonHTML::loadJquery(false);
+$mainframe->addJS(_JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_boss/js/function.js');
 
 //Подключаем языковой файл 
-if(file_exists($lang_file = JPATH_BASE . '/components/com_boss/lang/' . $mainframe->getCfg('lang') . '.php'))
+if(file_exists($lang_file = _JLPATH_ROOT . '/components/com_boss/lang/' . JCore::getCfg('lang') . '.php'))
 	$lang_file = $lang_file;
-else $lang_file = JPATH_BASE . '/components/com_boss/lang/russian.php';
+else $lang_file = _JLPATH_ROOT . '/components/com_boss/lang/russian.php';
 require_once ($lang_file);
-require_once(JPATH_BASE . '/components/com_boss/boss.tools.php');
+require_once(_JLPATH_ROOT . '/components/com_boss/boss.tools.php');
 
 // Получаем настройки модуля
 $cat_ids = $params->get('cat_ids');
@@ -133,6 +135,7 @@ $colspan = $date_field ? 'colspan="2"' : ''; // для таблицы
 $limit = ($limit) ? 'LIMIT ' . $limit : '';
 
 // Получаем список объектов
+$database = database::getInstance();
 $rows = $database->setQuery(
 	"SELECT a.id, a.name, a.published, a.date_unpublish, a.date_publish, a.userid, c.id as category, " . $date_field . " p.id as parentid," .
 		"\n p.name as parent,c.id as catid, c.name as cat" .
@@ -197,6 +200,7 @@ if(isset($rows[0])){ // если есть объекты -> продолжаем
 		$link_content = 'index2.php?option=com_boss&act=contents&task=edit&directory=' . $directory . '&tid[]=' . $row->id;
 
 		// Имя автора ссылкой или текстом
+        $acl = gacl::getInstance();
 		if($acl->acl_check('administration', 'manage', 'users', $my->usertype, 'components', 'com_users')){
 			// Ссылка на автора
 			$link_author = 'index2.php?option=com_users&task=editA&amp;hidemainmenu=1&id=' . $row->userid;
@@ -230,7 +234,7 @@ if(isset($rows[0])){ // если есть объекты -> продолжаем
 				<?php echo $displaycategory ? '<div class="mod_boss_admin_contents-path">' . $row->cat . '</div>' : '';// Отображаем категорию? ?>
 			</td>
 			<td class="td-state" align="center" onclick="boss_publ('img-pub-<?php echo $directory . $row->catid . $row->id; ?>', '<?php echo "act=contents&task=publish&tid=" . $row->id . "&directory=" . $directory; ?>');">
-				<img id="img-pub-<?php echo $directory . $row->catid . $row->id;?>" class="img-mini-state" alt="<?php echo _PUBLISHING?>" src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico/' . $img; ?>"/>
+				<img id="img-pub-<?php echo $directory . $row->catid . $row->id;?>" class="img-mini-state" alt="<?php echo _PUBLISHING?>" src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico/' . $img; ?>"/>
 			</td>
 			<?php if($display_author){ ?>
 			<td align="center"><?php echo $display_author_style; ?></td>

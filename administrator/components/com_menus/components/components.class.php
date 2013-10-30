@@ -21,7 +21,7 @@ class components_menu{
 	 */
 	public static function edit($uid, $menutype, $option, $menu){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+        $my = JCore::getUser();
 		$database = database::getInstance();
 
 		$row = new mosComponent($database);

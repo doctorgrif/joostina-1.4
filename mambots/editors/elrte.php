@@ -9,9 +9,8 @@ $_MAMBOTS->registerFunction('onEditorArea', 'botElrteArea');
  * Spaw WYSIWYG Editor - javascript initialisation
  */
 function botElrteInit(){
-	global $mosConfig_lang;
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+	$my = JCore::getUser();
 	$database = database::getInstance();
 	$html = '';
 
@@ -40,16 +39,16 @@ function botElrteInit(){
 	}
 
 	//elRTE
-	$html .= '<script language="JavaScript" src="' . JPATH_SITE . '/mambots/editors/elrte/js/elrte.min.js" type="text/javascript"></script>' . "\n";
-	$html .= '<link type="text/css" rel="stylesheet" href="' . JPATH_SITE . '/mambots/editors/elrte/css/elrte.min.css" />' . "\n";
+	$html .= '<script language="JavaScript" src="' . _JLPATH_SITE . '/mambots/editors/elrte/js/elrte.min.js" type="text/javascript"></script>' . "\n";
+	$html .= '<link type="text/css" rel="stylesheet" href="' . _JLPATH_SITE . '/mambots/editors/elrte/css/elrte.min.css" />' . "\n";
 
 	//elRTE translation messages
-	$html .= '<script language="JavaScript" src="' . JPATH_SITE . '/mambots/editors/elrte/js/i18n/elrte.ru.js" type="text/javascript"></script>' . "\n";
+	$html .= '<script language="JavaScript" src="' . _JLPATH_SITE . '/mambots/editors/elrte/js/i18n/elrte.ru.js" type="text/javascript"></script>' . "\n";
 
 	//elFinder
-	$html .= '<script language="JavaScript" src="' . JPATH_SITE . '/mambots/editors/elrte/src/elfinder/js/elfinder.min.js" type="text/javascript"></script>' . "\n";
-	$html .= '<script language="JavaScript" src="' . JPATH_SITE . '/mambots/editors/elrte/src/elfinder/js/i18n/elfinder.ru.js" type="text/javascript"></script>' . "\n";
-	$html .= '<link type="text/css" rel="stylesheet" href="' . JPATH_SITE . '/mambots/editors/elrte/src/elfinder/css/elfinder.css" />' . "\n";
+	$html .= '<script language="JavaScript" src="' . _JLPATH_SITE . '/mambots/editors/elrte/src/elfinder/js/elfinder.min.js" type="text/javascript"></script>' . "\n";
+	$html .= '<script language="JavaScript" src="' . _JLPATH_SITE . '/mambots/editors/elrte/src/elfinder/js/i18n/elfinder.ru.js" type="text/javascript"></script>' . "\n";
+	$html .= '<link type="text/css" rel="stylesheet" href="' . _JLPATH_SITE . '/mambots/editors/elrte/src/elfinder/css/elfinder.css" />' . "\n";
 
 	//переменные по-умолчанию
 	$cssfiles = $fm_allow = $panels = array();
@@ -59,7 +58,7 @@ function botElrteInit(){
 	$absolute_urls = $style_with_css = $allow_source = '1';
 
 	//читаем конфиг, формируем настройки скрипта.
-	require (JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elrte.php');
+	require (_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elrte.php');
 
 	$doctype = "doctype : '<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">',\n";
 	$css_class = (!empty($css_class)) ? "cssClass : '$css_class',\n" : "cssClass : 'el-rte',\n";
@@ -70,19 +69,19 @@ function botElrteInit(){
 		$i = 0;
 		foreach($cssfiles as $cssfile){
 			$separator = (substr($cssfile, 0, 1) == '/') ? '' : '/';
-			$cssfiles_string .= "'" . JPATH_SITE . $separator . $cssfile . "'";
+			$cssfiles_string .= "'" . _JLPATH_SITE . $separator . $cssfile . "'";
 			if($i < ($n - 1)) $cssfiles_string .= ", ";
 			$i++;
 		}
 		$cssfiles_string .= "],\n";
 	} else{
-		$cssfiles_string .= "cssfiles : ['" . JPATH_SITE . "/mambots/editors/elrte/css/elrte-inner.css'],\n";
+		$cssfiles_string .= "cssfiles : ['" . _JLPATH_SITE . "/mambots/editors/elrte/css/elrte-inner.css'],\n";
 	}
 
 	$absolute_urls = (@$absolute_urls == 1) ? "absoluteURLs : true,\n" : "absoluteURLs : false,\n";
 	$allow_source = (@$allow_source == 1) ? "allowSource : true,\n" : "allowSource : false,\n";
 
-	$lang = (@$mosConfig_lang == '') ? "lang : 'ru'," : "lang : '" . substr($mosConfig_lang, 0, 2) . "',\n";
+	$lang = (@JCore::getCfg('lang') == '') ? "lang : 'ru'," : "lang : '" . substr(JCore::getCfg('lang'), 0, 2) . "',\n";
 
 	$style_with_css = (@$style_with_css == 1) ? "styleWithCSS : true,\n" : "styleWithCSS : false,\n";
 	$editor_height = (!empty($editor_height)) ? "height : '$editor_height',\n" : '';
@@ -125,7 +124,7 @@ function botElrteInit(){
 	$html .= $usedToolbar;
 	$html .= "fmOpen : function(callback) {
                     jQuery('<div id=\"myelfinder\" />').elfinder({
-                        url : '" . JPATH_SITE . "/administrator/index2.php?option=com_elrte&task=connector',
+                        url : '" . _JLPATH_SITE . "/administrator/index2.php?option=com_elrte&task=connector',
                         lang : 'en',
                         dialog : { width : 900, modal : true, title : 'elFinder - file manager for web' },
                         closeOnEditorCallback : true,
@@ -166,7 +165,7 @@ function botElrteArea($name, $content, $hiddenField, $width, $height, $col, $row
 	$buttons = array();
 	foreach($results as $result){
 		if($result[0]){
-			$buttons[] = '<img src="' . JPATH_SITE . '/mambots/editors-xtd/' . $result[0] . '" onclick="insertAtCursor( \'' . $hiddenField . '\', \'' . $result[1] . '\' )" alt="' . $result[1] . '"/>';
+			$buttons[] = '<img src="' . _JLPATH_SITE . '/mambots/editors-xtd/' . $result[0] . '" onclick="insertAtCursor( \'' . $hiddenField . '\', \'' . $result[1] . '\' )" alt="' . $result[1] . '"/>';
 		}
 	}
 	$buttons = implode("", $buttons);

@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
+
 // ensure user has access to this function
 if(!$acl->acl_check('administration', 'manage', 'users', $my->usertype,
 	'components', 'com_massmail')
@@ -18,7 +20,7 @@ if(!$acl->acl_check('administration', 'manage', 'users', $my->usertype,
 }
 
 require_once ($mainframe->getPath('admin_html'));
-
+$task = JSef::getTask();
 switch($task){
 	case 'send':
 		sendMail();
@@ -49,10 +51,7 @@ function messageForm($option){
 
 function sendMail(){
 	$acl = &gacl::getInstance();
-	global $mosConfig_sitename;
-	global $mosConfig_mailfrom, $mosConfig_fromname;
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 	josSpoofCheck();
 	$mode = intval(mosGetParam($_POST, 'mm_mode', 0));
@@ -92,15 +91,15 @@ function sendMail(){
 		$rows = $database->loadObjectList();
 
 		// Build e-mail message format
-		$message_header = sprintf(_MASSMAIL_MESSAGE, html_entity_decode($mosConfig_sitename,
+		$message_header = sprintf(_MASSMAIL_MESSAGE, html_entity_decode(JCore::getCfg('sitename'),
 			ENT_QUOTES));
 		$message = $message_header . $message_body;
-		$subject = html_entity_decode($mosConfig_sitename, ENT_QUOTES) . ' / ' .
+		$subject = html_entity_decode(JCore::getCfg('sitename'), ENT_QUOTES) . ' / ' .
 			stripslashes($subject);
 
 		//Send email
 		foreach($rows as $row){
-			mosMail($mosConfig_mailfrom, $mosConfig_fromname, $row->email, $subject, $message, $mode);
+			mosMail(JCore::getCfg('mailfrom'), JCore::getCfg('fromname'), $row->email, $subject, $message, $mode);
 		}
 	}
 

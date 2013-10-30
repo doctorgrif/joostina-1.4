@@ -11,20 +11,20 @@
 defined('_JLINDEX') or die();
 
 $mainframe = mosMainFrame::getInstance();
-require_once JPATH_BASE . DS . 'language' . DS . $mainframe->getCfg('lang') . DS . 'administrator' . DS . 'com_xmap.php';
+require_once _JLPATH_ROOT . DS . 'language' . DS . $mainframe->getCfg('lang') . DS . 'administrator' . DS . 'com_xmap.php';
 
 $view = mosGetParam($_REQUEST, 'view', 'html');
 
 if($view == 'xslfile'){
 	header('Content-Type: text/xml');
-	@readfile(JPATH_BASE . '/components/com_xmap/gss.xsl');
+	@readfile(_JLPATH_ROOT . '/components/com_xmap/gss.xsl');
 	exit;
 }
 
-require_once(JPATH_BASE . DS . JADMIN_BASE . DS . 'components' . DS . 'com_xmap' . DS . 'classes' . DS . 'XmapConfig.php');
-require_once(JPATH_BASE . DS . JADMIN_BASE . DS . 'components' . DS . 'com_xmap' . DS . 'classes' . DS . 'XmapSitemap.php');
-require_once(JPATH_BASE . DS . JADMIN_BASE . DS . 'components' . DS . 'com_xmap' . DS . 'classes' . DS . 'XmapPlugins.php');
-require_once(JPATH_BASE . DS . JADMIN_BASE . DS . 'components' . DS . 'com_xmap' . DS . 'classes' . DS . 'XmapCache.php');
+require_once(_JLPATH_ROOT . DS . JADMIN_BASE . DS . 'components' . DS . 'com_xmap' . DS . 'classes' . DS . 'XmapConfig.php');
+require_once(_JLPATH_ROOT . DS . JADMIN_BASE . DS . 'components' . DS . 'com_xmap' . DS . 'classes' . DS . 'XmapSitemap.php');
+require_once(_JLPATH_ROOT . DS . JADMIN_BASE . DS . 'components' . DS . 'com_xmap' . DS . 'classes' . DS . 'XmapPlugins.php');
+require_once(_JLPATH_ROOT . DS . JADMIN_BASE . DS . 'components' . DS . 'com_xmap' . DS . 'classes' . DS . 'XmapCache.php');
 
 $menu = $mainframe->get('menu');
 
@@ -43,12 +43,12 @@ set_robot_metatag($params->get('robots'));
 if($params->get('meta_description') != ""){
 	$mainframe->addMetaTag('description', $params->get('meta_description'));
 } else{
-	$mainframe->addMetaTag('description', $mosConfig_MetaDesc);
+	$mainframe->addMetaTag('description', JCore::getCfg('MetaDesc'));
 }
 if($params->get('meta_keywords') != ""){
 	$mainframe->addMetaTag('keywords', $params->get('meta_keywords'));
 } else{
-	$mainframe->addMetaTag('keywords', $mosConfig_MetaKeys);
+	$mainframe->addMetaTag('keywords', JCore::getCfg('MetaKeys'));
 }
 if($params->get('meta_author') != ""){
 	$mainframe->addMetaTag('author', $params->get('meta_author'));
@@ -122,7 +122,7 @@ function xmapCallShowSitemap($view, $sitemapid, $locale = '', $sef = '', $title 
 
 	switch($view){
 		case 'xml': // XML Sitemaps output
-			require_once(JPATH_BASE . DS . 'components' . DS . 'com_xmap' . DS . 'xmap.xml.php');
+			require_once(_JLPATH_ROOT . DS . 'components' . DS . 'com_xmap' . DS . 'xmap.xml.php');
 			$xmap = new XmapXML($xConfig, $xSitemap);
 			$xmap->generateSitemap($view, $xConfig, $xmapCache, $title);
 			$xSitemap->count_xml = $xmap->count;
@@ -159,7 +159,7 @@ class Xmap{
 	/** Default constructor, requires the config as parameter. */
 	function Xmap($config, $sitemap){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 		/* класс работы с правами пользователей */
 		mosMainFrame::addLib('gacl');
 		$acl = &gacl::getInstance();
@@ -296,10 +296,10 @@ class Xmap{
 			if(strcasecmp(substr($link, 0, 9), 'index.php') === 0){
 				$link = JSef::getUrlToSef($link); // apply SEF transformation
 				if(strcasecmp(substr($link, 0, 4), 'http')){ // fix broken JSef::getUrlToSef()
-					$link = JPATH_SITE . (substr($link, 0, 1) == '/' ? '' : '/') . $link;
+					$link = _JLPATH_SITE . (substr($link, 0, 1) == '/' ? '' : '/') . $link;
 				}
 			} else{ // Case for internal links not starting with index.php
-				$link = JPATH_SITE . '/' . $link;
+				$link = _JLPATH_SITE . '/' . $link;
 			}
 		}
 

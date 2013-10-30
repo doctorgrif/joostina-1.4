@@ -70,8 +70,8 @@ class modules_html{
 
 		$moduleclass_sfx = $params->get('moduleclass_sfx');
 
-		$path = JPATH_BASE . DS . 'language' . DS . $config->config_lang . DS . 'frontend' . DS . $module->module . '.php';
-		$path_def = JPATH_BASE . DS . 'language/russian/frontend' . DS . $module->module . '.php';
+		$path = _JLPATH_ROOT . DS . 'language' . DS . $config->config_lang . DS . 'frontend' . DS . $module->module . '.php';
+		$path_def = _JLPATH_ROOT . DS . 'language/russian/frontend' . DS . $module->module . '.php';
 
 		file_exists($path) ? include_once ($path) : (file_exists($path_def) ? include_once ($path_def) : null);
 
@@ -102,8 +102,8 @@ class modules_html{
 
 		$contentBuffer = '';
 
-		$LitePath = JPATH_BASE . '/includes/Cache/Lite.php';
-		require_once (JPATH_BASE . '/includes/domit/xml_domit_rss.php');
+		$LitePath = _JLPATH_ROOT . '/includes/Cache/Lite.php';
+		require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_rss.php');
 
 		$rssDoc = new xml_domit_rss_document();
 		$rssDoc->setRSSTimeout(2);
@@ -259,7 +259,7 @@ class modules_html{
 		if($type){
 			modules_html::CustomContent($module, $params);
 		} else{
-			include (JPATH_BASE . DS . 'modules' . DS . $module->module . '.php');
+			include (_JLPATH_ROOT . DS . 'modules' . DS . $module->module . '.php');
 			if(isset($content)){
 				echo $content;
 			}

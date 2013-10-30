@@ -450,12 +450,12 @@ class JLUrl{
 			}
 			$arr_a[] = isset($link_a_arr['fragment']) ? $link_a_arr['fragment'] : '';
 
-			$arr_b[] = isset($link_b_arr['scheme']) ? $link_a_arr['scheme'] : '';
-			$arr_b[] = isset($link_b_arr['user']) ? $link_a_arr['user'] : '';
-			$arr_b[] = isset($link_b_arr['pass']) ? $link_a_arr['pass'] : '';
-			$arr_b[] = isset($link_b_arr['host']) ? $link_a_arr['host'] : '';
-			$arr_b[] = isset($link_b_arr['port']) ? $link_a_arr['port'] : '';
-			$arr_b[] = isset($link_b_arr['path']) ? $link_a_arr['path'] : '';
+			$arr_b[] = isset($link_b_arr['scheme']) ? $link_b_arr['scheme'] : '';
+			$arr_b[] = isset($link_b_arr['user']) ? $link_b_arr['user'] : '';
+			$arr_b[] = isset($link_b_arr['pass']) ? $link_b_arr['pass'] : '';
+			$arr_b[] = isset($link_b_arr['host']) ? $link_b_arr['host'] : '';
+			$arr_b[] = isset($link_b_arr['port']) ? $link_b_arr['port'] : '';
+			$arr_b[] = isset($link_b_arr['path']) ? $link_b_arr['path'] : '';
 			if(isset($link_b_arr['query'])){
 				parse_str($link_b_arr['query'], $tmp);
 				ksort($tmp);

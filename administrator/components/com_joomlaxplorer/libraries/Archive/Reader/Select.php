@@ -22,4 +22,3 @@ class File_Archive_Reader_Select extends File_Archive_Reader_Relay{
 	}
 }
 
-?>

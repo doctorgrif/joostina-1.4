@@ -229,9 +229,6 @@ class InputFilter{
 	}
 
 	protected function quoteSmart($source){
-		if(get_magic_quotes_gpc()){
-			$source = stripslashes($source);
-		}
 		$source = $this->escapeString($source);
 		return $source;
 	}

@@ -10,10 +10,11 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 include_once($mainframe->getLangFile('com_languages'));
 require_once ($mainframe->getPath('installer_html', 'language'));
 require_once ($mainframe->getPath('installer_class', 'language'));
-
+$task = JSef::getTask();
 switch($task){
 	case 'remove':
 		removeElement($client);
@@ -63,7 +64,7 @@ function viewLanguages($option){
 
 	$rows = array();
 	// Read the template dir to find templates
-	$languageBaseDir = mosPathName(mosPathName(JPATH_BASE) . 'language');
+	$languageBaseDir = mosPathName(mosPathName(_JLPATH_ROOT) . 'language');
 
 	$rowid = 0;
 

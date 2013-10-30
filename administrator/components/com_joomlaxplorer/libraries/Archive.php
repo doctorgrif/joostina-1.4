@@ -42,7 +42,7 @@ class File_Archive{
 		}
 	}
 
-	function getOption($name){
+	public static function getOption($name){
 		return File_Archive::_option($name);
 	}
 
@@ -186,7 +186,7 @@ class File_Archive{
 		return $result;
 	}
 
-	function read($URL, $symbolic = null, $uncompression = 0, $directoryDepth = -1){
+	public static function read($URL, $symbolic = null, $uncompression = 0, $directoryDepth = -1){
 		$source = null;
 		return File_Archive::readSource($source, $URL, $symbolic, $uncompression, $directoryDepth);
 	}
@@ -264,7 +264,7 @@ class File_Archive{
 			$extension == 'ar' || $extension == 'deb';
 	}
 
-	function readArchive($extension, &$toConvert, $sourceOpened = false){
+	public static function readArchive($extension, &$toConvert, $sourceOpened = false){
 		$source = &File_Archive::_convertToReader($toConvert);
 		if(PEAR::isError($source)){
 			return $source;
@@ -655,5 +655,3 @@ class File_Archive{
 		return File_Archive::removeDuplicatesFromSource($source, $URL);
 	}
 }
-
-?>

@@ -11,13 +11,14 @@
 defined('_JLINDEX') or die();
 
 // load html output class
+$mainframe = mosMainFrame::getInstance();
 require_once($mainframe->getPath('toolbar_html'));
 
 $act = mosGetParam($_REQUEST, 'act', '');
 if($act){
 	$task = $act;
 }
-
+$task = JSef::getTask();
 switch($task){
 	default:
 		TOOLBAR_xmap::_DEFAULT();

@@ -112,7 +112,7 @@
             this.link = this.rte.dom.selfOrParentLink(n);
 
             if (!this.link) {
-                sel = $.browser.msie ? this.rte.selection.selected() : this.rte.selection.selected({wrap:false});
+                sel = this.rte.selection.selected({wrap:false});
                 if (sel.length) {
                     for (i = 0; i < sel.length; i++) {
                         if (isLink(sel[i])) {
@@ -160,7 +160,7 @@
                     }
                 } },
                 close:function () {
-                    self.rte.browser.msie && self.rte.selection.restoreIERange();
+//                    self.rte.browser.msie && self.rte.selection.restoreIERange();
                 },
                 dialog:{
                     width:'auto',

@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-$acl = &gacl::getInstance();
+$acl = gacl::getInstance();
 
 if(!$acl->acl_check('administration', 'config', 'users', $my->usertype)){
 	die('error-acl');
@@ -32,7 +32,7 @@ switch($task){
  * Сохранение конфигурации
  */
 function x_saveconfig($task){
-	global $database, $mosConfig_password, $mosConfig_session_type;
+	$database = database::getInstance();
 	josSpoofCheck();
 
 	$row = new JConfig();
@@ -41,7 +41,7 @@ function x_saveconfig($task){
 	}
 
 	// if Session Authentication Type changed, delete all old Frontend sessions only - which used old Authentication Type
-	if($mosConfig_session_type != $row->config_session_type){
+	if(JCore::getCfg('session_type') != $row->config_session_type){
 		$past = time();
 		$query = "DELETE FROM #__session"
 			. "\n WHERE time < " . $database->Quote($past)
@@ -55,7 +55,7 @@ function x_saveconfig($task){
 	$server_time = date('O') / 100;
 	$offset = $_POST['config_offset_user'] - $server_time;
 	$row->config_offset = $offset;
-	$row->config_password = $mosConfig_password;
+	$row->config_password = JCore::getCfg('password');
 	$row->config_sitename = htmlspecialchars($row->config_sitename, ENT_QUOTES);
 
 	$row->config_offline_message = ampReplace($row->config_offline_message);
@@ -75,7 +75,7 @@ function x_saveconfig($task){
 	$config .= $row->getVarText();
 	$config .= "setlocale (LC_TIME, \$mosConfig_locale);\n";
 	$config .= '?>';
-	$fname = JPATH_BASE . '/configuration.php';
+	$fname = _JLPATH_ROOT . '/configuration.php';
 
 	$enable_write = intval(mosGetParam($_POST, 'enable_write', 0));
 	$oldperms = fileperms($fname);
@@ -108,7 +108,7 @@ function x_saveconfig($task){
 				$dirmode = octdec($row->config_dirperms);
 			}
 			foreach($mosrootfiles as $file){
-				mosChmodRecursive(JPATH_BASE . DS . $file, $filemode, $dirmode);
+				mosChmodRecursive(_JLPATH_ROOT . DS . $file, $filemode, $dirmode);
 			}
 		} // if
 		mosCache::cleanCache('com_boss');

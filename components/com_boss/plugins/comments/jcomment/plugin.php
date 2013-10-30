@@ -20,14 +20,14 @@ class jcomment{
 
 	public function displayAddReview($directory, $content, $conf){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 		if($conf->allow_comments == 0){
 			return;
 		} else if($my->id == 0 && $conf->allow_unregisered_comment == 0){
 			$link = JSef::getUrlToSef("index.php?option=com_boss&amp;task=login&amp;directory=$directory");
 			echo sprintf(BOSS_REVIEW_LOGIN_REQUIRED, $link);
 		} else{
-			$comments = JPATH_BASE . '/components/com_jcomments/jcomments.php';
+			$comments = _JLPATH_ROOT . '/components/com_jcomments/jcomments.php';
 			if(file_exists($comments)){
 				require_once($comments);
 				$JComments = new JComments();

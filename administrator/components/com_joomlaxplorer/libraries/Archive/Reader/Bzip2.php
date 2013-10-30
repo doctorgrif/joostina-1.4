@@ -161,4 +161,4 @@ class File_Archive_Reader_Bzip2 extends File_Archive_Reader_Archive{
 	}
 }
 
-?>
+

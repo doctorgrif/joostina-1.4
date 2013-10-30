@@ -27,11 +27,10 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @param array $options optional parameters
 	 */
 	function __construct($options = array()){
-		global $mosConfig_secret;
 		parent::__construct($options);
 
 		$this->_root = $options['cachebase'];
-		$this->_hash = $mosConfig_secret;
+		$this->_hash = JCore::getCfg('secret');
 	}
 
 	/**
@@ -179,8 +178,7 @@ class JCacheStorageFile extends JCacheStorage{
 	 * @return boolean  True on success, false otherwise.
 	 */
 	function test(){
-		global $mosConfig_cachepath;
-		$root = $mosConfig_cachepath;
+		$root = JCore::getCfg('cachepath');
 		return is_writable($root);
 	}
 

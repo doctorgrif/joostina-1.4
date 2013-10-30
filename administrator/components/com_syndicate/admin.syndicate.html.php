@@ -17,7 +17,7 @@ defined('_JLINDEX') or die();
 class HTML_syndicate{
 
 	public static function settings($option, &$params, $id){
-		global $mosConfig_cachepath, $my;
+		global $my;
 		mosCommonHTML::loadOverlib();
 		?>
 	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
@@ -45,7 +45,7 @@ class HTML_syndicate{
 						if($my->gid == 25){
 							$visible = 1;
 						}
-						mosHTML::writableCell($mosConfig_cachepath, 0, '<strong>' . _CACHE_DIR . '</strong> ', $visible);
+						mosHTML::writableCell(JCore::getCfg('cachepath'), 0, '<strong>' . _CACHE_DIR . '</strong> ', $visible);
 						?>
 					</table>
 				</td>

@@ -15,10 +15,8 @@ defined('_JLINDEX') or die();
  */
 class HTML_QuickIcons{
 
-	function show($rows, $option, $search, $pageNav){
-
-		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+	public static function show($rows, $option, $search, $pageNav){
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		mosCommonHTML::loadOverlib();
 		?>
 	<form action="index2.php" method="post" name="adminForm">
@@ -61,7 +59,6 @@ class HTML_QuickIcons{
 				$checked = mosHTML::idBox($i, $row->id);
 
 				// check display
-				$display = '';
 				switch($row->display){
 					case '1':
 						$display = _DISPLAY_ONLY_TEXT;
@@ -79,7 +76,7 @@ class HTML_QuickIcons{
 				<tr class="row<?php echo $k; ?>">
 					<td><?php echo $row->id; ?></td>
 					<td><?php echo $checked; ?></td>
-					<td align="center"><img src="<?php echo JPATH_SITE . $row->icon;?>" alt="" border="0"/></td>
+					<td align="center"><img src="<?php echo _JLPATH_SITE . $row->icon;?>" alt="" border="0"/></td>
 					<td align="left">
 						<a href="<?php echo $editLink; ?>" title="<?php echo _PRESS_TO_EDIT_ELEMENT?>"><?php echo $row->text; ?></a><br/>
 						<?php
@@ -123,7 +120,7 @@ class HTML_QuickIcons{
 	<?php
 	}
 
-	function edit($row, $lists, $option){
+    public static function edit($row, $lists, $option){
 
 		mosMakeHtmlSafe($row, ENT_QUOTES);
 		mosCommonHTML::loadOverlib();
@@ -163,9 +160,9 @@ class HTML_QuickIcons{
 
 		function changeIcon(icon) {
 			if (document.all) {
-				document.all.iconImg.src = '<?php echo JPATH_SITE; ?>' + icon;
+				document.all.iconImg.src = '<?php echo _JLPATH_SITE; ?>' + icon;
 			} else {
-				SRAX.get('iconImg').src = '<?php echo JPATH_SITE; ?>' + icon;
+				SRAX.get('iconImg').src = '<?php echo _JLPATH_SITE; ?>' + icon;
 			}
 		}
 		;
@@ -293,7 +290,7 @@ class HTML_QuickIcons{
 						<tr>
 							<td align="right"><?php echo _ICON?>:</td>
 							<td align="left">
-								<input class="inputbox" type="text" name="icon" size="100" maxlength="100" value="<?php echo JPATH_SITE . $row->icon; ?>" onblur="changeIcon(this.value)"/>
+								<input class="inputbox" type="text" name="icon" size="100" maxlength="100" value="<?php echo _JLPATH_SITE . $row->icon; ?>" onblur="changeIcon(this.value)"/>
 								<a href="index2.php?option=<?php echo $option; ?>&amp;task=chooseIcon" target="_blank" title="<?php echo _PRESS_TO_CHOOSE_ICON?>"><?php echo _CHOOSE_ICON?></a>
 								<?php
 								$tip = _CHOOSE_ICON_TIP;
@@ -311,7 +308,7 @@ class HTML_QuickIcons{
 									$iconLink = $row->icon;
 								}
 								?>
-								<img id="iconImg" src="<?php echo JPATH_SITE . $iconLink; ?>" alt=""/>
+								<img id="iconImg" src="<?php echo _JLPATH_SITE . $iconLink; ?>" alt=""/>
 							</td>
 						</tr>
 					</table>
@@ -329,9 +326,9 @@ class HTML_QuickIcons{
 	<?php
 	}
 
-	function quickiButton($image){
+    public static function quickiButton($image){
 
-		$image = str_replace(JPATH_BASE, JPATH_SITE, $image);
+		$image = str_replace(_JLPATH_ROOT, _JLPATH_SITE, $image);
 		$image = str_replace('\\', '/', $image);
 		$js_action = "window.opener.document.adminForm.icon.value='$image'; window.opener.changeIcon('$image'); window.close()"; ?>
 	<div style="float:left;">
@@ -344,7 +341,7 @@ class HTML_QuickIcons{
 	<?php
 	}
 
-	function chooseIcon($imgs){
+    public static function chooseIcon($imgs){
 		?>
 
 	<table class="adminheading">

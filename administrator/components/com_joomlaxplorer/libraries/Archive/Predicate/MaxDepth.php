@@ -22,4 +22,3 @@ class File_Archive_Predicate_MaxDepth extends File_Archive_Predicate{
 	}
 }
 
-?>

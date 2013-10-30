@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-
+$task = JSef::getTask();
 switch($task){
 	case "edit":
 		mosMenuBar::startTable();

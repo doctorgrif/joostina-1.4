@@ -10,8 +10,6 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-global $option;
-
 /**
  * CConfiguration is responsible for loading and saving configuration options
  * Configuration is rather sparse at the moment, but this will change with next versions. All
@@ -105,8 +103,6 @@ class CConfiguration{
 	 * for most users.
 	 */
 	function CConfiguration(){
-		global $option;
-
 		// Private initializers
 		$this->_InstallationRoot = _JLPATH_ADMINISTRATOR . "/";
 		$this->_configurationFile = $this->_InstallationRoot . "/components/com_joomlapack/jpack.config.php";
@@ -120,9 +116,6 @@ class CConfiguration{
 		$this->fileListAlgorithm = 'smart';
 		$this->dbAlgorithm = 'smart';
 		$this->packAlgorithm = 'smart';
-		//$this->InstallerPackage	= 'joostina.xml';
-		//$this->AltInstaller = new CAltInstaller();
-		//$this->AltInstaller->loadDefinition($this->InstallerPackage);
 		$this->logLevel = _JP_LOG_WARNING;
 		$this->sql_pack = 1; // по умолчанию сжимать в tar.gz
 		$this->sql_pref = 1; // по умолчанию elfkznm ghtaabrc nf,kbw
@@ -317,7 +310,7 @@ class CJPLogger{
 
 		if($JPConfiguration->logLevel >= $level){
 			$logName = CJPLogger::logName();
-			$message = str_replace(JPATH_BASE, '<root>', $message);
+			$message = str_replace(_JLPATH_ROOT, '<root>', $message);
 			switch($level){
 				case _JP_LOG_ERROR:
 					$string = 'ERROR   |';
@@ -353,7 +346,7 @@ class CJPLogger{
 		echo '<p style="font-family: vardana, monospace; text-align: left; font-size: 9px;">';
 		while(!feof($fp)){
 			$line = fgets($fp);
-			if(!$line) return;
+			if(!$line) return null;
 			$exploded = explode("|", $line, 3);
 			unset($line);
 			switch(trim($exploded[0])){
@@ -423,8 +416,7 @@ class CAltInstaller{
 	 * @return boolean True if loaded successful the file
 	 */
 	function loadDefinition($file){
-		global $option;
-		require_once (JPATH_BASE . '/includes/domit/xml_domit_lite_include.php');
+		require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_lite_include.php');
 		// Instanciate new parser object
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
@@ -484,7 +476,6 @@ class CAltInstaller{
 	 * @return array An array of the installer names and packages
 	 */
 	function loadAllDefinitions(){
-		global $option;
 		require_once 'engine.abstraction.php';
 		$FS = new CFSAbstraction;
 		$defs = array();

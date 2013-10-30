@@ -19,7 +19,7 @@ defined('_JLINDEX') or die();
  */
 class url_menu_html{
 
-	function edit($menu, $lists, $params, $option){
+	public static function edit($menu, $lists, $params, $option){
 		mosCommonHTML::loadOverlib();
 
 		?>
@@ -155,5 +155,3 @@ class url_menu_html{
 	<?php
 	}
 }
-
-?>

@@ -30,7 +30,7 @@ function show_header($allow, $dir = false){
 			echo "	<option value=\"symlink\">" . $GLOBALS["mimes"]["symlink"] . "</option>\n";
 		}
 		echo "</select>
-					<input name=\"symlink_target\" type=\"hidden\" size=\"25\" title=\"{$GLOBALS['messages']['symlink_target']}\" value=\"{JPATH_BASE}\" />
+					<input name=\"symlink_target\" type=\"hidden\" size=\"25\" title=\"{$GLOBALS['messages']['symlink_target']}\" value=\"{_JLPATH_ROOT}\" />
 					<input class=\"text_area\" name=\"mkname\" type=\"text\" size=\"15\" title=\"{$GLOBALS['messages']['nameheader']}\" />
 					<input class=\"text_area\" type=\"submit\" value=\"" . $GLOBALS["messages"]["btncreate"] . "\" />
 				</form>
@@ -40,4 +40,3 @@ function show_header($allow, $dir = false){
 	echo "<script type=\"text/javascript\">function checkMkitemForm( el ) { if( el.value =='symlink' ) document.mkitemform.symlink_target.type='text'; else document.mkitemform.symlink_target.type='hidden';} </script>";
 }
 
-?>

@@ -1,56 +1,132 @@
-.mod_gdnews-top {
+.mod_gdnews-stop {
     margin-top: 10px;
 }
 
-.mod_gdnews-top td {
+.mod_gdnews-stop td {
     border: #cccccc solid 1px;
     padding: 2px;
-    background-color: #f9f9f9;
+    background: none;
 }
 
-.mod_gdnews-top td:hover {
+.mod_gdnews-stop td:hover {
     background-color: #ffffff;
 }
 
-.mod_gdnews-top table {
+.mod_gdnews-stop table {
     border-spacing: 5px;
+    width: 100%;
 }
 
-.gdn_df_special-top {
+.mod_gdnews-stop .gdn_df_special-stop {
 }
 
-.gdn_df_basic-top {
+.mod_gdnews-stop .gdn_df_basic-stop {
 }
 
-.gdn_df_ref-top {
+.mod_gdnews-stop .gdn_df_ref-stop {
 }
 
 /********************************************* название статьи */
-.gdn_df_title-top {
+.mod_gdnews-stop{
+	margin: 10px;
+}
+.mod_gdnews-stop .gdn_df_title-stop {
     font-size: 10pt;
-    color: #0000cc;
+    color: #666;
     font-weight: normal;
 }
 
-.gdn_df_title-top a {
-    color: #0000cc;
+.mod_gdnews-stop .gdn_df_title-stop a {
+    color: #666;
     text-decoration: none;
     border-bottom: #ff0000 dotted 1px;
 }
 
-.gdn_df_title-top a:hover {
+.mod_gdnews-stop .gdn_df_title-stop a:hover {
     color: #ff0000;
-    border-bottom: #0000cc dotted 1px;
+    border-bottom: #666 dotted 1px;
 }
 
 /************************************************ изображение */
-.gdn_df_image-top img {
+.mod_gdnews-stop .gdn_df_image-stop img {
     margin: 3px 7px 3px 3px;
     padding: 1px;
     border: #cccccc solid 1px;
     float: left;
 }
 
-.gdn_df_image-top a img {
+.mod_gdnews-stop .gdn_df_image-stop a img {
+    text-decoration: none;
+}
+
+
+/*****************************************************************************************/
+.moduletable-top{
+    margin: 15px 0;
+}
+.moduletable-top h3{
+    color: #999;
+    padding: 7px 20px;
+    border-top: #878787 solid 1px;
+    border-bottom: #878787 solid 1px;
+    margin-bottom: 10px;
+    font-size: 11pt;
+    font-weight: normal;
+    background-color: #444;
+}
+.moduletable-top h3:hover{
+}
+
+.mod_gdnews-top td {
+}
+
+.mod_gdnews-top td:hover {
+}
+
+.mod_gdnews-top table {
+    border-spacing: 5px;
+}
+
+.moduletable-top .gdn_df_special-top {
+}
+
+.moduletable-top .gdn_df_basic-top {
+    margin: 5px 0;
+}
+
+.moduletable-top .gdn_df_ref-top {
+}
+
+/********************************************* название статьи */
+
+.moduletable-top .mod_gdnews-top{
+    padding: 0 10px;
+}
+
+.moduletable-top .gdn_df_date-top{
+    color: #faf4ae;
+    font-size: 80%;
+}
+
+.moduletable-top .gdn_df_title-top{
+    padding: 0 40px 0 5px;
+}
+.moduletable-top .gdn_df_title-top a{
+    color: #999;
+    border: none;
+}
+
+.moduletable-top .gdn_df_title-top a:hover{
+    color: #fff;
+    text-decoration: underline;
+}/************************************************ изображение */
+.moduletable-top .gdn_df_image-top img {
+    margin: 0 7px 0 0;
+    padding: 1px;
+    border: #cccccc solid 1px;
+    float: left;
+}
+
+.moduletable-top .gdn_df_image-top a img {
     text-decoration: none;
 }

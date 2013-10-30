@@ -10,9 +10,7 @@
 define('_JLINDEX', 1);
 
 $basePath = dirname(__FILE__);
-require($basePath . '/../../../includes/globals.php');
 
-// $basepath reintialization required as globals.php will kill initial when RGs Emulation `Off`
 $basePath = dirname(dirname(dirname(dirname(__FILE__))));
 require($basePath . '/configuration.php');
 

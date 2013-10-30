@@ -16,9 +16,8 @@ defined('_JLINDEX') or die();
 class HTML_users{
 
 	public static function showUsers($rows, $pageNav, $search, $option, $lists){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+        $my = JCore::getUser();
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		?>
 	<form action="index2.php" method="post" name="adminForm" id="adminForm">
 		<table class="adminheading">
@@ -51,13 +50,11 @@ class HTML_users{
 			for($i = 0, $n = $num; $i < $n; $i++){
 				$row = &$rows[$i];
 				$img = $row->block ? 'publish_x.png' : 'tick.png';
-				$task = $row->block ? 'unblock' : 'block';
-				$alt = $row->block ? _ALLOW : _DISALLOW;
 				$link = 'index2.php?option=com_users&amp;task=editA&amp;id=' . $row->id . '&amp;hidemainmenu=1'; ?>
 				<tr class="row<?php echo $k; ?>">
 					<td><?php echo $i + 1 + $pageNav->limitstart; ?></td>
 					<td><?php echo mosHTML::idBox($i, $row->id); ?></td>
-					<td width="1%"><img width="25" class="miniavatar" src="<?php echo JPATH_SITE . '/' . mosUser::get_avatar($row); ?>"/></td>
+					<td width="1%"><img width="25" class="miniavatar" src="<?php echo _JLPATH_SITE . '/' . mosUser::get_avatar($row); ?>"/></td>
 					<td align="left"><a href="<?php echo $link; ?>">
 						<?php echo $row->name; ?></a></td>
 					<td align="left"><?php echo $row->username; ?></td>
@@ -86,9 +83,8 @@ class HTML_users{
 	}
 
 	/* редактирование пользователя */
-	public static function edituser($row, $contact, $lists, $option, $uid, $params){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+	public static function edituser($row, $lists, $option, $uid, $params){
+        $my = JCore::getUser();
 
 		$acl = &gacl::getInstance();
 
@@ -99,7 +95,7 @@ class HTML_users{
 		if(!defined('_JQUERY_LOADED')){
 			define('_JQUERY_LOADED', 1);
 			$mainframe = mosMainFrame::getInstance(true);
-			$mainframe->addJS($mainframe->getCfg('live_site') . '/includes/js/jquery/jquery.js');
+			$mainframe->addJS(JCore::getCfg('live_site') . '/includes/js/jquery/jquery.js');
 		}
 		mosCommonHTML::loadOverlib();
 		echo mosCommonHTML::loadJqueryPlugins('jquery.form', true, false);
@@ -301,57 +297,6 @@ class HTML_users{
 				<td><input size="100" class="inputbox" type="text" name="mobil" id="mobil" value="<?php echo $row->user_extra->mobil ?>"/></td>
 			</tr>
 		</table>
-		<?php $tabs->endTab(); ?>
-		<?php $tabs->startTab(_CONTACT_INFO_COM_CONTACT, "user_info_com_contact"); ?>
-		<?php if(!$contact){ ?>
-		<table class="adminform">
-			<tr>
-				<td>
-					<br/>
-					<?php echo _NO_USER_CONTACTS ?>
-					<br/>
-				</td>
-			</tr>
-		</table>
-		<?php } else{ ?>
-		<table class="adminform">
-			<tr>
-				<td width="400" class="key"><?php echo _FULL_NAME ?>:</td>
-				<td><strong><?php echo $contact[0]->name; ?></strong></td>
-			</tr>
-			<tr>
-				<td class="key"><?php echo _USER_POSITION ?>:</td>
-				<td><strong><?php echo $contact[0]->con_position; ?></strong></td>
-			</tr>
-			<tr>
-				<td class="key"><?php echo _C_USERS_CONTACT_PHONE ?>:</td>
-				<td><strong><?php echo $contact[0]->telephone; ?></strong></td>
-			</tr>
-			<tr>
-				<td class="key"><?php echo _C_USERS_CONTACT_FAX ?>:</td>
-				<td><strong><?php echo $contact[0]->fax; ?></strong></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><strong><?php echo $contact[0]->misc; ?></strong></td>
-			</tr>
-			<?php if($contact[0]->image){ ?>
-			<tr>
-				<td></td>
-				<td valign="top">
-					<img src="<?php echo JPATH_SITE; ?>/images/stories/<?php echo $contact[0]->image; ?>" align="middle" alt=""/>
-				</td>
-			</tr>
-			<?php } ?>
-			<tr>
-				<td colspan="2">
-					<br/><br/>
-					<input class="button" type="button" value="<?php echo _CHANGE_CONTACT_INFO ?>" onclick="javascript: gotocontact( '<?php echo $contact[0]->id; ?>' )">
-					<i><br/><?php echo _CONTACT_INFO_PATH_URL ?>.</i>
-				</td>
-			</tr>
-		</table>
-		<?php } ?>
 		<?php $tabs->endTab(); ?>
 
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>"/>

@@ -51,7 +51,6 @@ function print_table($list){
 		$s_item = $item;
 		if(strlen($s_item) > 45)
 			$s_item = substr($s_item, 0, 42) . "...";
-		$link = "";
 		$target = "";
 		if(get_is_dir($dir, $item)){
 			$img = "dir.png";

@@ -18,7 +18,7 @@ defined('_JLINDEX') or die();
 class poll_html{
 
 	public static function showResults($poll, $votes, $first_vote, $last_vote, $pollist, $params){
-		mosMainFrame::getInstance()->addCSS(JPATH_SITE . '/components/com_poll/css/poll.css');
+		mosMainFrame::getInstance()->addCSS(_JLPATH_SITE . '/components/com_poll/css/poll.css');
 		?>
 	<div class="polls <?php echo $params->get('pageclass_sfx'); ?>">
 
@@ -114,7 +114,7 @@ class poll_html{
 				}
 				?>
 				<td class="poll_graph">&nbsp;
-					<img src="<?php echo JPATH_SITE; ?>/components/com_poll/images/blank.png" class="<?php echo $tdclass; ?>" height="<?php echo $polls_barheight; ?>" width="<?php echo $width; ?>" alt=""/>
+					<img src="<?php echo _JLPATH_SITE; ?>/components/com_poll/images/blank.png" class="<?php echo $tdclass; ?>" height="<?php echo $polls_barheight; ?>" width="<?php echo $width; ?>" alt=""/>
 				</td>
 			</tr>
 			<?php

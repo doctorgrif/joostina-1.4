@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosinstall type="component" version="1.4.3">
+    <name>JLotos SEF</name>
+    <creationDate>01.07.2013</creationDate>
+    <modificationDate>01.07.2013</modificationDate>
+    <author>Gold Dragon</author>
+    <authorEmail>illusive@bk.ru</authorEmail>
+    <authorUrl>http://gd.joostina-cms.ru</authorUrl>
+    <copyright>(C) 2000-2013 Gold Dragon.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <version>1.0</version>
+    <description>
+        <![CDATA[
+		<p><b>&laquo;JLotos SEF&raquo;</b> - компонент для управления &laquo;человекопонятным урлом&raquo; (SEF, ЧПУ) для Joostina Lotos CMS 1.4.3+.</p>
+		]]>
+    </description>
+    <administration>
+        <menu>JLotos SEF</menu>
+        <submenu>
+            <menu task="configuration">Настройки</menu>
+            <menu task="references">Ссылки</menu>
+            <menu task="duplicates">Дубликаты</menu>
+            <menu task="description">Описание SEF-файлов</menu>
+        </submenu>
+        <files>
+            <filename>admin.jlotossef.php</filename>
+            <filename>admin.jlotossef.ajax.php</filename>
+            <filename>admin.jlotossef.class.php</filename>
+            <filename>admin.jlotossef.html.php</filename>
+            <filename>index.html</filename>
+            <filename>toolbar.jlotossef.php</filename>
+            <filename>toolbar.jlotossef.html.php</filename>
+            <filename>images/configuration.png</filename>
+            <filename>images/description.png</filename>
+            <filename>images/duplicates.png</filename>
+            <filename>images/index.html</filename>
+            <filename>images/jlsef.png</filename>
+            <filename>images/references.png</filename>
+        </files>
+    </administration>
+</mosinstall>

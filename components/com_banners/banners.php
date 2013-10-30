@@ -64,8 +64,8 @@ function showStatistics($id){
 				echo $banner->custom_banner_code;
 			} else
 				if(preg_match("/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/i", $banner->image_url)){
-					$image_url = JPATH_SITE . "/images/show/$banner->image_url";
-					$imginfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
+					$image_url = _JLPATH_SITE . "/images/show/$banner->image_url";
+					$imginfo = @getimagesize(_JLPATH_ROOT . "/images/show/" . $banner->image_url);
 					$border_value = $banner->border_value;
 					$border_style = $banner->border_style;
 					$border_color = $banner->border_color;
@@ -74,8 +74,8 @@ function showStatistics($id){
 					echo "<img src=\"" . $image_url . "\" style=\"border:" . $border_value . "px " . $border_style . " " . $border_color . "\" vspace=\"0\" alt=\"$banner->name\" width=\"$width\" height=\"$height\" />";
 				} else
 					if(preg_match("/.swf/i", $banner->image_url)){
-						$image_url = JPATH_SITE . "/images/show/" . $banner->image_url;
-						$swfinfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
+						$image_url = _JLPATH_SITE . "/images/show/" . $banner->image_url;
+						$swfinfo = @getimagesize("_JLPATH_ROOT/images/show/" . $banner->image_url);
 						$width = $swfinfo[0] / 1.23;
 						$height = $swfinfo[1] / 1.23;
 						echo "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0\" border=\"0\" width=\"$width\" height=\"$height\" vspace=\"0\"><param name=\"SRC\" value=\"$image_url\"><embed src=\"$image_url\" loop=\"false\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\" width=\"$width\" height=\"$height\"></object>";

@@ -10,9 +10,10 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('installer_html', 'template'));
 require_once ($mainframe->getPath('installer_class', 'template'));
-
+$task = JSef::getTask();
 switch($task){
 	case 'remove':
 		removeElement($client);
@@ -59,16 +60,15 @@ function viewTemplates($option, $client){
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0);
 
 	if($client == 'admin'){
-		$templateBaseDir = mosPathName(JPATH_BASE . DS . JADMIN_BASE . DS . 'templates');
+		$templateBaseDir = mosPathName(_JLPATH_ROOT . DS . JADMIN_BASE . DS . 'templates');
 	} else{
-		$templateBaseDir = mosPathName(JPATH_BASE . DS . 'templates');
+		$templateBaseDir = mosPathName(_JLPATH_ROOT . DS . 'templates');
 	}
 
 	$rows = array();
 	// Read the template dir to find templates
 	$templateDirs = mosReadDirectory($templateBaseDir);
 
-	$id = intval($client == 'admin');
 	if($client == 'admin'){
 		$query = "SELECT template"
 			. "\n FROM #__templates_menu"

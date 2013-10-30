@@ -11,7 +11,7 @@
 defined('_JLINDEX') or die();
 
 mosAdminMenus::menuItem($type);
-
+$task = JSef::getTask();
 switch($task){
 	case 'url':
 		// this is the new item, ie, the same name as the menu `type`

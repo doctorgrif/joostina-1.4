@@ -12,4 +12,3 @@ $positions = array(
 		'ConFull' => 'ConFull'
 	),
 );
-?>

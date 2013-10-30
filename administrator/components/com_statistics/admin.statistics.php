@@ -10,8 +10,9 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('admin_html'));
-
+$task = JSef::getTask();
 switch($task){
 	case 'searches':
 		showSearches($option, $task);
@@ -32,7 +33,6 @@ switch($task){
 
 function showSummary($option, $task){
 	$database = database::getInstance();
-	$mainframe = mosMainFrame::getInstance(true);
 
 	// get sort field and check against allowable field names
 	$field = strtolower(mosGetParam($_REQUEST, 'field', ''));
@@ -51,9 +51,7 @@ function showSummary($option, $task){
 		}
 
 	// browser stats
-	$order_by = '';
 	$sorts = array();
-	$tab = mosGetParam($_REQUEST, 'tab', 'tab1');
 	$sort_base = "index2.php?option=$option&task=$task";
 
 	switch($field){

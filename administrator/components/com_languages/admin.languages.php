@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 // ensure user has access to this function
 if(!$acl->acl_check('administration', 'config', 'users', $my->usertype)){
 	mosRedirect('index2.php', _NOT_AUTH);
@@ -17,7 +18,7 @@ if(!$acl->acl_check('administration', 'config', 'users', $my->usertype)){
 
 require_once ($mainframe->getPath('admin_html'));
 // XML library
-require_once (JPATH_BASE . '/includes/domit/xml_domit_lite_include.php');
+require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_lite_include.php');
 
 $cid = mosGetParam($_REQUEST, 'cid', array(0));
 if(!is_array($cid)){
@@ -27,6 +28,7 @@ if(!is_array($cid)){
 		$key = preg_replace('#\W#', '', $value);
 	}
 }
+$task = JSef::getTask();
 
 switch($task){
 	case 'new':
@@ -62,20 +64,17 @@ switch($task){
  * Compiles a list of installed languages
  */
 function viewLanguages($option){
-	global $languages;
 	$mainframe = mosMainFrame::getInstance();
-	;
-	global $mosConfig_lang, $mosConfig_list_limit;
 
-	$limit = $mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit);
+	$limit = $mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit'));
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0);
 
 	// get current languages
-	$cur_language = $mosConfig_lang;
+	$cur_language = JCore::getCfg('lang');
 
 	$rows = array();
 	// Read the template dir to find templates
-	$languageBaseDir = mosPathName(mosPathName(JPATH_BASE) . "language");
+	$languageBaseDir = mosPathName(mosPathName(_JLPATH_ROOT) . "language");
 
 	$rowid = 0;
 
@@ -90,7 +89,7 @@ function viewLanguages($option){
 			continue;
 		}
 
-		$root = &$xmlDoc->documentElement;
+		$root = $xmlDoc->documentElement;
 
 		if($root->getTagName() != 'mosinstall'){
 			continue;
@@ -102,25 +101,25 @@ function viewLanguages($option){
 		$row = new StdClass();
 		$row->id = $rowid;
 		$row->language = substr($xmlfile, 0, -4);
-		$element = &$root->getElementsByPath('name', 1);
+		$element = $root->getElementsByPath('name', 1);
 		$row->name = $element->getText();
 
-		$element = &$root->getElementsByPath('creationDate', 1);
+		$element = $root->getElementsByPath('creationDate', 1);
 		$row->creationdate = $element ? $element->getText() : 'Unknown';
 
-		$element = &$root->getElementsByPath('author', 1);
+		$element = $root->getElementsByPath('author', 1);
 		$row->author = $element ? $element->getText() : 'Unknown';
 
-		$element = &$root->getElementsByPath('copyright', 1);
+		$element = $root->getElementsByPath('copyright', 1);
 		$row->copyright = $element ? $element->getText() : '';
 
-		$element = &$root->getElementsByPath('authorEmail', 1);
+		$element = $root->getElementsByPath('authorEmail', 1);
 		$row->authorEmail = $element ? $element->getText() : '';
 
-		$element = &$root->getElementsByPath('authorUrl', 1);
+		$element = $root->getElementsByPath('authorUrl', 1);
 		$row->authorUrl = $element ? $element->getText() : '';
 
-		$element = &$root->getElementsByPath('version', 1);
+		$element = $root->getElementsByPath('version', 1);
 		$row->version = $element ? $element->getText() : '';
 
 		// if current than set published
@@ -148,7 +147,6 @@ function viewLanguages($option){
  * Publish, or make current, the selected language
  */
 function publishLanguage($p_lname, $option){
-	global $mosConfig_lang;
 	josSpoofCheck();
 	$config = '';
 
@@ -177,11 +175,10 @@ function publishLanguage($p_lname, $option){
  * Remove the selected language
  */
 function removeLanguage($cid, $option, $client = 'admin'){
-	global $mosConfig_lang;
 	josSpoofCheck();
 	$client_id = $client == 'admin' ? 1 : 0;
 
-	$cur_language = $mosConfig_lang;
+	$cur_language = JCore::getCfg('lang');
 
 	if($cur_language == $cid){
 		mosErrorAlert(_YOU_CANNOT_DELETE_LANG_FILE);

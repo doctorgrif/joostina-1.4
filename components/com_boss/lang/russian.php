@@ -8,6 +8,8 @@
  */
 defined('_JLINDEX') or die();
 
+DEFINE("BOSS_DELETE_COMMENT", "Вы действительно ххотите удалить комментарий?");
+
 //General
 DEFINE("BOSS_COMPONENT", "JoiBOSS CCK");
 DEFINE("BOSS_ROOT_TITLE", "Каталог");
@@ -395,7 +397,7 @@ DEFINE('BOSS_FORM_MESSAGE_WRITE', 'Форма написания');
 //JDirectory 2.1.7
 DEFINE('BOSS_PROFILE', 'Профиль');
 DEFINE('BOSS_FULL', 'Полностью');
-DEFINE('BOSS_DATE_FORMAT_LC', "%d-%m-%Y");
+DEFINE('BOSS_DATE_FORMAT_LC', "%d.%m.%Y");
 
 //JDirectory 2.1.9
 DEFINE('BOSS_FNAME', 'Имя');

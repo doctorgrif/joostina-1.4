@@ -22,4 +22,3 @@ class File_Archive_Predicate_MinTime extends File_Archive_Predicate{
 	}
 }
 
-?>

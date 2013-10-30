@@ -66,7 +66,6 @@ class Archive_Tar extends PEAR{
 			if(!extension_loaded($extname)){
 				die("The extension '$extname' couldn't be found.\n" .
 					"Please make sure your version of PHP was built " . "with '$extname' support.\n");
-				return false;
 			}
 		}
 	}
@@ -1004,4 +1003,4 @@ class Archive_Tar extends PEAR{
 	}
 }
 
-?>
+

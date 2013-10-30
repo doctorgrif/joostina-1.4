@@ -80,7 +80,7 @@ class PEAR{
 		$GLOBALS['_PEAR_shutdown_funcs'][] = array($func, $args);
 	}
 
-	function isError($data, $code = null){
+	public static function isError($data, $code = null){
 		if($data instanceof PEAR_Error){
 			if(is_null($code)){
 				return true;
@@ -174,7 +174,7 @@ class PEAR{
 		}
 	}
 
-	function raiseError($message = null, $code = null, $mode = null, $options = null, $userinfo = null,
+	public static function raiseError($message = null, $code = null, $mode = null, $options = null, $userinfo = null,
 		$error_class = null, $skipmsg = false){
 		if(is_object($message)){
 			$code = $message->getCode();
@@ -223,7 +223,7 @@ class PEAR{
 		}
 	}
 
-	function pushErrorHandling($mode, $options = null){
+	public static function pushErrorHandling($mode, $options = null){
 		$stack = &$GLOBALS['_PEAR_error_handler_stack'];
 		if(isset($this) && ($this instanceof PEAR)){
 			$def_mode = &$this->_default_error_mode;
@@ -242,7 +242,7 @@ class PEAR{
 		return true;
 	}
 
-	function popErrorHandling(){
+	public static function popErrorHandling(){
 		$stack = &$GLOBALS['_PEAR_error_handler_stack'];
 		array_pop($stack);
 		list($mode, $options) = $stack[sizeof($stack) - 1];
@@ -445,4 +445,3 @@ class PEAR_Error{
 
 register_shutdown_function("_PEAR_call_destructors");
 
-?>

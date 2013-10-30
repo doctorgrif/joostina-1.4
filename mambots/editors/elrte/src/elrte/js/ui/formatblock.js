@@ -11,12 +11,7 @@
     elRTE.prototype.ui.prototype.buttons.formatblock = function (rte, name) {
         this.constructor.prototype.constructor.call(this, rte, name);
 
-        var cmd = this.rte.browser.msie
-            ? function (v) {
-            self.val = v;
-            self.constructor.prototype.command.call(self);
-        }
-            : function (v) {
+        var cmd = function (v) {
             self.ieCommand(v);
         }
         var self = this;

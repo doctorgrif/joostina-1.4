@@ -31,7 +31,7 @@ class searchByTagConfig extends DBConfig{
 
 class searchByTag{
 
-	function construct_url($item, $group){
+	public static function construct_url($item, $group){
 
 		$view_link = 'index.php?option=' . $group['group_name'];
 		$view_link .= '&task=' . $group['task'];

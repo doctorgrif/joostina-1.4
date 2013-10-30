@@ -131,7 +131,7 @@ class mosPageNav{
 			$displayed_pages = 10;
 			$total_pages = $this->limit ? ceil($this->total / $this->limit) : 0;
 			// скрываем навигатор по страницам если их меньше 2х.
-			if($total_pages < 2) return;
+			if($total_pages < 2) return null;
 
 			$this_page = $this->limit ? ceil(($this->limitstart + 1) / $this->limit) : 1;
 			$start_loop = (floor(($this_page - 1) / $displayed_pages)) * $displayed_pages + 1;
@@ -198,7 +198,7 @@ class mosPageNav{
 			$displayed_pages = 10;
 			$total_pages = ceil($this->total / $this->limit);
 			// скрываем навигатор по страницам если их меньше 2х.
-			if($total_pages < 2) return;
+			if($total_pages < 2) return null;
 			$this_page = ceil(($this->limitstart + 1) / $this->limit);
 			$start_loop = (floor(($this_page - 1) / $displayed_pages)) * $displayed_pages + 1;
 			if($start_loop + $displayed_pages - 1 < $total_pages){
@@ -275,7 +275,7 @@ class mosPageNav{
 	 * @return string
 	 */
 	function orderUpIcon($i, $condition = true, $task = 'orderup', $alt = _PN_MOVE_TOP){
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		if(($i > 0 || ($i + $this->limitstart > 0)) && $condition){
 			return '<a href="#reorder" onClick="return listItemTask(\'cb' . $i . '\',\'' . $task . '\')" title="' . $alt . '"><img src="' . $cur_file_icons_path . '/uparrow.png" width="12" height="12" border="0" alt="' . $alt . '" /></a>';
 		} else{
@@ -292,7 +292,7 @@ class mosPageNav{
 	 * @return string
 	 */
 	function orderDownIcon($i, $n, $condition = true, $task = 'orderdown', $alt = _PN_MOVE_DOWN){
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		if(($i < $n - 1 || $i + $this->limitstart < $this->total - 1) && $condition){
 			return '<a href="#reorder" onClick="return listItemTask(\'cb' . $i . '\',\'' . $task . '\')" title="' . $alt . '"><img src="' . $cur_file_icons_path . '/downarrow.png" width="12" height="12" border="0" alt="' . $alt . '" /></a>';
 		} else{
@@ -308,7 +308,7 @@ class mosPageNav{
 	 * @return string
 	 */
 	function orderUpIcon2($id, $order){
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		if($order == 0){
 			$img = 'uparrow.png';
 			$show = true;
@@ -339,7 +339,7 @@ class mosPageNav{
 	 * @return string
 	 */
 	function orderDownIcon2($id, $order){
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 		if($order == 0){
 			$img = 'downarrow.png';

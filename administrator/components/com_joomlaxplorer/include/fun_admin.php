@@ -40,7 +40,7 @@ function admin($admin, $dir){
 			$home = $GLOBALS["users"][$i][2];
 			if(strlen($home) > 30)
 				$home = substr($home, 0, 27) . "...";
-			echo "<tr><td width=\"1%\"><input TYPE=\"radio\" name=\"user\" value=\"";
+			echo "<tr><td width=\"1%\"><input type=\"radio\" name=\"user\" value=\"";
 			echo $GLOBALS["users"][$i][0] . "\"" . (($i == 0) ? " checked" : "") . "></td>\n";
 			echo "<td width=\"30%\">" . $user . "</td><td width=\"60%\">" . $home . "</td>\n";
 			echo "<td width=\"3%\">" . ($GLOBALS["users"][$i][4] ? $GLOBALS["messages"]["miscyesno"][2] :

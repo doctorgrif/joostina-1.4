@@ -10,11 +10,12 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('installer_class', 'installer'));
 
 // XML library
-require_once (JPATH_BASE . '/includes/domit/xml_domit_lite_include.php');
+require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_lite_include.php');
 
 $element = mosGetParam($_REQUEST, 'element', '');
 $client = mosGetParam($_REQUEST, 'client', '');

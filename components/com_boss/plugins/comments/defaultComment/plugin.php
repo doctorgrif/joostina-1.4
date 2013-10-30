@@ -22,7 +22,8 @@ class defaultComment{
 	}
 
 	private function displayReviewDate($review){
-		echo $review->date;
+        $date = new DateTime($review->date);
+		echo $date->format("d.m.Y" );
 	}
 
 	private function isContentCaptchaActivated($conf){
@@ -33,11 +34,27 @@ class defaultComment{
 		return $conf->secure_comment;
 	}
 
+    private function displayButDelete($content, $directory, $reviews){
+        $mainframe = mosMainFrame::getInstance();
+        $my = JCore::getUser();
+        //get configuration
+        $conf = getConfig($directory);
+        //права пользователя
+        if ($conf->allow_rights) {
+            $rights = BossPlugins::get_plugin($directory, 'bossRights', 'other', array('conf_front'));
+            $rights->bind_rights(@$conf->rights);
+            $my->groop_id = (isset($my->groop_id)) ? $my->groop_id : 0;
+            if ($rights->allow_me('delete_comments', $my->groop_id)) {
+                echo '<a href="'.JSef::getUrlToSef("index.php?option=com_boss&amp;task=delete_comment&amp;contentid=".$content->id."&amp;catid=".$content->catid."&amp;directory=".$directory."&amp;id=".$reviews->id) .'" onClick="return window.confirm(\''.BOSS_DELETE_COMMENT.'\')">'._DELETE.'</a>';
+            }
+        }
+    }
+
 	public function displayReviews($content, $directory, $conf, $reviews){
 
 		if(($conf->allow_comments == 1) && (isset($reviews))){
 			foreach($reviews as $review){
-				include(JPATH_BASE . '/images/boss/' . $directory . '/plugins/comments/defaultComment/template/review.php');
+				include(_JLPATH_ROOT . '/components/com_boss/plugins/comments/defaultComment/template/review.php');
 			}
 		}
 	}
@@ -45,8 +62,8 @@ class defaultComment{
 	private function displayCaptchaImage(){
 		?>
 	<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>"
-		 onclick="document.saveForm.captchaimg.src='<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>&' + new String(Math.random())"
-		 src="<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>"/>
+		 onclick="document.saveForm.captchaimg.src='<?php echo _JLPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>&' + new String(Math.random())"
+		 src="<?php echo _JLPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo mosMainFrame::sessionCookieName() ?>"/>
 	<?php
 
 	}
@@ -57,7 +74,7 @@ class defaultComment{
 
 	public function displayAddReview($directory, $content, $conf){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 		$name = '';
 		if($my->id != 0)
 			$name = $my->name;
@@ -71,7 +88,7 @@ class defaultComment{
 			$target = JSef::getUrlToSef("index.php?option=com_boss&amp;task=save_review&amp;directory=$directory");
 			?>
 		<form action="<?php echo $target;?>" method="post" name="saveForm">
-			<?php include(JPATH_BASE . '/images/boss/' . $directory . '/plugins/comments/defaultComment/template/addreview.php');?>
+			<?php include(_JLPATH_ROOT . '/components/com_boss/plugins/comments/defaultComment/template/addreview.php');?>
 			<input type="hidden" name="contentid" value="<?php echo $content->id; ?>"/>
 		</form>
 		<?php
@@ -94,7 +111,7 @@ class defaultComment{
 
 	public function save_review($directory){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 		$database = database::getInstance();
 		//get configuration
 		$conf = getConfig($directory);
@@ -220,7 +237,7 @@ class jDirectoryReview extends mosDBTable{
 	var $description = null;
 	var $published = null;
 
-	function __construct($db, $directory){
+	function __construct(&$db, $directory){
 		$this->mosDBTable('#__boss_' . $directory . '_reviews', 'id', $db);
 	}
 

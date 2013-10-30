@@ -28,7 +28,7 @@ class CacheView{
 	 * @param array An array of records
 	 * @param string The URL option
 	 */
-	function displayCache($rows, $client, $page){
+	public static function displayCache($rows, $client, $page){
 		?>
 	<table border="0" class="adminheading">
 		<tbody>

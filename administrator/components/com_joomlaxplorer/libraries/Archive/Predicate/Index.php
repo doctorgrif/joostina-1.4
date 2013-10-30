@@ -21,5 +21,3 @@ class File_Archive_Predicate_Index extends File_Archive_Predicate{
 		return isset($this->indexes[$this->pos++]);
 	}
 }
-
-?>

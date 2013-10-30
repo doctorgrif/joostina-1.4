@@ -12,7 +12,7 @@ defined('_JLINDEX') or die();
 
 class HTML_mmxtd{
 // отображения подкаталога текущего каталога
-	function show_dir($path, $dir, $listdir){
+	public static function show_dir($path, $dir, $listdir){
 		if($listdir){
 			$link = 'index2.php?option=com_jwmmxtd&amp;curdirectory=' . $listdir . "/" . $path;
 			$count = HTML_mmxtd::num_files($listdir . "/" . $path);
@@ -22,8 +22,7 @@ class HTML_mmxtd{
 		}
 		$num_files = $count[0];
 		$num_dir = $count[1];
-		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/';
 		?>
 	<div class="folder_style">
 		<table cellpadding="0" cellspacing="0">
@@ -53,7 +52,7 @@ class HTML_mmxtd{
 	}
 
 // подсчет размера
-	function parse_size($size){
+	public static function parse_size($size){
 		if($size < 1024){
 			return $size . ' ' . _JWMM_BYTES;
 		} else
@@ -65,7 +64,7 @@ class HTML_mmxtd{
 	}
 
 // вывод изображения
-	function show_image($img, $file, $info, $size, $listdir){
+	public static function show_image($img, $file, $info, $size, $listdir){
 		$img_file = basename($img);
 		$img_url_link = JWMMXTD_STARTURLPATH . $listdir . '/' . rawurlencode($img_file);
 		$cur = $listdir;
@@ -77,7 +76,7 @@ class HTML_mmxtd{
 		}
 
 		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/';
 		?>
 	<div class="image_style">
 		<table cellpadding="0" cellspacing="0">
@@ -112,7 +111,7 @@ class HTML_mmxtd{
 	}
 
 // подсчет числа файлов
-	function num_files($dir){
+    public static function num_files($dir){
 		$total_file = 0;
 		$total_dir = 0;
 		$dir = JWMMXTD_STARTABSPATH . $dir;
@@ -133,12 +132,12 @@ class HTML_mmxtd{
 	}
 
 // отображение документов
-	function show_doc($doc, $size, $listdir, $icon){
+	public static function show_doc($doc, $size, $listdir, $icon){
 		$size = HTML_mmxtd::parse_size($size);
 		$doc_url_link = JWMMXTD_STARTURLPATH . $listdir . '/' . rawurlencode($doc);
 		$cur = $listdir;
 		$mainframe = mosMainFrame::getInstance(true);
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/';
 
 		?>
 	<div class="file_style">
@@ -194,7 +193,7 @@ class HTML_mmxtd{
 	}
 
 // расчет и отображение размера изображения
-	function imageResize($width, $height, $target){
+    public static function imageResize($width, $height, $target){
 		if($width > $height){
 			$percentage = ($target / $width);
 		} else{

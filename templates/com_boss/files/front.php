@@ -1,18 +1,31 @@
-<!-- Главная страница: вывод каталогов -->
-<div class="boss_tpl_front">
-	<h1 class="contentheading"><?php $this->displayDirectoryName(); ?></h1>
+<div>
+	<h1>
+		<?php $this->displayDirectoryName(); ?>
+	</h1>
 
-	<div class="boss_tpl_fronttext"><?php echo $this->displayFrontText(); ?></div>
-	<div class="boss_tpl_innermenu">
-		<ul>
-			<li><?php $this->displayWriteLink(); ?>
-			<li><?php $this->displayAllContentsLink(); ?>
-			<li><?php $this->displayProfileLink(); ?>
-			<li><?php $this->displayUserContentsLink(); ?>
-			<li><?php $this->displaySearchLink(); ?>
-			<li><?php $this->displayRulesLink(); ?>
-		</ul>
+	<div class="boss_fronttext">
+		<?php echo $this->displayFrontText(); ?>
+	</div>
+	<div align="center" class="boss_innermenu">
+		<h2>
+			<?php
+			$this->displayWriteLink();
+			echo " | ";
+			$this->displayAllContentsLink();
+			echo " | ";
+			$this->displayProfileLink();
+			echo " | ";
+			$this->displayUserContentsLink();
+			echo " | ";
+			$this->displaySearchLink();
+			echo " | ";
+			$this->displayRulesLink(); ?>
+		</h2>
+	</div>
+	<br/>
+
+	<div class="boss_categories" align="center">
+		<?php $this->displayCategories(1,1,1); ?>
 	</div>
 	<div class="clear"></div>
-	<div class="boss_tpl_categories"><?php $this->displayCategories(1, 1, 1); ?></div>
 </div>

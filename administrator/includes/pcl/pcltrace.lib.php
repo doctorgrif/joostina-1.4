@@ -22,9 +22,6 @@ if(!defined("PCLTRACE_LIB")){
 		global $g_pcl_trace_level;
 		global $g_pcl_trace_mode;
 		global $g_pcl_trace_filename;
-		global $g_pcl_trace_name;
-		global $g_pcl_trace_index;
-		global $g_pcl_trace_entries;
 		$g_pcl_trace_level = $p_level;
 		switch($p_mode){
 			case "normal":
@@ -46,7 +43,6 @@ if(!defined("PCLTRACE_LIB")){
 	function TrOff(){
 		global $g_pcl_trace_level;
 		global $g_pcl_trace_mode;
-		global $g_pcl_trace_filename;
 		global $g_pcl_trace_name;
 		global $g_pcl_trace_index;
 		$g_pcl_trace_mode = "memory";
@@ -58,8 +54,6 @@ if(!defined("PCLTRACE_LIB")){
 
 	function TrFctStart($p_file, $p_line, $p_name, $p_param = "", $p_message = ""){
 		global $g_pcl_trace_level;
-		global $g_pcl_trace_mode;
-		global $g_pcl_trace_filename;
 		global $g_pcl_trace_name;
 		global $g_pcl_trace_index;
 		global $g_pcl_trace_entries;
@@ -272,4 +266,4 @@ if(!defined("PCLTRACE_LIB")){
 		}
 	}
 }
-?>
+

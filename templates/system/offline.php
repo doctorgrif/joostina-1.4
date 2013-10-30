@@ -11,18 +11,17 @@
 defined('_JLINDEX') or die();
 
 $database = database::getInstance();
-global $mosConfig_lang;
 
-include_once (JPATH_BASE . DS . 'language' . DS . $mosConfig_lang . DS . 'system.php');
+include_once (_JLPATH_ROOT . DS . 'language' . DS . JCore::getCfg('lang') . DS . 'system.php');
 
 
 $adminOffline = false;
 
 if(!defined('_INSTALL_CHECK')){
-	session_name(md5(JPATH_SITE));
+	session_name(md5(_JLPATH_SITE));
 	session_start();
 
-	require_once(JPATH_BASE . '/components/com_users/users.class.php');
+	require_once(_JLPATH_ROOT . '/components/com_users/users.class.php');
 	if(class_exists('mosUser') && $database != null){
 		// восстановление некоторых переменных сессии
 		$admin = new mosUser($database);
@@ -50,18 +49,18 @@ if(!defined('_INSTALL_CHECK')){
 $config = Jconfig::getInstance();
 
 if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')){
-	include_once (JPATH_BASE . DS . 'language' . DS . $mosConfig_lang . DS . 'system.php');
-	require_once (JPATH_BASE . DS . 'includes' . DS . 'version.php');
+	include_once (_JLPATH_ROOT . DS . 'language' . DS . JCore::getCfg('lang') . DS . 'system.php');
+	require_once (_JLPATH_ROOT . DS . 'includes' . DS . 'version.php');
 
 	$_VERSION = new joomlaVersion();
-	$version = $_VERSION->CMS . ' ' . $_VERSION->CMS_ver . ' ' . $_VERSION->DEV_STATUS . ' [ ' . $_VERSION->CODENAME . ' ] ' . $_VERSION->RELDATE . ' ' . $_VERSION->RELTIME . ' ' . $_VERSION->RELTZ;
+	$version = $_VERSION->CMS . ' ' . $_VERSION->CMS_VER . ' ' . $_VERSION->DEV_STATUS . ' [ ' . $_VERSION->CODENAME . ' ] ' . $_VERSION->RELDATE . ' ' . $_VERSION->RELTIME . ' ' . $_VERSION->RELTZ;
 
 	if($database != null){
 		// получение названия шаблона сайта по умолчанию
 		$query = "SELECT template FROM #__templates_menu WHERE client_id = 0 AND menuid = 0";
 		$database->setQuery($query);
 		$cur_template = $database->loadResult();
-		$path = "JPATH_BASE/templates/$cur_template/index.php";
+		$path = "_JLPATH_ROOT/templates/$cur_template/index.php";
 		if(!file_exists($path)){
 			$cur_template = 'newline2';
 		}
@@ -74,34 +73,36 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')){
 	// xml prolog
 	echo '<?xml version="1.0" encoding="' . $iso[1] . '"?' . '>';
 	?>
+<!-- Change doctipe to html5, clean html output, change charset
+@doctorgrif (30.10.13 09:04 -->
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo $config->config_sitename; ?> - <?php echo _SITE_OFFLINE; ?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title><?php echo $config->config_sitename; ?> - <?php echo _SITE_OFFLINE; ?></title>
 	<style type="text/css">
-		@import url(<?php echo JPATH_SITE; ?>/administrator/templates/joostfree/css/admin_login.css);
+		@import url(<?php echo _JLPATH_SITE; ?>/administrator/templates/joostfree/css/admin_login.css);
 	</style>
-	<link rel="stylesheet" href="<?php echo JPATH_SITE; ?>/templates/css/offline.css" type="text/css"/>
+	<link rel="stylesheet" href="<?php echo _JLPATH_SITE; ?>/templates/css/offline.css" type="text/css"/>
 	<?php
 	// значок избранного (favicon)
 	$config->config_favicon = $config->config_favicon ? $config->config_favicon : 'favicon.ico';
-	$icon = JPATH_BASE . '/images/' . $config->config_favicon;
+	$icon = _JLPATH_ROOT . '/images/' . $config->config_favicon;
 	// checks to see if file exists
-	$icon = (!file_exists($icon)) ? JPATH_SITE . '/images/favicon.ico' : JPATH_SITE . '/images/' . $config->config_favicon;
+	$icon = (!file_exists($icon)) ? _JLPATH_SITE . '/images/favicon.ico' : _JLPATH_SITE . '/images/' . $config->config_favicon;
 	?>
 	<link rel="shortcut icon" href="<?php echo $icon; ?>"/>
-	<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>"/>
 </head>
 <body>
 <div id="joo">
-	<img src="<?php echo JPATH_SITE;?>/administrator/templates/joostfree/images/logo_130.png" alt="Joostina!"/>
+	<img src="<?php echo _JLPATH_SITE;?>/administrator/templates/joostfree/images/logo_130.png" alt="Joostina!"/>
 </div>
 <div id="maindiv" align="center">
 	<p>&nbsp;</p>
 	<table align="center" class="outline">
 		<tr>
 			<td align="center">
-				<img src="<?php echo JPATH_SITE; ?>/images/system/lotos.jpg" alt="<?php echo _SITE_OFFLINE?>" align="middle"/>
+				<img src="<?php echo _JLPATH_SITE; ?>/images/system/lotos.jpg" alt="<?php echo _SITE_OFFLINE?>" align="middle"/>
 			</td>
 		</tr>
 		<tr>
@@ -114,7 +115,7 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')){
 			?>
 			<tr>
 				<td width="39%" align="center">
-					<b><?php echo $config->config_offline_message; ?></b>
+					<strong><?php echo $config->config_offline_message; ?></strong>
 				</td>
 			</tr>
 			<?php
@@ -122,7 +123,7 @@ if(!defined('_ADMIN_OFFLINE') || defined('_INSTALL_CHECK')){
 			?>
 			<tr>
 				<td width="39%" align="center">
-					<b><?php echo $config->config_error_message; ?></b>
+					<strong><?php echo $config->config_error_message; ?></strong>
 					<br/>
 					<span class="err"><?php echo defined('_SYSERR' . $mosSystemError) ? constant('_SYSERR' . $mosSystemError) : $mosSystemError; ?></span>
 				</td>

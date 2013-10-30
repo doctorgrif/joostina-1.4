@@ -16,8 +16,6 @@ defined('_JLINDEX') or die();
  */
 class HTML_config{
 	public static function showconfig($row, $lists, $option){
-		global $mosConfig_session_type;
-		$mainframe = mosMainFrame::getInstance();
 		$tabs = new mosTabs(1, 1);
 		mosCommonHTML::loadOverlib();
 
@@ -329,6 +327,10 @@ class HTML_config{
 						<td><?php echo mosToolTip(_DISABLE_TPREVIEW_INFO, '', '', '', _DISABLE_TPREVIEW)?>:</td>
 						<td><?php echo $lists['tpreview']; ?></td>
 					</tr>
+                    <tr>
+                        <td><?php echo mosToolTip(_DISABLE_MAINBODY_INFO, '', '', '', _DISABLE_MAINBODY)?>:</td>
+                        <td><?php echo $lists['mainbody']; ?></td>
+                    </tr>
 				</table>
 			</td>
 		</tr>
@@ -858,6 +860,10 @@ class HTML_config{
 					<tr>
 						<td><?php echo _SMTP_SERVER?>:</td>
 						<td><input class="text_area" type="text" name="config_smtphost" size="50" value="<?php echo $row->config_smtphost; ?>"/></td>
+					</tr>
+					<tr>
+						<td><?php echo mosToolTip(_SMTP_PORT2, '', '', '', _SMTP_PORT)?>:</td>
+						<td><input class="text_area" type="text" name="config_smtpport" size="5" value="<?php echo $row->config_smtpport; ?>"/></td>
 					</tr>
 				</table>
 			</td>

@@ -14,6 +14,7 @@ if(!$acl->acl_check('administration', 'config', 'users', $my->usertype)){
 	mosRedirect('index2.php', _NOT_AUTH);
 }
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('admin_html'));
 
 $option = 'com_joomlapack';

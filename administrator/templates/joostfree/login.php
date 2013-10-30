@@ -13,6 +13,8 @@ defined('_JLINDEX') or die();
 
 $config = Jconfig::getInstance();
 
+$mainframe = mosMainFrame::getInstance();
+
 // подключение языкого файла tmpl_joostfree.php
 if($mainframe->getLangFile('tmpl_joostfree')){
 	include_once($mainframe->getLangFile('tmpl_joostfree'));
@@ -21,7 +23,7 @@ if($mainframe->getLangFile('tmpl_joostfree')){
 // проверка на ключевую строке в адресе админки
 if($config->config_enable_admin_secure_code){
 	if($config->config_admin_secure_code != $_SERVER['QUERY_STRING']){
-		$path = JPATH_SITE;
+		$path = _JLPATH_SITE;
 		$path .= $config->config_admin_redirect_options == 1 ? '/' . $config->config_admin_redirect_path : '';
 		mosRedirect($path);
 	}
@@ -43,7 +45,7 @@ if($config->config_enable_admin_secure_code){
 		}
 		var _js_defines = [];
 	</script>
-	<link rel="shortcut icon" href="<?php echo JPATH_SITE; ?>/images/favicon.ico"/>
+	<link rel="shortcut icon" href="<?php echo _JLPATH_SITE; ?>/images/favicon.ico"/>
 </head>
 <body onload="setFocus();">
 <div id="joo">
@@ -63,16 +65,16 @@ include_once (_JLPATH_ADMINISTRATOR . DS . 'modules' . DS . 'mod_mosmsg.php');
 					<input name="pass" type="password" class="inputbox" size="15"/>
 					<?php if($config->config_captcha){ ?>
 					<div>
-						<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.captchaimg.src='<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(JPATH_SITE) ?>&' + new String(Math.random())" src="<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(JPATH_SITE) ?>"/>
+						<img id="captchaimg" alt="<?php echo _PRESS_HERE_TO_RELOAD_CAPTCHA?>" onclick="document.loginForm.captchaimg.src='<?php echo _JLPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(_JLPATH_SITE) ?>&' + new String(Math.random())" src="<?php echo _JLPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(_JLPATH_SITE) ?>"/>
 					</div>
-					<span class="captcha" onclick="document.loginForm.captchaimg.src='<?php echo JPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(JPATH_SITE) ?>' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
+					<span class="captcha" onclick="document.loginForm.captchaimg.src='<?php echo _JLPATH_SITE; ?>/includes/libraries/kcaptcha/index.php?session=<?php echo md5(_JLPATH_SITE) ?>' + new String(Math.random())"><?php echo _SHOW_CAPTCHA?></span>
 					<div><?php echo _PLEASE_ENTER_CAPTCHA?>:</div>
 					<div><input name="captcha" type="text" class="inputbox" size="15"/></div>
 					<?php };?>
 					<div align="center">
 						<input type="submit" name="submit" class="button" value="Войти"/>
 						<br/>
-						<input type="button" name="submit" onClick="document.location.href='<?php echo JPATH_SITE; ?>'" class="button" value="Перейти на сайт"/>
+						<input type="button" name="submit" onClick="document.location.href='<?php echo _JLPATH_SITE; ?>'" class="button" value="Перейти на сайт"/>
 					</div>
 				</div>
 			</form>

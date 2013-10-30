@@ -21,10 +21,9 @@ class HTML_modules{
 	 * @param array An array of category objects
 	 */
 	public static function showMambots($rows, $client, $pageNav, $option, $lists, $search){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+        $my = JCore::getUser();
 
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		mosCommonHTML::loadOverlib();
 		?>
 	<form action="index2.php" method="post" name="adminForm">

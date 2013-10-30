@@ -32,4 +32,3 @@ class File_Archive_Predicate_Extension extends File_Archive_Predicate{
 	}
 }
 
-?>

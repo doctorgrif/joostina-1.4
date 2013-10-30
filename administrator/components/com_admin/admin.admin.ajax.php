@@ -28,7 +28,7 @@ switch($task){
 
 // включение / отключение визуального редактора
 function x_toggle_editor(){
-	$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+	$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 	if(!intval(mosGetParam($_SESSION, 'user_editor_off', ''))){
 		// отключаем редактор

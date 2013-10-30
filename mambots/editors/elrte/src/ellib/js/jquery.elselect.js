@@ -105,15 +105,6 @@
             .click(function (e) {
                 !list && init();
                 list.slideToggle();
-                // stupid ie inherit width from parent
-                if ($.browser.msie && !ieWidth) {
-                    list.children().each(function () {
-                        ieWidth = Math.max(ieWidth, $(this).width());
-                    });
-                    if (ieWidth > list.width()) {
-                        list.width(ieWidth + 40);
-                    }
-                }
             });
 
         this.val(opts.value);

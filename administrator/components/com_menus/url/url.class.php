@@ -20,10 +20,9 @@ class url_menu{
 	 * @param database A database connector object
 	 * @param integer The unique id of the category to edit (0 if new)
 	 */
-	function edit(&$uid, $menutype, $option, $menu){
+	public static function edit(&$uid, $menutype, $option, $menu){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$database = database::getInstance();
+        $my = JCore::getUser();
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id){
@@ -62,5 +61,3 @@ class url_menu{
 		url_menu_html::edit($menu, $lists, $params, $option);
 	}
 }
-
-?>

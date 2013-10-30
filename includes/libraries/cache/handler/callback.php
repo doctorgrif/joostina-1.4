@@ -54,7 +54,7 @@ class JCacheCallback extends JCache{
 		} elseif(strstr($callback, '::')){
 			// This is shorthand for a static method callback classname::methodname
 			list($class, $method) = explode('::', $callback);
-			$callback = array(trim($class), trim($method));
+            $callback = array(trim($class), trim($method));
 		} elseif(strstr($callback, '->')){
 			/*
 			 * This is a really not so smart way of doing this... we provide this for backward compatability but this
@@ -86,6 +86,7 @@ class JCacheCallback extends JCache{
 			ob_implicit_flush(false);
 
 			if(!$this->_object){
+
 				$result = call_user_func_array($callback, $args);
 			} else{
 				$result = call_user_func_array(array($this->_object, $callback), $args);
@@ -120,6 +121,7 @@ class JCacheCallback extends JCache{
 			$vars[] = strtolower(get_class($callback[0]));
 			$callback[0] = $vars;
 		}
-		return md5(serialize(array($callback, $args)));
+        $result = md5($_SERVER['REQUEST_URI'].serialize(array($callback, $args)));
+		return $result;
 	}
 }

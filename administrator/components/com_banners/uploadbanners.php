@@ -11,13 +11,13 @@ define('_JLINDEX', 1);
 
 /** security check */
 require ('../../includes/auth.php');
-if(file_exists(JPATH_BASE . '/language/' . $mosConfig_lang . '/administrator/com_banners.php')){
-	$artbannerslanguage = $mosConfig_lang;
+if(file_exists(_JLPATH_ROOT . '/language/' . JCore::getCfg('lang') . '/administrator/com_banners.php')){
+	$artbannerslanguage = JCore::getCfg('lang');
 } else{
 	$artbannerslanguage = 'russian';
 }
-include_once (JPATH_BASE . '/language/' . $mosConfig_lang . '/system.php');
-include_once (JPATH_BASE . '/language/' . $artbannerslanguage . '/administrator/com_banners.php');
+include_once (_JLPATH_ROOT . '/language/' . JCore::getCfg('lang') . '/system.php');
+include_once (_JLPATH_ROOT . '/language/' . $artbannerslanguage . '/administrator/com_banners.php');
 
 // limit access to functionality
 $option = strval(mosGetParam($_SESSION, 'option', ''));
@@ -36,7 +36,7 @@ $directory = 'show';
 $userfile_name = (isset($_FILES['userfile']['name']) ? $_FILES['userfile']['name'] : "");
 
 // check to see if directory exists
-if($directory != '' && !is_dir(JPATH_BASE . '/images/' . $directory)){
+if($directory != '' && !is_dir(_JLPATH_ROOT . '/images/' . $directory)){
 	mosErrorAlert(_BANNERS_DIRECTORY_DOESNOT_EXISTS, "window.close()");
 }
 

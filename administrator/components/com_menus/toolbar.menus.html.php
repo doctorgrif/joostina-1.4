@@ -107,4 +107,3 @@ class TOOLBAR_menus{
 	}
 }
 
-?>

@@ -866,7 +866,7 @@ class Cezpdf extends Cpdf{
 		// produce a valid pdf file.
 
 		if(!is_array($data)){
-			return;
+			return null;
 		}
 
 		if(!is_array($cols)){
@@ -874,7 +874,7 @@ class Cezpdf extends Cpdf{
 			reset($data);
 			list($k, $v) = each($data);
 			if(!is_array($v)){
-				return;
+				return null;
 			}
 			$cols = array();
 			foreach($v as $k1 => $v1){
@@ -1644,7 +1644,7 @@ class Cezpdf extends Cpdf{
 
 		$code = implode('', file($templateFile));
 		if(!strlen($code)){
-			return;
+			return null;
 		}
 
 		$code = trim($code);

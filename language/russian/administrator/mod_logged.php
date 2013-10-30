@@ -11,3 +11,4 @@
 defined('_JLINDEX') or die();
 
 DEFINE('_NOW_ON_SITE_REGISTERED', 'Сейчас на сайте авторизованы');
+DEFINE('_DISABLE', 'Отключить');

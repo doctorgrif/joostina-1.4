@@ -10,9 +10,10 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('admin_html'));
 //подключаем класс босса
-require_once(JPATH_BASE . '/components/com_boss/boss.class.php');
+require_once(_JLPATH_ROOT . '/components/com_boss/boss.class.php');
 
 $path = _JLPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_menus' . DS;
 
@@ -21,7 +22,7 @@ $type = stripslashes(strval(mosGetParam($_REQUEST, 'type', false)));
 $menu = stripslashes(strval(mosGetParam($_POST, 'menu', '')));
 
 $cid = josGetArrayInts('cid');
-
+$task = JSef::getTask();
 switch($task){
 	case 'new':
 		addMenuItem($cid, $menutype, $option, $task);
@@ -135,10 +136,6 @@ function viewMenuItems($menutype, $option){
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart$menutype", 'limitstart', 0));
 	$levellimit = intval($mainframe->getUserStateFromRequest("view{$option}limit$menutype", 'levellimit', 10));
 	$search = $mainframe->getUserStateFromRequest("search{$option}$menutype", 'search', '');
-
-	if(get_magic_quotes_gpc()){
-		$search = stripslashes($search);
-	}
 
 	// select the records
 	// note, since this is a tree we have to do the limits code-side
@@ -695,7 +692,7 @@ function copyMenuSave($option, $cid, $menu, $menutype){
 function ReadMenuXML($type, $component = -1){
 
 	// XML library
-	require_once (JPATH_BASE . '/includes/domit/xml_domit_lite_include.php');
+	require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_lite_include.php');
 	// xml file for module
 	$xmlfile = _JLPATH_ADMINISTRATOR . '/components/com_menus/' . $type . DS . $type . '.xml';
 	$xmlDoc = new DOMIT_Lite_Document();

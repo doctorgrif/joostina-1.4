@@ -122,4 +122,3 @@ class File_Archive_Reader_Directory extends File_Archive_Reader_Relay{
 	}
 }
 
-?>

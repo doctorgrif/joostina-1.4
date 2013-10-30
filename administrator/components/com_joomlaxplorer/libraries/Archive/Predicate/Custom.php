@@ -41,4 +41,3 @@ class File_Archive_Predicate_Custom extends File_Archive_Predicate{
 	}
 }
 
-?>

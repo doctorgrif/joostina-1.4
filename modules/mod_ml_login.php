@@ -12,7 +12,7 @@
 defined('_JLINDEX') or die();
 
 $mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+$my = JCore::getUser();
 
 if($mainframe->getCfg('frontend_login') != NULL && ($mainframe->getCfg('frontend_login') === 0 || $mainframe->getCfg('frontend_login') === '0')){
 	return;

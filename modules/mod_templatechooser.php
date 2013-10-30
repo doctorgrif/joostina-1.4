@@ -19,7 +19,7 @@ $preview_width = $params->get('preview_width', 140);
 $show_preview = $params->get('show_preview', 0);
 
 // Чтение файлов из каталога шаблона
-$template_path = JPATH_BASE . '/templates';
+$template_path = _JLPATH_ROOT . '/templates';
 $templatefolder = @dir($template_path);
 $darray = array();
 

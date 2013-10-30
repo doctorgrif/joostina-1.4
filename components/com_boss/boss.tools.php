@@ -70,7 +70,7 @@ function createImageAndThumb(
 ){
 
 	//ini_set('memory_limit', '32M');
-	$font = JPATH_BASE . "/components/com_boss/font/verdana.ttf";
+	$font = _JLPATH_ROOT . "/components/com_boss/font/verdana.ttf";
 	$src_file = urldecode($src_file);
 
 	// Переводим название файла в нижний регистр
@@ -124,10 +124,10 @@ function createImageAndThumb(
 	$dst_thumb_w = $zoom < 1 ? round($src_w * $zoom) : $src_w;
 
 	/* ОСНОВНОЕ ИЗОБРАЖЕНИЕ */
-	//if ($type == "gif")
-	//	$dst_img = imagecreate($dst_w, $dst_h); //для GIF
-	//else
-	$dst_img = imagecreatetruecolor($dst_w, $dst_h); // JPG и PNG
+	if ($type == "gif")
+		$dst_img = imagecreate($dst_w, $dst_h); //для GIF
+	else
+	    $dst_img = imagecreatetruecolor($dst_w, $dst_h); // JPG и PNG
 
 	// Конвертируем значение параметра цвета фона из HEX в RGB
 	$bg_color_rgb = array_map('hexdec', str_split(str_replace('#', '', $bg_color_hex), 2));
@@ -153,10 +153,10 @@ function createImageAndThumb(
 	$desc_img = $write($dst_img, "$path/$image_name", $quality);
 
 	/* МИНИ-ЭСКИЗ */
-	//if ($type == "gif")
-	//	$dst_t_img = imagecreate($dst_thumb_w, $dst_thumb_h); //для GIF
-	//else
-	$dst_t_img = imagecreatetruecolor($dst_thumb_w, $dst_thumb_h); // JPG и PNG
+	if ($type == "gif")
+		$dst_t_img = imagecreate($dst_thumb_w, $dst_thumb_h); //для GIF
+	else
+	    $dst_t_img = imagecreatetruecolor($dst_thumb_w, $dst_thumb_h); // JPG и PNG
 
 	// Конвертируем значение параметра цвета фона из HEX в RGB
 	$bg_color_rgb_t = array_map('hexdec', str_split(str_replace('#', '', $bg_color_hex_t), 2));
@@ -197,7 +197,7 @@ function createImage(
 ){
 
 	//ini_set('memory_limit', '32M');
-	$font = JPATH_BASE . "/components/com_boss/font/verdana.ttf";
+	$font = _JLPATH_ROOT . "/components/com_boss/font/verdana.ttf";
 	$src_file = urldecode($src_file);
 
 	// Переводим название файла в нижний регистр
@@ -242,10 +242,10 @@ function createImage(
 	$dst_thumb_w = $zoom < 1 ? round($src_w * $zoom) : $src_w;
 
 	/* ОСНОВНОЕ ИЗОБРАЖЕНИЕ */
-	//if ($type == "gif")
-	//	$dst_img = imagecreate($dst_w, $dst_h); //для GIF
-	//else
-	$dst_img = imagecreatetruecolor($dst_w, $dst_h); // JPG и PNG
+	if ($type == "gif")
+		$dst_img = imagecreate($dst_w, $dst_h); //для GIF
+	else
+	    $dst_img = imagecreatetruecolor($dst_w, $dst_h); // JPG и PNG
 
 	// Конвертируем значение параметра цвета фона из HEX в RGB
 	$bg_color_rgb = array_map('hexdec', str_split(str_replace('#', '', $bg_color_hex), 2));
@@ -314,15 +314,13 @@ function jdreorderDate($date){
 
 // защита мыла от роботов
 function Txt2Png($text, $directory){
-	global $mosConfig_live_site;
-
 	$png2display = md5($text);
-	$filenameforpng = JPATH_BASE . "/images/boss/$directory/email/" . $png2display . ".png";
-	$filename = $mosConfig_live_site . "/images/boss/$directory/email/" . $png2display . ".png";
+	$filenameforpng = _JLPATH_ROOT . "/images/boss/$directory/email/" . $png2display . ".png";
+	$filename = _JLPATH_SITE . "/images/boss/$directory/email/" . $png2display . ".png";
 	if(!file_exists($filenameforpng)) # we dont need to create file twice (md5)
 	{
 		# definitions
-		$font = JPATH_BASE . "/components/com_boss/font/verdana.ttf";
+		$font = _JLPATH_ROOT . "/components/com_boss/font/verdana.ttf";
 		# create image / png
 		$fontsize = 9;
 		$textwerte = imagettfbbox($fontsize, 0, $font, $text);
@@ -363,12 +361,12 @@ function installNewDirectory($installPlugins = 1){
 	$query = "CREATE TABLE IF NOT EXISTS `#__boss_" . $id . "_categories` ( " .
 		"`id` int(10) unsigned NOT NULL auto_increment, " .
 		"`parent` int(10) unsigned default '0', " .
-		"`name` varchar(50) CHARACTER SET utf8 default NULL, " .
+		"`name` varchar(255) CHARACTER SET utf8 default NULL, " .
 		"`slug` varchar(100) CHARACTER SET utf8 NOT NULL, " .
 		"`meta_title` varchar(60) NOT NULL, " .
 		"`meta_desc` varchar(200) NOT NULL, " .
 		"`meta_keys` varchar(200) NOT NULL, " .
-		"`description` varchar(250) CHARACTER SET utf8 default NULL, " .
+		"`description` TEXT NULL, " .
 		"`ordering` int(11) default '0', " .
 		"`published` tinyint(1) default '0', " .
 		"`content_types` int(11) default '0', " .
@@ -561,74 +559,74 @@ function installNewDirectory($installPlugins = 1){
 		$errors .= '<br />' . $database->stderr();
 	}
 
-	if(!is_dir(JPATH_BASE . "/images/boss/")){
-		@mkdir(JPATH_BASE . "/images/boss/");
-		@copy(JPATH_BASE . "/images/index.html", JPATH_BASE . "/images/boss/index.html");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/");
+		@copy(_JLPATH_ROOT . "/images/index.html", _JLPATH_ROOT . "/images/boss/index.html");
 	}
 	;
 
-	if(!is_dir(JPATH_BASE . "/images/boss/$id/")){
-		@mkdir(JPATH_BASE . "/images/boss/$id/");
-		@copy(JPATH_BASE . "/images/index.html", JPATH_BASE . "/images/boss/$id/index.html");
-		@copy(JPATH_BASE . "/administrator/components/com_boss/cron.php", JPATH_BASE . "/images/boss/$id/cron.php");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/$id/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/$id/");
+		@copy(_JLPATH_ROOT . "/images/index.html", _JLPATH_ROOT . "/images/boss/$id/index.html");
+		@copy(_JLPATH_ROOT . "/administrator/components/com_boss/cron.php", _JLPATH_ROOT . "/images/boss/$id/cron.php");
 	}
 	;
 
-	if(!is_dir(JPATH_BASE . "/images/boss/$id/categories/")){
-		@mkdir(JPATH_BASE . "/images/boss/$id/categories/");
-		@copy(JPATH_BASE . "/images/index.html", JPATH_BASE . "/images/boss/$id/categories/index.html");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/$id/categories/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/$id/categories/");
+		@copy(_JLPATH_ROOT . "/images/index.html", _JLPATH_ROOT . "/images/boss/$id/categories/index.html");
 	}
 	;
 
-	if(!is_dir(JPATH_BASE . "/images/boss/$id/contents/")){
-		@mkdir(JPATH_BASE . "/images/boss/$id/contents/");
-		@copy(JPATH_BASE . "/images/index.html", JPATH_BASE . "/images/boss/$id/contents/index.html");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/$id/contents/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/$id/contents/");
+		@copy(_JLPATH_ROOT . "/images/index.html", _JLPATH_ROOT . "/images/boss/$id/contents/index.html");
 	}
 	;
 
-	if(!is_dir(JPATH_BASE . "/images/boss/$id/email/")){
-		@mkdir(JPATH_BASE . "/images/boss/$id/email/");
-		@copy(JPATH_BASE . "/images/index.html", JPATH_BASE . "/images/boss/$id/email/index.html");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/$id/email/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/$id/email/");
+		@copy(_JLPATH_ROOT . "/images/index.html", _JLPATH_ROOT . "/images/boss/$id/email/index.html");
 	}
 	;
 
-	if(!is_dir(JPATH_BASE . "/images/boss/$id/fields/")){
-		@mkdir(JPATH_BASE . "/images/boss/$id/fields/");
-		@copy(JPATH_BASE . "/images/index.html", JPATH_BASE . "/images/boss/$id/fields/index.html");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/$id/fields/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/$id/fields/");
+		@copy(_JLPATH_ROOT . "/images/index.html", _JLPATH_ROOT . "/images/boss/$id/fields/index.html");
 	}
 	;
 
-	if(!is_dir(JPATH_BASE . "/images/boss/$id/files/")){
-		@mkdir(JPATH_BASE . "/images/boss/$id/files/");
-		@copy(JPATH_BASE . "/images/index.html", JPATH_BASE . "/images/boss/$id/files/index.html");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/$id/files/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/$id/files/");
+		@copy(_JLPATH_ROOT . "/images/index.html", _JLPATH_ROOT . "/images/boss/$id/files/index.html");
 	}
 	;
 
-	if(!is_dir(JPATH_BASE . "/images/boss/$id/plugins/")){
-		@mkdir(JPATH_BASE . "/images/boss/$id/plugins/");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/$id/plugins/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/$id/plugins/");
 	}
 	;
 
-	if(!is_dir(JPATH_BASE . "/images/boss/$id/lang/")){
-		@mkdir(JPATH_BASE . "/images/boss/$id/lang/");
-		@copy(JPATH_BASE . "/images/index.html", JPATH_BASE . "/images/boss/$id/lang/index.html");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/$id/lang/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/$id/lang/");
+		@copy(_JLPATH_ROOT . "/images/index.html", _JLPATH_ROOT . "/images/boss/$id/lang/index.html");
 	}
 	;
 
-	if(!is_dir(JPATH_BASE . "/images/boss/$id/js/")){
-		@mkdir(JPATH_BASE . "/images/boss/$id/js/");
-		@copy(JPATH_BASE . "/images/index.html", JPATH_BASE . "/images/boss/$id/js/index.html");
+	if(!is_dir(_JLPATH_ROOT . "/images/boss/$id/js/")){
+		@mkdir(_JLPATH_ROOT . "/images/boss/$id/js/");
+		@copy(_JLPATH_ROOT . "/images/index.html", _JLPATH_ROOT . "/images/boss/$id/js/index.html");
 		/*
-		$f = fopen (JPATH_BASE . "/images/boss/$id/js/front.js", "w");
+		$f = fopen (_JLPATH_ROOT . "/images/boss/$id/js/front.js", "w");
 		fclose($f);
-		$f = fopen (JPATH_BASE . "/images/boss/$id/js/admin.js", "w");
+		$f = fopen (_JLPATH_ROOT . "/images/boss/$id/js/admin.js", "w");
 		fclose($f);
 		*/
 	}
 	;
 
 	if($installPlugins == 1){
-		boss_helpers::copy_folder_rf(JPATH_BASE . "/components/com_boss/plugins", JPATH_BASE . "/images/boss/$id/plugins");
+		boss_helpers::copy_folder_rf(_JLPATH_ROOT . "/components/com_boss/plugins", _JLPATH_ROOT . "/images/boss/$id/plugins");
 	}
 
 	return array('id'=> $id, 'errors'=> $errors);
@@ -636,14 +634,14 @@ function installNewDirectory($installPlugins = 1){
 
 function backup_table_structure($directory, $file, $table){
 	$database = database::getInstance();
-	global $mosConfig_dbprefix;
+
 	//получение и сохранение структуры таблицы
-	$content = '$query = "DROP TABLE IF EXISTS `' . str_replace($mosConfig_dbprefix . 'boss_' . $directory . '_', '#__boss_".$directory."_', $table) . '`";' . "\n";
+	$content = '$query = "DROP TABLE IF EXISTS `' . str_replace(JCore::getCfg('dbprefix') . 'boss_' . $directory . '_', '#__boss_".$directory."_', $table) . '`";' . "\n";
 	$content .= '$database->setQuery($query);' . "\n";
 	$content .= '$database->query();' . "\n\n";
 	$result = $database->getTableCreate(array($table));
 	$result = implode(' ', $result);
-	$result = str_replace($mosConfig_dbprefix . 'boss_' . $directory . '_', '#__boss_".$directory."_', $result);
+	$result = str_replace(JCore::getCfg('dbprefix') . 'boss_' . $directory . '_', '#__boss_".$directory."_', $result);
 	$content .= '$query = "' . $result . ';";' . "\n";
 	$content .= '$database->setQuery($query);' . "\n";
 	$content .= '$database->query();' . "\n\n";
@@ -652,7 +650,6 @@ function backup_table_structure($directory, $file, $table){
 
 
 function backup_table_data($directory, $file, $table){
-	global $mosConfig_dbprefix;
 	$database = database::getInstance();
 	//получение и сохранение данных таблицы
 	$database->setQuery('SELECT COUNT(*) FROM `' . $table . '`;');
@@ -674,7 +671,7 @@ function backup_table_data($directory, $file, $table){
 		while($count > 0){
 			$database->setQuery('SELECT * FROM `' . $table . '` LIMIT ' . $start . ', ' . $delta . ';');
 			$result = $database->loadAssocList();
-			$content = '$query = "INSERT INTO `' . str_replace($mosConfig_dbprefix . 'boss_' . $directory . '_', '#__boss_".$directory."_', $table) . '` VALUES ';
+			$content = '$query = "INSERT INTO `' . str_replace(JCore::getCfg('dbprefix') . 'boss_' . $directory . '_', '#__boss_".$directory."_', $table) . '` VALUES ';
 			$first = true;
 			foreach($result as $row){
 				$content .= $first ? "\n(" : ",\n(";
@@ -705,7 +702,7 @@ function backup_table_data($directory, $file, $table){
 }
 
 function copyFolder($patchFrom, $patchTo){
-	require_once JPATH_BASE . '/includes/libraries/filesystem/folder.php';
+	require_once _JLPATH_ROOT . '/includes/libraries/filesystem/folder.php';
 
 	$foldersFrom = JFolder::folders($patchFrom, '.', true, true);
 	$filesFrom = JFolder::files($patchFrom, '.', true, true);
@@ -727,10 +724,10 @@ function copyFolder($patchFrom, $patchTo){
 }
 
 function zipFolder($patchFrom, $pack_name){
-	require_once JPATH_BASE . '/includes/libraries/filesystem/folder.php';
+	require_once _JLPATH_ROOT . '/includes/libraries/filesystem/folder.php';
 	// подключаем файлы классов
-	require_once(JPATH_BASE . '/administrator/includes/pcl/pclzip.lib.php');
-	require_once(JPATH_BASE . '/administrator/includes/pcl/pclerror.lib.php');
+	require_once(_JLPATH_ROOT . '/administrator/includes/pcl/pclzip.lib.php');
+	require_once(_JLPATH_ROOT . '/administrator/includes/pcl/pclerror.lib.php');
 	//получаем массив файлов
 	$filesFrom = JFolder::files($patchFrom, '.', true, true);
 	//удаляем старый архив если он есть

@@ -13,7 +13,7 @@ defined('_JLINDEX') or die();
 $GLOBALS['jx_home'] = 'http://joomlacode.org/gf/project/joomlaxplorer';
 
 define("_QUIXPLORER_PATH", _JLPATH_ADMINISTRATOR . "/components/com_joomlaxplorer");
-define("_QUIXPLORER_URL", JPATH_SITE . "/" . JADMIN_BASE . "/components/com_joomlaxplorer");
+define("_QUIXPLORER_URL", _JLPATH_SITE . "/" . JADMIN_BASE . "/components/com_joomlaxplorer");
 
 $GLOBALS['ERROR'] = '';
 
@@ -22,13 +22,13 @@ $GLOBALS['__POST'] = &$_POST;
 $GLOBALS['__SERVER'] = &$_SERVER;
 $GLOBALS['__FILES'] = &$_FILES;
 
-if(file_exists(_QUIXPLORER_PATH . '/languages/$mosConfig_lang.php'))
-	require _QUIXPLORER_PATH . '/languages/$mosConfig_lang.php';
+if(file_exists(_QUIXPLORER_PATH . '/languages/JCore::getCfg('lang').php'))
+	require _QUIXPLORER_PATH . '/languages/JCore::getCfg('lang').php';
 else
 	require _QUIXPLORER_PATH . '/languages/russian.php';
 
-if(file_exists(_QUIXPLORER_PATH . '/languages/' . $mosConfig_lang . '_mimes.php'))
-	require _QUIXPLORER_PATH . '/languages/' . $mosConfig_lang . '_mimes.php';
+if(file_exists(_QUIXPLORER_PATH . '/languages/' . JCore::getCfg('lang') . '_mimes.php'))
+	require _QUIXPLORER_PATH . '/languages/' . JCore::getCfg('lang') . '_mimes.php';
 else
 	require _QUIXPLORER_PATH . '/languages/russian_mimes.php';
 
@@ -46,7 +46,7 @@ if(!isset($_REQUEST['dir'])){
 }
 
 
-if(strstr(JPATH_BASE, "/")){
+if(strstr(_JLPATH_ROOT, "/")){
 	$GLOBALS["separator"] = "/";
 } else{
 	$GLOBALS["separator"] = "\\";

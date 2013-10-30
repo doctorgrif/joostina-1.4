@@ -17,10 +17,9 @@ defined('_JLINDEX') or die();
  */
 class wrapper_menu{
 
-	function edit(&$uid, $menutype, $option, $menu){
+	public static function edit(&$uid, $menutype, $option, $menu){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$database = database::getInstance();
+        $my = JCore::getUser();
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id){
@@ -60,7 +59,7 @@ class wrapper_menu{
 	}
 
 
-	function saveMenu($option, $task){
+	public static function saveMenu($option, $task){
 		$database = database::getInstance();
 
 		$params = mosGetParam($_POST, 'params', '');
@@ -95,6 +94,7 @@ class wrapper_menu{
 
 
 		$msg = _MENU_ITEM_SAVED;
+
 		switch($task){
 			case 'apply':
 				mosRedirect('index2.php?option=' . $option . '&menutype=' . $row->menutype .
@@ -109,4 +109,3 @@ class wrapper_menu{
 	}
 }
 
-?>

@@ -1,11 +1,11 @@
+<h1 class="contentheading"><?php $this->displayFormType(); ?></h1>
 <div class="boss_pathway"><?php $this->displayPathway(); ?></div>
 <div class="boss-warning"><?php $this->displayWarningNoAccount(); ?></div>
 <div class="boss-rules">
-	<a href="<?php echo JSef::getUrlToSef("index.php?option=com_boss&task=show_rules&directory=$this->directory"); ?>" target=_blank>
-		<?php echo BOSS_RULESREAD; ?>
-	</a>
+    <a href="<?php echo JSef::getUrlToSef("index.php?option=com_boss&task=show_rules&directory=$this->directory"); ?>" target=_blank>
+        <?php echo BOSS_RULESREAD; ?>
+    </a>
 </div>
-<h1 class="contentheading"><?php $this->displayFormType(); ?></h1>
 <div id="boss_writecontent_header">
 	<div id="writecontent_header1"><?php echo BOSS_HEADER1; ?></div>
 	<div id="writecontent_header2"><?php echo BOSS_HEADER2; ?></div>

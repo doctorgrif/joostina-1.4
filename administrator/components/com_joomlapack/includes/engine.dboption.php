@@ -10,9 +10,10 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('admin_html'));
 
-global $task;
+$task = JSef::getTask();
 
 $boxchecked = intval(mosGetParam($_REQUEST, 'boxchecked', 0));
 $tables = mosGetParam($_POST, 'tables', '');
@@ -21,16 +22,16 @@ if($task != '' && $task != 'viewTables' && $boxchecked && (!is_array($tables))) 
 
 switch($task){
 	case 'doCheck':
-		checkDatabase($option, $task);
+		checkDatabase($tables, $task);
 		break;
 	case 'doAnalyze':
-		checkDatabase($option, $task);
+		checkDatabase($tables, $task);
 		break;
 	case 'doOptimize':
-		checkDatabase($option, $task);
+		checkDatabase($tables, $task);
 		break;
 	case 'doRepair':
-		checkDatabase($option, $task);
+		checkDatabase($tables, $task);
 		break;
 	case 'viewTables':
 		viewTables($option);
@@ -42,9 +43,8 @@ switch($task){
 
 // отображение списка таблиц
 function viewTables($option){
-	global $mosConfig_db;
 	$database = database::getInstance();
-	$sql = 'SHOW TABLE STATUS FROM `' . $mosConfig_db . '`';
+	$sql = 'SHOW TABLE STATUS FROM `' . JCore::getCfg('db') . '`';
 	$database->setQuery($sql);
 	$table_lists = $database->loadObjectList();
 	$i = 0;
@@ -82,8 +82,7 @@ function viewTables($option){
 }
 
 // работа с базой, оптимизация, восстановление и т.д.
-function checkDatabase($option, $func){
-	global $tables;
+function checkDatabase($tables, $func){
 	$database = database::getInstance();
 	$i = 0;
 	$tables = mosGetParam($_POST, 'tables', '');

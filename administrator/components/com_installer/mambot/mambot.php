@@ -10,13 +10,15 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
+
 if(!$acl->acl_check('administration', 'install', 'users', $my->usertype, $element . 's', 'all')){
 	mosRedirect('index2.php', _NOT_AUTH);
 }
 
 require_once ($mainframe->getPath('installer_html', 'mambot'));
 require_once ($mainframe->getPath('installer_class', 'mambot'));
-
+$task = JSef::getTask();
 switch($task){
 	case 'remove':
 		removeElement($client);
@@ -60,7 +62,7 @@ function showInstalledMambots($_option){
 	$rows = $database->loadObjectList();
 
 	// path to mambot directory
-	$mambotBaseDir = mosPathName(mosPathName(JPATH_BASE) . "mambots");
+	$mambotBaseDir = mosPathName(mosPathName(_JLPATH_ROOT) . "mambots");
 
 	$id = 0;
 	$n = count($rows);

@@ -1,3 +1,5 @@
+/* Correct css
+@doctorgrif  (30.10.13 09:20)*/
 font, basefont {
     color: inherit;
     font: inherit;
@@ -128,7 +130,7 @@ div.logo {
 }
 
 @media print {
-    #main a: link: after, #main a: visited: after {
+    #main a:link:after, #main a:visited:after {
         content: " (" attr(href) ") ";
         font-size: 90%;
         color: #000;

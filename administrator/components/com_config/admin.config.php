@@ -10,11 +10,15 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
+
 if(!$acl->acl_check('administration', 'config', 'users', $my->usertype)){
 	mosRedirect('index2.php?', _NOT_AUTH);
 }
 
 require_once ($mainframe->getPath('admin_html'));
+
+$task = JSef::getTask();
 
 switch($task){
 
@@ -38,7 +42,7 @@ switch($task){
  * @param string The URL option
  */
 function showconfig($option){
-	global $database, $mosConfig_editor, $mosConfig_cache_handler;
+	$database = database::getInstance();
 
 	$row = new JConfig();
 	$row->bindGlobals();
@@ -50,8 +54,7 @@ function showconfig($option){
 	// PRE-PROCESS SOME LISTS
 
 	// -- Языки --
-	if($handle = opendir(JPATH_BASE . '/language/')){
-		$i = 0;
+	if($handle = opendir(_JLPATH_ROOT . '/language/')){
 		while(false !== ($file = readdir($handle))){
 			if(!strcasecmp(substr($file, -4), ".xml") && $file != "." && $file != ".."){
 				$langs[] = mosHTML::makeOption(substr($file, 0, -4));
@@ -109,7 +112,7 @@ function showconfig($option){
 	$lists['mmb_system_off'] = mosHTML::yesnoRadioList('config_mmb_system_off', 'class="inputbox"', $row->config_mmb_system_off);
 	// получаем список шаблонов. Код получен из модуля выбора шаблона
 	$titlelength = 20;
-	$template_path = JPATH_BASE . DS . 'templates';
+	$template_path = _JLPATH_ROOT . DS . 'templates';
 	$templatefolder = @dir($template_path);
 	$darray = array();
 	$darray[] = mosHTML::makeOption('...', _O_OTHER); // параметр по умолчанию - позволяет использовать стандартный способ определения шаблона
@@ -146,7 +149,9 @@ function showconfig($option){
 	// управление captcha
 	$lists['com_frontpage_clear'] = mosHTML::yesnoRadioList('config_com_frontpage_clear', 'class="inputbox"', $row->config_com_frontpage_clear);
 	// корень файлового менеджера
-	$row->config_joomlaxplorer_dir = $row->config_joomlaxplorer_dir ? $row->config_joomlaxplorer_dir : JPATH_BASE;
+
+    $row->config_joomlaxplorer_dir = $row->config_joomlaxplorer_dir ? $row->config_joomlaxplorer_dir : _JLPATH_ROOT;
+
 	// автоматическая установка чекбокса "Публиковать на главной"
 	$lists['auto_frontpage'] = mosHTML::yesnoRadioList('config_auto_frontpage', 'class="inputbox"', $row->config_auto_frontpage);
 	// уникальные идентификаторы новостей
@@ -397,6 +402,8 @@ function showconfig($option){
 
 	$lists['tpreview'] = mosHTML::yesnoRadioList('config_disable_tpreview', 'class="inputbox"', $row->config_disable_tpreview);
 
+    $lists['mainbody'] = mosHTML::yesnoRadioList('config_mainbody', 'class="inputbox"', $row->config_mainbody);
+
 	$locales = array(
 		mosHTML::makeOption('ru_RU.utf8', 'ru_RU.utf8'),
 		mosHTML::makeOption('russian', 'russian (windows)'),
@@ -509,7 +516,7 @@ function showconfig($option){
 
 	// список шаблонов панели управления
 	$titlelength = 20;
-	$admin_template_path = JPATH_BASE . DS . 'administrator' . DS . 'templates';
+	$admin_template_path = _JLPATH_ROOT . DS . 'administrator' . DS . 'templates';
 	$templatefolder = @dir($admin_template_path);
 
 	$admin_templates = array();
@@ -565,16 +572,17 @@ function showconfig($option){
  * Сохранение конфигурации
  */
 function saveconfig($task){
-	global $database, $mosConfig_password, $mosConfig_session_type;
+	$database = database::getInstance();
 	josSpoofCheck();
 
 	$row = new JConfig();
-	if(!$row->bind($_POST)){
-		mosRedirect('index2.php', $row->getError());
-	}
+
+    if(!$row->bind($_POST, 'config_tseparator')){
+        mosRedirect('index2.php', $row->getError());
+    }
 
 	// if Session Authentication Type changed, delete all old Frontend sessions only - which used old Authentication Type
-	if($mosConfig_session_type != $row->config_session_type){
+	if(JCore::getCfg('session_type') != $row->config_session_type){
 		$past = time();
 		$query = "DELETE FROM #__session WHERE time < " . $database->Quote($past) . " AND ( ( guest = 1 AND userid = 0 ) OR ( guest = 0 AND gid > 0 ) )";
 		$database->setQuery($query);
@@ -586,7 +594,7 @@ function saveconfig($task){
 	$row->config_offset = $offset;
 
 	//override any possible database password change
-	$row->config_password = $mosConfig_password;
+	$row->config_password = JCore::getCfg('password');
 
 	// handling of special characters
 	$row->config_sitename = htmlspecialchars($row->config_sitename, ENT_QUOTES);
@@ -606,7 +614,9 @@ function saveconfig($task){
 	// ключ кэша
 	$row->config_cache_key = time();
 
-	if($row->config_joomlaxplorer_dir == $row->config_absolute_path) $row->config_joomlaxplorer_dir = 0;
+    if(!trim($row->config_joomlaxplorer_dir)){
+        $row->config_joomlaxplorer_dir = _JLPATH_ROOT;
+    }
 
 	$config = "<?php \n";
 
@@ -614,7 +624,7 @@ function saveconfig($task){
 	$config .= "setlocale (LC_TIME, \$mosConfig_locale);\n";
 	$config .= '?>';
 
-	$fname = JPATH_BASE . '/configuration.php';
+	$fname = _JLPATH_ROOT . '/configuration.php';
 
 	$enable_write = intval(mosGetParam($_POST, 'enable_write', 0));
 	$oldperms = fileperms($fname);
@@ -647,7 +657,7 @@ function saveconfig($task){
 				$dirmode = octdec($row->config_dirperms);
 			}
 			foreach($mosrootfiles as $file){
-				mosChmodRecursive(JPATH_BASE . '/' . $file, $filemode, $dirmode);
+				mosChmodRecursive(_JLPATH_ROOT . '/' . $file, $filemode, $dirmode);
 			}
 		} // if
 

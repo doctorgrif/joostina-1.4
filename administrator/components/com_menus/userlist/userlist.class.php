@@ -20,10 +20,9 @@ class userlist_menu{
 	 * @param database A database connector object
 	 * @param integer The unique id of the category to edit (0 if new)
 	 */
-	function edit(&$uid, $menutype, $option, $menu){
+	public static function edit(&$uid, $menutype, $option, $menu){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$database = database::getInstance();
+        $my = JCore::getUser();
 
 		// fail if checked out not by 'me'
 		if($menu->checked_out && $menu->checked_out != $my->id){
@@ -61,7 +60,7 @@ class userlist_menu{
 		userlist_menu_html::edit($menu, $lists, $params, $option);
 	}
 
-	function saveMenu($option, $task){
+	public static function saveMenu($option, $task){
 		$database = database::getInstance();
 
 		$params = mosGetParam($_POST, 'params', '');
@@ -93,6 +92,7 @@ class userlist_menu{
 		$row->updateOrder("menutype = " . $database->Quote($row->menutype) . " AND parent = " . (int)$row->parent);
 
 		$msg = _MENU_ITEM_SAVED;
+
 		switch($task){
 			case 'apply':
 				mosRedirect('index2.php?option=' . $option . '&menutype=' . $row->menutype . '&task=edit&id=' . $row->id, $msg);
@@ -111,4 +111,3 @@ class userlist_menu{
 	}
 }
 
-?>

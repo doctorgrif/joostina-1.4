@@ -32,7 +32,7 @@ class File_Archive_Reader{
 		return $error;
 	}
 
-	function getStandardURL($path){
+	public static function getStandardURL($path){
 		if($path == '.'){
 			return '';
 		}
@@ -47,7 +47,7 @@ class File_Archive_Reader{
 		}
 	}
 
-	function getFilename(){
+	public static function getFilename(){
 		return PEAR::raiseError("Reader abstract function call (getFilename)");
 	}
 
@@ -209,4 +209,3 @@ class File_Archive_Reader{
 	}
 }
 
-?>

@@ -12,8 +12,8 @@
  **/
 
 defined('_JLINDEX') or die();
-$mainframe = &mosMainFrame::getInstance();
-include_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elfinder.php');
+$mainframe = mosMainFrame::getInstance();
+include_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elfinder.php');
 
 //обрубаем загрузку стандартных jQuery и ui если вызвано раньше чем загружено
 if(!defined('_FAX_LOADED'))
@@ -22,12 +22,12 @@ if(!defined('_FAX_LOADED'))
 //jQuery and jQuery UI
 mosCommonHTML::loadJquery();
 mosCommonHTML::loadJqueryUI();
-$mainframe->addCSS(JPATH_SITE . "/mambots/editors/elrte/css/smoothness/jquery-ui-1.8.13.custom.css");
+$mainframe->addCSS(_JLPATH_SITE . "/mambots/editors/elrte/css/smoothness/jquery-ui-1.8.13.custom.css");
 
 //elFinder
-$mainframe->addJS(JPATH_SITE . "/mambots/editors/elrte/src/elfinder/js/elfinder.min.js");
-$mainframe->addJS(JPATH_SITE . "/mambots/editors/elrte/src/elfinder/js/i18n/elfinder.ru.js");
-$mainframe->addCSS(JPATH_SITE . "/mambots/editors/elrte/src/elfinder/css/elfinder.css");
+$mainframe->addJS(_JLPATH_SITE . "/mambots/editors/elrte/src/elfinder/js/elfinder.min.js");
+$mainframe->addJS(_JLPATH_SITE . "/mambots/editors/elrte/src/elfinder/js/i18n/elfinder.ru.js");
+$mainframe->addCSS(_JLPATH_SITE . "/mambots/editors/elrte/src/elfinder/css/elfinder.css");
 
 //настройки
 $places = (!empty($places)) ? $places : '';
@@ -47,7 +47,7 @@ $remember_last_dir = (@$remember_last_dir == 1) ? 1 : 0;
 
 	jQuery().ready(function () {
 		jQuery('#my-div').elfinder({
-			url:'<?php echo JPATH_SITE ?>/administrator/index2.php?option=com_elrte&task=connector',
+			url:'<?php echo _JLPATH_SITE ?>/administrator/index2.php?option=com_elrte&task=connector',
 			lang:'ru'
 		})
 	});

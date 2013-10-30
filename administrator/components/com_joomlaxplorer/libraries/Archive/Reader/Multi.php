@@ -44,4 +44,3 @@ class File_Archive_Reader_Multi extends File_Archive_Reader_Relay{
 	}
 }
 
-?>

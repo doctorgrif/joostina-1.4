@@ -10,4 +10,6 @@
 defined('_JLINDEX') or die();
 
 ?>
+<!-- ToDo^ кнопка должна быть кнопкой - button!
+@doctorgrif (30.10.13 09:04 -->
 <div class="back_button"><a href='javascript:history.go(-1)'><?php echo _BACK; ?></a></div>

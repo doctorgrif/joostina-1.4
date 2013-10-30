@@ -1001,7 +1001,6 @@ class DOMIT_Document extends DOMIT_ChildNodes_Interface{
 				$fileContents = &php_file_utilities::getDataFromFile($filename, 'r');
 				return $fileContents;
 			}
-		return '';
 	}
 
 	function saveXML($filename, $normalized = false){

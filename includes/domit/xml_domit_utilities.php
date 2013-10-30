@@ -214,7 +214,7 @@ class DOMIT_Utilities{
 		} else{
 			return ('<pre>' . htmlspecialchars($text) . '</pre>');
 		}
-		return;
+		return null;
 	}
 
 	function fromArray(&$node, &$myArray){

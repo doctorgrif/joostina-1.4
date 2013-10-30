@@ -48,7 +48,7 @@ class mosInstallerModule extends mosInstaller{
 		}
 
 		$xmlDoc = $this->xmlDoc();
-		$mosinstall = &$xmlDoc->documentElement;
+		$mosinstall = $xmlDoc->documentElement;
 
 		$client = '';
 		if($mosinstall->getAttribute('client')){
@@ -61,11 +61,11 @@ class mosInstallerModule extends mosInstaller{
 		}
 
 		// Set some vars
-		$e = &$mosinstall->getElementsByPath('name', 1);
+		$e = $mosinstall->getElementsByPath('name', 1);
 		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/modules/'));
+		$this->elementDir(mosPathName(_JLPATH_ROOT . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/modules/'));
 
-		$e = &$mosinstall->getElementsByPath('position', 1);
+		$e = $mosinstall->getElementsByPath('position', 1);
 		if(!is_null($e)){
 			$position = $e->getText();
 
@@ -120,7 +120,7 @@ class mosInstallerModule extends mosInstaller{
 			$this->setError(1, _MAMBOT . ' "' . $this->elementName() . '" ' . _ALREADY_EXISTS);
 			return false;
 		}
-		if($e = &$mosinstall->getElementsByPath('description', 1)){
+		if($e = $mosinstall->getElementsByPath('description', 1)){
 			$this->setError(0, '<h2>' . $this->elementName() . '</h2><p>' . $e->getText() . '</p>');
 		}
 
@@ -171,7 +171,7 @@ class mosInstallerModule extends mosInstaller{
 			}
 
 			if(!$row->client_id){
-				$basepath = JPATH_BASE . '/modules/';
+				$basepath = _JLPATH_ROOT . '/modules/';
 			} else{
 				$basepath = _JLPATH_ADMINISTRATOR . '/modules/';
 			}
@@ -184,9 +184,9 @@ class mosInstallerModule extends mosInstaller{
 				$this->i_xmldoc->resolveErrors(true);
 
 				if($this->i_xmldoc->loadXML($xmlfile, false, true)){
-					$mosinstall = &$this->i_xmldoc->documentElement;
+					$mosinstall = $this->i_xmldoc->documentElement;
 					// get the files element
-					$files_element = &$mosinstall->getElementsByPath('files', 1);
+					$files_element = $mosinstall->getElementsByPath('files', 1);
 					if(!is_null($files_element)){
 						$files = $files_element->childNodes;
 						foreach($files as $file){
@@ -223,13 +223,13 @@ class mosInstallerModule extends mosInstaller{
 		$database = database::getInstance();
 		josSpoofCheck();
 
-		$mosinstall = &$this->i_xmldoc->documentElement;
+		$mosinstall = $this->i_xmldoc->documentElement;
 		$client = $mosinstall->getAttribute('client');
 
 		if($client == 'administrator'){
 			$basepath = _JLPATH_ADMINISTRATOR . "/modules/";
 		} else{
-			$basepath = JPATH_BASE . "/modules/";
+			$basepath = _JLPATH_ROOT . "/modules/";
 		}
 
 		// Search the install dir for an xml file
@@ -250,7 +250,7 @@ class mosInstallerModule extends mosInstaller{
 		}
 
 		// get the files element
-		$files_element = &$mosinstall->getElementsByPath('files', 1);
+		$files_element = $mosinstall->getElementsByPath('files', 1);
 		if(!is_null($files_element)){
 			$files = $files_element->childNodes;
 			foreach($files as $file){

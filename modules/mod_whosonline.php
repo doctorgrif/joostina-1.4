@@ -129,7 +129,7 @@ function who_online($params_aray, $database){
 			}
 			$user_link = 'index.php?option=com_users&amp;task=profile&amp;user=' . $row->userid;
 			$user_seflink = '<a href="' . JSef::getUrlToSef($user_link) . '">' . $user_name . '</a>';
-			$avatar = '<img class="user_avatar_img" src="' . JPATH_SITE . '/' . mosUser::get_avatar($row) . '" alt="' . $user_name . '"/>';
+			$avatar = '<img class="user_avatar_img" src="' . _JLPATH_SITE . '/' . mosUser::get_avatar($row) . '" alt="' . $user_name . '"/>';
 			$avatar_link = '<a href="' . JSef::getUrlToSef($user_link) . '">' . $avatar . '</a>';
 			if($params_aray['user_avatar'] == '1'){
 				$user_item = $avatar_link . $user_seflink;

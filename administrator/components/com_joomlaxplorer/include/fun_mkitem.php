@@ -47,5 +47,3 @@ function make_item($dir){
 	header("Location: " . make_link("list", $dir, null));
 }
 
-
-?>

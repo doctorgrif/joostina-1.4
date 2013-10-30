@@ -23,7 +23,7 @@ class defaultRating extends mosDBTable{
 
 	function save_vote($directory){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 		$database = database::getInstance();
 
 		//get configuration
@@ -111,7 +111,7 @@ class defaultRating extends mosDBTable{
 	function displayVoteForm($content, $directory, $conf){
 		if($conf->allow_ratings){
 			$mainframe = mosMainFrame::getInstance();
-			$my = $mainframe->getUser();
+			$my = JCore::getUser();
 
 			if($my->id == 0 && $conf->allow_unregisered_comment == 0){
 				$link = JSef::getUrlToSef("index.php?option=com_boss&amp;task=login&amp;directory=$directory");
@@ -159,11 +159,11 @@ class defaultRating extends mosDBTable{
 				$result = 0;
 			for($i = 1; $i <= 5; $i++){
 				if($result >= $i){
-					echo '<img src="' . JPATH_SITE . '/images/boss/' . $directory . '/plugins/ratings/defaultRating/images/star_10.png" alt="star_10" align="middle" />';
+					echo '<img src="' . _JLPATH_SITE . '/components/com_boss/plugins/ratings/defaultRating/images/star_10.png" alt="star_10" align="middle" />';
 				} else if($result >= $i - 0.5){
-					echo '<img src="' . JPATH_SITE . '/images/boss/' . $directory . '/plugins/ratings/defaultRating/images/star_05.png" alt="star_05" align="middle"/>';
+					echo '<img src="' . _JLPATH_SITE . '/components/com_boss/plugins/ratings/defaultRating/images/star_05.png" alt="star_05" align="middle"/>';
 				} else{
-					echo '<img src="' . JPATH_SITE . '/images/boss/' . $directory . '/plugins/ratings/defaultRating/images/star_00.png" alt="star_00" align="middle" />';
+					echo '<img src="' . _JLPATH_SITE . '/components/com_boss/plugins/ratings/defaultRating/images/star_00.png" alt="star_00" align="middle" />';
 				}
 			}
 			$this->displayNumVotes($content);

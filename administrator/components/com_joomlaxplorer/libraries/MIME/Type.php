@@ -224,7 +224,7 @@ class MIME_Type{
 	 * @return boolean true if $type is a wildcard, false otherwise
 	 * @static
 	 */
-	function isWildcard($type){
+	public static function isWildcard($type){
 		if($type == '*/*' || MIME_Type::getSubtype($type) == '*'){
 			return true;
 		}
@@ -240,7 +240,7 @@ class MIME_Type{
 	 * @param  string  $type MIME type to check
 	 * @return boolean true if there was a match, false otherwise
 	 */
-	function wildcardMatch($card, $type){
+	public static function wildcardMatch($card, $type){
 		if(!MIME_Type::isWildcard($card)){
 			return false;
 		}
@@ -291,7 +291,7 @@ class MIME_Type{
 	 * @since 1.0.0beta1
 	 * @static
 	 */
-	function autoDetect($file, $params = false){
+	public static function autoDetect($file, $params = false){
 		@include_once 'System/Command.php';
 		if(function_exists('mime_content_type')){
 			$type = mime_content_type($file);

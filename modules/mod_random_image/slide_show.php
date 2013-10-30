@@ -17,7 +17,7 @@
 defined('_JLINDEX') or die();
 ?>
 <script type="text/javascript">
-	var site_url = "<?php echo JPATH_SITE . '/';?>";
+	var site_url = "<?php echo _JLPATH_SITE . '/';?>";
 	var simpleGallery_navpanel = {
 		panel:{
 			height:'<?php echo $panel_height;?>',

@@ -14,31 +14,7 @@
 
         this.command = function () {
 
-            if (this.rte.browser.mozilla) {
-                try {
-                    this.rte.doc.execCommand(this.name, false, null);
-                } catch (e) {
-                    var s = ' Ctl + C';
-                    if (this.name == 'cut') {
-                        s = ' Ctl + X';
-                    } else if (this.name == 'paste') {
-                        s = ' Ctl + V';
-                    }
-                    var opts = {
-                        dialog:{
-                            title:this.rte.i18n('Warning'),
-                            buttons:{ Ok:function () {
-                                $(this).dialog('close');
-                            } }
-                        }
-                    }
-
-                    var d = new elDialogForm(opts);
-                    d.append(this.rte.i18n('This operation is disabled in your browser on security reason. Use shortcut instead.') + ': ' + s).open();
-                }
-            } else {
-                this.constructor.prototype.command.call(this);
-            }
+        this.constructor.prototype.command.call(this);
         }
     }
 

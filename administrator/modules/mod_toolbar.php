@@ -18,6 +18,8 @@ if(!defined('_TOOLBAR_MODULE')){
 	mosMainFrame::addLib('menubar');
 }
 
+$mainframe = mosMainFrame::getInstance();
+
 if($path = $mainframe->getPath('toolbar')){
 	include_once ($path);
 }

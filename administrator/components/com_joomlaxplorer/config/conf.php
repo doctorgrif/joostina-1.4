@@ -11,12 +11,10 @@
 defined('_JLINDEX') or die();
 
 //------------------------------------------------------------------------------
-// Configuration Variables
-global $mosConfig_joomlaxplorer_dir;
 // login to use joomlaXplorer: (true/false)
 $GLOBALS["require_login"] = false;
 
-$GLOBALS["language"] = $mosConfig_lang;
+$GLOBALS["language"] = JCore::getCfg('lang');
 
 // the filename of the QuiXplorer script: (you rarely need to change this)
 if($_SERVER['SERVER_PORT'] == 443){
@@ -32,18 +30,14 @@ if(function_exists("gzcompress")){
 	$GLOBALS["zip"] = $GLOBALS["tgz"] = false;
 }
 
-if(strstr(JPATH_BASE, "/")){
+if(strstr(_JLPATH_ROOT, "/")){
 	$GLOBALS["separator"] = "/";
 } else{
 	$GLOBALS["separator"] = "\\";
 }
 
-// если в глобальной конфигурации не прописан конкретный путь к корню файлового менеджера - то будем считать им корень сайта
-if(($mosConfig_joomlaxplorer_dir == '') OR ($mosConfig_joomlaxplorer_dir == '0')) $mosConfig_joomlaxplorer_dir = JPATH_BASE;
-// the home directory for the filemanager: (use '/', not '\' or '\\', no trailing '/')
-
-$GLOBALS["home_dir"] = $mosConfig_joomlaxplorer_dir;
-$GLOBALS["home_url"] = JPATH_SITE;
+$GLOBALS["home_dir"] = JCore::getCfg('joomlaxplorer_dir');
+$GLOBALS["home_url"] = _JLPATH_SITE;
 
 // show hidden files in QuiXplorer: (hide files starting with '.', as in Linux/UNIX)
 $GLOBALS["show_hidden"] = true;

@@ -79,8 +79,8 @@ class CFilelistEngine{
 
 		// Initialize our variables
 		$this->_isFinished = false; // We have not finished yet
-		// FIX 1.1.0 JPATH_BASE may contain trailing slashes or backslashes incompatible with exclusion filters
-		$this->_nextDirectory = realpath(JPATH_BASE); // Start scanning from Joomla! root
+		// FIX 1.1.0 _JLPATH_ROOT may contain trailing slashes or backslashes incompatible with exclusion filters
+		$this->_nextDirectory = realpath(_JLPATH_ROOT); // Start scanning from Joomla! root
 		$this->_currentNode = 1; // We start adding to the first fragment
 		$this->_currentNodeSize = 0; // The size of this fragment is 0 bytes, as no files are added yet
 		$this->_branchNodes = array();
@@ -223,7 +223,6 @@ class CFilelistEngine{
 	 * Returns the array of the exclusion filters
 	 */
 	function _createExcludeDirs(){
-		global $option;
 		require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/engine.exdirs.php');
 
 		$def = new CDirExclusionFilter();

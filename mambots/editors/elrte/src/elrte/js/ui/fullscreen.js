@@ -44,22 +44,22 @@
                 f = e.hasClass(c),
                 rte = this.rte,
                 s = this.rte.selection,
-                m = $.browser.mozilla,
+//                m = $.browser.mozilla,
                 b, h;
 
             function save() {
-                if (m) {
-                    b = s.getBookmark();
-                }
+//                if (m) {
+//                    b = s.getBookmark();
+//                }
             }
 
             function restore() {
-                if (m) {
-                    self.wz.children().toggle();
-                    self.rte.source.focus();
-                    self.wz.children().toggle();
-                    s.moveToBookmark(b);
-                }
+//                if (m) {
+//                    self.wz.children().toggle();
+//                    self.rte.source.focus();
+//                    self.wz.children().toggle();
+//                    s.moveToBookmark(b);
+//                }
             }
 
             save();

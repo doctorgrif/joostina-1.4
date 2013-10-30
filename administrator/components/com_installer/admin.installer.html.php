@@ -12,7 +12,7 @@ defined('_JLINDEX') or die();
 
 function writableCell($folder){
 	echo '<tr><td class="item">' . $folder . '/</td><td align="left">';
-	echo is_writable(JPATH_BASE . '/' . $folder) ? '<b><span style="color:green">' . _WRITEABLE . '</span></b>' : '<b><span style="color:#ff0000">' . _UNWRITEABLE . '</span></b></td>';
+	echo is_writable(_JLPATH_ROOT . '/' . $folder) ? '<b><span style="color:green">' . _WRITEABLE . '</span></b>' : '<b><span style="color:#ff0000">' . _UNWRITEABLE . '</span></b></td>';
 	echo '</tr>';
 }
 
@@ -95,7 +95,7 @@ class HTML_installer{
 	 * @param string
 	 * @param string
 	 */
-	function showInstallMessage($message, $title, $url){
+	public static function showInstallMessage($message, $title, $url){
 		?>
 	<table class="adminheading">
 		<tr>

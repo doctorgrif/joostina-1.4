@@ -11,7 +11,7 @@
 defined('_JLINDEX') or die();
 
 
-global $task;
+$task = JSef::getTask();
 
 // load feed creator class
 mosMainFrame::addLib('feedcreator');
@@ -72,7 +72,7 @@ function feedFrontpage($showFeed){
 	$info['date'] = date('r');
 	$info['year'] = date('Y');
 	$info['encoding'] = $iso[1];
-	$info['link'] = htmlspecialchars(JPATH_SITE);
+	$info['link'] = htmlspecialchars(_JLPATH_SITE);
 	$info['cache'] = $params->def('cache', 1);
 	$info['cache_time'] = $params->def('cache_time', 3600);
 	$info['count'] = $params->def('count', 5);
@@ -83,7 +83,7 @@ function feedFrontpage($showFeed){
 	if($info['image_file'] == -1){
 		$info['image'] = null;
 	} else{
-		$info['image'] = JPATH_SITE . '/images/M_images/' . $info['image_file'];
+		$info['image'] = _JLPATH_SITE . '/images/M_images/' . $info['image_file'];
 	}
 	$info['image_alt'] = $params->def('image_alt', 'Joostina CMS!');
 	$info['limit_text'] = $params->def('limit_text', 0);
@@ -232,9 +232,15 @@ function feedFrontpage($showFeed){
 
 	//определяем каталог выведенный на главную страницу
 	require_once ($mainframe->getPath('class', 'com_frontpage'));
-	$configObject = new frontpageConfig();
-	$directory = $configObject->get('directory', 0);
-	$introCol = $configObject->get('directory', 0);
+
+    $configObject = new frontpageConfig();
+    //$directory = $configObject->get('directory', 0);
+
+	//$introCol = $configObject->get('directory', 0);
+
+    $sql = "SELECT `value` FROM #__config WHERE `name` = 'directory' AND `group` = 'com_frontpage' AND `subgroup` = 'default'";
+    $database->setQuery($sql);
+    $directory = $configObject->_parseValue($database->loadResult());
 
 	// query of frontpage content items
 	$query = "SELECT a.*, u.name AS author, u.usertype, UNIX_TIMESTAMP( a.date_created ) AS created_ts, cat.name AS cat_title" .

@@ -21,7 +21,7 @@ class HTML_component{
 	 * @param string The URL option
 	 */
 	public static function showInstalledComponents($rows, $option){
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		if(count($rows)){
 			// подключение скрипта чудесных таблиц
 			mosCommonHTML::loadPrettyTable();

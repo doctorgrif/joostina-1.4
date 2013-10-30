@@ -23,31 +23,18 @@ if(!file_exists('configuration.php') || filesize('configuration.php') < 10){
 	exit();
 }
 
-// подключение файла эмуляции отключения регистрации глобальных переменных
-(ini_get('register_globals') == 1) ? require_once (JPATH_BASE . DS . 'includes' . DS . 'globals.php') : null;
-
 // подключение файла конфигурации
-require_once (JPATH_BASE . DS . 'configuration.php');
-
-// live_site
-define('JPATH_SITE', $mosConfig_live_site);
-
-// для совместимости
-$mosConfig_absolute_path = JPATH_BASE;
+require_once (_JLPATH_ROOT . DS . 'configuration.php');
 
 // подключение главного файла - ядра системы
 require_once (_JLPATH_ROOT . DS . 'core' . DS . 'core.php');
 
 // подключение главного файла - ядра системы
 // TODO GoDr: заменить со временем на core.php
-require_once (JPATH_BASE . DS . 'includes' . DS . 'joostina.php');
-
-// подключение SEF
-//require_once (JPATH_BASE . DS . 'includes' . DS . 'sef.php');
-//JSef::getInstance($mosConfig_sef, $mosConfig_com_frontpage_clear);
+require_once (_JLPATH_ROOT . DS . 'includes' . DS . 'joostina.php');
 
 // отображение состояния выключенного сайта
-if ($mosConfig_offline == 1) {
+if (JCore::getCfg('offline') == 1) {
 	echo 'syte-offline';
 	exit();
 }
@@ -59,7 +46,7 @@ $task = strval(mosGetParam($_REQUEST, 'task', ''));
 
 $commponent = str_replace('com_', '', $option);
 
-if ($mosConfig_mmb_ajax_starts_off == 0) {
+if (JCore::getCfg('mmb_ajax_starts_off') == 0) {
 	$_MAMBOTS->loadBotGroup('system');
 	$_MAMBOTS->trigger('onAjaxStart');
 }
@@ -69,18 +56,14 @@ $mainframe = mosMainFrame::getInstance();
 
 $mainframe->initSession();
 
-// загрузка файла русского языка по умолчанию
-if ($mosConfig_lang == '') {
-	$mosConfig_lang = 'russian';
-}
-$mainframe->set('lang', $mosConfig_lang);
+$mainframe->set('lang', JCore::getCfg('lang'));
 include_once($mainframe->getLangFile());
 
-$my = $mainframe->getUser();
+$my = JCore::getUser();
 
 $gid = intval($my->gid);
 
-if ($mosConfig_mmb_ajax_starts_off == 0) {
+if (JCore::getCfg('mmb_ajax_starts_off') == 0) {
 	$_MAMBOTS->trigger('onAfterAjaxStart');
 }
 
@@ -88,8 +71,8 @@ header("Content-type: text/html; charset=utf-8");
 header("Cache-Control: no-cache, must-revalidate ");
 
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-if (file_exists(JPATH_BASE . "/components/$option/$commponent.ajax.php")) {
-	include_once (JPATH_BASE . "/components/$option/$commponent.ajax.php");
+if (file_exists(_JLPATH_ROOT . "/components/$option/$commponent.ajax.php")) {
+	include_once (_JLPATH_ROOT . "/components/$option/$commponent.ajax.php");
 } else {
 	die('error-1');
 }

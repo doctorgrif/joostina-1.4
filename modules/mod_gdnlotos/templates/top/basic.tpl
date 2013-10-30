@@ -1,4 +1,4 @@
 <div class="gdn_df_basic[MODULECLASS_SFX]">
-	[IMAGE][TITLE]
+	[IMAGE][DATE][TITLE]
 	<div style="clear:both;"></div>
 </div>

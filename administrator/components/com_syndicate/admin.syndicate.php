@@ -10,13 +10,14 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 // ensure user has access to this function
 if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'all') | $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_contact'))){
 	mosRedirect('index2.php', _NOT_AUTH);
 }
 
 require_once ($mainframe->getPath('admin_html'));
-
+$task = JSef::getTask();
 switch($task){
 
 	case 'save':

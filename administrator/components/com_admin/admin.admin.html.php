@@ -20,8 +20,6 @@ class HTML_admin_misc{
 	 * Control panel
 	 */
 	public static function controlPanel(){
-		$mainframe = mosMainFrame::getInstance();
-		;
 		$path = _JLPATH_ADMINISTRATOR . '/templates/' . JTEMPLATE . '/html/cpanel.php';
 		if(file_exists($path)){
 			require $path;
@@ -59,14 +57,10 @@ class HTML_admin_misc{
 	}
 
 	public static function system_info($version){
-		global $mosConfig_cachepath;
-
-		$mainframe = mosMainFrame::getInstance();
 		$database = database::getInstance();
 
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
-		$width = 400; // width of 100%
 		$tabs = new mosTabs(0);
 		?>
 	<table class="adminheading">
@@ -83,7 +77,7 @@ class HTML_admin_misc{
 			<td>
 			<pre>
 						<?php
-				include(JPATH_BASE . '/help/copyright.php');
+				include(_JLPATH_ROOT . '/help/copyright.php');
 				?>
 			</pre>
 			</td>
@@ -124,7 +118,7 @@ class HTML_admin_misc{
 		</tr>
 		<tr>
 			<td><strong><?php echo _JOOSTINA_VERSION?>:</strong></td>
-			<td><?php echo $version->CMS . ' ' . $version->CMS_ver . '.' . $version->DEV_STATUS . ' [ ' . $version->CODENAME . ' ] ' . $version->RELDATE . ' ' . $version->RELTIME . ' ' . $version->RELTZ . '<br />' . $version->SUPPORT; ?></td>
+			<td><?php echo $version->CMS . ' ' . $version->CMS_VER . '.' . $version->DEV_STATUS . ' [ ' . $version->CODENAME . ' ] ' . $version->RELDATE . ' ' . $version->RELTIME . ' ' . $version->RELTZ . '<br />' . $version->SUPPORT; ?></td>
 		</tr>
 		<tr>
 			<td><strong><?php echo _BROWSER?>:</strong></td>
@@ -139,24 +133,6 @@ class HTML_admin_misc{
 			</td>
 			<td>
 				<table cellspacing="1" cellpadding="1" border="0">
-					<tr>
-						<td><?php echo _REGISTER_GLOBALS?>:</td>
-						<td style="font-weight: bold;"><?php echo HTML_admin_misc::get_php_setting('register_globals', 1, 0); ?></td>
-						<td>
-							<?php $img = ((ini_get('register_globals')) ? 'publish_x.png' : 'tick.png'); ?>
-							<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>"/>
-						</td>
-					</tr>
-					<tr>
-						<td><?php echo _MAGIC_QUOTES?>:</td>
-						<td style="font-weight: bold;">
-							<?php echo HTML_admin_misc::get_php_setting('magic_quotes_gpc', 1, 1); ?>
-						</td>
-						<td>
-							<?php $img = (!(ini_get('magic_quotes_gpc')) ? 'publish_x.png' : 'tick.png'); ?>
-							<img src="<?php echo $cur_file_icons_path;?>/<?php echo $img; ?>"/>
-						</td>
-					</tr>
 					<tr>
 						<td><?php echo _SAFE_MODE?>:</td>
 						<td style="font-weight: bold;">
@@ -249,7 +225,7 @@ class HTML_admin_misc{
 			<td valign="top"><strong><?php echo _CONFIGURATION_FILE?>:</strong></td>
 			<td>
 				<?php
-				$cf = file(JPATH_BASE . '/configuration.php');
+				$cf = file(_JLPATH_ROOT . '/configuration.php');
 				foreach($cf as $k => $v){
 					if(preg_match('/mosConfig_host/i', $v)){
 						$cf[$k] = '$mosConfig_host = \'xxxxxx\'';
@@ -322,7 +298,7 @@ class HTML_admin_misc{
 				mosHTML::writableCell('media');
 				mosHTML::writableCell('modules');
 				mosHTML::writableCell('templates');
-				mosHTML::writableCell($mosConfig_cachepath, 0, '<strong>' . _CACHE_DIR . '</strong> ');
+				mosHTML::writableCell(JCore::getCfg('cachepath'), 0, '<strong>' . _CACHE_DIR . '</strong> ');
 				mosHTML::writableCell($sp, 0, '<strong>' . _SESSION_DIRECTORY . '</strong> ');
 				?>
 			</td>
@@ -359,9 +335,8 @@ class HTML_admin_misc{
 
 	// получение информации о базе данных
 	public static function db_info(){
-		global $mosConfig_db;
 		$database = database::getInstance();
-		$sql = 'SHOW TABLE STATUS FROM ' . $mosConfig_db;
+		$sql = 'SHOW TABLE STATUS FROM ' . JCore::getCfg('db');
 		$database->setQuery($sql);
 		return $database->loadObjectList();
 	}
@@ -446,11 +421,11 @@ class HTML_admin_misc{
 									<?php
 								} else{
 									?>
-									<a href="<?php echo JPATH_SITE; ?>/help/joomla.glossary.html" target="helpFrame"><?php echo _GLOSSARY?></a>
+									<a href="<?php echo _JLPATH_SITE; ?>/help/joomla.glossary.html" target="helpFrame"><?php echo _GLOSSARY?></a>
 									|
-									<a href="<?php echo JPATH_SITE; ?>/help/joomla.credits.html" target="helpFrame"><?php echo _DEVELOPERS?></a>
+									<a href="<?php echo _JLPATH_SITE; ?>/help/joomla.credits.html" target="helpFrame"><?php echo _DEVELOPERS?></a>
 									|
-									<a href="<?php echo JPATH_SITE; ?>/help/joomla.support.html" target="helpFrame"><?php echo _SUPPORT?></a>
+									<a href="<?php echo _JLPATH_SITE; ?>/help/joomla.support.html" target="helpFrame"><?php echo _SUPPORT?></a>
 									<?php
 								}
 								?>
@@ -461,9 +436,9 @@ class HTML_admin_misc{
 								|
 								<a href="http://Joom.Ru" target="_blank">Joom.Ru</a>
 								<br/>
-								<a href="<?php echo JPATH_SITE; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=changelog" target="helpFrame"><?php echo _CHANGELOG?></a>
+								<a href="<?php echo _JLPATH_SITE; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=changelog" target="helpFrame"><?php echo _CHANGELOG?></a>
 								|
-								<a href="<?php echo JPATH_SITE; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame"><?php echo _ABOUT_SYSTEM?></a>
+								<a href="<?php echo _JLPATH_SITE; ?>/<?php echo JADMIN_BASE?>/index3.php?option=com_admin&task=sysinfo" target="helpFrame"><?php echo _ABOUT_SYSTEM?></a>
 								|
 								<a href="http://joostina-cms.ru/" target="_blank"><?php echo _CHECK_VERSION ?></a>
 							</td>
@@ -482,7 +457,7 @@ class HTML_admin_misc{
 								echo '<br /><a href="' . $fullhelpurl . urlencode($k) . '" target="helpFrame">' . $v .
 									'</a>';
 							} else{
-								echo '<br /><a href="' . JPATH_SITE . '/help/' . $k . '" target="helpFrame">' .
+								echo '<br /><a href="' . _JLPATH_SITE . '/help/' . $k . '" target="helpFrame">' .
 									$v . '</a>';
 							}
 						}
@@ -490,7 +465,7 @@ class HTML_admin_misc{
 					</div>
 				</td>
 				<td valign="top">
-					<iframe name="helpFrame" src="<?php echo JPATH_SITE . '/help/' . $page; ?>" class="helpFrame" frameborder="0"></iframe>
+					<iframe name="helpFrame" src="<?php echo _JLPATH_SITE . '/help/' . $page; ?>" class="helpFrame" frameborder="0"></iframe>
 				</td>
 			</tr>
 		</table>
@@ -518,12 +493,12 @@ class HTML_admin_misc{
 		<tr>
 			<th width="50%" class="title"><?php echo _PREVIEW_SITE?></th>
 			<th width="50%" style="text-align:right">
-				<a href="<?php echo JPATH_SITE . '/index.php?tp=' . $tp; ?>" target="_blank"><?php echo _IN_NEW_WINDOW?></a>
+				<a href="<?php echo _JLPATH_SITE . '/index.php?tp=' . $tp; ?>" target="_blank"><?php echo _IN_NEW_WINDOW?></a>
 			</th>
 		</tr>
 		<tr>
 			<td width="100%" valign="top" colspan="2">
-				<iframe name="previewFrame" src="<?php echo JPATH_SITE . '/index.php?tp=' . $tp; ?>" class="previewFrame"></iframe>
+				<iframe name="previewFrame" src="<?php echo _JLPATH_SITE . '/index.php?tp=' . $tp; ?>" class="previewFrame"></iframe>
 			</td>
 		</tr>
 	</table>
@@ -537,7 +512,7 @@ class HTML_admin_misc{
 		?>
 	<pre>
 			<?php
-		readfile(JPATH_BASE . '/changeslog');
+		readfile(_JLPATH_ROOT . '/changeslog');
 		?>
 </pre>
 	<?php
@@ -550,13 +525,13 @@ class HTML_admin_misc{
  */
 function getHelpTOC($helpsearch){
 	$helpurl = strval(mosGetParam($GLOBALS, 'mosConfig_helpurl', ''));
-	$files = mosReadDirectory(JPATH_BASE . '/help/', '\.xml$|\.html$');
+	$files = mosReadDirectory(_JLPATH_ROOT . '/help/', '\.xml$|\.html$');
 
-	require_once (JPATH_BASE . '/includes/domit/xml_domit_lite_include.php');
+	require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_lite_include.php');
 
 	$toc = array();
 	foreach($files as $file){
-		$buffer = file_get_contents(JPATH_BASE . '/help/' . $file);
+		$buffer = file_get_contents(_JLPATH_ROOT . '/help/' . $file);
 		if(preg_match('#<title>(.*?)</title>#', $buffer, $m)){
 			$title = trim($m[1]);
 			if($title){

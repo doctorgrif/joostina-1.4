@@ -32,7 +32,7 @@ switch($task){
 
 function upload_avatar(){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+	$my = JCore::getUser();
 
 	$database = database::getInstance();
 
@@ -78,7 +78,7 @@ function upload_avatar(){
 
 function x_delavatar(){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+	$my = JCore::getUser();
 
 	$database = database::getInstance();
 
@@ -96,11 +96,11 @@ function request_from_plugin(){
 	$act = mosGetParam($_REQUEST, 'act', '');
 
 	// проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
-	if(is_file(JPATH_BASE . DS . 'mambots' . DS . 'profile' . DS . $plugin . DS . $plugin . '.ajax.php')){
+	if(is_file(_JLPATH_ROOT . DS . 'mambots' . DS . 'profile' . DS . $plugin . DS . $plugin . '.ajax.php')){
 		if(is_file($mainframe->getLangFile('bot_' . $plugin))){
 			include_once ($mainframe->getLangFile('bot_' . $plugin));
 		}
-		include_once (JPATH_BASE . DS . 'mambots' . DS . 'profile' . DS . $plugin . DS . $plugin . '.ajax.php');
+		include_once (_JLPATH_ROOT . DS . 'mambots' . DS . 'profile' . DS . $plugin . DS . $plugin . '.ajax.php');
 	} else{
 		die('error-1:1');
 	}

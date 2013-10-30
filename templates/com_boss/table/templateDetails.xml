@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mosinstall type="template" version="1.0.x">
-    <name>table</name>
+    <name>blog</name>
     <creationDate>29/08/09</creationDate>
     <author>Joostina Team (Irina Chernova)</author>
     <authorEmail>info@joostina.ru</authorEmail>

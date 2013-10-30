@@ -16,10 +16,8 @@ defined('_JLINDEX') or die();
  */
 class HTML_languages{
 
-	function showLanguages($cur_lang, &$rows, &$pageNav, $option){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+	public static function showLanguages($cur_lang, &$rows, &$pageNav, $option){
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		?>
 	<form action="index2.php" method="post" name="adminForm">
 		<table class="adminheading">
@@ -113,8 +111,8 @@ class HTML_languages{
 	<?php
 	}
 
-	function editLanguageSource($language, &$content, $option){
-		$language_path = JPATH_BASE . "/language/" . $language . "/system.php";
+	public static function editLanguageSource($language, &$content, $option){
+		$language_path = _JLPATH_ROOT . "/language/" . $language . "/system.php";
 		?>
 	<form action="index2.php" method="post" name="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">

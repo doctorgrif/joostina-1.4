@@ -10,9 +10,8 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
-;
+$my = JCore::getUser();
+
 /* всех не авторизованных игнорируем*/
 if(!$my->id) exit;
 
@@ -38,7 +37,6 @@ function x_publish($id = null){
 	// id содержимого для обработки не получен - выдаём ошибку
 	if(!$id) return _UNKNOWN_ID;
 
-	$state = new stdClass();
 	$query = "SELECT published FROM #__quickicons WHERE id = " . (int)$id;
 	$database->setQuery($query);
 	$state = $database->loadResult();

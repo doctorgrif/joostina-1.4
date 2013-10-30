@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 // ensure user has access to this function
 if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'mambots', 'all') | $acl->acl_check('administration', 'install', 'users', $my->usertype, 'mambots', 'all'))){
 	mosRedirect('index2.php', _NOT_AUTH);
@@ -20,7 +21,7 @@ require_once ($mainframe->getPath('admin_html'));
 $client = strval(mosGetParam($_REQUEST, 'client', ''));
 
 $cid = josGetArrayInts('cid');
-
+$task = JSef::getTask();
 switch($task){
 
 	case 'new':
@@ -74,17 +75,13 @@ switch($task){
  * Compiles a list of installed or defined modules
  */
 function viewMambots($option, $client){
-	global $mosConfig_list_limit;
 	$mainframe = mosMainFrame::getInstance();
 	$database = database::getInstance();
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0));
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}{$client}", 'filter_type', 1);
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$client}", 'search', '');
-	if(get_magic_quotes_gpc()){
-		$search = stripslashes($search);
-	}
 
 	if($client == 'admin'){
 		$where[] = "m.client_id = '1'";
@@ -174,7 +171,7 @@ function saveMambot($option, $client, $task){
 		$where = "client_id='0'";
 	}
 	$row->updateOrder("folder = " . $database->Quote($row->folder) . " AND ordering > -10000 AND ordering < 10000 AND ( $where )");
-
+	$task = JSef::getTask();
 	switch($task){
 		case 'apply':
 			$msg = $row->name . '-- ' . _E_ITEM_SAVED;
@@ -194,8 +191,7 @@ function saveMambot($option, $client, $task){
  * @param integer The unique id of the record to edit
  */
 function editMambot($option, $uid, $client){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$lists = array();
@@ -245,9 +241,9 @@ function editMambot($option, $uid, $client){
 		$lists['folder'] = '<input type="hidden" name="folder" value="' . $row->folder . '" />' . $row->folder;
 
 		// XML library
-		require_once (JPATH_BASE . '/includes/domit/xml_domit_lite_include.php');
+		require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_lite_include.php');
 		// xml file for module
-		$xmlfile = JPATH_BASE . DS . 'mambots' . DS . $row->folder . DS . $row->element . '.xml';
+		$xmlfile = _JLPATH_ROOT . DS . 'mambots' . DS . $row->folder . DS . $row->element . '.xml';
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
 		if($xmlDoc->loadXML($xmlfile, false, true)){
@@ -263,10 +259,10 @@ function editMambot($option, $uid, $client){
 		$row->published = 1;
 		$row->description = '';
 
-		$folders = mosReadDirectory(JPATH_BASE . DS . 'mambots' . DS);
+		$folders = mosReadDirectory(_JLPATH_ROOT . DS . 'mambots' . DS);
 		$folders2 = array();
 		foreach($folders as $folder){
-			if(is_dir(JPATH_BASE . DS . 'mambots' . DS . $folder) && ($folder != 'CVS')){
+			if(is_dir(_JLPATH_ROOT . DS . 'mambots' . DS . $folder) && ($folder != 'CVS')){
 				$folders2[] = mosHTML::makeOption($folder);
 			}
 		}
@@ -276,7 +272,7 @@ function editMambot($option, $uid, $client){
 
 	$lists['published'] = mosHTML::yesnoRadioList('published', 'class="inputbox"', $row->published);
 
-	$path = JPATH_BASE . DS . "mambots/$row->folder/$row->element.xml";
+	$path = _JLPATH_ROOT . DS . "mambots/$row->folder/$row->element.xml";
 	if(!file_exists($path)){
 		$path = '';
 	}
@@ -292,9 +288,6 @@ function editMambot($option, $uid, $client){
  * @param array An array of unique category id numbers
  */
 function removeMambot($cid, $option, $client){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
-	$database = database::getInstance();
 	josSpoofCheck();
 	if(count($cid) < 1){
 		echo "<script> alert('" . _CHOOSE_OBJ_DELETE . "'); window.history.go(-1);</script>\n";
@@ -310,8 +303,7 @@ function removeMambot($cid, $option, $client){
  * @param integer 0 if unpublishing, 1 if publishing
  */
 function publishMambot($cid = null, $publish = 1, $option, $client){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 	josSpoofCheck();
 	if(count($cid) < 1){

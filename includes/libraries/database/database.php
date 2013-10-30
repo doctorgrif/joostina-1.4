@@ -78,12 +78,12 @@ class database{
 
 		// Проверка существует ли вообще функция подключения
 		if(!function_exists('mysqli_connect')){
-			include JPATH_BASE . '/templates/system/offline.php';
+			include _JLPATH_ROOT . '/templates/system/offline.php';
 			exit();
 		}
 		$this->_resource = new mysqli($host, $user, $pass, $db, $port, $socket);
 		if($this->_resource->connect_error){
-			include JPATH_BASE . '/templates/system/offline.php';
+			include _JLPATH_ROOT . '/templates/system/offline.php';
 			exit();
 		}
 
@@ -112,11 +112,11 @@ class database{
 		}
 
 		if(self::$_instance === NULL){
-			$config = Jconfig::getInstance();
+			$config = JConfig::getInstance();
 			$instance = new database($config->config_host, $config->config_user, $config->config_password, $config->config_db, $config->config_dbprefix, $config->config_debug);
 			if($instance->getErrorNum()){
-				include_once(JPATH_BASE . DS . 'configuration.php');
-				include(JPATH_BASE . DS . 'templates/system/offline.php');
+				include_once(_JLPATH_ROOT . DS . 'configuration.php');
+				include(_JLPATH_ROOT . DS . 'templates/system/offline.php');
 				exit();
 			}
 			self::$_instance = $instance;
@@ -976,9 +976,8 @@ class mosDBTable{
 	 * @param int Object id
 	 */
 	function checkout($user_id, $oid = null){
-		global $mosConfig_disable_checked_out;
 		// отключение блокировок
-		if($mosConfig_disable_checked_out)
+		if(JCore::getCfg('disable_checked_out'))
 			return true;
 		if(!array_key_exists('checked_out', get_class_vars(strtolower(get_class($this))))){
 			$this->_error = "ВНИМАНИЕ: " . strtolower(get_class($this)) . " не поддерживает проверку.";
@@ -1018,9 +1017,8 @@ class mosDBTable{
 	 * @param int Object id
 	 */
 	function checkin($oid = null){
-		global $mosConfig_disable_checked_out;
 		// отключение блокировок
-		if($mosConfig_disable_checked_out)
+		if(JCore::getCfg('disable_checked_out'))
 			return true;
 		if(!array_key_exists('checked_out', get_class_vars(strtolower(get_class($this))))){
 			$this->_error = "WARNING: " . strtolower(get_class($this)) . " does not support checkin.";
@@ -1051,9 +1049,7 @@ class mosDBTable{
 	 * @param int Object id
 	 */
 	function hit($oid = null){
-		global $mosConfig_enable_log_items, $mosConfig_content_hits;
-
-		if(!$mosConfig_content_hits)
+		if(!JCore::getCfg('content_hits'))
 			return false;
 
 		$k = $this->_tbl_key;
@@ -1064,7 +1060,7 @@ class mosDBTable{
 		$query = "UPDATE $this->_tbl SET hits = ( hits + 1 ) WHERE $this->_tbl_key = " . $this->_db->Quote($this->id);
 		$this->_db->setQuery($query)->query();
 
-		if(@$mosConfig_enable_log_items){
+		if(@JCore::getCfg('enable_log_items')){
 			$now = date('Y-m-d');
 			$query = "SELECT hits FROM #__core_log_items WHERE time_stamp = " . $this->_db->Quote($now) . " AND item_table = " . $this->_db->Quote($this->_tbl) . " AND item_id = " . $this->_db->Quote($this->$k);
 			$this->_db->setQuery($query);

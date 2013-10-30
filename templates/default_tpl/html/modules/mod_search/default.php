@@ -10,9 +10,11 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 ?>
+<!-- Change html output to html5
+@doctorgrif (30.10.13 09:20) -->
 <div class="search<?php echo $moduleclass_sfx; ?>">
 	<form action="<?php echo $link; ?>" method="post">
 		<?php echo $output; ?>
-		<input type="hidden" name="option" value="com_search"/>
+		<input type="hidden" name="option" value="com_search">
 	</form>
 </div>

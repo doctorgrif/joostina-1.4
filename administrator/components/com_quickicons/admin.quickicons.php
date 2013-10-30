@@ -14,9 +14,11 @@ if(!$acl->acl_check('administration', 'config', 'users', $my->usertype)){
 	mosRedirect('index2.php?', _NOT_AUTH);
 }
 
+$mainframe = mosMainFrame::getInstance();
+
 require_once ($mainframe->getPath('admin_html'));
 
-global $task;
+$task = JSef::getTask();
 $id = mosGetParam($_REQUEST, 'id', null);
 $cid = josGetArrayInts('cid');
 
@@ -143,11 +145,10 @@ switch($task){
 
 // show the Items
 function show($option){
-	global $mosConfig_list_limit;
 	$mainframe = mosMainFrame::getInstance();
 	$database = database::getInstance();
 
-	$limit = intval($mainframe->getUserStateFromRequest('viewlistlimit', 'limit', $mosConfig_list_limit));
+	$limit = intval($mainframe->getUserStateFromRequest('viewlistlimit', 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0));
 	$search = $mainframe->getUserStateFromRequest("search{$option}", 'search', '');
 	$search = $database->getEscaped(Jstring::trim(Jstring::strtolower($search)));
@@ -182,8 +183,7 @@ function show($option){
  */
 function editIcon($id, $option){
 	$acl = &gacl::getInstance();
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	// Load Item
@@ -292,7 +292,7 @@ function saveIcon($redirect, $option){
 	}
 
 	// удаление пути
-	$row->icon = str_replace(JPATH_SITE, '', $row->icon);
+	$row->icon = str_replace(_JLPATH_SITE, '', $row->icon);
 
 	// pre-save checks
 	if(!$row->check()){

@@ -24,11 +24,11 @@ defined('_JLINDEX') or die();
  * @since        1.5
  */
 class JFolder{
-	function clean($path, $ds = DS){
+	public static function clean($path, $ds = DS){
 		$path = trim($path);
 
 		if(empty($path)){
-			$path = JFolder::clean(JPATH_BASE);
+			$path = JFolder::clean(_JLPATH_ROOT);
 		} else{
 			// Remove double slashes and backslahses and convert all slashes and backslashes to DS
 			$path = preg_replace('#[/\\\\]+#', $ds, $path);
@@ -37,7 +37,7 @@ class JFolder{
 		return $path;
 	}
 
-	function delete_files($file){
+    public static function delete_files($file){
 		if(is_array($file)){
 			$files = $file;
 		} else{
@@ -70,7 +70,7 @@ class JFolder{
 	 * @return boolean True on success
 	 * @since 1.5
 	 */
-	function delete($path){
+    public static function delete($path){
 		// Sanity check
 		if(!$path){
 			// Bad programmer! Bad Bad programmer!
@@ -124,7 +124,7 @@ class JFolder{
 	 * @return    array    Files in the given folder
 	 * @since 1.5
 	 */
-	function files($path, $filter = '.', $recurse = false, $fullpath = false, $exclude = array('.svn', 'CVS')){
+	public static function files($path, $filter = '.', $recurse = false, $fullpath = false, $exclude = array('.svn', 'CVS')){
 		// Initialize variables
 		$arr = array();
 
@@ -177,7 +177,7 @@ class JFolder{
 	 * @return    array    Folders in the given folder
 	 * @since 1.5
 	 */
-	function folders($path, $filter = '.', $recurse = false, $fullpath = false, $exclude = array('.svn', 'CVS')){
+	public static function folders($path, $filter = '.', $recurse = false, $fullpath = false, $exclude = array('.svn', 'CVS')){
 		// Initialize variables
 		$arr = array();
 

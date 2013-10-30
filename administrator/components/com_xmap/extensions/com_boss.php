@@ -105,7 +105,8 @@ class xmap_com_boss{
 				$node->name = stripslashes($row->name);
 				$node->priority = $params['priority'];
 				$node->changefreq = $params['changefreq'];
-				$node->link = 'index.php?option=com_boss&task=show_category&catid=' . $row->id . '&slug=' . $row->slug . '&directory=' . $directory;
+				$node->link = 'index.php?option=com_boss&amp;task=show_category&amp;catid=' . $row->id . '&amp;directory=' . $directory;
+				//$node->link = 'index.php?option=com_boss&amp;task=show_category&amp;catid=' . $row->id . '&amp;slug=' . $row->slug . '&amp;directory=' . $directory;
 				$node->pid = $row->id;
 				$node->expandible = true;
 				$pid = $row->id;

@@ -10,16 +10,20 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-$mainframe->addCSS(JPATH_SITE . '/templates/css/print.css');
-$mainframe->addJS(JPATH_SITE . '/includes/js/print/print.js');
+$mainframe->addCSS(_JLPATH_SITE . '/templates/css/print.css');
+$mainframe->addJS(_JLPATH_SITE . '/includes/js/print/print.js');
 
 $pg_link = str_replace(array('&pop=1', '&page=0'), '', $_SERVER['REQUEST_URI']);
 $pg_link = str_replace('index2.php', 'index.php', $pg_link);
 
 ?>
-<div class="logo"><?php echo $mosConfig_sitename; ?></div>
+<!-- Change doctipe clean html output
+@doctorgrif (30.10.13 09:18 -->
+<div class="logo"><?php echo JCore::getCfg('sitename'); ?></div>
 <div id="main"><?php echo $_MOS_OPTION['buffer'];?> </div>
 <div id="ju_foo">
-	<p><?php echo _PRINT_PAGE_LINK; ?>: <em><?php echo JSef::getUrlToSef($pg_link); ?></em></p>
-	<p>&copy;<?php echo $mosConfig_sitename; ?>,&nbsp;'<?php echo date('Y'); ?></p>
+	<p><?php echo _PRINT_PAGE_LINK; ?>: 
+	<em><?php echo JSef::getUrlToSef($pg_link); ?></em>
+	</p>
+	<p>&copy;<?php echo JCore::getCfg('sitename'); ?>,&nbsp;'<?php echo date('Y'); ?></p>
 </div>

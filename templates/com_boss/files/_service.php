@@ -13,4 +13,3 @@ $positions = array(
 		'ConDescription'=> 'Полное описание'
 	)
 );
-?>

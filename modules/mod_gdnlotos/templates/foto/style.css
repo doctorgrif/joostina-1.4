@@ -1,51 +1,32 @@
-.moduletable-foto {
-    width: auto;
-    background-color: #fffbe4;
-    margin: 25px 5px 10px 10px;
-    padding: 5px;
-    border: solid 1px #000000;
-    border-radius: 10px 0 10px 0;
-    text-align: center;
+.moduletable-foto{
+    margin: 15px 0;
+}
+.moduletable-foto h3{
+    color: #999;
+    padding: 7px 20px;
+    border-top: #878787 solid 1px;
+    border-bottom: #878787 solid 1px;
+    margin-bottom: 10px;
+    font-size: 11pt;
+    font-weight: normal;
+    background-color: #444;
+}
+.moduletable-foto h3:hover{
+    background-color: #666;
+    color: #fff;
 }
 
-.moduletable-foto h3 {
-    padding: 7px 4px;
-    margin: -15px -6px 10px 10px;
-    color: #ffffff;
-    background-image: url("../text/fon-01.png");
-    text-align: right;
-    border-right: solid 1px #000000;
+.moduletable-foto .gdn_df_image-foto {
+    padding: 5px 0 5px 25px;
 }
 
-.moduletable-foto a h3:hover {
-    color: #000000;
-    background-color: #ffffff;
-}
-
-.moduletable-foto td {
-}
-
-.moduletable-foto table {
-    margin: 0 auto;
-}
-
-.gdn_df_basic-foto {
-}
-
-/************************************************ изображение */
-.gdn_df_image-foto {
-    padding: 10px;
-}
-
-.gdn_df_image-foto img {
+.moduletable-foto .gdn_df_image-foto img {
     margin: 2px auto;
     padding: 1px;
-    box-shadow: 0.2em 0.2em 3px rgba(122, 122, 122, 0.5);
-    /*border: #cccccc solid 1px;*/
-    float: left;
+    border: #cccccc solid 1px;
 }
 
-.gdn_df_image-foto a img {
-    text-decoration: none;
-    text-align: right;
+.moduletable-foto .gdn_df_image-foto img:hover {
+box-shadow: 0 0 5px rgba(255, 255, 255, 1);
 }
+

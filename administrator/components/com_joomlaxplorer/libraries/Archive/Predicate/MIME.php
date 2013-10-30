@@ -37,4 +37,3 @@ class File_Archive_Predicate_MIME extends File_Archive_Predicate{
 	}
 }
 
-?>

@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-require_once (JPATH_BASE . DS . JADMIN_BASE . '/components/com_xmap/classes/XmapSitemap.php');
+require_once (_JLPATH_ROOT . DS . JADMIN_BASE . '/components/com_xmap/classes/XmapSitemap.php');
 
 class XmapConfig{
 	var $version = '1.1';
@@ -26,23 +26,6 @@ class XmapConfig{
 	var $sitemap_default = 1;
 	var $exclude_css = 0;
 	var $exclude_xsl = 0;
-
-	function XmapConfig(){
-		$version = '1.1';
-		$classname = 'sitemap';
-		$expand_category = 1;
-		$expand_section = 1;
-		$show_menutitle = 1;
-		$columns = 1;
-		$exlinks = 1;
-		$ext_image = 'img_grey.gif';
-		$exclmenus = '';
-		$includelink = 1;
-		$sitemap_default = 1;
-		$exclude_css = 0;
-		$exclude_xsl = 0;
-
-	}
 
 	/** Return $menus as an associative array */
 	function getSitemaps(){
@@ -93,7 +76,7 @@ class XmapConfig{
 			return false;
 		}
 
-		require_once(JPATH_BASE . '/' . JADMIN_BASE . '/components/com_xmap/classes/XmapPlugin.php');
+		require_once(_JLPATH_ROOT . '/' . JADMIN_BASE . '/components/com_xmap/classes/XmapPlugin.php');
 		$extensions = array(
 			//	name			published
 			array('com_boss', 1)
@@ -208,11 +191,9 @@ class XmapConfig{
 
 	/** Restore backup settings */
 	function restore(){
-		global $mosConfig_dbprefix;
-
 		$database = database::getInstance();
 
-		$query = "show table status like '" . $mosConfig_dbprefix . "xmap_backup'";
+		$query = "show table status like '" . JCore::getCfg('dbprefix') . "xmap_backup'";
 		$database->setQuery($query);
 		if(!$database->query()){
 			echo $database->getErrorMsg();
@@ -265,7 +246,7 @@ class XmapConfig{
 			return false;
 		}
 
-		$query = "show table status like '" . $mosConfig_dbprefix . "xmap_ext_backup'";
+		$query = "show table status like '" . JCore::getCfg('dbprefix') . "xmap_ext_backup'";
 		$database->setQuery($query);
 		if(!$database->query()){
 			echo $database->getErrorMsg();

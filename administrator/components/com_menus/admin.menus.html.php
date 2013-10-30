@@ -17,9 +17,8 @@ defined('_JLINDEX') or die();
 class HTML_menusections{
 
 	public static function showMenusections($rows, $pageNav, $search, $levellist, $menutype, $option){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+        $my = JCore::getUser();
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 		mosCommonHTML::loadOverlib();
 		?>
@@ -56,6 +55,7 @@ class HTML_menusections{
 				<th width="20">
 					<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($rows); ?>);"/>
 				</th>
+                <th>ID</th>
 				<th class="title" width="40%"><?php echo _MENUITEM?></th>
 				<th width="5%"><?php echo _PUBLISHED?></th>
 				<th colspan="2" width="5%"><?php echo _ORDERING?></th>
@@ -65,7 +65,6 @@ class HTML_menusections{
 				</th>
 				<th width="10%"><?php echo _ACCESS?></th>
 				<th width="35%" align="left"><?php echo _TYPE?></th>
-				<th>CID</th>
 			</tr>
 			<?php
 			$k = 0;
@@ -80,6 +79,7 @@ class HTML_menusections{
 				<tr class="<?php echo "row$k"; ?>" id="tr-el-<?php echo $row->id;?>">
 					<td><?php echo $i + 1 + $pageNav->limitstart; ?></td>
 					<td><?php echo $checked; ?></td>
+                    <td align="center"><?php echo $row->id; ?></td>
 					<td class="jtd_nowrap" align="left">
 						<?php
 						if($row->checked_out && ($row->checked_out != $my->id)){
@@ -108,7 +108,6 @@ class HTML_menusections{
 						?>
 					</span>
 					</td>
-					<td align="center"><?php echo $row->componentid; ?></td>
 				</tr>
 				<?php
 				$k = 1 - $k;
@@ -330,7 +329,7 @@ class HTML_menusections{
 	/**
 	 * Form to select Menu to copy menu item(s) to
 	 */
-	function copyMenu($option, $cid, $MenuList, $items, $menutype){
+	public static function copyMenu($option, $cid, $MenuList, $items, $menutype){
 		?>
 	<form action="index2.php" method="post" name="adminForm">
 		<br/>

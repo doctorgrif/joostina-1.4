@@ -53,12 +53,8 @@ class XmapAdmin{
 	 */
 	function showSettingsDialog($success = 0){
 		$mainframe = mosMainFrame::getInstance();
-		;
-
-		$database = database::getInstance();
 
 		$menus = $this->getMenus();
-		# $this->sortMenus( $menus );
 
 		$config = &$this->config;
 
@@ -101,8 +97,8 @@ class XmapAdmin{
 	/**
 	 * get the complete list of menus in joomla
 	 */
-	function &getMenus(){
-		$config = &$this->config;
+	function getMenus(){
+
 		$menutypes = mosAdminMenus::menutypes();
 
 		$allmenus = array();
@@ -124,7 +120,7 @@ class XmapAdmin{
 function loadInstalledPlugins(&$rows, &$xmlfile){
 	$database = database::getInstance();
 
-	require_once (JPATH_BASE . '/includes/domit/xml_domit_lite_parser.php');
+	require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_lite_parser.php');
 
 	$query = "SELECT id, extension, published"
 		. "\n FROM #__xmap_ext"
@@ -139,7 +135,7 @@ function loadInstalledPlugins(&$rows, &$xmlfile){
 		$row =& $rows[$i];
 
 		// path to module directory
-		$extensionBaseDir = mosPathName(mosPathName(JPATH_BASE) . '/' . JADMIN_BASE . '/components/com_xmap/extensions/');
+		$extensionBaseDir = mosPathName(mosPathName(_JLPATH_ROOT) . '/' . JADMIN_BASE . '/components/com_xmap/extensions/');
 
 		// xml file for module
 		$xmlfile = $extensionBaseDir . DS . $row->extension . ".xml";
@@ -151,7 +147,7 @@ function loadInstalledPlugins(&$rows, &$xmlfile){
 				continue;
 			}
 
-			$root = &$xmlDoc->documentElement;
+			$root = $xmlDoc->documentElement;
 
 			if($root->getTagName() != 'mosinstall'){
 				continue;
@@ -161,25 +157,25 @@ function loadInstalledPlugins(&$rows, &$xmlfile){
 			}
 
 
-			$element = &$root->getElementsByPath('name', 1);
+			$element = $root->getElementsByPath('name', 1);
 			$row->name = $element ? $element->getText() : '';
 
-			$element = &$root->getElementsByPath('creationDate', 1);
+			$element = $root->getElementsByPath('creationDate', 1);
 			$row->creationdate = $element ? $element->getText() : '';
 
-			$element = &$root->getElementsByPath('author', 1);
+			$element = $root->getElementsByPath('author', 1);
 			$row->author = $element ? $element->getText() : '';
 
-			$element = &$root->getElementsByPath('copyright', 1);
+			$element = $root->getElementsByPath('copyright', 1);
 			$row->copyright = $element ? $element->getText() : '';
 
-			$element = &$root->getElementsByPath('authorEmail', 1);
+			$element = $root->getElementsByPath('authorEmail', 1);
 			$row->authorEmail = $element ? $element->getText() : '';
 
-			$element = &$root->getElementsByPath('authorUrl', 1);
+			$element = $root->getElementsByPath('authorUrl', 1);
 			$row->authorUrl = $element ? $element->getText() : '';
 
-			$element = &$root->getElementsByPath('version', 1);
+			$element = $root->getElementsByPath('version', 1);
 			$row->version = $element ? $element->getText() : '';
 		} else{
 			echo "Missing file '$xmlfile'";
@@ -202,7 +198,7 @@ function xmapUploadPlugin(){
 	$option = 'com_xmap';
 	$element = 'plugin';
 	$client = '';
-	require_once(JPATH_BASE . '/' . JADMIN_BASE . '/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once(_JLPATH_ROOT . '/' . JADMIN_BASE . '/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 
 	// Check if file uploads are enabled
@@ -254,7 +250,7 @@ function xmapInstallPluginFromDirectory(){
 	$option = 'com_xmap';
 	$element = 'plugin';
 	$client = '';
-	require_once(JPATH_BASE . '/' . JADMIN_BASE . '/components/com_xmap/classes/XmapPluginInstaller.php');
+	require_once(_JLPATH_ROOT . '/' . JADMIN_BASE . '/components/com_xmap/classes/XmapPluginInstaller.php');
 	$installer = new XmapPluginInstaller();
 
 	if(!$userfile){
@@ -296,7 +292,7 @@ function xmapUninstallPlugin($extensionid){
  * @param string The message to return
  */
 function xmapUploadFile($filename, $userfile_name, &$msg){
-	$baseDir = mosPathName(JPATH_BASE . '/media');
+	$baseDir = mosPathName(_JLPATH_ROOT . '/media');
 
 	if(file_exists($baseDir)){
 		if(is_writable($baseDir)){

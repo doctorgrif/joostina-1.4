@@ -189,11 +189,7 @@
                 _show_image();
             });
             if (( intDiffW == 0 ) && ( intDiffH == 0 )) {
-                if ($.browser.msie) {
-                    ___pause(250);
-                } else {
-                    ___pause(100);
-                }
+                ___pause(100);
             }
             $('#lightbox-container-image-data-box').css({ width:intImageWidth });
             $('#lightbox-nav-btnPrev,#lightbox-nav-btnNext').css({ height:intImageHeight + (settings.containerBorderSize * 2) });

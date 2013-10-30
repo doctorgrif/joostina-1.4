@@ -32,5 +32,3 @@ class Net_FTP_Observer{
 		return;
 	}
 }
-
-?>

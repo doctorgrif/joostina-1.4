@@ -18,22 +18,7 @@ require_once _JLPATH_ROOT . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR .
 
 if(!defined('IS_ADMIN')) define('IS_ADMIN', 1);
 
-
-require_once (_JLPATH_ROOT . DS . 'includes' . DS . 'globals.php');
-
 require_once (_JLPATH_ROOT . DS . 'configuration.php');
-
-// для совместимости
-$mosConfig_absolute_path = JPATH_BASE;
-
-// обработка безопасного режима
-$http_host = explode(':', $_SERVER['HTTP_HOST']);
-if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site, 0, 8) != 'https://'){
-	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site, 7);
-}
-
-// live_site
-define('JPATH_SITE', $mosConfig_live_site);
 
 // подключение главного файла - ядра системы
 require_once (_JLPATH_ROOT . DS . 'core' . DS . 'core.php');
@@ -43,7 +28,7 @@ require_once (_JLPATH_ROOT . DS . 'core' . DS . 'core.php');
 require_once (_JLPATH_ROOT . DS . 'includes' . DS . 'joostina.php');
 
 // создаём сессии
-session_name(md5($mosConfig_live_site));
+session_name(md5(_JLPATH_SITE));
 session_start();
 
 header("Content-type: text/html; charset=utf-8");
@@ -54,7 +39,7 @@ $task = strval(mosGetParam($_REQUEST, 'task', ''));
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
-$mainframe->set('lang', $mosConfig_lang);
+$mainframe->set('lang', JCore::getCfg('lang'));
 require_once($mainframe->getLangFile());
 
 // получение шаблона страницы
@@ -70,7 +55,7 @@ if(!$my->id){
 }
 
 // запускаем мамботты событий onAfterAdminAjaxStart
-if($mosConfig_mmb_ajax_starts_off == 0){
+if(JCore::getCfg('mmb_ajax_starts_off') == 0){
 	$_MAMBOTS->loadBotGroup('admin');
 	$_MAMBOTS->trigger('onAfterAdminAjaxStart');
 }

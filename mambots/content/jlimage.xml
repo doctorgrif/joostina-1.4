@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosinstall version="1.0.0" type="mambot" group="content">
+    <name>JLImage</name>
+    <version>1.3</version>
+    <creationDate>01.02.2013</creationDate>
+    <modificationDate>14.03.2013</modificationDate>
+    <copyright>(C) 2000-2013 Gold Dragon.</copyright>
+    <author>Gold Dragon</author>
+    <authorEmail>illusive@bk.ru</authorEmail>
+    <authorUrl>gd.joostina-cms.ru</authorUrl>
+    <license>http://www.gnu.org/licenses/gpl.htm GNU/GPL</license>
+    <description>
+        <![CDATA[
+        Замена изображений в контенте "всплывающими" изображениями, увеличивающимися при нажатии.
+		<br>Если вы не хотите чтобы мамбот обрабатывал изображение, вам необходимо в любое место в контенте вставить тэг <b>{{jlimage}}</b>
+        ]]>
+    </description>
+    <files>
+        <filename mambot="jlimage">jlimage.php</filename>
+        <filename mambot="jlimage">plugin_jlimage/imgsketch.php</filename>
+    </files>
+    <params>
+        <param name="directory" type="directory" default="" label="Каталог" description="Выберите, для какого каталога будут действовать данные настройки. Не выбирайте каталог, если хотите чтобы настройки рапространялись на все каталоги."/>
+        <param name="catid" type="text" default="" label="Идентификатор (ID) категории" description="Выберите для на какой категории, или набора категорий (для выбора более одной категории, разделяйте их запятой , ) будут действовать настройки. Оставьте это поле пустым если хотите выбирать содержимое из всех категорий"/>
+        <param name="size" type="text" default="200" label="Максимальная ширина (px)" description="Укажите максимальный размер ширины изображения в пикселях. По умолчанию будет 200px"/>
+        <param name="quality" type="text" default="75" label="Качество миниэскиза" description="Укажите качество миниэскиза. Диапазон значений от 0 (наихудшее качество, наименьший файл) до 100 (наилучшее качество, наибольший файл). По умолчанию используется значение 75"/>
+        <param name="style" type="list" default="0" label="Стиль выравнивания" description="Выберите стиль выравнивания миниэскизов в тексте. По умолчанию используются стили самого изображения.">
+            <option value="0">Стиль изображения</option>
+            <option value="left">Слева</option>
+            <option value="right">Справа</option>
+            <option value="none">Нет выравнивания</option>
+        </param>
+        <param name="style_default" type="list" default="0" label="Стиль выравнивания по умолчанию" description="Выберите стиль выравнивания миниэскизов в тексте при отсутствии стиля в изображении (если выбрано &laquo;Стили изображения&raquo;). По умолчанию используются стиль &laquo;Слева&raquo;.">
+            <option value="0">Оставить как есть</option>
+            <option value="left">Слева</option>
+            <option value="right">Справа</option>
+            <option value="none">Нет выравнивания</option>
+        </param>
+        <param name="correct" type="yesno" default="1" label="Добавлять окончание к ссылке" description="Некоторые внешние ссылки на изображения не имеют окончания, указывающее на тип изображения. Если выбрано ДА, то будет добавлено окончание (JPG, GIF или  PNG) в  зависимости от значения MIME"/>
+        <param name="ignor_small" type="yesno" default="1" label="Игнорировать маленькие изображения" description="Если указано ДА, то мамбот не будет обрабатывать изображения меньше заданного размера ширины."/>
+
+        <param name="@spacer" type="spacer" default="" label="" description=""/>
+
+        <param name="overlay_opacity" type="list" default="0.3" label="Прозрачность фонового затемнения" description="Выберите значение прознрачности фона: 0 - полностью прозрачный, 1 - полностью не прозрачный.">
+            <option value="0">0.0</option>
+            <option value="0.1">0.1</option>
+            <option value="0.2">0.2</option>
+            <option value="0.3">0.3</option>
+            <option value="0.4">0.4</option>
+            <option value="0.5">0.5</option>
+            <option value="0.6">0.6</option>
+            <option value="0.7">0.7</option>
+            <option value="0.8">0.8</option>
+            <option value="0.9">0.9</option>
+            <option value="1">1.0</option>
+        </param>
+        <param name="overlay_color" type="text" default="#000" label="Цвет затемнения" description="Укажите цвет фонового затемнения в шестнадцатиричном RGB формате. По умолчанию #000000 или сокращённый вариант #000."/>
+        <param name="transition_in" type="list" default="elastic" label="Тип перехода при открытии" description="Выберите тип перехода при открытиии изображения. По умолчанию elastic.">
+            <option value="none">none</option>
+            <option value="fade">fade</option>
+            <option value="elastic">elastic</option>
+        </param>
+        <param name="transition_out" type="list" default="elastic" label="Тип перехода при закрытии" description="Выберите тип перехода при закрытии изображения. По умолчанию elastic.">
+            <option value="none">none</option>
+            <option value="fade">fade</option>
+            <option value="elastic">elastic</option>
+        </param>
+        <param name="speed_in" type="text" default="600" label="Скорость перехода при открытии" description="Укажите скорость перехода fade и elastic, в милисекундах при открытии изображения. По умолчанию 600."/>
+        <param name="speed_out" type="text" default="600" label="Скорость перехода при закрытии" description="Укажите скорость перехода fade и elastic, в милисекундах при закрытии изображения. По умолчанию 600."/>
+
+    </params>
+</mosinstall>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

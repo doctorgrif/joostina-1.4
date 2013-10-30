@@ -75,7 +75,7 @@ $pop		= intval(mosGetParam($_GET,'pop'));
 $page		= intval(mosGetParam($_GET,'page'));
 
 $print = false;
-if($pop=='1' && $page==0) $print = true;
+if($pop == '1' && $page == 0) $print = true;
 
 // главное окно рабочего компонента API, для взаимодействия многих 'ядер'
 //$mainframe = new mosMainFrame($database,$option,'.');
@@ -159,8 +159,8 @@ if($print) {
 		$mainframe->addCSS($mosConfig_live_site.'/templates/css/print.css');
 		$mainframe->addJS($mosConfig_live_site.'/includes/js/print/print.js');
 
-		$pg_link	= str_replace(array('&pop=1','&page=0'),'',$_SERVER['REQUEST_URI']);
-		$pg_link	= str_replace('index2.php','index.php',$pg_link);
+		$pg_link = str_replace(array('&pop=1','&page=0'),'',$_SERVER['REQUEST_URI']);
+		$pg_link = str_replace('index2.php','index.php',$pg_link);
 		$pg_link = ltrim($pg_link,'/');
 
 		$_MOS_OPTION['buffer'] = '<div class="logo">'. $mosConfig_sitename .'</div><div id="main">'.$_MOS_OPTION['buffer']."\n</div>\n<div id=\"ju_foo\">"._PRINT_PAGE_LINK." :<br /><i>".JSef::getUrlToSef($pg_link)."</i><br /><br />&copy; ".$mosConfig_sitename.",&nbsp;".date('Y').'</div>';
@@ -207,12 +207,14 @@ if($no_html == 0) {
 		// пролог xml
 		echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 		?>
+<!-- Change doctipe to html5, clean html output, change charset
+@doctorgrif (30.10.13 09:04 -->
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="shortcut icon" href="<?php echo $mosConfig_live_site; ?>/images/favicon.ico" />
-		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
-				<?php echo $mainframe->getHead(); ?>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <link rel="shortcut icon" href="<?php echo $mosConfig_live_site; ?>/images/favicon.ico" />
+                <?php echo $mainframe->getHead(); ?>
 	</head>
 	<body class="contentpane">
 				<?php mosMainBody(); ?>

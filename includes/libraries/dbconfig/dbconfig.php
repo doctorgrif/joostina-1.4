@@ -24,7 +24,7 @@ class DBConfig{
 
 	 */
 	function __construct($group = null, $subgroup = ''){
-		global $option;
+		$option = JSef::getOption();
 
 		$this->_db = database::getInstance();
 

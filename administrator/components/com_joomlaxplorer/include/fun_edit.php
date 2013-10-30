@@ -12,11 +12,7 @@
  **/
 defined('_JLINDEX') or die();
 function savefile($file_name){
-	if(get_magic_quotes_gpc()){
-		$code = stripslashes($GLOBALS['__POST']["code"]);
-	} else{
-		$code = $GLOBALS['__POST']["code"];
-	}
+	$code = $GLOBALS['__POST']["code"];
 	$res = $GLOBALS['jx_File']->file_put_contents($file_name, $code);
 	if($res == false || PEAR::isError($res)){
 		$err = basename($file_name) . ": " . $GLOBALS["error_msg"]["savefile"];
@@ -28,8 +24,6 @@ function savefile($file_name){
 }
 
 function edit_file($dir, $item){
-	$mainframe = mosMainFrame::getInstance();
-	;
 	if(($GLOBALS["permissions"] & 01) != 01)
 		show_error($GLOBALS["error_msg"]["accessfunc"]);
 	$fname = get_abs_item($dir, $item);
@@ -137,9 +131,6 @@ function edit_file($dir, $item){
 	<tr><td>";
 	echo "<input type=\"hidden\" name=\"dosave\" value=\"yes\" />\n";
 	$content = $GLOBALS['jx_File']->file_get_contents($fname);
-	if(get_magic_quotes_runtime()){
-		$content = stripslashes($content);
-	}
 	$content = htmlspecialchars($content);
 	echo '[<a href="javascript:;" onclick="positionIndicator.toggle(); codearea.toggleEditor();return false;">' .
 		$GLOBALS['messages']['editor_simple'] . ' / ' . $GLOBALS['messages']['editor_syntaxhighlight'] .

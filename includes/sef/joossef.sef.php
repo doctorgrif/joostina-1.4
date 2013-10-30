@@ -19,7 +19,7 @@ class SefJoossef implements JSefModel{
 	public static function getUrlToSef($link){
 		// если ссылка идёт на компонент главной страницы - очистим её
 		if((JSef::$cfg_frontpage AND stripos($link, 'option=com_frontpage') > 0 AND !(stripos($link, 'limit'))) OR $link == 'index.php' OR $link == 'index.php?'){
-			$link = JPATH_SITE . '/';
+			$link = _JLPATH_SITE . '/';
 		} else{
 			// Оснавная обработка
 			$link = str_replace('&amp;', '&', $link);
@@ -60,7 +60,7 @@ class SefJoossef implements JSefModel{
 				}
 			}
 
-			$link = (isset($option)) ? JPATH_SITE . '/' . $option . $link . $fragment : '';
+			$link = (isset($option)) ? _JLPATH_SITE . '/' . $option . $link . $fragment : '';
 		}
 		return $link;
 	}

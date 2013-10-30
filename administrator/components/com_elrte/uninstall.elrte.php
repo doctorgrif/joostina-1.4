@@ -17,9 +17,9 @@ defined('_JLINDEX') or die();
 function com_uninstall(){
 	$database = &database::getInstance();
 
-	@unlink(JPATH_BASE . '/mambots/editors/elrte.xml');
-	@unlink(JPATH_BASE . '/mambots/editors/elrte.php');
-	rmdir_rf(JPATH_BASE . '/mambots/editors/elrte');
+	@unlink(_JLPATH_ROOT . '/mambots/editors/elrte.xml');
+	@unlink(_JLPATH_ROOT . '/mambots/editors/elrte.php');
+	rmdir_rf(_JLPATH_ROOT . '/mambots/editors/elrte');
 
 	$query = "DELETE FROM #__mambots WHERE folder = 'editors' AND element = 'elrte'";
 	$database->setQuery($query);

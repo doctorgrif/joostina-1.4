@@ -19,16 +19,14 @@ class ContentView{
 	 * Writes a list of the content items
 	 * @param array An array of content objects
 	 */
-	function showList($rows, $search, $pageNav, $option, $lists, $directory){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+	public static function showList($rows, $search, $pageNav, $option, $lists, $directory){
+        $my = JCore::getUser();
 		$database = database::getInstance();
 		$acl = &gacl::getInstance();
 		mosCommonHTML::loadOverlib();
 		$nullDate = $database->getNullDate();
 
-		$mainframe = mosMainFrame::getInstance();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 		?>
 	<script type="text/javascript">
 		// удаление содержимого с публикации на главной
@@ -186,7 +184,7 @@ class ContentView{
 	<?php
 	}
 
-	function showConf($directorylist, $pageslist, $orderlist){
+	public static function showConf($directorylist, $pageslist, $orderlist){
 		?>
 
 	<form action="index2.php" method="post" name="adminForm">

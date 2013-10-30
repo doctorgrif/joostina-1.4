@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 // ensure user has access to this function
 if(!$acl->acl_check('administration', 'config', 'users', $my->usertype)){
 	mosRedirect('index2.php', _NOT_AUTH);
@@ -23,6 +24,7 @@ $checkid = mosGetParam($_REQUEST, 'checkid', '');
 $component = mosGetParam($_REQUEST, 'component', '');
 $editor = mosGetParam($_REQUEST, 'editor', '');
 
+$task = JSef::getTask();
 switch($task){
 	case 'cancel':
 		cancelMyCheckin();
@@ -43,11 +45,9 @@ switch($task){
 }
 
 function checkall(){
-	global $mosConfig_dbprefix;
 	$database = database::getInstance();
 	$nullDate = $database->getNullDate();
-	$mainframe = mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+	$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 	?>
 <table class="adminheading">
 	<tr>
@@ -66,14 +66,10 @@ function checkall(){
 	$k = 0;
 	foreach($tables as $tn){
 		// make sure we get the right tables based on prefix
-		if(!preg_match("/^" . $mosConfig_dbprefix . "/i", $tn)){
+		if(!preg_match("/^" . JCore::getCfg('dbprefix') . "/i", $tn)){
 			continue;
 		}
 		$fields = $database->getTableFields(array($tn));
-
-		$foundCO = false;
-		$foundCOT = false;
-		$foundE = false;
 
 		$foundCO = isset($fields[$tn]['checked_out']);
 		$foundCOT = isset($fields[$tn]['checked_out_time']);
@@ -132,14 +128,10 @@ function checkall(){
  * @param string The current GET/POST option
  */
 function showMyCheckin($option){
-	global $mosConfig_db;
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
 	$database = database::getInstance();
 
-	$lt = mysql_list_tables($mosConfig_db);
-	$k = 0;
-	$dbprefix = $mainframe->getCfg('mosConfig_dbprefix');
+	$lt = mysql_list_tables(JCore::getCfg('db'));
+	$dbprefix = JCore::getCfg('mosConfig_dbprefix');
 
 	$mosusers = new mosUser($database);
 	$list = "";
@@ -150,7 +142,7 @@ function showMyCheckin($option){
 		if(!preg_match("/^" . $dbprefix . "/i", $tn)){
 			continue;
 		}
-		$lf = mysql_list_fields($mosConfig_db, "$tn");
+		$lf = mysql_list_fields(JCore::getCfg('db'), "$tn");
 		$nf = mysql_num_fields($lf);
 
 		$foundCO = false; // checked_out
@@ -247,7 +239,7 @@ function checkin($pkey, $checkid, $component, $editor){
 	$database = database::getInstance();
 
 	$mainframe = mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+	$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 	if($editor == "Y"){
 		$database->setQuery("UPDATE $component SET checked_out=0, checked_out_time='00:00:00', editor=NULL WHERE $pkey = $checkid AND checked_out > 0");

@@ -1,14 +1,16 @@
 <?php
 defined('_JLINDEX') or die();
 
-$disabled_command = array(
+$disabled_command = array (
 );
 
-$upload_allow = array(
+$upload_allow = array (
+'24' => array("all", "audio", "image", "text", "video", "application/pdf", "application/xml", "application/x-shockwave-flash", "application/zip", "application/x-rar-compressed", "application/x-tar"),
+'25' => array("all", "audio", "image", "text", "video", "application/pdf", "application/xml", "application/x-shockwave-flash", "application/zip", "application/x-rar-compressed", "application/x-tar"),
 );
 
-$file_manager_dir = '/images';
-$file_manager_owndir = '0';
+$file_manager_dir = '/images/stories';
+$file_manager_owndir = '1';
 $root_alias = '';
 $dot_files = '0';
 $dir_size = '0';

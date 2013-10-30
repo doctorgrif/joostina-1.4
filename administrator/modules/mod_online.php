@@ -10,14 +10,16 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 $mainframe = mosMainFrame::getInstance();
-$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 $session_id = stripslashes(mosGetParam($_SESSION, 'session_id', ''));
 
 // Get no. of users online not including current session
-$query = "SELECT COUNT( session_id ) FROM #__session WHERE session_id != " . $database->Quote($session_id);
-$database->setQuery($query);
-$online_num = intval($database->loadResult());
+$database = JCore::getDB();
+$sql = "SELECT COUNT( session_id )
+		FROM #__session
+		WHERE session_id != ?";
+$online_num = intval($database->selectCell($sql, $session_id));
 
 ?>
 <span class="mod_online">

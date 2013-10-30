@@ -26,7 +26,7 @@ function setJSpawParams($name,$value,$transfer_type=false,$default_first=false){
 }
 
 if (defined( '_JLINDEX' )) {//если запуск в среде Joo..., загружаем параметры мамбота
-	global $database, $mosConfig_absolute_path, $mosConfig_live_site, $mosConfig_lang, $mainframe, $j_spaw_config, $my;
+	global $database, $mainframe, $j_spaw_config, $my;
 	if (!session_id()) 
 		session_start();
 	// Get Mambot Parameters
@@ -37,18 +37,18 @@ if (defined( '_JLINDEX' )) {//если запуск в среде Joo..., заг
 	$mambot->load( $id );
 	$params = new mosParameters( $mambot->params );
 	$j_spaw_config = $params->toArray();
-	SpawConfig::setStaticConfigItem('SITE_PATH', $mosConfig_absolute_path,SPAW_CFG_TRANSFER_SECURE);
-	SpawConfig::setStaticConfigItem('SITE_URL', $mosConfig_live_site);
-	$site_dir = preg_replace('|^http://[^/]+|','',$mosConfig_live_site);
+	SpawConfig::setStaticConfigItem('SITE_PATH', _JLPATH_ROOT,SPAW_CFG_TRANSFER_SECURE);
+	SpawConfig::setStaticConfigItem('SITE_URL', _JLPATH_SITE);
+	$site_dir = preg_replace('|^http://[^/]+|','',_JLPATH_SITE);
 	SpawConfig::setStaticConfigItem('SITE_DIR', $site_dir ,SPAW_CFG_TRANSFER_SECURE);//url без домена
 }
-if(!defined('JPATH_BASE')) define('JPATH_BASE', $_SERVER['DOCUMENT_ROOT']);
+if(!defined('_JLPATH_ROOT')) define('_JLPATH_ROOT', $_SERVER['DOCUMENT_ROOT']);
 // sets physical filesystem directory of web site root
 // if calculation fails (usually if web server is not apache) set this manually
-SpawConfig::setStaticConfigItem('DOCUMENT_ROOT', JPATH_BASE.'/');
+SpawConfig::setStaticConfigItem('DOCUMENT_ROOT', _JLPATH_ROOT.'/');
 // sets physical filesystem directory where spaw files reside
 // should work fine most of the time but if it fails set SPAW_ROOT manually by providing correct path
-SpawConfig::setStaticConfigItem('SPAW_ROOT', JPATH_BASE.'/mambots/editors/spaw/');
+SpawConfig::setStaticConfigItem('SPAW_ROOT', _JLPATH_ROOT.'/mambots/editors/spaw/');
 // sets virtual path to the spaw directory on the server
 // if calculation fails set this manually
 SpawConfig::setStaticConfigItem('SPAW_DIR', '/mambots/editors/spaw/');
@@ -180,7 +180,7 @@ SpawConfig::setStaticConfigItem('toolbarset_mini',
 );
 
 if (defined( '_JLINDEX' )) {//если запуск в среде Joo..., дозагружаем параметры мамбота
-	global $mosConfig_absolute_path, $mosConfig_live_site, $j_spaw_config, $my;
+	global $j_spaw_config, $my;
 	// data for style (css class) dropdown in table properties dialog
 	setJSpawParams("table_styles",
 	  array(
@@ -217,7 +217,7 @@ if (defined( '_JLINDEX' )) {//если запуск в среде Joo..., доз
 	);
 	$userdir = '';
 	if(@$j_spaw_config['user_dir'] == 1) {
-		$userdir = $mosConfig_absolute_path.'/images/stories/users';
+		$userdir = _JLPATH_ROOT.'/images/stories/users';
 		is_dir($userdir) or mkdir($userdir) or die("Error creating dir $userdir !");
 		$userdir .= '/'.$my->id;
 		is_dir($userdir) or mkdir($userdir) or die("Error creating dir $userdir !");
@@ -229,7 +229,7 @@ if (defined( '_JLINDEX' )) {//если запуск в среде Joo..., доз
 	  array(
 	    array(
 	      'dir'     => $mediadir,
-	      'fsdir'   => $mosConfig_absolute_path.'/images/stories/'.$userdir, // optional absolute physical filesystem path
+	      'fsdir'   => _JLPATH_ROOT.'/images/stories/'.$userdir, // optional absolute physical filesystem path
 	      'caption' => 'Flash movies',
 	      'params'  => array(
 	        'allowed_filetypes' => array('flash')
@@ -237,7 +237,7 @@ if (defined( '_JLINDEX' )) {//если запуск в среде Joo..., доз
 	    ),
 	    array(
 	      'dir'     => $mediadir,
-	      'fsdir'   => $mosConfig_absolute_path.'/images/stories/'.$userdir, // optional absolute physical filesystem path
+	      'fsdir'   => _JLPATH_ROOT.'/images/stories/'.$userdir, // optional absolute physical filesystem path
 	      'caption' => 'Images',
 	      'params'  => array(
 	        'default_dir' => true, // set directory as default (optional setting)
@@ -246,7 +246,7 @@ if (defined( '_JLINDEX' )) {//если запуск в среде Joo..., доз
 	    ),
 	    array(
 	      'dir'     => $mediadir,
-	      'fsdir'   => $mosConfig_absolute_path.'/images/stories/'.$userdir, // optional absolute physical filesystem path
+	      'fsdir'   => _JLPATH_ROOT.'/images/stories/'.$userdir, // optional absolute physical filesystem path
 	      'caption' => 'Files',
 	      'params'  => array(
 	        'allowed_filetypes' => array('any')
@@ -258,10 +258,10 @@ if (defined( '_JLINDEX' )) {//если запуск в среде Joo..., доз
 
 	$tempcss = '';
 	if( @$j_spaw_config['template'] == 1 ) { //если используем css шаблона
-		$tempcss = $mosConfig_live_site.'/templates/'.$mainframe->getTemplate().'/css/template_css.css';
+		$tempcss = _JLPATH_SITE.'/templates/'.$mainframe->getTemplate().'/css/template_css.css';
 		if (!file_exists($tempcss)) {//для FrosTPK : )
 			$database->setQuery( "SELECT template FROM #__templates_menu WHERE client_id='0' AND menuid='0'" );
-			$tempcss = $mosConfig_live_site.'/templates/'.$database->loadResult().'/css/template_css.css';
+			$tempcss = _JLPATH_SITE.'/templates/'.$database->loadResult().'/css/template_css.css';
 		}
 	}
 	if($tempcss)

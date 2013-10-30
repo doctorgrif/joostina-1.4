@@ -10,8 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+$my = JCore::getUser();
 
 $task = mosGetParam($_GET, 'task', 'publish');
 $act = mosGetParam($_GET, 'act', '');
@@ -33,8 +32,7 @@ switch($task){
 }
 
 function x_cat_publish($id = null){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if(!$id) return 'error-id';
@@ -64,8 +62,6 @@ function x_cat_publish($id = null){
 }
 
 function x_client_publish($id = null){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
 	$database = database::getInstance();
 
 	if(!$id) return 'error-id';

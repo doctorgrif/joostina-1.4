@@ -10,11 +10,12 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('admin_html'));
 
 $cid = josGetArrayInts('cid');
 $id = intval(mosGetParam($_REQUEST, 'id', 0));
-
+$task = JSef::getTask();
 switch($task){
 	case 'edit':
 		editLink($id);
@@ -112,8 +113,8 @@ function editLink($id = 0){
 	$row = new mosComponent($database);
 	$row->load($id);
 
-	$pathA = JPATH_BASE . '/includes/js/ThemeOffice';
-	$pathL = JPATH_SITE . '/includes/js/ThemeOffice';
+	$pathA = _JLPATH_ROOT . '/includes/js/ThemeOffice';
+	$pathL = _JLPATH_SITE . '/includes/js/ThemeOffice';
 	$images = array();
 	$folders = array();
 	$folders[] = mosHTML::makeOption('/');
@@ -226,11 +227,12 @@ function saveLink(){
 }
 
 function viewLinks(){
-	global $mosConfig_list_limit, $option, $section, $menutype;
+	global $section, $menutype;
+	$option = JSef::getOption();
 	$mainframe = mosMainFrame::getInstance();
 	$database = database::getInstance();
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$section}limitstart", 'limitstart', 0));
 	$levellimit = intval($mainframe->getUserStateFromRequest("view{$option}limit$menutype", 'levellimit', 10));
 	$database->setQuery("SELECT* FROM #__components ORDER by ordering, name");

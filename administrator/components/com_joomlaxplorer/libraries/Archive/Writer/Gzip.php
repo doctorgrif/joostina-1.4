@@ -63,5 +63,3 @@ class File_Archive_Writer_Gzip extends File_Archive_Writer{
 		gzwrite($this->gzfile, $data);
 	}
 }
-
-?>

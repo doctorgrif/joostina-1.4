@@ -152,8 +152,8 @@ class BossYouTubePlugin{
 	}
 
 	//расположение иконки плагина начиная со слеша от корня сайта
-	function getFieldIcon($directory){
-		return "/images/boss/$directory/plugins/fields/" . __CLASS__ . "/images/webcam.png";
+	function getFieldIcon(){
+		return "/components/com_boss/plugins/fields/" . __CLASS__ . "/images/webcam.png";
 	}
 
 	function install(){
@@ -174,5 +174,3 @@ class BossYouTubePlugin{
 		return $search;
 	}
 }
-
-?>

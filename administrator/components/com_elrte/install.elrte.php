@@ -16,7 +16,7 @@ defined('_JLINDEX') or die();
 function com_install(){
 
 	//Создание директории для пользовательских изображений
-	$main_dir = JPATH_BASE . '/' . 'user_images';
+	$main_dir = _JLPATH_ROOT . '/' . 'user_images';
 	joi_check_dir($main_dir);
 
 	//Установка бота
@@ -38,8 +38,8 @@ function joi_check_dir($dir){
 
 
 function joi_unzip($zip, $unzip_dir){
-	require_once (JPATH_BASE . '/administrator/includes/pcl/pclzip.lib.php');
-	require_once (JPATH_BASE . '/administrator/includes/pcl/pclerror.lib.php');
+	require_once (_JLPATH_ROOT . '/administrator/includes/pcl/pclzip.lib.php');
+	require_once (_JLPATH_ROOT . '/administrator/includes/pcl/pclerror.lib.php');
 
 	$zipfile = new PclZip($zip);
 
@@ -55,8 +55,8 @@ function joi_unzip($zip, $unzip_dir){
 function joi_install_bot(){
 	$database = &database::getInstance();
 
-	$zipfile = JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'elrte.zip';
-	$unzip_dir = JPATH_BASE . DS . 'mambots' . DS . 'editors';
+	$zipfile = _JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'elrte.zip';
+	$unzip_dir = _JLPATH_ROOT . DS . 'mambots' . DS . 'editors';
 
 	if(!joi_unzip($zipfile, $unzip_dir)){
 		echo 'Не удалось распаковать архив ' . $zipfile . '<br />';

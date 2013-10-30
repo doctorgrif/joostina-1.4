@@ -47,4 +47,3 @@ keyToNext:				'n',		// (string) (n = next) Letter to show the next image.
 imageArray:				[],
 activeImage:			0
 
-?>

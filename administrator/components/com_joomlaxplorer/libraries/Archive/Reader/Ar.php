@@ -242,4 +242,3 @@ class File_Archive_Reader_Ar extends File_Archive_Reader_Archive{
 	}
 }
 
-?>

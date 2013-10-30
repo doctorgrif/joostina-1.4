@@ -13,7 +13,7 @@ defined('_JLINDEX') or die();
 mosAdminMenus::menuItem($type);
 
 $directory = getDirectory($menu);
-
+$task = JSef::getTask();
 switch($task){
 //	case 'boss_all_content':
 //		// this is the new item, ie, the same name as the menu `type`

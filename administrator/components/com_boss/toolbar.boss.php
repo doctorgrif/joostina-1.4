@@ -9,6 +9,7 @@
  */
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once($mainframe->getPath('toolbar_html'));
 
 $act = mosGetParam($_REQUEST, 'act', "");

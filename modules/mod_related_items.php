@@ -10,9 +10,9 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-global $mosConfig_offset, $option, $task;
+global $option, $task;
 $mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+$my = JCore::getUser();
 
 $id = intval(mosGetParam($_REQUEST, 'contentid', null));
 $directory = intval(mosGetParam($_REQUEST, 'directory', null));

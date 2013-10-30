@@ -119,4 +119,3 @@ class File_Archive_Reader_ChangeBaseName extends File_Archive_Reader_Relay{
 	}
 }
 
-?>

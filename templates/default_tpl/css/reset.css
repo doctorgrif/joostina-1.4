@@ -135,12 +135,14 @@ button, input, select, textarea {
     margin: 0;
 }
 
-input:valid, textarea:valid {
+input:valid,
+textarea:valid {
 }
 
-input:invalid, textarea:invalid {
+input:invalid,
+textarea:invalid {
     border-radius: 1px;
-    box-shadow: 0px 0px 5px red;
+    box-shadow: 0 0 5px red;
 }
 
 button {
@@ -148,6 +150,19 @@ button {
     overflow: visible;
 }
 
-.clear {
+.clear:before, .clear:after {
+    content: ".";
+    display: table;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+
+.clear:after {
     clear: both;
+}
+
+.clear {
+    *zoom: 1;
 }

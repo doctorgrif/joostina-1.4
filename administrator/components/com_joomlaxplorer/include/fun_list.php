@@ -116,7 +116,7 @@ function make_tables($dir, &$dir_list, &$file_list, &$tot_file_size, &$num_items
 function print_table($dir, $list, $allow){
 	global $dir_up;
 	$mainframe = mosMainFrame::getInstance(true);
-	$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/';
+	$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico/';
 	if(!is_array($list))
 		return;
 	if($dir != "" || strstr($dir, _QUIXPLORER_PATH)){
@@ -167,7 +167,7 @@ function print_table($dir, $list, $allow){
 			if(get_is_editable($abs_item) && $is_writable){
 				$link = make_link('edit', $dir, $item);
 			} elseif($is_readable){
-				if(strstr(get_abs_dir($dir), JPATH_BASE) && !$GLOBALS['jx_File']->is_link($abs_item)){
+				if(strstr(get_abs_dir($dir), _JLPATH_ROOT) && !$GLOBALS['jx_File']->is_link($abs_item)){
 					$link = $GLOBALS["home_url"] . "/" . get_rel_item($dir, $item);
 					$target = '_blank';
 				} else{
@@ -305,8 +305,8 @@ function list_dir($dir){
 	global $dir_up;
 	$mainframe = mosMainFrame::getInstance();
 	mosCommonHTML::loadOverlib();
-	$mainframe->addJS(JPATH_SITE . '/' . JADMIN_BASE . '/components/com_joomlaxplorer/scripts/joomlaxplorer.js');
-	$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+	$mainframe->addJS(_JLPATH_SITE . '/' . JADMIN_BASE . '/components/com_joomlaxplorer/scripts/joomlaxplorer.js');
+	$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 	?>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
 <?php

@@ -10,11 +10,12 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('toolbar_html'));
 require_once ($mainframe->getPath('toolbar_default'));
 
 $cid = josGetArrayInts('cid');
-
+$task = JSef::getTask();
 switch($task){
 	// Category
 	case 'newcategory':
@@ -57,7 +58,6 @@ switch($task){
 		break;
 
 	case 'backup':
-	case 'restore':
 	case 'dorestore':
 		break;
 }

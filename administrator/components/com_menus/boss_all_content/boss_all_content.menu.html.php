@@ -19,8 +19,9 @@ defined('_JLINDEX') or die();
  */
 class boss_all_content_menu_html{
 
-	function editCategory(&$menu, &$lists, &$params, $option){
+	public static function editCategory($menu, &$lists, &$params, $option){
 		mosCommonHTML::loadOverlib();
+        $name = (isset($lists['directoryconf']->name)) ? $lists['directoryconf']->name : '';
 		?>
 	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
 	<script language="javascript" type="text/javascript">
@@ -42,7 +43,10 @@ class boss_all_content_menu_html{
 		<table class="adminheading">
 			<tr>
 				<th class="menus">
-					<?php echo $menu->id ? _EDITING . ' -' : _CREATION . ' -'; ?> <?php echo _MENU_PUNKT ?>:: <?php echo $lists['directoryconf']->name ?> → <?php echo _MENU_BOSS_ALL_CONTENT?>
+					<?php echo $menu->id ? _EDITING . ' -' : _CREATION . ' -'; ?>
+                    <?php echo _MENU_PUNKT ?>::
+                    <?php echo $name ?> →
+                    <?php echo _MENU_BOSS_ALL_CONTENT?>
 				</th>
 			</tr>
 		</table>

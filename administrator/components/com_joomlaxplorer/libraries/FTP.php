@@ -932,4 +932,3 @@ return true;
 	}
 }
 
-?>

@@ -262,9 +262,6 @@ class xajax{
 		}
 		if($bFoundFunction){
 			for($i = 0; $i < sizeof($aArgs); $i++){
-				if(get_magic_quotes_gpc() == 1 && is_string($aArgs[$i])){
-					$aArgs[$i] = stripslashes($aArgs[$i]);
-				}
 				if(stristr($aArgs[$i], "<xjxobj>") != false){
 					$aArgs[$i] = $this->_xmlToArray("xjxobj", $aArgs[$i]);
 				} else
@@ -584,16 +581,6 @@ class xajax{
 				foreach($aArray as $key => $value){
 					$aArray[$key] = $this->_decodeUTF8Data($value);
 				}
-			}
-			if(get_magic_quotes_gpc() == 1){
-				$newArray = array();
-				foreach($aArray as $sKey => $sValue){
-					if(is_string($sValue))
-						$newArray[$sKey] = stripslashes($sValue);
-					else
-						$newArray[$sKey] = $sValue;
-				}
-				$aArray = $newArray;
 			}
 		}
 		return $aArray;

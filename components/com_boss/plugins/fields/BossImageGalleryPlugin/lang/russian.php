@@ -51,5 +51,3 @@ DEFINE("BOSS_PLG_GALLERY_TAG_FONTSIZE", "Шрифт копирайта");
 DEFINE("BOSS_PLG_GALLERY_TAG_FONTSIZE_LONG", "Высота шрифта копирайта, только число, по умолчанию 8");
 DEFINE("BOSS_PLG_GALLERY_TAG_COLOR", "Цвет копирайта");
 DEFINE("BOSS_PLG_GALLERY_TAG_COLOR_LONG", "Цвет копирайта, по умолчанию #FFFFFF");
-
-?>

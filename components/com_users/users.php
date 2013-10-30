@@ -10,14 +10,15 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-global $task, $option;
+$task = JSef::getTask();
+$option = JSef::getOption();
 $mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+$my = JCore::getUser();
 
 userHelper::_load_core_js();
 ?>
 <script type="text/javascript">
-	var _comuser_url = '<?php echo JPATH_SITE;?>/components/com_users';
+	var _comuser_url = '<?php echo _JLPATH_SITE;?>/components/com_users';
 	var _comuser_ajax_handler = 'ajax.index.php?option=com_users';
 	var _comuser_defines = new Array();
 </script>
@@ -187,7 +188,7 @@ function userEdit($option, $uid, $submitvalue){
 
 function userSave($option, $uid){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+	$my = JCore::getUser();
 
 	// simple spoof check security
 	josSpoofCheck();
@@ -313,10 +314,10 @@ function userList($gid, $limit, $limitstart = 0){
 	if($params->get('template_dir')){
 		$template_dir = 'templates' . DS . JTEMPLATE . DS . 'html' . DS . 'com_users' . DS . 'userlist';
 	}
-	if(is_file($template_file = JPATH_BASE . DS . $template_dir . DS . $template)){
+	if(is_file($template_file = _JLPATH_ROOT . DS . $template_dir . DS . $template)){
 		include_once($template_file);
 	} else{
-		include_once(JPATH_BASE . DS . $template_dir . DS . 'default.php');
+		include_once(_JLPATH_ROOT . DS . $template_dir . DS . 'default.php');
 	}
 
 }
@@ -446,7 +447,7 @@ function lostPassForm($option){
 	if($user_config->get('template_dir')){
 		$template_dir = 'templates' . DS . JTEMPLATE . '/html/com_users/lostpass';
 	}
-	$template_file = JPATH_BASE . DS . $template_dir . DS . $template;
+	$template_file = _JLPATH_ROOT . DS . $template_dir . DS . $template;
 
 	if(is_file($template_file)){
 		include_once ($template_file);
@@ -525,7 +526,7 @@ function registerForm($option, $useractivation){
 
 	if(!$params->get('template')){
 		if($type){
-			if(is_file(JPATH_BASE . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'registration' . DS . $type . '.php')){
+			if(is_file(_JLPATH_ROOT . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'registration' . DS . $type . '.php')){
 				$template = $type . '.php';
 			}
 			$gid = $acl->get_group_id($type, 'ARO');
@@ -536,7 +537,7 @@ function registerForm($option, $useractivation){
 	// used for spoof hardening
 	$validate = josSpoofValue();
 
-	include (JPATH_BASE . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'registration' . DS . $template);
+	include (_JLPATH_ROOT . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'registration' . DS . $template);
 
 }
 
@@ -639,10 +640,10 @@ function saveRegistration(){
 	if($mainframe->getCfg('useractivation') == 1){
 		$email_info['message'] = sprintf(_USEND_MSG_ACTIVATE, $email_info['name'],
 			$mainframe->getCfg('sitename'),
-			JPATH_SITE . "/index.php?option=com_users&task=activate&activation=" . $row->activation,
-			JPATH_SITE, $email_info['username'], $pwd);
+			_JLPATH_SITE . "/index.php?option=com_users&task=activate&activation=" . $row->activation,
+			_JLPATH_SITE, $email_info['username'], $pwd);
 	} else{
-		$email_info['message'] = sprintf(_USEND_MSG, $email_info['name'], $mainframe->getCfg('sitename'), JPATH_SITE);
+		$email_info['message'] = sprintf(_USEND_MSG, $email_info['name'], $mainframe->getCfg('sitename'), _JLPATH_SITE);
 	}
 	$email_info['message'] = html_entity_decode($email_info['message'], ENT_QUOTES);
 
@@ -693,13 +694,13 @@ function saveRegistration(){
 		if(!$params->get('template')){
 			$group_name = $acl->get_group_name($row->gid, 'ARO');
 			if($group_name){
-				if(!is_file(JPATH_BASE . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'after_registration' . DS . $group_name . '.php')){
+				if(!is_file(_JLPATH_ROOT . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'after_registration' . DS . $group_name . '.php')){
 					$template = $group_name . '.php';
 				}
 			}
 		}
 
-		include (JPATH_BASE . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'after_registration' . DS . $template);
+		include (_JLPATH_ROOT . DS . 'components' . DS . 'com_users' . DS . 'view' . DS . 'after_registration' . DS . $template);
 		return;
 
 	} else{
@@ -711,7 +712,7 @@ function saveRegistration(){
 
 function activate(){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+	$my = JCore::getUser();
 	$database = database::getInstance();
 
 	if($my->id){

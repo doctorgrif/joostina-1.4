@@ -152,7 +152,7 @@ class contentTags extends mosDBTable{
 
 	function arr_to_links($tags, $ds = ', '){
 		if(!$tags){
-			return;
+			return null;
 		}
 
 		$return = array();

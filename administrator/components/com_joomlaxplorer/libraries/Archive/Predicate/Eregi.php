@@ -20,5 +20,3 @@ class File_Archive_Predicate_Eregi extends File_Archive_Predicate{
 		return preg_match("/" . $this->ereg . "/i", $source->getFilename());
 	}
 }
-
-?>

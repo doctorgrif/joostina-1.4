@@ -1,6 +1,7 @@
 <?php
 /**
  * Joostina Lotos CMS 1.4.1
+ *
  * @package   LANGUAGE
  * @version   1.4.1
  * @author    Gold Dragon <illusive@bk.ru>
@@ -16,7 +17,7 @@ defined('_JLINDEX') or die();
 
 /**
  * Класс для работы с языковыми файлами
- * @see http://wiki.joostina-cms.ru/index.php/JLang
+ * @see http://wiki.joostina-cms.ru/index.php/JLLang
  *
  * @example
  *     типы языковых файлов
@@ -30,167 +31,89 @@ defined('_JLINDEX') or die();
  *     комментарии начинаются с "точка с запятой"
  *     пример названия файла: com.mycomponent.lang.ini, mod.mymodules.lang.ini
  */
-class JLang{
+class JLLang
+{
 
-	/** @var object Интерфейс */
-	private static $_instance = null;
+    /** @var array Массив Ключ-Значение */
+    private static $language = array();
 
-	/** @var array Массив Ключ-Значение */
-	public static $language = array();
+    private static $lang_codes
+        = array(
+            'bel' => 'belarusian', 'deu' => 'german', 'eng' => 'english', 'spa' => 'spanish', 'fra' => 'french', 'ita' => 'italian', 'rus' => 'russian', 'ukr' => 'ukrainian'
+        );
 
-	/** @var array Код языка */
-	public $lang_codes = array();
+    /**
+     * Подключение языкового файла
+     *
+     * @param null $expansion - расширение
+     * @param null $lang      - язык
+     *
+     * @return array - массив Ключ-Значение
+     */
+    public static function getLang($expansion = null, $lang = null)
+    {
+        $result = array();
+        if (!is_null($expansion)) {
 
-	/** @var null|string - Языковая константа (например, 'ru-RU') */
-	public static $lang = null;
+            // если язык не указан или не корректен, подключаем по умолчнию
+            if (is_null($lang) and !preg_match('#([a-z]{3})#', $lang)) {
+                $lang = array_search(JCore::getCfg('lang'), self::$lang_codes);
+            }
 
-	/** @var null|string - расширение (например, 'com.mycom', 'mod.mymod', 'plg.myplagin') */
-	public static $expansion = null;
+            // на всякий случай корректируем расширение если вдруг ошибка
+            $type_a = array('sys_', 'front_', 'admin_', 'com_', 'mod_', 'plg_', 'tpl_');
+            $type_b = array('sys.', 'front.', 'admin.', 'com.', 'mod.', 'plg.', 'tpl.');
+            $expansion = str_replace($type_a, $type_b, $expansion);
 
-	/** @var null|string - путь до языкового файла */
-	public static $lang_path = null;
+            // Проверяем существует ли уже языковой файл
+            if (!isset(self::$language[$lang . '.' . $expansion])) {
 
-	/**
-	 * Конструктор
-	 *
-	 * @param string      $expansion - расширение (компонент, модуль, плагин)
-	 * @param string      $lang      - язык
-	 */
-	private function __construct($expansion, $lang){
-		$this->lang_codes = array(
-			'be-BY' => 'belorussian', 'bg-BG' => 'bulgarian', 'ca-ES' => 'catalan', 'cs-CZ' => 'czech', 'da-DK' => 'danish', 'de-DE' => 'german', 'el-GR' => 'greek', 'en-GB' => 'english', 'es-ES' => 'spanish', 'et-EE' => 'estonian', 'eu-ES' => 'basque', 'fi-FI' => 'finnish', 'fr-FR' => 'french', 'gl-ES' => 'galician', 'hr-HR' => 'croatian', 'hu-HU' => 'hungarian', 'it-IT' => 'italian', 'ja-JP' => 'japanese', 'lv-LV' => 'latvian', 'nb-NO' => 'norwegian', 'nl-NL' => 'dutch', 'pl-PL' => 'polish', 'pt-BR' => 'portuguese', 'pt-PT' => 'portuguese', 'ro-RO' => 'romanian', 'ru-RU' => 'russian', 'sk-SK' => 'slovak', 'sl-SL' => 'slovenian ', 'sr-YU' => 'serbian ', 'sv-SE' => 'swedish ', 'th-TH' => 'thai ', 'tr-TR' => 'turkish', 'uk-UA' => 'ukrainian'
-		);
+                // подключаем языковой файл
+                $pathFile = _JLPATH_LANG . '/' . $lang . '/' . $expansion . '.lang.ini';
+                if (is_readable($pathFile)) {
+                    $lang_ini = parse_ini_file($pathFile);
+                    self::$language[$lang . '.' . $expansion] = $lang_ini;
+                    $result = $lang_ini;
+                }
+            } else {
+                $result = self::$language[$lang . '.' . $expansion];
+            }
+        }
+        return $result;
+    }
 
-		if(!preg_match('#([a-z]{2}-[A-Z]{2})#', $lang)){
-			// попытка получить код языка из его названия
-			$lang = $this->checkLang($lang);
-		}
-
-		// на всякий случай корректируем расширение если вдруг ошибка
-		$type_a = array('sys_', 'front_', 'admin_', 'com_', 'mod_', 'plg_', 'tpl_');
-		$type_b = array('sys.', 'front.', 'admin.', 'com.', 'mod.', 'plg.', 'tpl.');
-		$count = 1;
-		self::$expansion = str_replace($type_a, $type_b, $expansion, $count);
-
-		self::$lang = $lang;
-
-		$this->load($expansion, $lang);
-	}
-
-	/**
-	 * @static   Получаем объект
-	 *
-	 * @param null|string $expansion - расширение (компонент, модуль, плагин)
-	 * @param string      $lang      - язык
-	 *
-	 * @return object
-	 */
-	public static function getInstance($expansion = null, $lang = 'ru-RU'){
-		if(!is_object(self::$_instance)){
-			self::$_instance = new JLang($expansion, $lang);
-		}
-		return self::$_instance;
-	}
-
-	/**
-	 * Попытка найти код языка по названию или вернцуть по умолчанию
-	 * @param null|string $lang - название языка
-	 *
-	 * @return mixed|null|string - код языка
-	 */
-	private function checkLang($lang = null){
-		$lang = array_search($lang, $this->lang_codes);
-		// если ничего не найдено, то берём "русский" по умолчанию
-		if(!$lang){
-			$lang = 'ru-RU';
-		}
-		return $lang;
-	}
-
-	/**
-	 * Подключение языкового файла
-	 */
-	private function load(){
-		$pathFile = _JLPATH_LANG . DS . self::$lang . DS . self::$expansion . '.lang.ini';
-		if(!isset(self::$language[self::$expansion]) and is_file($pathFile)){
-			self::$lang_path = $pathFile;
-			self::$language = parse_ini_file($pathFile);
-		}
-	}
-
-	/**
-	 * @static - Возвращает значение ключа
-	 *
-	 * @param string $key    - ключ языка
-	 * @param bool   $jsSafe - TRUE если необходимо экранирование
-	 *
-	 * @return string - значение ключа
-	 */
-	public static function _($key, $jsSafe = false){
-		$string = '';
-
-		if(isset(self::$language[$key])){
-			$string = self::$language[$key];
-
-			if($jsSafe){
-				$string = addslashes($string);
-			}
-		} else{
-			_pdump($key);
-			//$string = $key;
-		}
-		return $string;
-	}
-
-	/**
-	 * @static Возвращает код языка
-	 *
-	 * @return mixed|null|string - код языка
-	 */
-	public static function getLanguage(){
-		return self::$lang;
-	}
-
-	/**
-	 * @static Возвращает путь до языкового файла
-	 *
-	 * @return null|string - путь до файла
-	 */
-	public static function getLangFile(){
-		return self::$lang_path;
-	}
-
-	/**
-	 * @static Подключение языковых файлов по категориям
-	 *
-	 * @param array $ind - тип языковых фалов
-	 *     'front' - системные клиентской части
-	 *     'admin' - системные администранивной части
-	 *     'com' - все компоненты
-	 *     'mod' - все модули
-	 *     'plg' - все плагины
-	 *     'tpl' - все шаблоны
-	 */
-	public function loadAll($ind = array()){
-		if(!is_array($ind)){
-			$ind = array($ind);
-		}
-		$fileNames = scandir(_JLPATH_LANG . DS . self::$lang);
-
-		$expansion = array();
-
-		foreach($fileNames as $fileName){
-			$tmp1 = preg_match('#^(front|admin|com|mod|plg|tpl)\.([a-z0-9_]+)(\.lang\.ini)$#', $fileName, $tmp2);
-			if($tmp1){
-				foreach($ind as $value){
-					if($tmp2[1] == $value){
-						self::$expansion = $tmp2[1] . '.' . $tmp2[2];
-						$this->load();
-						$expansion = array_merge($expansion, self::$language);
-					}
-				}
-			}
-		}
-		self::$language = $expansion;
-	}
+    /**
+     * @static Подключение языковых файлов по категориям
+     *
+     * @param array $ind - тип языковых фалов
+     *     'front' - системные клиентской части
+     *     'admin' - системные администранивной части
+     *     'com' - все компоненты
+     *     'mod' - все модули
+     *     'plg' - все плагины
+     *     'tpl' - все шаблоны
+     */
+    public function loadAll($ind = array())
+    {
+//        if (!is_array($ind)) {
+//            $ind = array($ind);
+//        }
+//        $fileNames = scandir(_JLPATH_LANG . DS . self::$lang);
+//
+//        $expansion = array();
+//
+//        foreach ($fileNames as $fileName) {
+//            $tmp1 = preg_match('#^(front|admin|com|mod|plg|tpl)\.([a-z0-9_]+)(\.lang\.ini)$#', $fileName, $tmp2);
+//            if ($tmp1) {
+//                foreach ($ind as $value) {
+//                    if ($tmp2[1] == $value) {
+//                        self::$expansion = $tmp2[1] . '.' . $tmp2[2];
+//                        $this->load();
+//                        $expansion = array_merge($expansion, self::$language);
+//                    }
+//                }
+//            }
+//        }
+//        self::$language = $expansion;
+    }
 }

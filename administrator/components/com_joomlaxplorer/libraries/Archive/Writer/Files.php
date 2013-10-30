@@ -33,7 +33,7 @@ class File_Archive_Writer_Files extends File_Archive_Writer{
 
 	function mkdirr($pathname){
 		if(is_dir($pathname) || empty($pathname)){
-			return;
+			return null;
 		}
 		if(is_file($pathname)){
 			return PEAR::raiseError("File $pathname exists, unable to create directory");
@@ -162,4 +162,3 @@ class File_Archive_Writer_Files extends File_Archive_Writer{
 	}
 }
 
-?>

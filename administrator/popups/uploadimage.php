@@ -13,7 +13,7 @@ define('_JLINDEX', 1);
 require ('../includes/auth.php');
 
 $mainframe = mosMainFrame::getInstance(true);
-$mainframe->set('lang', $mosConfig_lang);
+$mainframe->set('lang', JCore::getCfg('lang'));
 include_once($mainframe->getLangFile());
 
 /*
@@ -60,11 +60,11 @@ switch($option){
 		break;
 }
 // mainframe is an API workhorse, lots of 'core' interaction routines
-$mainframe = new mosMainFrame($database, $option, JPATH_BASE, true);
+$mainframe = new mosMainFrame($database, $option, _JLPATH_ROOT, true);
 $directory = mosGetParam($_REQUEST, 'directory', '');
 $css = mosGetParam($_REQUEST, 't', '');
 
-$media_path = JPATH_BASE . '/media/';
+$media_path = _JLPATH_ROOT . '/media/';
 
 $userfile2 = (isset($_FILES['userfile']['tmp_name']) ? $_FILES['userfile']['tmp_name'] : "");
 $userfile_name = (isset($_FILES['userfile']['name']) ? $_FILES['userfile']['name'] : "");
@@ -72,7 +72,7 @@ $userfile_name = (isset($_FILES['userfile']['name']) ? $_FILES['userfile']['name
 limitDirectory($directory);
 
 // check to see if directory exists
-if($directory != 'banners' && $directory != '' && !is_dir(JPATH_BASE . '/images/stories/' . $directory)){
+if($directory != 'banners' && $directory != '' && !is_dir(_JLPATH_ROOT . '/images/stories/' . $directory)){
 	$directory = '';
 }
 
@@ -85,7 +85,7 @@ if(isset($_FILES['userfile'])){
 		if($directory != ''){
 			$base_Dir = '../../images/stories/' . $directory;
 
-			if(!is_dir(JPATH_BASE . '/images/stories/' . $directory)){
+			if(!is_dir(_JLPATH_ROOT . '/images/stories/' . $directory)){
 				$base_Dir = '../../images/stories/';
 				$directory = '';
 			}

@@ -9,11 +9,11 @@
 
 // запрет прямого доступа
 defined('_JLINDEX') or die();
-require_once(JPATH_BASE . '/administrator/components/com_boss/admin.boss.html.php');
+require_once(_JLPATH_ROOT . '/administrator/components/com_boss/admin.boss.html.php');
 mosAdminMenus::menuItem($type);
 
 $directory = getDirectory($menu);
-
+$task = JSef::getTask();
 switch($task){
 //	case 'boss_category_content':
 //		// this is the new item, ie, the same name as the menu `type`

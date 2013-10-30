@@ -44,6 +44,7 @@ class jx_File{
 			return $GLOBALS['FTPCONNECTION']->chmodRecursive($item, $mode);
 		} else{
 			chmod_recursive($item, $mode);
+			return null;
 		}
 	}
 
@@ -153,7 +154,8 @@ class jx_File{
 
 	function closedir(&$handle){
 		if(jx_isFTPMode()){
-			return;
+			return null;
+
 		} else{
 			return closedir($handle);
 		}
@@ -445,4 +447,4 @@ function &getCachedFTPListing($dir, $force_refresh = false){
 	return $GLOBALS['ftp_ls'][$dir];
 }
 
-?>
+

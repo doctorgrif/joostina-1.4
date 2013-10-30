@@ -19,7 +19,7 @@ defined('_JLINDEX') or die();
  */
 class separator_menu_html{
 
-	function edit($menu, $lists, $params, $option){
+	public static function edit($menu, $lists, $params, $option){
 		mosCommonHTML::loadOverlib();
 
 		?>
@@ -127,5 +127,3 @@ class separator_menu_html{
 	<?php
 	}
 }
-
-?>

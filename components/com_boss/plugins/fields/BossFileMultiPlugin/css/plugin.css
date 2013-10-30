@@ -29,17 +29,20 @@ div.boss_plugin_file tr, div.boss_plugin_file td {
 }
 
 /* Фронтальная часть */
+div.boss_files{
+}
 div.boss_file {
+    border: 1px solid #ccc;
+    margin: 5px 0;
+    padding: 5px;
     color: #636363;
-    display: table-cell;
-    vertical-align: middle !important;
     font: normal 11px/21px Verdana, Georgia, "Times New Roman", times, tahoma, arial, serif;
 }
 
 div.boss_file img {
     vertical-align: middle !important;
+    border: none;
 }
-
 .boss_file span, div.boss_file span.boss_file_info,
 .boss_file_date {
     color: #636363;
@@ -71,4 +74,12 @@ div.boss_file img {
 
 span.boss_file {
     margin: 0 3px;
+}
+
+div.boss_file .boss_file_img{
+    border: none;
+    text-decoration: none;
+}
+div.boss_file .boss_file_counter > span{
+    font-weight: 700;
 }

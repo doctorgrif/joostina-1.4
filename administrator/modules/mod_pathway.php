@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-global $option;
+$option = JSef::getOption();
 if($option != ''){
 	echo '<div class="pathway">' . $option . '</div>';
 }

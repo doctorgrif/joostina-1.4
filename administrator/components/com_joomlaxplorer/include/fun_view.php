@@ -13,8 +13,6 @@
 defined('_JLINDEX') or die();
 function jx_show_file($dir, $item){
 	show_header($GLOBALS["messages"]["actview"] . ": " . $item);
-	$index2_edit_link = str_replace('/index3.php', '/index2.php', make_link('edit',
-		$dir, $item));
 	echo '<a name="top" class="componentheading" href="javascript:window.close();">[ ' . _PROMPT_CLOSE . ' ]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 	$abs_item = get_abs_item($dir, $item);
 	if(get_is_editable($abs_item) && $GLOBALS['jx_File']->is_writable($abs_item)){
@@ -25,10 +23,10 @@ function jx_show_file($dir, $item){
 	if(preg_match("/" . $GLOBALS["images_ext"] . "/i", $item)){
 		echo '<img src="' . $GLOBALS['home_url'] . '/' . $dir . '/' . $item . '" alt="' . $GLOBALS["messages"]["actview"] . ": " . $item . '" /><br /><br />';
 	} else{
-		if(file_exists(JPATH_BASE . '/includes/domit/xml_saxy_shared.php')){
-			require_once (JPATH_BASE . '/includes/domit/xml_saxy_shared.php');
-		} elseif(file_exists(JPATH_BASE . '/libraries/domit/xml_saxy_shared.php')){
-			require_once (JPATH_BASE . '/libraries/domit/xml_saxy_shared.php');
+		if(file_exists(_JLPATH_ROOT . '/includes/domit/xml_saxy_shared.php')){
+			require_once (_JLPATH_ROOT . '/includes/domit/xml_saxy_shared.php');
+		} elseif(file_exists(_JLPATH_ROOT . '/libraries/domit/xml_saxy_shared.php')){
+			require_once (_JLPATH_ROOT . '/libraries/domit/xml_saxy_shared.php');
 		} else{
 			return;
 		}
@@ -36,6 +34,3 @@ function jx_show_file($dir, $item){
 	}
 	echo '<a href="#top" name="bottom" class="componentheading">[ ' . _TOP . ' ]</a><br /><br />';
 }
-
-
-?>

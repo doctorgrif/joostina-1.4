@@ -12,7 +12,7 @@ defined('_JLINDEX') or die();
 
 define('EXT', '.php');
 
-define('SYSPATH', JPATH_BASE . '/includes/libraries/utf8/');
+define('SYSPATH', _JLPATH_ROOT . '/includes/libraries/utf8/');
 
 
 /**
@@ -654,7 +654,7 @@ class Jstring extends utf8{
 			}
 
 			if(!function_exists('cp1259_to_utf8')){ // конвертируем собственнвми средствами
-				include_once JPATH_BASE . '/includes/libraries/utf8/to_utf8.php';
+				include_once _JLPATH_ROOT . '/includes/libraries/utf8/to_utf8.php';
 			}
 			return cp1259_to_utf8($text);
 		}

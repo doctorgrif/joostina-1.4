@@ -41,7 +41,7 @@ switch($subtask){
 
 
 function JP_BUFA_Main(){
-	global $option;
+	$option = JSef::getOption();
 	?>
 <script>
 	function postTaskForm(myTask, myFile) {
@@ -79,8 +79,8 @@ function JP_GetFileList(){
 	global $JPConfiguration;
 
 	$mainframe = mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico';
-	$icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+	$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/file_ico';
+	$icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 	require_once 'engine.abstraction.php';
 	$FS = new CFSAbstraction();

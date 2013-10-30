@@ -521,9 +521,6 @@
             if ($n.attr('style') === '') {
                 $n.removeAttr('style');
             }
-            if (this.rte.browser.safari && $n.hasClass('Apple-span')) {
-                $n.removeClass('Apple-span');
-            }
             if (n.nodeName == 'SPAN' && !$n.attr('style') && !$n.attr('class') && !$n.attr('id')) {
                 $n.replaceWith($n.html());
             }

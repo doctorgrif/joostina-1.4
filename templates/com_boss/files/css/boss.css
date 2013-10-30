@@ -1,305 +1,308 @@
-/******************************************* [ контейнер Главная страница: вывод каталогов ] */
-.boss_tpl_front {
-    font-family: arial;
-}
-
-/************************************************************* [ контейнер вывода контента ] */
-.boss_tpl_content {
-}
-
-/* [ хлебные крошки ] */
-.boss_pathway {
-    margin: 5px;
-    font-size: 11pt;
-    font-weight: bold;
-    color: #990000;
-}
-
-/* [ название материала при детальном выводе ] */
-.detailstitle {
-    padding: 5px;
-    font-size: 12pt;
-    color: #665555;
-    text-decoration: none;
-    border-bottom: #665555 solid 1px;
-    font-weight: bold;
-    margin: 7px 0;
-}
-
-/* [ тэги ] */
-.boss_tpl_content .tags {
-}
-
-.boss_subcats a {
-    font-size: 10pt;
-    font-weight: bold;
-    margin: 5px;
-    padding: 2px;
-}
-
-/* [ основной контент ] */
-.boss_tpl_content .details {
-    border: #cccccc solid 1px;
-    margin: 10px;
-    padding: 10px;
-    box-shadow: 0 0 3px rgba(122, 122, 122, 0.5);
-    border-radius: 5px;
-    background-color: #fbfbfb;
-}
-
-/* [ заголовок субкатегории ] */
-h3.boss_subcat_title a {
-    font-size: 11pt;
-    color: #665555;
-    text-decoration: none;
-    border-bottom: #000000 dashed 1px;
-    font-weight: normal;
-    margin: 5px 0 5px 20px;
-}
-
-h3.boss_subcat_title a:hover {
-    color: #000000;
-    border-bottom: #ff0000 solid 1px;
-}
-
-/******************************************** [ контейнер Главная страница: вывод контента ] */
-.boss_tpl_frontpage {
-}
-
-.boss_tpl_flist_item {
-    border: #cccccc solid 1px;
-    margin: 10px;
-    padding: 10px;
-    display: table;
-    background-color: #f9f9f9;
-    font-family: arial;
-    width: 80%;
-    box-shadow: 0 0 3px rgba(122, 122, 122, 0.5);
-    border-radius: 5px;
-}
-
-/***************************************** [ контейнер для материалов при выводе категорий ] */
-.boss_tpl_featured, .boss_tpl_list_item {
-    border: #cccccc solid 1px;
-    clear: both;
-    margin: 10px;
-    padding: 10px;
+/* Correct css
+@doctorgrif  (30.10.13 09:20)*/
+/* хлебные крошки
+**********************************************************/
+#boss_content .boss_pathway {
     display: table;
     width: auto;
-    background-color: #f9f9f9;
-    font-family: arial;
-    box-shadow: 0 0 3px rgba(122, 122, 122, 0.5);
-    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-/* [ контейнер для выделенных материалов при выводе категорий ] */
-.boss_tpl_featured {
-    background-color: #fffbe4;
+#boss_content .boss_pathway ul {
+    margin: 0;
 }
 
-/*************************************************************************************************/
-/* [ контейнер категории ] */
-.boss_tpl_categories {
-    text-align: left;
-}
-
-.boss_maincat {
+#boss_content .boss_pathway li {
+    list-style: none;
+    display: block;
     float: left;
-    padding: 10px;
-    margin: 10px;
-    width: 40%;
+    padding: 3px 10px 3px 15px;
+    background-image: url("../images/cat_arrow.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    margin: 0;
+    color: #666;
 }
 
-.boss_maincat_title a {
+#boss_content .boss_pathway li:hover {
+}
+
+#boss_content .boss_pathway li a {
+    color: #000;
+    text-decoration: none;
+    border: 0;
+}
+
+#boss_content .boss_pathway li a:hover {
+    border-bottom: 1px #f00 solid;
+}
+
+/*
+**********************************************************/
+#boss_content article {
+    border: 1px #ccc solid;
+    margin: 10px;
+    position: relative;
+    background-color: #fff;
+}
+#boss_content article.boss_content_featured{
+    background-color: #ffc;
+}
+
+#boss_content article > h1,
+#boss_content article > h3{
+    background-color: #ccc;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
     font-size: 12pt;
     font-weight: bold;
-    color: #7d411c;
-    text-decoration: none
+    margin: -1px 110px 0 -1px;
+    border: none;
 }
-
-.boss_maincat_title a:hover {
-    color: #CD6600;
-    text-decoration: underline;
-}
-
-/* [ контейнер меню ] */
-.boss_tpl_innermenu {
-    text-align: right;
-    width: 100%;
-}
-
-.boss_tpl_innermenu ul, .boss_tpl_innermenu ul li {
-    list-style: none;
-}
-
-.boss_tpl_innermenu ul li {
-    float: left;
-}
-
-.boss_tpl_innermenu ul li a {
-    display: inline;
-    font-size: 10pt;
-    margin: 0 8px;
-    color: #7d411c;
-}
-
-.boss_tpl_innermenu ul li a:hover {
-    color: #CD6600;
-}
-
-/* [ контейнер для текстовых полей ] */
-.boss_tpl_txt {
-    margin-left: 220px;
-}
-
-/* [ название материала ] */
-.boss_tpl_txt h3 {
-
-}
-
-.boss_tpl_txt h3 a {
-    font-size: 11pt;
-    color: #665555;
-    text-decoration: none;
-    border-bottom: #000000 dashed 1px;
+#boss_content article table td h3{
+    padding: 5px 7px;
+    vertical-align: top;
+    font-size: 12pt;
     font-weight: bold;
-    margin: 5px 0;
-}
-
-.boss_tpl_txt h3 a:hover {
-    color: #000000;
-    border-bottom: #ff0000 solid 1px;
-}
-
-/* [ название категории ] */
-.boss_tpl_txt h5, .boss_tpl_txt h5 a {
-    font-size: 8pt;
-    font-weight: normal;
-    margin: 5px 0;
-    color: #666666;
-}
-
-.boss_tpl_txt h5 a:hover {
-    color: #000000;
-}
-
-/* [ контейнер для изображения ] */
-.boss_tpl_image {
-    width: 220px;
-    text-align: center;
-    float: left;
-}
-
-/* [ контейнер для позиции Subtitle ] */
-.boss_tpl_description {
     margin: 0;
-    padding: 15px;
-    background-color: #fbfbfb;
+    border: none;
+}
+#boss_content article table td h3 a{
+}
+#boss_content article table td h3 a:hover{
 }
 
-.boss_tpl_description .field_title {
-    color: #666666;
-    font-size: 8pt;
-}
-
-.boss_tpl_description .field_value, .boss_tpl_description a {
-    color: #000000;
-}
-
-.boss_tpl_description .boss_files {
-    margin: 5px 0;
-}
-
-/* [ контейнер для кнопок/ссылок редактирования ] */
-.boss_tpl_edit > div {
-    border: #CC8500 dotted 1px;
+#boss_content article > h1 a,
+#boss_content article > h3 a,
+#boss_content article table td h3 a{
     padding: 5px;
-    margin: 10px 0 0 220px;
-
-}
-
-.boss_tpl_edit a {
-    font-size: 9pt;
-    font-weight: normal;
-    margin: 5px 0;
-    color: #666666;
-}
-
-.boss_tpl_edit a:hover {
-    color: #000000;
-}
-
-/* [ контейнер сортировки ] */
-.boss_tpl_search {
-    line-height: 25px;
-    text-align: center;
-}
-
-/* [ картинка направления сортировки ] */
-.boss_tpl_search image {
-    vertical-align: middle;
-}
-
-.boss_tpl_content > h1 a {
-    text-decoration: none;
+    text-align: left;
+    vertical-align: top;
+    font-size: 12pt;
+    font-weight: bold;
     border: none;
 }
 
-/* создание контента */
-div.boss_top_contents {
-    font-size: 10px;
-    color: #000000;
-    border: 1px dotted #CCCCCC;
-    background-color: #FFEEDD;
-    padding: 5px;
+#boss_content article > h1 a:hover,
+#boss_content article > h3 a:hover,
+#boss_content article table td h3 a:hover{
+    color: #000;
 }
 
-.boss_required {
-    border: 1px solid #CCCCCC;
-    background-color: #FFEEDD;
-    margin: 2px;
-    padding: 2px;
+#boss_content article table td .boss_cat a{
+    margin-left: 10px;
 }
 
-#writecontent_header1 {
-    display: inline;
-    border: 1px solid #CCCCCC;
-    background-color: #FFEEDD;
-    width: 7em;
-    margin: 5px;
-    padding: 2px;
-}
-
-#writecontent_header2 {
-    display: inline;
-    border: 1px solid #CCCCCC;
-    background-color: #EEEEEE;
-    width: 7em;
-    margin: 5px;
-    padding: 2px;
-}
-
-#boss_fieldset .boss_table_tr > td {
-    padding: 5px;
-}
-
-/* комментарии */
-.dotteddiv {
-    padding: 10px;
-    margin: 15px 0;
-    border: #eeeeee solid 1px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 3px 3px 3px rgba(122, 122, 122, 0.5);
-}
-
-.dotteddiv h3 {
-    color: #990000;
+#boss_content .boss_cat,
+#boss_content .boss_cat a
+{
+    vertical-align: bottom;
     font-weight: normal;
-    display: block;
-    border-bottom: #999999 solid 1px;
+    font-size: 9pt;
+    color: #666;
 }
 
-.boss_content .addcomment td {
+#boss_content article > div {
+    margin: 3px 15px;
+}
+
+#boss_content .boss_vote {
+    margin: 10px 0 10px 15px;
+}
+
+#boss_content .boss_date {
+    padding: 5px 10px;
+    color: #f00;
+    vertical-align: bottom;
+    position: absolute;
+    top: -10px;
+    right: -3px;
+    font-style: italic;
+    /*box-shadow: 2px 2px 3px rgba(122, 122, 122, 0.5);*/
+    /*border-radius: 15px;*/
+    background-color: #f4f2f2;
+    border: 1px solid #aaa;
+}
+
+#boss_content .boss_content {
+    display: table;
+}
+
+#boss_content .boss_content img {
+    padding: 2px;
+    margin: 0 10px 7px 0;
+    box-shadow: 0 0 5px rgba(122, 122, 122, 0.5);
+}
+
+#boss_content .comments {
+    font-size: 8pt;
+    color: #999;
+    font-style: italic;
+    padding: 3px 0;
+}
+
+#boss_content .edit > div {
+    border-top: 1px solid #900;
+    margin: 10px 0;
+    padding: 5px 0;
+}
+/**************** Комментариии */
+#boss_content .boss_comments > h2{
+    color: #999;
+    margin: 0 0 10px 0;
+}
+#boss_content .boss_comments .dotteddiv{
+
+}
+#boss_content .boss_comments .dotteddiv > h3{
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+#boss_content .boss_comments .dotteddiv > h3:after{
+    content: ':';
+}
+#boss_content .boss_comments .dotteddiv > h3:first-letter{
+    color: #f00;
+}
+#boss_content .boss_comments .dotteddiv .text{
+    box-shadow: 2px 2px 3px rgba(122, 122, 122, 0.5);
+    border-radius: 0 0 15px 0;
+    background-color: #f9f9f9;
+    border: 1px solid #aaa;
+    padding: 5px 10px;
+    margin: 10px 0;
+}
+#boss_content .boss_comments .dotteddiv .user{
+    color: #999;
+    font-style: italic;
+    text-align: right;
+}
+
+#boss_content .boss_comments .addcomment td{
+    padding: 0 10px;
+}
+
+#boss_content .boss_comments .addcomment .button input{
+    font-size: 10pt;
+    color: #000;
+    margin: 10px 15px;
+    text-decoration: none;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+}
+
+#boss_content .boss_comments .addcomment .button input:hover{
+    color: #f00;
+    text-decoration: none;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    padding: 5px 10px 5px 9px;
+}
+#boss_content .boss_pathway{
     padding: 5px;
+}
+#writecontent_header1{
+    color: #f00;
+}
+#writecontent_header2{
+    color: #090;
+}
+#boss_fieldset{
+    padding: 10px;
+}
+
+#boss_content div.alphaindex{
+    border: 1px solid #aaa;
+    padding: 5px;
+    width: 450px;
+    text-align: center;
+}
+#boss_content a.alphaindex{
+    color: #f00;
+    font-weight: 700;
+}
+#boss_content article div.boss_tpl_search span a{
+    text-decoration: none;
+    border: none;
+}
+#boss_content div.back_button{
+    margin: 10px;
+}
+
+#boss_content article div.boss_subcats {
+    line-height: 35px;
+    width: auto;
+    text-align: left;
+    display: table;
+}
+
+#boss_content article div.boss_subcats a{
+    font-size: 10pt;
+    color: #000;
+    margin: 0 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    padding: 5px 10px;
+}
+
+#boss_content article div.boss_subcats a:hover,
+#boss_content article div.boss_subcats a#active_menu {
+    color: #f00;
+    text-decoration: none;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    padding: 5px 10px 5px 9px;
+}
+#boss_content article table{
+    margin: 5px 10px;
+}
+#boss_content article table td{
+    padding: 5px;
+}
+#boss_content article .tpl_image{
+    padding: 4px;
+    margin: 3px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
+#boss_content article .tpl_txt{
+}
+#boss_content article table td .tpl_description{
+    margin: 10px 0 0 10px;
+}
+
+/*******************************************************************************/
+#boss_content .boss_categories .boss_maincat{
+    float: left;
+    margin: 10px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#boss_content .boss_categories .boss_maincat:hover{
+    background-color: #ffc;
+}
+
+#boss_content .boss_categories .boss_maincat > a{
+    border: none;
+    text-decoration: none;
+}
+
+
+#boss_content .boss_categories .boss_maincat .boss_maincat_title a{
+    font-size: 10pt;
+    color: #000;
+    margin: 0 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    padding: 5px 10px;
+}
+
+#boss_content .boss_categories .boss_maincat .boss_maincat_title a:hover{
+    color: #f00;
+    text-decoration: none;
 }

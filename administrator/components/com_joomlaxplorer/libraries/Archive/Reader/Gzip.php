@@ -177,4 +177,3 @@ class File_Archive_Reader_Gzip extends File_Archive_Reader_Archive{
 	}
 }
 
-?>

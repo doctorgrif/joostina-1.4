@@ -46,4 +46,3 @@ class File_Archive_Predicate_Duplicate extends File_Archive_Predicate{
 	}
 }
 
-?>

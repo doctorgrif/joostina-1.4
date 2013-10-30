@@ -23,17 +23,17 @@ $action = mosGetParam($_REQUEST, 'action', '');
 
 $database = database::getInstance();
 
-global $mosConfig_lang, $xmapComponentURL, $xmapSiteURL, $xmapComponentPath, $xmapAdministratorURL, $xmapLang, $xmapAdministratorPath;
+global $xmapComponentURL, $xmapSiteURL, $xmapComponentPath, $xmapAdministratorURL, $xmapLang, $xmapAdministratorPath;
 
 define ('_XMAP_JOOMLA15', 0);
 define('_XMAP_MAMBO', 0);
 
-$xmapLang = strtolower($mosConfig_lang);
+$xmapLang = strtolower(JCore::getCfg('lang'));
 $xmapComponentPath = _JLPATH_ADMINISTRATOR . '/components/com_xmap';
 $xmapAdministratorPath = _JLPATH_ADMINISTRATOR;
-$xmapComponentURL = JPATH_SITE . DS . JADMIN_BASE . '/components/com_xmap';
-$xmapAdministratorURL = JPATH_SITE . DS . JADMIN_BASE;
-$xmapSiteURL = JPATH_SITE;
+$xmapComponentURL = _JLPATH_SITE . DS . JADMIN_BASE . '/components/com_xmap';
+$xmapAdministratorURL = _JLPATH_SITE . DS . JADMIN_BASE;
+$xmapSiteURL = _JLPATH_SITE;
 
 require_once($xmapComponentPath . '/classes/XmapAdmin.php');
 
@@ -41,8 +41,8 @@ require_once($xmapComponentPath . '/classes/XmapAdmin.php');
 require_once($xmapComponentPath . '/classes/XmapConfig.php');
 require_once($xmapComponentPath . '/admin.xmap.html.php');
 
-require_once(JPATH_BASE . DS . JADMIN_BASE . '/components/com_xmap/classes/XmapCache.php');
-require_once(JPATH_BASE . DS . JADMIN_BASE . '/components/com_xmap/classes/XmapPlugin.php');
+require_once(_JLPATH_ROOT . DS . JADMIN_BASE . '/components/com_xmap/classes/XmapCache.php');
+require_once(_JLPATH_ROOT . DS . JADMIN_BASE . '/components/com_xmap/classes/XmapPlugin.php');
 
 switch($action){
 	case 'add_sitemap':

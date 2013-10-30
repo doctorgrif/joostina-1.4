@@ -8,7 +8,8 @@
  */
 
 defined('_JLINDEX') or die();
-require_once(JPATH_BASE . DS . 'components' . DS . 'com_boss' . DS . 'boss.tools.php');
+require_once(_JLPATH_ROOT . DS . 'components' . DS . 'com_boss' . DS . 'boss.tools.php');
+$mainframe = mosMainFrame::getInstance();
 require_once($mainframe->getPath('admin_html'));
 require_once($mainframe->getPath('class'));
 
@@ -155,4 +156,3 @@ switch($act){
 	default :
 		break;
 }
-?>

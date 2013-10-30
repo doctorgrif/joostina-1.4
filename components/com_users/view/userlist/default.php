@@ -33,7 +33,7 @@ if($users->total > 0){
 	<?php endif;?>
 	<ul>
 		<?php foreach($users->user_list as $user){
-		$avatar_pic = '<img class="avatar" src="' . JPATH_SITE . '/' . $users->get_avatar($user) . '" />';
+		$avatar_pic = '<img class="avatar" src="' . _JLPATH_SITE . '/' . $users->get_avatar($user) . '" />';
 		$profile_link = $users->get_link($user); ?>
 		<li>
 			<a class="thumb" href="<?php echo $profile_link;?>"><?php echo $avatar_pic;?></a>

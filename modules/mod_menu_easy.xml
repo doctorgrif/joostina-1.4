@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosinstall type="module" version="1.4.3">
+    <name>Меню (простое)</name>
+    <creationDate>19.06.2013</creationDate>
+    <modificationDate>14.10.2013</modificationDate>
+    <author>Gold Dragon</author>
+    <authorEmail>illusive@bk.ru</authorEmail>
+    <authorUrl>http://gd.joostina-cms.ru</authorUrl>
+    <copyright>(C) 2000-2013 Gold Dragon.</copyright>
+    <license>The MIT License (MIT)</license>
+    <version>1.3</version>
+    <description>
+        <![CDATA[
+		<p><b>&laquo;Menu Easy&raquo;</b> - модуль простого одноуровневого меню.</p>
+		<p>В модуле допускается использовать вместо текстовых ссылок изображения. Перед использованием необходимо разместить изображения в соответствующих папках:</p>
+		<ul>
+		    <li>Системная папка - /images/menuimages/</li>
+		    <li>Папка шаблона - /templates/текущий_шаблон_сайта/images/modules/mod_menu_easy/</li>
+		</ul>
+		<p>Файлы изображений имеют следующий формат</p>
+		<ul>
+		    <li>Имя файла изображения: ПРЕФИКС + ID_пункта меню + расширение файла (PNG, GIF, JPG). Например: prefmenu_1.png, prefmenu_3.png...</li>
+		    <li>Имя файла изображения при наведении: ПРЕФИКС + ID_пункта меню + '_on' + расширение файла (PNG, GIF, JPG). Например: prefmenu_1_on.png, prefmenu_3_on.png...</li>
+		</ul>
+		<p>Файлы выбираются автоматически по расширениям. Сначала ищется файл с расширением PNG. Если его нет, то с GIF. Затем JPG. Если ни один файл не найден, то используется текст ссылки.</p>
+		]]>
+    </description>
+    <files>
+        <filename module="mod_menu_easy">mod_menu_easy.php</filename>
+        <filename module="mod_menu_easy">mod_menu_easy/helper.php</filename>
+    </files>
+    <params>
+        <param name="moduleclass_sfx" type="text" default="" label="CSS-суффикс класса модуля" description="Суффикс, который будет использован в описании класса таблицы стилей (CSS) модуля. Это позволяет использовать индивидуальный стиль модуля." />
+
+        <param name="cache" type="yesno" default="0" label="Разрешить кэширование" description="Выберите, кэшировать ли содержимое этого модуля" />
+
+        <param name="cache_time" type="cachelist" label="Кэшировать" description="Выберите время на которое необходимо кэшировать данный модуль" />
+
+        <param name="menutype" type="menu" default="mainmenu" label="Название меню" description="Выберите, какое меню будет выводится" />
+
+        <param name="link_type" type="yesno" default="1" label="Тип ссылки" description="Укажите тип ссылки." yes="Текст" no="Изображение" />
+
+        <param name="link_active" type="radio" default="1" label="Уникальный стиль активных пунктов" description="Разрешает использовать уникальный стиль для активных пунктов меню добавлением к ссылкам уникального ID или класса.">
+            <option value="0">Нет</option>
+            <option value="1">ID (#active)</option>
+            <option value="2">Class (.active)</option>
+        </param>
+
+        <param name="image_template" type="yesno" default="0" label="Путь до изображений" description="Системная - /images/menuimages/. Папка шаблона - /templates/текущий_шаблон_сайта/images/modules/mod_menu_easy/" yes="Папка шаблона" no="Системная"/>
+
+        <param name="image_prefix" type="text" default="prfxmenu_" label="Префикс изображений меню" description="Укажите, префикс названия файлов изображения. Имя файла изображения = ПРЕФИКС + ID_пункта меню + расширение файла (PNG, GIF, JPG)."/>
+
+        <param name="image_roller" type="yesno" default="0" label="Использовать смену изображения" description="Выберите, использовать ли смену изображения при наведениее курсора.  Имя файла изображения при наведении = ПРЕФИКС + ID_пункта меню + '_on' + расширение файла (PNG, GIF, JPG)." />
+
+        <param name="image_active" type="yesno" default="1" label="Оставлять активное изображение" description="Если выбрано, то при активном пункте меню будет использоваться изображение, которое выводится при наведении курсора." />
+
+        <param name="link_null" type="yesno" default="1" label="Удалять активную ссылку" description="Если выбрано, то при активная ссылка будет простым текстом или изображением." />
+
+        <param name="link_frame" type="radio" default="0" label="Обрамление ссылок" description="Выберете, как будут обрамляться ссылки меню.">
+            <option value="0">Нет</option>
+            <option value="1">LI</option>
+            <option value="2">DIV</option>
+        </param>
+
+        <param name="hide_first" type="yesno" default="0" label="Прятать первый пункт" description="" />
+
+    </params>
+</mosinstall>
+
+
+
+
+
+
+
+
+
+
+
+

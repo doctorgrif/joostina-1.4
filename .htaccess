@@ -1,6 +1,6 @@
 ##
-# @package Joostina
-# @copyright Авторские права (C) 2007-2010 Joostina Team.
+# @package Joostina Lotos
+# @copyright Авторские права (C) 2000-2013 Joostina Lotos.
 
 ##
 # -----------------======= ВНИМАНИЕ!!! =======----------------------------
@@ -8,7 +8,7 @@
 # ------------------------------------------------------------------------
 #  Установка кодировки сайта по умолчанию. При необходимости, закомментируйте.
 
-AddDefaultCharset UTF-8
+AddDefaultCharset utf-8
 
 #  Следующие строки - попытка исправить настройки PHP
 #  для полного соответствия системным требованиям Joostina.
@@ -23,6 +23,7 @@ AddDefaultCharset UTF-8
 #  php_value file_uploads 1
 #  php_value magic_quotes_gpc 1
 #  php_value magic_quotes_runtime 0
+#  php_value output_buffering 0
 
 #<IfModule mod_charset.c>
 #    CharsetDIsable on
@@ -30,15 +31,13 @@ AddDefaultCharset UTF-8
 #</IfModule>
 
 #php_value       mbstring.func_overload  7
-#php_value       default_charset         UTF-8
+#php_value       default_charset         utf-8
 #php_value       mbstring.language       Russian
-#php_value       mbstring.internal_encoding      UTF-8
+#php_value       mbstring.internal_encoding      utf-8
 #php_flag        mbstring.encoding_translation   on
-#php_value       mbstring.http_input     "UTF-8,KOI8-R,CP1251"
-#php_value       mbstring.http_output    UTF-8
-#php_value       mbstring.detect_order   "UTF-8,KOI8-R,CP1251"
-
-
+#php_value       mbstring.http_input     "utf-8,koi8-R,cp1251"
+#php_value       mbstring.http_output    utf-8
+#php_value       mbstring.detect_order   "utf-8,koi8-R,cp1251"
 
 #  Пример явного указания каталога для записи сессий:
 #  Для Windows - c:/temp
@@ -46,7 +45,6 @@ AddDefaultCharset UTF-8
 #  Указанные каталоги должны физически существовать и быть доступны для записи
 #  При необходимости, раскомментируйте строку ниже этой
 #  php_value session.save_path c:/temp
-
 
 #####################################################
 #  ПРОЧТИТЕ ПОЛНОСТЬЮ, ЕСЛИ БУДЕТЕ ИСПОЛЬЗОВАТЬ ЭТОТ ФАЙЛ
@@ -76,7 +74,6 @@ AddDefaultCharset UTF-8
 #
 #####################################################
 
-
 ##  Может быть закомментировано, если вызывает ошибку сервера. Смотрите примечания выше.
 # Options +FollowSymLinks
 
@@ -84,6 +81,10 @@ AddDefaultCharset UTF-8
 #  Включение mod_rewrite
 
 RewriteEngine On
+
+# Принудительно выключяем листинг каталогов
+
+Options -Indexes
 
 ########## Начало - Правила обработки запросов для блокировки распространенных эксплоитов
 RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|\%3D) [OR]

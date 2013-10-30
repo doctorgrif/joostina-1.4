@@ -11,7 +11,6 @@
 defined('_JLINDEX') or die();
 
 function ExecSQL($task = 'execsql'){
-	global $mosConfig_db;
 	$database = database::getInstance();
 
 	$nDisplayRecords = intval(mosGetParam($_POST, 'easysql_records', 10));
@@ -45,10 +44,7 @@ function ExecSQL($task = 'execsql'){
 				$aTableHeader[] = $key;
 			}
 		}
-	} else{
-		$rows = array();
 	}
-	;
 	$htmTableData = '';
 	if(!empty($cCurrentSQL)){
 		if(trim($cCurrentSQL) != '') $htmTableData .= record_html($cCurrentSQL);
@@ -151,7 +147,7 @@ function record_html($query){
 	$database = database::getInstance();
 
 	$mainframe = mosMainFrame::getInstance();
-	$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images';
+	$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images';
 
 	// exec query
 	$database->setQuery($query);
@@ -381,35 +377,35 @@ function GetHtmlForType($name, $type, $value){
 	switch(strtolower($type)){
 		//text
 		case 'hidden':
-			$ret = '<INPUT TYPE="hidden" NAME="field[' . $name . ']" value="' . $value . '">';
+			$ret = '<INPUT `type`="hidden" `name`="field[' . $name . ']" value="' . $value . '">';
 			break;
 		case 'disabled':
-			$ret = '<INPUT DISABLED TYPE="text" NAME="field[' . $name . ']" value="' . $value . '">';
+			$ret = '<INPUT DISABLED `type`="text" `name`="field[' . $name . ']" value="' . $value . '">';
 			break;
 		case 'char':
 		case 'nchar':
-			$ret = '<INPUT TYPE="text" NAME="field[' . $name . ']"  style="width:7%;" value="' . $value . '">';
+			$ret = '<INPUT `type`="text" `name`="field[' . $name . ']"  style="width:7%;" value="' . $value . '">';
 			break;
 		case 'varchar':
 		case 'nvarchar':
-			$ret = '<INPUT TYPE="text" NAME="field[' . $name . ']" style="width:40%;" value="' . $value . '">';
+			$ret = '<INPUT `type`="text" `name`="field[' . $name . ']" style="width:40%;" value="' . $value . '">';
 			break;
 		case 'tinyblob':
 		case 'tinytext':
 		case 'blob':
 		case 'text':
-			$ret = '<TEXTAREA NAME="field[' . $name . ']" style="width:70%;">' . $value . '</TEXTAREA>';
+			$ret = '<TEXTAREA `name`="field[' . $name . ']" style="width:70%;">' . $value . '</TEXTAREA>';
 			break;
 		case 'mediumblob':
 		case 'mediumtext':
 		case 'longblob':
 		case 'longtext':
-			$ret = '<TEXTAREA NAME="field[' . $name . ']" style="width:70%;height:150px;">' . $value . '</TEXTAREA>';
+			$ret = '<TEXTAREA `name`="field[' . $name . ']" style="width:70%;height:150px;">' . $value . '</TEXTAREA>';
 			break;
 		//int
 		case 'bit':
 		case 'bool':
-			$ret = '<INPUT TYPE="checkbox" NAME="field[' . $name . ']">';
+			$ret = '<INPUT `type`="checkbox" `name`="field[' . $name . ']">';
 			break;
 		case 'tinyint':
 		case 'smallint':
@@ -419,7 +415,7 @@ function GetHtmlForType($name, $type, $value){
 		case 'bigint':
 		case 'datetime':
 		case 'time':
-			$ret = '<INPUT TYPE="text" NAME="field[' . $name . ']" style="width:15%;" value="' . $value . '">';
+			$ret = '<INPUT `type`="text" `name`="field[' . $name . ']" style="width:15%;" value="' . $value . '">';
 			break;
 		//real
 		case 'real':
@@ -428,7 +424,7 @@ function GetHtmlForType($name, $type, $value){
 		case 'numeric':
 		case 'double':
 		case 'double precesion':
-			$ret = '<INPUT TYPE="text" NAME="field[' . $name . ']" style="width:15%;" value="' . $value . '">';
+			$ret = '<INPUT `type`="text" `name`="field[' . $name . ']" style="width:15%;" value="' . $value . '">';
 			break;
 		default:
 			return false;

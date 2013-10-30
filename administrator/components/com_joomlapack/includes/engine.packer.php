@@ -164,7 +164,7 @@ class CPackerEngine{
 		$retArray = array();
 		switch($fragmentType){
 			case 'site':
-				$retArray['remove'] = $JPConfiguration->TranslateWinPath(JPATH_BASE);
+				$retArray['remove'] = $JPConfiguration->TranslateWinPath(_JLPATH_ROOT);
 				$retArray['add'] = '';
 				break;
 			case 'installation':

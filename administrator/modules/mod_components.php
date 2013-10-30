@@ -10,9 +10,9 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-global $task;
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+$task = JSef::getTask();
+
+$my = JCore::getUser();
 
 // cache some acl checks
 $canConfig = $acl->acl_check('administration', 'config', 'users', $my->usertype);

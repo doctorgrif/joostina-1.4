@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mosinstall type="module">
+<mosinstall type="module" version="1.4.3">
     <name>GDNewsLotos - Главные новости</name>
     <creationDate>01.05.2012</creationDate>
-    <modificationDate>21.08.2012</modificationDate>
+    <modificationDate>28.09.2013</modificationDate>
     <author>Gold Dragon</author>
     <authorEmail>illusive@bk.ru</authorEmail>
     <authorUrl>http://gd.joostina-cms.ru</authorUrl>
-    <copyright>(C) 2000-2012 Gold Dragon.</copyright>
+    <copyright>(C) 2000-2013 Gold Dragon.</copyright>
     <license>http://www.gnu.org/licenses/gpl.htm GNU/GPL</license>
-    <version>1.1</version>
+    <version>1.5</version>
     <description>
         <![CDATA[
 		<p><b>&laquo;GDNewsLotos - Главные новости&raquo;</b> - модуль позволяет выводить основные материалы по определённым критериям.</p>
-		<p>Модуль полноценно работает на Joostina 1.4</p>
-		<p>Для отображения в модуле изображений необходимо чтобы была включена директива настройки PHP <b>allow_url_fopen</b></p>
+		<p>Модуль полноценно работает на Joostina Lotos CMS (ver. 1.4.3+) или JLotos CMS</p>
 		<table>
 			<tr>
 				<td>
@@ -186,6 +185,7 @@
         <param name="moduleclass_sfx" type="text" default="" label="Суффикс класса модуля" description="Суффикс, который будет использован в описании класса таблицы стилей (CSS) модуля"/>
         <param name="template" type="text" default="default" label="Шаблон модуля" description="Введите название шаблона (например: mytemplate). Если оставить поле пустым - будет использован шаблон по-умолчанию (default)."/>
         <param name="template_dir" type="yesno" default="0" label="Директория шаблона" description="Системная - шаблон находится в modules/mod_gdnlotos/view/. Папка шаблона сайта - шаблон находится в templates/текущий_шаблон_сайта/html/modules/mod_gdnlotos/" yes="Папка шаблона сайта" no="Системная"/>
+        <param name="css_dir" type="yesno" default="0" label="Подключать стиль (CSS) модуля" description="Если выбрано, то будет подключен стилевой файл (*.css) модуля. Иначе будет использованы стили шаблона сайта."/>
         <param name="modul_link" type="list" default="0" label="Сделать название модуля ссылкой?" description="">
             <option value="0">Нет</option>
             <option value="1">Ссылка на каталог</option>

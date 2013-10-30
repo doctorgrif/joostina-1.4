@@ -78,7 +78,7 @@ class mosInstaller{
 	 * @since 1.3
 	 */
 	function downloadPackage($url, $target = false){
-		$base_Dir = mosPathName(JPATH_BASE . DS . 'media');
+		$base_Dir = mosPathName(_JLPATH_ROOT . DS . 'media');
 
 		// Capture PHP errors
 		$php_errormsg = 'Error Unknown';
@@ -163,7 +163,7 @@ class mosInstaller{
 	 */
 	function extractArchive(){
 
-		$base_Dir = mosPathName(JPATH_BASE . DS . 'media');
+		$base_Dir = mosPathName(_JLPATH_ROOT . DS . 'media');
 
 		$archivename = $base_Dir . $this->installArchive();
 		$tmpdir = uniqid('install_');
@@ -190,7 +190,7 @@ class mosInstaller{
 				return false;
 			}
 		} else{
-			require_once (JPATH_BASE . '/includes/Archive/Tar.php');
+			require_once (_JLPATH_ROOT . '/includes/Archive/Tar.php');
 			$archive = new Archive_Tar($archivename);
 			$archive->setErrorHandling(PEAR_ERROR_PRINT);
 
@@ -268,7 +268,7 @@ class mosInstaller{
 		if(!$xmlDoc->loadXML($p_file, false, true)){
 			return null;
 		}
-		$root = &$xmlDoc->documentElement;
+		$root = $xmlDoc->documentElement;
 
 		if($root->getTagName() != 'mosinstall'){
 			return null;
@@ -297,7 +297,7 @@ class mosInstaller{
 		if(!$this->i_xmldoc->loadXML($this->installFilename(), false, true)){
 			return false;
 		}
-		$root = &$this->i_xmldoc->documentElement;
+		$root = $this->i_xmldoc->documentElement;
 
 		// Check that it's an installation file
 		if($root->getTagName() != 'mosinstall'){
@@ -420,10 +420,10 @@ class mosInstaller{
 	 */
 	function parseFiles($tagName = 'files', $special = '', $specialError = '', $adminFiles = 0){
 		// Find files to copy
-		$xmlDoc = &$this->xmlDoc();
-		$root = &$xmlDoc->documentElement;
+		$xmlDoc = $this->xmlDoc();
+		$root = $xmlDoc->documentElement;
 
-		$files_element = &$root->getElementsByPath($tagName, 1);
+		$files_element = $root->getElementsByPath($tagName, 1);
 		if(is_null($files_element)){
 			return 0;
 		}
@@ -483,11 +483,11 @@ class mosInstaller{
 		}
 
 		if($tagName == 'media'){
-			$installTo = mosPathName(JPATH_BASE . '/images/stories');
+			$installTo = mosPathName(_JLPATH_ROOT . '/images/stories');
 		} elseif($tagName == 'languages'){
 			foreach($files as $file){
 				$lang_path = $file->getAttribute('folder');
-				$installTo = mosPathName(JPATH_BASE . DS . $lang_path);
+				$installTo = mosPathName(_JLPATH_ROOT . DS . $lang_path);
 				$fil = $file->getText();
 				$file_path = dirname($fil);
 				$file_name = basename($fil);
@@ -552,10 +552,12 @@ class mosInstaller{
 		if($where == 'admin'){
 			return $this->copyFiles($this->installDir(), $this->componentAdminDir(), array(basename
 			($this->installFilename())), true);
-		} else
+		} else{
 			if($where == 'front'){
 				return $this->copyFiles($this->installDir(), $this->elementDir(), array(basename($this->installFilename())), true);
 			}
+			return null;
+		}
 	}
 
 	/**
@@ -594,7 +596,7 @@ class mosInstaller{
 	 * @param mixed The value of the property to set
 	 * @return The value of the property
 	 */
-	function &setVar($name, $value = null){
+	function setVar($name, $value = null){
 		if(!is_null($value)){
 			$this->$name = $value;
 		}
@@ -620,7 +622,7 @@ class mosInstaller{
 		return $this->setVar('i_error', $p_error);
 	}
 
-	function &xmlDoc($p_xmldoc = null){
+	function xmlDoc($p_xmldoc = null){
 		return $this->setVar('i_xmldoc', $p_xmldoc);
 	}
 
@@ -669,7 +671,7 @@ class mosInstaller{
 function cleanupInstall($userfile_name, $resultdir){
 	if(file_exists($resultdir)){
 		deldir($resultdir);
-		unlink(mosPathName(JPATH_BASE . '/media/' . $userfile_name, false));
+		unlink(mosPathName(_JLPATH_ROOT . '/media/' . $userfile_name, false));
 	}
 }
 

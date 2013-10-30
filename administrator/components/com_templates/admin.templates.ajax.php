@@ -55,7 +55,7 @@ function saveTemplateSource(){
 	if($client == 'admin'){
 		$file = _JLPATH_ADMINISTRATOR . '/templates/' . $template . '/index.php';
 	} else{
-		$file = JPATH_BASE . '/templates/' . $template . '/index.php';
+		$file = _JLPATH_ROOT . '/templates/' . $template . '/index.php';
 	}
 
 	$enable_write = mosGetParam($_POST, 'enable_write', 0);
@@ -106,7 +106,7 @@ function saveTemplateCSS(){
 	if($client == 'admin'){
 		$file = _JLPATH_ADMINISTRATOR . '/templates/' . $template . '/css/template_css.css';
 	} else{
-		$file = JPATH_BASE . '/templates/' . $template . '/css/template_css.css';
+		$file = _JLPATH_ROOT . '/templates/' . $template . '/css/template_css.css';
 	}
 
 	$enable_write = mosGetParam($_POST, 'enable_write', 0);

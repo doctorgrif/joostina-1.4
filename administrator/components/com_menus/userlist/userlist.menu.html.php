@@ -20,7 +20,7 @@ defined('_JLINDEX') or die();
 include_once(mosMainFrame::getInstance()->getLangFile('com_users'));
 class userlist_menu_html{
 
-	function edit($menu, $lists, $params, $option){
+	public static function edit($menu, $lists, $params, $option){
 		$acl = &gacl::getInstance();
 		mosCommonHTML::loadOverlib();
 
@@ -149,4 +149,3 @@ class userlist_menu_html{
 	}
 }
 
-?>

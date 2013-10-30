@@ -55,7 +55,7 @@ if(!class_exists('JCache')){
 			if(isset($options['cachebase'])){
 				$this->_options['cachebase'] = $options['cachebase'];
 			} else{
-				$this->_options['cachebase'] = JPATH_ROOT . DS . 'cache';
+				$this->_options['cachebase'] = _JLPATH_ROOT . '/cache';
 			}
 
 			if(isset($options['defaultgroup'])){
@@ -278,7 +278,7 @@ if(!class_exists('JCache')){
 				if($this->_handler->test()){
 					return $this->_handler;
 				} else{
-					$this->_handler =& JCacheStorage::getInstance('file', $this->_options);
+					$this->_handler = JCacheStorage::getInstance('file', $this->_options);
 					return $this->_handler;
 				}
 			} else{
@@ -400,8 +400,7 @@ if(!class_exists('JCache')){
 		 * @since    1.3
 		 */
 		function clean($group = 'default', $mode = ''){
-			global $mosConfig_cache_key;
-			$fname = JPATH_BASE . '/configuration.php';
+			$fname = _JLPATH_ROOT . '/configuration.php';
 
 			$enable_write = intval(mosGetParam($_POST, 'enable_write', 0));
 			$oldperms = fileperms($fname);
@@ -413,7 +412,7 @@ if(!class_exists('JCache')){
 				$data = fread($fp, filesize($fname));
 				fclose($fp);
 				if($fp = fopen($fname, 'w')){
-					$pattern = '$mosConfig_cache_key = \'' . $mosConfig_cache_key . '\';';
+					$pattern = '$mosConfig_cache_key = \'' . JCore::getCfg('cache_key') . '\';';
 					$replacement = '$mosConfig_cache_key = \'' . time() . '\';';
 					$data = str_replace($pattern, $replacement, $data);
 					fwrite($fp, $data);

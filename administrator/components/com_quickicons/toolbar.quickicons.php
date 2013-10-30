@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('toolbar_html'));
 
 $task = mosGetParam($_REQUEST, 'task', '');

@@ -42,4 +42,3 @@ class File_Archive_Writer_Output extends File_Archive_Writer{
 	}
 }
 
-?>

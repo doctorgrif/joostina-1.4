@@ -10,6 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 // ensure user has access to this function
 if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'all') | $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_frontpage'))){
 	mosRedirect('index2.php', _NOT_AUTH);
@@ -19,13 +20,15 @@ if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'componen
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
 //подключаем класс босса
-require_once(JPATH_BASE . '/components/com_boss/boss.class.php');
+require_once(_JLPATH_ROOT . '/components/com_boss/boss.class.php');
 
-$conf = null;
+$conf = new stdClass();
 $configObject = new frontpageConfig();
 $conf->directory = $configObject->get('directory');
 $conf->page = $configObject->get('page');
 $conf->order = $configObject->get('order');
+
+$task = JSef::getTask();
 
 if($task != 'save_settings' && $task != 'apply_settings'){
 	$directory = $database->setQuery("SELECT id FROM #__boss_config WHERE id = " . (int)$conf->directory)->loadResult();
@@ -98,7 +101,6 @@ switch($task){
  * Compiles a list of frontpage items
  */
 function viewFrontPage($option, $directory){
-	global $mosConfig_list_limit;
 	$mainframe = mosMainFrame::getInstance();
 	$database = database::getInstance();
 
@@ -106,12 +108,9 @@ function viewFrontPage($option, $directory){
 	$filter_authorid = intval($mainframe->getUserStateFromRequest("filter_authorid{$option}", 'filter_authorid', 0));
 	$filter_sectionid = intval($mainframe->getUserStateFromRequest("filter_sectionid{$option}", 'filter_sectionid', 0));
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0));
 	$search = $mainframe->getUserStateFromRequest("search{$option}", 'search', '');
-	if(get_magic_quotes_gpc()){
-		$search = stripslashes($search);
-	}
 
 	$where = array();
 
@@ -185,8 +184,6 @@ function viewFrontPage($option, $directory){
  * @param integer 0 if unpublishing, 1 if publishing
  */
 function changeFrontPage($cid = null, $state = 0, $option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
 	$database = database::getInstance();
 	$directory = mosGetParam($_REQUEST, 'directory', 0);
 

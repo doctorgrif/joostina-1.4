@@ -1,7 +1,5 @@
 <?php
 
-ini_set('magic_quotes_runtime', 0);
-
 if(isset($_GET['debug'])){
 	echo '<pre>';
 	print_r($_POST);

@@ -1,4 +1,4 @@
-<div class="boss_content">
+<div>
 	<h1>
 		<?php $this->displayDirectoryName(); ?>
 	</h1>
@@ -27,5 +27,5 @@
 	<div class="boss_categories" align="center">
 		<?php $this->displayCategories(); ?>
 	</div>
-	<div class="cf"></div>
+	<div class="clear"></div>
 </div>

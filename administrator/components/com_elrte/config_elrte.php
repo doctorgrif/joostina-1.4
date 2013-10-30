@@ -15,5 +15,3 @@ $style_with_css = '1';
 $fm_allow = array(25);
 $editor_height = '';
 $editor_width = '';
-
-?>

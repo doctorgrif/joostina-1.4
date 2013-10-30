@@ -44,14 +44,11 @@ switch($task){
 
 function upload_avatar(){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
 	$database = database::getInstance();
 
 	$id = intval(mosGetParam($_REQUEST, 'id', 0));
 
 	mosMainFrame::getInstance()->addLib('images');
-
-	$return = array();
 
 	$resize_options = array(
 		'method'      => '0', //Приводит к заданной ширине, сохраняя пропорции.
@@ -72,7 +69,6 @@ function upload_avatar(){
 		if($id){
 			$user = new mosUser($database);
 			$user->load((int)$id);
-			$user_id = $user->id;
 			if($user->avatar != ''){
 				$foto = new Image();
 				$foto->directory = 'images/avatars';
@@ -104,8 +100,7 @@ function x_delavatar(){
 
 // блокировка пользователя
 function x_user_block($id){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if($my->id == $id) return 'info.png';

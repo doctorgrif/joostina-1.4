@@ -15,4 +15,3 @@ class File_Archive_Predicate_True extends File_Archive_Predicate{
 	}
 }
 
-?>

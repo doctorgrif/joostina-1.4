@@ -69,4 +69,3 @@ class File_Archive_Writer_UniqueAppender extends File_Archive_Writer{
 	}
 }
 
-?>

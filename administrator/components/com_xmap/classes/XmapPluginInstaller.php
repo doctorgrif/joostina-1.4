@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
-require_once (JPATH_BASE . '/includes/domit/xml_domit_lite_parser.php');
+require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_lite_parser.php');
 
 /**
  * Plugin installer
@@ -44,7 +44,7 @@ class XmapPluginInstaller extends mosInstaller{
 			$published = 0;
 		}
 
-		$this->elementDir(mosPathName(JPATH_BASE . '/' . JADMIN_BASE . '/components/com_xmap/extensions/'));
+		$this->elementDir(mosPathName(_JLPATH_ROOT . '/' . JADMIN_BASE . '/components/com_xmap/extensions/'));
 
 		if($this->parseFiles('files', 'xmap_ext', 'No file is marked as extension file') === false){
 			return false;
@@ -74,7 +74,7 @@ class XmapPluginInstaller extends mosInstaller{
 			}
 			$id = $database->loadResult();
 
-			require_once(JPATH_BASE . '/' . JADMIN_BASE . '/components/com_xmap/classes/XmapPlugin.php');
+			require_once(_JLPATH_ROOT . '/' . JADMIN_BASE . '/components/com_xmap/classes/XmapPlugin.php');
 
 			$row = new XmapPlugin($database, $id);
 			$row->published = $published;
@@ -106,7 +106,7 @@ class XmapPluginInstaller extends mosInstaller{
 
 		$row = new XmapPlugin($database, $id);
 
-		$basepath = JPATH_BASE . DS . JADMIN_BASE . '/components/com_xmap/extensions/';
+		$basepath = _JLPATH_ROOT . DS . JADMIN_BASE . '/components/com_xmap/extensions/';
 
 		$xmlfile = $basepath . $row->extension . '.xml';
 

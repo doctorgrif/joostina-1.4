@@ -167,7 +167,7 @@ class File_Archive_Reader_Zip extends File_Archive_Reader_Archive{
 
 	function uncompressData(){
 		if($this->data !== null)
-			return;
+			return null;
 		$this->data = $this->source->getData($this->header['CLen']);
 		if(PEAR::isError($this->data)){
 			return $this->data;
@@ -343,4 +343,3 @@ class File_Archive_Reader_Zip extends File_Archive_Reader_Archive{
 	}
 }
 
-?>

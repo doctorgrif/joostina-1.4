@@ -16,10 +16,8 @@ defined('_JLINDEX') or die();
  */
 class HTML_poll{
 
-	function showPolls($rows, $pageNav, $option){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
-		$cur_file_icons_path = JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
+	public static function showPolls($rows, $pageNav, $option){
+		$cur_file_icons_path = _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE . '/images/ico';
 
 		mosCommonHTML::loadOverlib();
 		?>
@@ -93,7 +91,7 @@ class HTML_poll{
 	}
 
 
-	function editPoll($row, $options, $lists){
+    public static function editPoll($row, $options, $lists){
 		mosMakeHtmlSafe($row, ENT_QUOTES);
 		?>
 	<script language="javascript" type="text/javascript">

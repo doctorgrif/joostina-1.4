@@ -15,6 +15,8 @@ if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'modules'
 	mosRedirect('index2.php', _NOT_AUTH);
 }
 
+$mainframe = mosMainFrame::getInstance();
+
 require_once ($mainframe->getPath('admin_html'));
 
 $client = strval(mosGetParam($_REQUEST, 'client', ''));
@@ -27,7 +29,7 @@ if($cid[0] == 0 && isset($moduleid)){
 }
 
 mosCache::cleanCache('init_modules');
-
+$task = JSef::getTask();
 switch($task){
 	case 'copy':
 		copyModule($option, intval($cid[0]), $client);
@@ -87,21 +89,15 @@ switch($task){
  * Compiles a list of installed or defined modules
  */
 function viewModules($option, $client){
-	global $mosConfig_list_limit;
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$filter_position = $mainframe->getUserStateFromRequest("filter_position{$option}{$client}", 'filter_position', 0);
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}{$client}", 'filter_type', 0);
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mosConfig_list_limit));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0));
 	$search = $mainframe->getUserStateFromRequest("search{$option}{$client}", 'search', '');
-	if(get_magic_quotes_gpc()){
-		$search = stripslashes($search);
-		$filter_position = stripslashes($filter_position);
-		$filter_type = stripslashes($filter_type);
-	}
 
 	if($client == 'admin'){
 		$where[] = "m.client_id = 1";
@@ -180,8 +176,6 @@ function viewModules($option, $client){
  * @param integer The unique id of the record to edit
  */
 function copyModule($option, $uid, $client){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
 	$database = database::getInstance();
 	josSpoofCheck();
 	$row = new mosModule($database);
@@ -236,6 +230,8 @@ function copyModule($option, $uid, $client){
  * @param $option - компонент
  * @param $client
  * @param $task - страница
+ *
+ * @modification 12.08.2013
  */
 function saveModule($option, $client, $task){
 	$database = database::getInstance();
@@ -250,7 +246,6 @@ function saveModule($option, $client, $task){
 		}
 		$_POST['params'] = mosParameters::textareaHandling($txt);
 	}
-
 	$row = new mosModule($database);
 
 	if(!$row->bind($_POST, 'selections')){
@@ -336,7 +331,7 @@ function saveModule($option, $client, $task){
  */
 function editModule($option, $uid, $client){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$lists = array();
@@ -443,7 +438,7 @@ function editModule($option, $uid, $client){
 
 	$row->description = '';
 	// XML library
-	require_once (JPATH_BASE . '/includes/domit/xml_domit_lite_include.php');
+	require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_lite_include.php');
 	// xml file for module
 	$xmlfile = $mainframe->getPath($path, $row->module);
 	$xmlDoc = new DOMIT_Lite_Document();
@@ -468,8 +463,6 @@ function editModule($option, $uid, $client){
  * @param array An array of unique category id numbers
  */
 function removeModule($cid, $option, $client){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
 	$database = database::getInstance();
 	josSpoofCheck();
 	if(count($cid) < 1){
@@ -543,8 +536,7 @@ function removeModule($cid, $option, $client){
  * @param integer 0 if unpublishing, 1 if publishing
  */
 function publishModule($cid = null, $publish = 1, $option, $client){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 	josSpoofCheck();
 	if(count($cid) < 1){

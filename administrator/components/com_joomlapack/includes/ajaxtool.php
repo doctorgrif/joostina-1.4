@@ -79,7 +79,6 @@ function JPRestoreErrorReporing(){
 }
 
 function dirSelectionHTML($root){
-	global $option;
 	require_once ('engine.exdirs.php');
 
 	JPSetErrorReporting();
@@ -121,7 +120,6 @@ END;
 }
 
 function toggleDirFilter($root, $dir, $checked){
-	global $option;
 	require_once ('engine.exdirs.php');
 	JPSetErrorReporting();
 	$def = new CDirExclusionFilter();

@@ -241,7 +241,7 @@ class mosPHPMailer{
 	var $sign_key_pass = "";
 
 	public function mosPHPMailer(){
-		$this->PluginDir = JPATH_BASE . DS . 'includes/libraries/phpmailer/';
+		$this->PluginDir = _JLPATH_ROOT . DS . 'includes/libraries/phpmailer/';
 	}
 
 	/////////////////////////////////////////////////
@@ -495,7 +495,7 @@ class mosPHPMailer{
 	 * @return bool
 	 */
 	function SmtpSend($header, $body){
-		include_once($this->PluginDir . 'smtp.php');
+		include_once($this->PluginDir . 'class.smtp.php');
 		$error = '';
 		$bad_rcpt = array();
 
@@ -1200,12 +1200,9 @@ class mosPHPMailer{
 			$this->SetError($this->Lang('file_open') . $path);
 			return '';
 		}
-		$magic_quotes = get_magic_quotes_runtime();
-		ini_set("magic_quotes_runtime", 0);
 		$file_buffer = fread($fd, filesize($path));
 		$file_buffer = $this->EncodeString($file_buffer, $encoding);
 		fclose($fd);
-		ini_set("magic_quotes_runtime", $magic_quotes);
 
 		return $file_buffer;
 	}

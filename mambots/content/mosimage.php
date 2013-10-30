@@ -17,7 +17,7 @@ $_MAMBOTS->registerFunction('onPrepareContent', 'botMosImage');
 function botMosImage($published, &$row, &$params){
 	$_MAMBOTS = mosMambotHandler::getInstance();
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+	$my = JCore::getUser();
 	$database = database::getInstance();
 
 	// simple performance check to determine whether bot should process further
@@ -148,14 +148,14 @@ function processImages(&$row, &$params, &$introCount){
 			// атрибуты размера изображения
 			$size = '';
 			if(function_exists('getimagesize')){
-				$size = @getimagesize(JPATH_BASE . '/images/stories/' . $attrib[0]);
+				$size = @getimagesize(_JLPATH_ROOT . '/images/stories/' . $attrib[0]);
 				if(is_array($size)){
 					$size = ' width="' . $size[0] . '" height="' . $size[1] . '"';
 				}
 			}
 
 			// составление тэга <image>
-			$image = '<img src="' . JPATH_SITE . '/images/stories/' . $attrib[0] . '"' . $size;
+			$image = '<img src="' . _JLPATH_SITE . '/images/stories/' . $attrib[0] . '"' . $size;
 			// если обнаружен заголовок, то выравнивание не меняется
 			if(!$attrib[4]){
 				if($attrib[1] == 'left' or $attrib[1] == 'right'){

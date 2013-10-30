@@ -12,7 +12,9 @@
  **/
 
 defined('_JLINDEX') or die();
-require_once JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'language' . DS . 'russian.php';
+require_once _JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'language' . DS . 'russian.php';
+
+$task = JSef::getTask();
 
 switch($task){
 
@@ -46,13 +48,12 @@ switch($task){
 }
 
 function elfinder(){
-	include_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'view' . DS . 'elfinder.php');
+	include_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'view' . DS . 'elfinder.php');
 }
 
 
 function config_elrte(){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+	$my = JCore::getUser();
 	if($my->gid < 25)
 		mosRedirect('index2.php?option=com_elrte', _ELRTE_NO_SUPERADMIN_REDIRECT);
 	$database = database::getInstance();
@@ -87,22 +88,22 @@ function config_elrte(){
 	$toolbar_objectList = array();
 	$i = 0;
 	foreach($toolbars as $key=> $val){
+		$toolbar_objectList[$i] = new stdClass();
 		$toolbar_objectList[$i]->key = $key;
 		$toolbar_objectList[$i]->text = $val;
 		$i++;
 	}
 	$percent = 100 / (count($groups) + 1);
 
-	include_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elrte.php');
+	include_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elrte.php');
 
 	$cssfiles = (is_array(@$cssfiles) && count(@$cssfiles) > 0) ? implode("\n", @$cssfiles) : '';
 
-	include_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'view' . DS . 'config_elrte.php');
+	include_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'view' . DS . 'config_elrte.php');
 }
 
 function config_elfinder(){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+	$my = JCore::getUser();
 	if($my->gid < 25)
 		mosRedirect('index2.php?option=com_elrte', _ELRTE_NO_SUPERADMIN_REDIRECT);
 	$database = database::getInstance();
@@ -149,6 +150,7 @@ function config_elfinder(){
 	$img_lib_obList = array();
 	$i = 0;
 	foreach($img_libraries as $key=> $val){
+		$img_lib_obList[$i] = new stdClass();
 		$img_lib_obList[$i]->key = $key;
 		$img_lib_obList[$i]->text = $val;
 		$i++;
@@ -161,6 +163,7 @@ function config_elfinder(){
 	$view_obList = array();
 	$i = 0;
 	foreach($views as $key=> $val){
+		$view_obList[$i] = new stdClass();
 		$view_obList[$i]->key = $key;
 		$view_obList[$i]->text = $val;
 		$i++;
@@ -168,12 +171,12 @@ function config_elfinder(){
 
 	$percent = 80 / (count($groups));
 
-	include_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elfinder.php');
+	include_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'config_elfinder.php');
 
 	$file_mode = (isset($file_mode) && !empty($file_mode)) ? $file_mode : '644';
 	$dir_mode = (isset($dir_mode) && !empty($dir_mode)) ? $dir_mode : '755';
 
-	include_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'view' . DS . 'config_elfinder.php');
+	include_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'view' . DS . 'config_elfinder.php');
 }
 
 function save_config_elrte(){ //конфиг редактора
@@ -351,9 +354,9 @@ function save_config_elfinder(){
 }
 
 function info(){
-	include_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'view' . DS . 'info.php');
+	include_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'view' . DS . 'info.php');
 }
 
 function connector(){
-	include_once(JPATH_BASE . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'connector.php');
+	include_once(_JLPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_elrte' . DS . 'connector.php');
 }

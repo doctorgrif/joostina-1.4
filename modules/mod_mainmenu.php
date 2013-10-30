@@ -19,7 +19,7 @@ if(!defined('_MOS_MAINMENU_MODULE')){
 	 */
 	function mosGetMenuLink($mitem, $level = 0, $params, $open = null){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 		$database = database::getInstance();
 
 		$txt = '';
@@ -108,11 +108,10 @@ if(!defined('_MOS_MAINMENU_MODULE')){
 		}
 
 		if($params->get('menu_images')){
-			$menu_params = new stdClass();
 			$menu_params = new mosParameters($mitem->params);
 			$menu_image = $menu_params->def('menu_image', -1);
 			if(($menu_image != '-1') && $menu_image){
-				$image = '<img src="' . JPATH_SITE . '/images/stories/' . $menu_image . '" border="0" alt="' . $mitem->name . '"/>';
+				$image = '<img src="' . _JLPATH_SITE . '/images/stories/' . $menu_image . '" border="0" alt="' . $mitem->name . '"/>';
 				if($params->get('menu_images_align')){
 					$txt = $txt . ' ' . $image;
 				} else{
@@ -129,13 +128,12 @@ if(!defined('_MOS_MAINMENU_MODULE')){
 	 */
 	function mosShowVIMenu($params){
 		global $cur_template;
-		global $mosConfig_shownoauth;
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 		$database = database::getInstance();
 
 		$and = '';
-		if(!$mosConfig_shownoauth){
+		if(!JCore::getCfg('shownoauth')){
 			$and = "\n AND access <= " . (int)$my->gid;
 		}
 		$sql = "SELECT m.*"
@@ -150,7 +148,7 @@ if(!defined('_MOS_MAINMENU_MODULE')){
 		switch($params->get('indent_image')){
 			case '1':
 				// Изображения по умолчанию
-				$imgpath = JPATH_SITE . '/images/M_images';
+				$imgpath = _JLPATH_SITE . '/images/M_images';
 				for($i = 1; $i < 7; $i++){
 					$img[$i] = '<img src="' . $imgpath . '/indent' . $i . '.png" alt="" />';
 				}
@@ -158,7 +156,7 @@ if(!defined('_MOS_MAINMENU_MODULE')){
 
 			case '2':
 				// Использование параметров
-				$imgpath = JPATH_SITE . '/images/M_images';
+				$imgpath = _JLPATH_SITE . '/images/M_images';
 				for($i = 1; $i < 7; $i++){
 					if($params->get('indent_image' . $i) == '-1'){
 						$img[$i] = NULL;
@@ -177,7 +175,7 @@ if(!defined('_MOS_MAINMENU_MODULE')){
 
 			default:
 				// Шаблон
-				$imgpath = JPATH_SITE . '/templates/' . $cur_template . '/images';
+				$imgpath = _JLPATH_SITE . '/templates/' . $cur_template . '/images';
 				for($i = 1; $i < 7; $i++){
 					$img[$i] = '<img src="' . $imgpath . '/indent' . $i . '.png" alt="" />';
 				}
@@ -255,7 +253,7 @@ if(!defined('_MOS_MAINMENU_MODULE')){
 	 */
 	function mosShowHFMenu(&$params, $style = 0){
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 
 		$all_menu = mosMenu::get_all();
 

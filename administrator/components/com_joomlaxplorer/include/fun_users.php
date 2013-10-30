@@ -93,5 +93,3 @@ function remove_user($user){
 	return save_users();
 }
 
-
-?>

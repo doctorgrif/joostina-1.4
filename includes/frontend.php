@@ -23,11 +23,8 @@ function mosMainBody(){
  * not used?
  */
 function mosLoadComponent($name){
-	global $task, $id, $option, $gid;
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
-	$database = database::getInstance();
-	include (JPATH_BASE . DS . "components/com_$name/$name.php");
+	include (_JLPATH_ROOT . DS . "components/com_$name/$name.php");
 }
 
 /**
@@ -49,12 +46,11 @@ function mosCountModules($position = 'left'){
 
 /**
  * @param string The position
- * @param int The style.  0=normal, 1=horiz, -1=no wrapper
  */
 //Скопировано в класс
-function mosLoadModules($position = 'left', $style = 0, $noindex = 0){
+function mosLoadModules($position = 'left', $noindex = 0){
 	$modules = mosModule::getInstance();
-	return $modules->mosLoadModules($position, $style, $noindex);
+	return $modules->mosLoadModules($position, $noindex);
 }
 
 /**
@@ -134,7 +130,7 @@ class PageModel{
 
 		// Browser Check
 		$browserCheck = 0;
-		if(isset($_SERVER['HTTP_USER_AGENT']) && isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], JPATH_SITE) !== false){
+		if(isset($_SERVER['HTTP_USER_AGENT']) && isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], _JLPATH_SITE) !== false){
 			$browserCheck = 1;
 		}
 
@@ -153,16 +149,29 @@ class PageModel{
 			echo '<div class="message info">' . $mosmsg . '</div>';
 		}
 
-		$_body = $GLOBALS['_MOS_OPTION']['buffer'];
+        if ((JSef::getOption() != '' and JSef::getOption() != 'com_frontpage')){
+            $_body = $GLOBALS['_MOS_OPTION']['jqueryplugins'] . $GLOBALS['_MOS_OPTION']['buffer'];
 
-		// активация мамботов группы mainbody
-		if($mainframe->getCfg('mmb_mainbody_off') == 0){
-			$_MAMBOTS = mosMambotHandler::getInstance();
-			$_MAMBOTS->loadBotGroup('mainbody');
-			$_MAMBOTS->trigger('onMainbody', array(&$_body));
-		}
+            // активация мамботов группы mainbody
+            if($mainframe->getCfg('mmb_mainbody_off') == 0){
+                $_MAMBOTS = mosMambotHandler::getInstance();
+                $_MAMBOTS->loadBotGroup('mainbody');
+                $_MAMBOTS->trigger('onMainbody', array(&$_body));
+            }
+        }elseif(JCore::getCfg('mainbody')){
+            $_body = $GLOBALS['_MOS_OPTION']['jqueryplugins'] . $GLOBALS['_MOS_OPTION']['buffer'];
 
-		echo $_body;
+            // активация мамботов группы mainbody
+            if($mainframe->getCfg('mmb_mainbody_off') == 0){
+                $_MAMBOTS = mosMambotHandler::getInstance();
+                $_MAMBOTS->loadBotGroup('mainbody');
+                $_MAMBOTS->trigger('onMainbody', array(&$_body));
+            }
+        }else{
+            $_body = $GLOBALS['_MOS_OPTION']['jqueryplugins'];
+        }
+
+        echo $_body;
 
 		unset($GLOBALS['_MOS_OPTION']['buffer']);
 
@@ -173,15 +182,11 @@ class PageModel{
 	}
 
 	function ShowHead($params = array('js'=> 1, 'css'=> 1)){
-		global $option, $task, $id;
 		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+		$my = JCore::getUser();
 
 		$description = '';
 		$keywords = '';
-
-		$_meta_keys_index = -1;
-		$_meta_desc_index = -1;
 
 		$meta = $mainframe->getHeadData('meta');
 		$n = count($meta);
@@ -242,14 +247,14 @@ class PageModel{
 					$theURI .= '?' . $_SERVER['QUERY_STRING'];
 				}
 			}
-			$theURI = str_replace(JPATH_SITE . '/', '', $theURI);
+			$theURI = str_replace(_JLPATH_SITE . '/', '', $theURI);
 			echo '<base href="' . JSef::getUrlToSef(ampReplace($theURI)) . '" />' . "\r\n";
-			//echo '<base href="'.JPATH_SITE.'" />'."\r\n";		
+			//echo '<base href="'._JLPATH_SITE.'" />'."\r\n";
 		}
 
 		if($my->id || $mainframe->get('joomlaJavascript')){
 			?>
-		<script src="<?php echo JPATH_SITE; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script>
+		<script src="<?php echo _JLPATH_SITE; ?>/includes/js/joomla.javascript.js" type="text/javascript"></script>
 		<?php
 		}
 
@@ -272,11 +277,11 @@ class PageModel{
 			} else{
 				$favicon = $mainframe->getCfg('favicon');
 			}
-			$icon = JPATH_BASE . '/images/' . $favicon;
+			$icon = _JLPATH_ROOT . '/images/' . $favicon;
 			if(!file_exists($icon)){
-				$icon = JPATH_SITE . '/images/favicon.ico';
+				$icon = _JLPATH_SITE . '/images/favicon.ico';
 			} else{
-				$icon = JPATH_SITE . '/images/' . $favicon;
+				$icon = _JLPATH_SITE . '/images/' . $favicon;
 			}
 			echo '<link rel="shortcut icon" href="' . $icon . '" />';
 		}
@@ -333,7 +338,7 @@ class PageModel{
 		if($live_bookmark){
 			$show = 1;
 
-			$link_file = JPATH_SITE . '/index2.php?option=com_rss&feed=' . $live_bookmark . '&no_html=1';
+			$link_file = _JLPATH_SITE . '/index2.php?option=com_rss&feed=' . $live_bookmark . '&no_html=1';
 
 			// xhtml check
 			$link_file = ampReplace($link_file);

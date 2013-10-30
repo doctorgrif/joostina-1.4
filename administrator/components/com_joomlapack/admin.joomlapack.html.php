@@ -13,37 +13,31 @@ defined('_JLINDEX') or die();
 class jpackScreens{
 	// страница конфигурации
 	public static function fConfig(){
-		global $option;
 		require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/html.config.php');
 	}
 
 	// страница выполнения процесса бэкапа
 	public static function fPack(){
-		global $option;
 		require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/html.pack.php');
 	}
 
 	// самая первая страница
 	public static function fMain(){
-		global $option;
 		require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/html.main.php');
 	}
 
 	// список сохранённых бэкапов
 	public static function fBUAdmin(){
-		global $option;
 		require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/html.files.php');
 	}
 
 	// страница со списком каталогов исключаемых из бэкапа
 	public static function fDirExclusion(){
-		global $option;
 		require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/html.dirs.php');
 	}
 
 	// страница с логом выполнения работы
 	public static function fLog(){
-		global $option;
 		require_once (_JLPATH_ADMINISTRATOR . '/components/com_joomlapack/includes/html.log.php');
 	}
 }

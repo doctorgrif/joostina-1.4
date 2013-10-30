@@ -46,5 +46,3 @@ class File_Archive_Writer_AddBaseName{
 		$this->writer->close();
 	}
 }
-
-?>

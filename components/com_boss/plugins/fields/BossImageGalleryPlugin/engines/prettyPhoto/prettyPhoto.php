@@ -40,26 +40,26 @@ function galleryListDisplay($directory, $content, $images, $conf_fields, $conf){
 
 <div class="thumbsContainer">
 	<?php
-	if(file_exists(JPATH_BASE . $pic)){
+	if(file_exists(_JLPATH_ROOT . $pic)){
 		?>
 		<a class="thumb_link" href="<?php
 			echo $full; ?>" title="<?php
 			echo $title; ?>" rel="prettyPhoto[gallery<?php
 			echo $content->id; ?>]">
 			<img class="thumb_img" src="<?php
-				echo JPATH_SITE . $pic; ?>" alt="<?php
+				echo _JLPATH_SITE . $pic; ?>" alt="<?php
 				echo htmlspecialchars(stripslashes(cutLongWord($content->name)), ENT_QUOTES); ?>"/>
 		</a>
 		<?php
 	} else{
 		$nopic_dir = "/templates/com_boss/" . $conf->template . "/images/";
-		if((BOSS_NOPIC != "") && (file_exists(JPATH_BASE . $nopic_dir . BOSS_NOPIC))){
+		if((BOSS_NOPIC != "") && (file_exists(_JLPATH_ROOT . $nopic_dir . BOSS_NOPIC))){
 			?>
-			<img src="<?php echo JPATH_SITE . $nopic_dir . BOSS_NOPIC; ?>" alt="nopic"/>
+			<img src="<?php echo _JLPATH_SITE . $nopic_dir . BOSS_NOPIC; ?>" alt="nopic"/>
 			<?php
 		} else{
 			?>
-			<img src="<?php echo JPATH_SITE . $nopic_dir . nopic . gif; ?>" alt="nopic"/>
+			<img src="<?php echo _JLPATH_SITE . $nopic_dir . nopic . gif; ?>" alt="nopic"/>
 			<?php
 		}
 	}

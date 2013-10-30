@@ -179,4 +179,3 @@ class File_Archive_Reader_Uncompress extends File_Archive_Reader_Relay{
 	}
 }
 
-?>

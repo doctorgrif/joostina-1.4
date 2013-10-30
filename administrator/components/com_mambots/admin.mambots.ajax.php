@@ -9,8 +9,9 @@
 
 // запрет прямого доступа
 defined('_JLINDEX') or die();
-$mainframe = mosMainFrame::getInstance();
-$my = $mainframe->getUser();
+
+$my = JCore::getUser();
+
 $database = database::getInstance();
 
 $acl = &gacl::getInstance();
@@ -120,8 +121,7 @@ function x_access($id){
 }
 
 function x_publish($id = null){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if(!$id) return 'error-id';

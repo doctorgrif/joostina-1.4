@@ -1,175 +1,85 @@
-/****************************************************/
-/*					Стиль шаблона					*/
-/****************************************************/
-
-/**************************************************** [ коррекция стиля ] */
-.cf:after {
-    display: block;
-    clear: both;
-    height: 0;
-    visibility: hidden;
-    content: ' ';
-    font-size: 0;
-}
-
-.cf {
-    *zoom: 1;
-}
-
-.nodorder {
-    border: none;
-    text-decoration: none;
-}
-
-.nodorder:hover {
-    border: none;
-    text-decoration: none;
-}
-
-/**************************************************** [ Основной контейнер ] */
-#body {
-    width: 1100px;
+#tpl_body {
+    width: 1000px;
     margin: 0 auto;
-    background-color: #fffbe4;
+    min-height: 434px;
+    background-color: #f4f2f2;
+    background-image: url("../images/template/fon1.png");
+    background-repeat: repeat-y;
 }
 
-/**************************************************** [ Заголовок ] */
-#header {
+#tpl_left {
+    width: 253px;
+    float: left;
+}
+
+#tpl_left_1 {
     width: inherit;
-    height: 150px;
-    background-image: url("../images/logotype.png");
+    height: 130px;
+    background-image: url("../images/template/logotype1.png");
+}
+
+#tpl_left_2 {
+    width: inherit;
+    height: 304px;
+    background-image: url("../images/template/logotype3.png");
+}
+
+#tpl_left_3 {
+    width: inherit;
+    color: #fff;
+}
+
+#tpl_right {
+    width: 747px;
+    margin: 0 0 0 253px;
+}
+
+#tpl_right_1 {
+    width: inherit;
+    height: 130px;
+    background-image: url("../images/template/logotype2.png");
+    position: relative;
+}
+#tpl_right_1_1 {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+#tpl_right_2 {
+    width: inherit;
+    min-height: 276px;
+    background-image: url("../images/template/logotype4.png");
     background-repeat: no-repeat;
+    background-position: left top;
 }
 
-/**************************************************** [ Заголовок - левая часть ] */
-#header-1 {
-    width: 850px;
-    height: inherit;
+#tpl_down {
+    width: 1000px;
+}
+
+#tpl_down_1 {
+    width: 253px;
+    height: 60px;
+    background-image: url("../images/template/logotype5.png");
     float: left;
+    border-top: 1px #fff solid;
+}
+#tpl_down_1 > div{
+    color: #fff;
+    text-align: center;
+    margin-top: 15px;
+    /*line-height: 60px;*/
 }
 
-/**************************************************** [ Заголовок - правая часть ] */
-#header-2 {
-    width: 250px;
-    height: inherit;
-    float: right;
+#tpl_down_2 {
+    width: 747px;
+    height: 60px;
+    background-image: url("../images/template/logotype6.png");
+    margin: 0 0 0 253px;
+    border-top: 1px #000 solid;
 }
-
-/**************************************************** [ Контейнер основного меню ] */
-#menu1 {
-    width: inherit;
-    height: 35px;
-    border-top: solid 1px #000000;
-    border-bottom: solid 1px #000000;
-}
-
-/**************************************************** [ Верхний контейнер ] */
-#top {
-    width: inherit;
-    height: 300px;
-    background-color: #ffffff;
-    border-bottom: solid 1px #000000;
-}
-
-/**************************************************** [ Верхний контейнер - левая часть ] */
-#top-1 {
-    width: 500px;
-    height: inherit;
-    float: left;
-}
-
-/**************************************************** [ Верхний контейнер - правая часть ] */
-#top-2 {
-    width: 600px;
-    height: inherit;
-    float: right;
-}
-
-/**************************************************** [ Навигационный путь ] */
-#pathway {
-}
-
-/**************************************************** [ Основной контейнер ] */
-#main {
-    width: inherit;
-    background-color: #ffffff;
-}
-
-/**************************************************** [ Основной контейнер - левая часть ] */
-#main-1 {
-    width: 250px;
-    float: left;
-}
-
-/**************************************************** [ Основной контейнер - центральная часть ] */
-#main-2 {
-    width: 600px;
-    float: left;
-}
-
-/**************************************************** [ Основной контейнер - центральная часть - контент ] */
-#main-2-2 {
-    width: auto;
-    margin: 17px 10px 10px 10px;
-    padding: 10px;
-    border: solid 1px #000000;
-    background-color: #fffbe4;
-    border-radius: 5px;
-}
-
-/**************************************************** [ Основной контейнер - правая часть ] */
-#main-3 {
-    width: 250px;
-    float: left;
-}
-
-/**************************************************** [ Контейнер для баннеров ] */
-#banner {
-    width: inherit;
-    background-color: #fffbe4;
-    height: 150px;
-    border-top: solid 1px #000000;
-    border-bottom: solid 1px #000000;
-}
-
-/**************************************************** [ Контейнер для баннеров 1-й блок ] */
-#banner-1 {
-    float: left;
-    height: inherit;
-    width: 310px;
-}
-
-/**************************************************** [ Контейнер для баннеров 2-й блок ] */
-#banner-2 {
-    float: left;
-    height: inherit;
-    width: 480px;
-}
-
-/**************************************************** [ Контейнер для баннеров 3-й блок ] */
-#banner-3 {
-    float: left;
-    height: inherit;
-    width: 310px;
-}
-
-/**************************************************** [ Нижний контейнер ] */
-#bottom {
-    width: inherit;
-    height: 50px;
-    background-image: url("../images/fon-02.png");
-    border-bottom: solid 1px #000000;
-}
-
-/**************************************************** [ Контейнер дополнительного меню ] */
-#menu2 {
-    width: inherit;
-    height: 30px;
-    background-color: #f4f8ff;
-}
-
-/**************************************************** [ Контейнер нижнего колонтитула ] */
-#footer {
-    width: inherit;
-    background-color: #f4f8ff;
+#tpl_down_2 > div{
+    color: #000;
+    text-align: center;
+    line-height: 60px;
 }

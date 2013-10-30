@@ -34,4 +34,4 @@ $GLOBALS["mimes"] = array( // dir, exe, file
 	'real'                => 'Файл аудио RealAudio', // movie
 	'mpg'                 => 'Файл видео MPG', 'mov' => 'Файл видео Movie', 'avi' => 'Файл видео AVI',
 	'flash'               => 'Файл Flash', // Micosoft / Adobe
-	'word'                => 'Документ Word', 'excel' => 'Документ Excel', 'pdf' => 'Файл PDF'); ?>
+	'word'                => 'Документ Word', 'excel' => 'Документ Excel', 'pdf' => 'Файл PDF');

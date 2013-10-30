@@ -11,7 +11,7 @@
 define('_JLINDEX', 1);
 
 
-error_reporting(E_ALL & ~E_NOTICE, _COM_CONFIG_ERROR_PARANOIDAL);
+error_reporting(E_ALL);
 
 // корень файлов
 define('_JLPATH_ROOT',dirname(dirname(__FILE__)));
@@ -19,23 +19,12 @@ define('_JLPATH_ROOT',dirname(dirname(__FILE__)));
 // подключение основных глобальных переменных
 require_once _JLPATH_ROOT . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'defines.php';
 
-//define('JPATH_BASE', dirname(dirname(__FILE__)));
+require_once (_JLPATH_ROOT . DS . 'configuration.php');
 
-(ini_get('register_globals') == 1) ? require_once (JPATH_BASE . DS . 'includes' . DS . 'globals.php') : null;
-require_once (JPATH_BASE . DS . 'configuration.php');
-
-// для совместимости
-$mosConfig_absolute_path = JPATH_BASE;
-
-// SSL проверка  - $http_host returns <live site url>:<port number if it is 443>
-$http_host = explode(':', $_SERVER['HTTP_HOST']);
-if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset($http_host[1]) && $http_host[1] == 443) && substr($mosConfig_live_site, 0, 8) != 'https://'){
-	$mosConfig_live_site = 'https://' . substr($mosConfig_live_site, 7);
-}
-
-// live_site
-define('JPATH_SITE', $mosConfig_live_site);
 if(!defined('IS_ADMIN')) define('IS_ADMIN', 1);
+
+$_MOS_OPTION = array();
+$_MOS_OPTION['jqueryplugins'] = '';
 
 // подключение главного файла - ядра системы
 require_once (_JLPATH_ROOT . DS . 'core' . DS . 'core.php');
@@ -44,14 +33,14 @@ require_once (_JLPATH_ROOT . DS . 'core' . DS . 'core.php');
 require_once(_JLPATH_ROOT . DS . 'core' . DS . 'language.php');
 
 // подключаем ядро
-require_once (JPATH_BASE . DS . 'includes' . DS . 'joostina.php');
+require_once (_JLPATH_ROOT . DS . 'includes' . DS . 'joostina.php');
 
 // подключение SEF
-require_once (JPATH_BASE . DS . 'includes' . DS . 'sef.php');
-JSef::getInstance($mosConfig_sef, $mosConfig_com_frontpage_clear);
+require_once (_JLPATH_ROOT . DS . 'includes' . DS . 'sef.php');
+JSef::getInstance(JCore::getCfg('sef'), JCore::getCfg('com_frontpage_clear'));
 
 // работа с сессиями начинается до создания главного объекта взаимодействия с ядром
-session_name(md5(JPATH_SITE));
+session_name(md5(_JLPATH_SITE));
 session_start();
 
 header('Content-type: text/html; charset=UTF-8');
@@ -74,7 +63,7 @@ $database = database::getInstance();
 $acl = gacl::getInstance();
 
 // установка языка систему
-$mainframe->set('lang', $mosConfig_lang);
+$mainframe->set('lang', JCore::getCfg('lang'));
 
 // получаем название шаблона для панели управления
 $cur_template = $mainframe->getTemplate();
@@ -96,7 +85,7 @@ if($option == ''){
 	$option = 'com_admin';
 }
 
-if($mosConfig_mmb_system_off == 0){
+if(JCore::getCfg('mmb_system_off') == 0){
 	$_MAMBOTS = mosMambotHandler::getInstance();
 	$_MAMBOTS->loadBotGroup('admin');
 	$_MAMBOTS->trigger('onAfterAdminStart');
@@ -104,7 +93,7 @@ if($mosConfig_mmb_system_off == 0){
 
 // инициализация редактора
 $mainframe->set('allow_wysiwyg', 1);
-require_once (JPATH_BASE . '/includes/editor.php');
+JCore::connectionEditor();
 
 ob_start();
 if($path = $mainframe->getPath('admin')){
@@ -115,14 +104,14 @@ if($path = $mainframe->getPath('admin')){
 	require_once ($path);
 } else{
 	?>
-<img src="<?php echo JPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE; ?>/images/ico/error.png" border="0" alt="Joostina!"/>
+<img src="<?php echo _JLPATH_SITE . '/' . JADMIN_BASE . '/templates/' . JTEMPLATE; ?>/images/ico/error.png" border="0" alt="Joostina!"/>
 <?php
 }
 
 $_MOS_OPTION['buffer'] = ob_get_contents();
 ob_end_clean();
 
-if($mosConfig_mmb_system_off == 0){
+if(JCore::getCfg('mmb_system_off') == 0){
 	$_MAMBOTS->trigger('onBeforeAdminOutput');
 }
 
@@ -131,21 +120,21 @@ initGzip();
 // начало вывода html
 if($no_html == 0){
 	// загрузка файла шаблона
-	if(!file_exists(JPATH_BASE . DS . JADMIN_BASE . DS . 'templates' . DS . JTEMPLATE . DS . 'index.php')){
+	if(!file_exists(_JLPATH_ROOT . DS . JADMIN_BASE . DS . 'templates' . DS . JTEMPLATE . DS . 'index.php')){
 		echo _TEMPLATE_NOT_FOUND . ': ' . JTEMPLATE;
 	} else{
 		//Подключаем язык шаблона
 		if($mainframe->getLangFile('tmpl_' . JTEMPLATE)){
 			include_once($mainframe->getLangFile('tmpl_' . JTEMPLATE));
 		}
-		require_once (JPATH_BASE . DS . JADMIN_BASE . DS . 'templates' . DS . JTEMPLATE . DS . 'index.php');
+		require_once (_JLPATH_ROOT . DS . JADMIN_BASE . DS . 'templates' . DS . JTEMPLATE . DS . 'index.php');
 	}
 } else{
 	mosMainBody_Admin();
 }
 
 // информация отладки, число запросов в БД
-if($mosConfig_debug){
+if(JCore::getCfg('debug')){
 	jd_get();
 }
 

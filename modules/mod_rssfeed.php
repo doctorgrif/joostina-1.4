@@ -34,8 +34,8 @@ $rss20_image = $params->get('rss20_image', '');
 $atom_image = $params->get('atom_image', '');
 $opml_image = $params->get('opml_image', '');
 $yandex_image = $params->get('yandex_image', '');
-$t_path = JPATH_SITE . '/templates/' . JTEMPLATE . '/images/';
-$d_path = JPATH_SITE . '/images/M_images/';
+$t_path = _JLPATH_SITE . '/templates/' . JTEMPLATE . '/images/';
+$d_path = _JLPATH_SITE . '/images/M_images/';
 
 // needed to reduce query
 if(isset($GLOBALS['syndicateParams'])){

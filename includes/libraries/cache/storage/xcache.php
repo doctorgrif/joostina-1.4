@@ -116,8 +116,7 @@ class JCacheStorageXCache extends JCacheStorage{
 	 * @since    1.3
 	 */
 	function _getCacheId($id, $group){
-		global $mosConfig_cache_key;
-		$name = md5($mosConfig_cache_key . "-" . $this->_application . '-' . $id . '-' . $this->_hash . '-' . $this->_language);
+		$name = md5(JCore::getCfg('cache_key') . "-" . $this->_application . '-' . $id . '-' . $this->_hash . '-' . $this->_language);
 		return 'cache_' . $group . '-' . $name;
 	}
 }

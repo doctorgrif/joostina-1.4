@@ -62,7 +62,7 @@ switch($button_pos){
 		break;
 }
 
-		$link = JPATH_SITE . '/index.php';
+
 //Подключаем шаблон
 if($module->set_template($params)){
 	require($module->template);

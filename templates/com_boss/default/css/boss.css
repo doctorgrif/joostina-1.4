@@ -1,137 +1,320 @@
-/* [ Основной контейнер ] */
-.boss_content,
-.boss_content_featured {
-    font-family: Arial;
+/* хлебные крошки
+**********************************************************/
+#boss_content .boss_pathway {
+    display: table;
     width: auto;
-    padding: 10px;
-    margin: 10px;
+    margin-bottom: 10px;
 }
 
-/* Заголовок каталога */
-.boss_content > h1 {
+#boss_content .boss_pathway ul {
+    margin: 0;
+}
+
+#boss_content .boss_pathway li {
+    list-style: none;
+    display: block;
+    float: left;
+    padding: 3px 10px 3px 15px;
+    background-image: url("../images/cat_arrow.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    margin: 0;
+    color: #666;
+}
+
+#boss_content .boss_pathway li:hover {
+}
+
+#boss_content .boss_pathway li a {
+    color: #000;
+    text-decoration: none;
+    border: 0;
+}
+
+#boss_content .boss_pathway li a:hover {
+    border-bottom: 1px #f00 solid;
+}
+
+/*
+**********************************************************/
+#boss_content article {
+    border: 1px #ccc solid;
+    margin: 10px;
+    position: relative;
+    background-color: #fff;
+}
+
+#boss_content article > h1 {
+}
+
+#boss_content article > h1,
+#boss_content article > h3 {
+    background-color: #ccc;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
     font-size: 12pt;
     font-weight: bold;
-    margin: -10px 40px 20px -30px;
-    padding: 10px;
-    background-color: #e0e6d1;
-}
-
-.boss_content > h1 span a {
-    text-decoration: none;
+    margin: -1px 110px 0 -1px;
     border: none;
 }
 
-.boss_content .boss_categories,
-.boss_content_featured .boss_categories {
-    margin: 0 auto;
-    text-align: center;
-}
-
-.boss_content .boss_categories a,
-.boss_content_featured .boss_categories a {
-    text-decoration: none;
+#boss_content article > h1 a,
+#boss_content article > h3 a {
+    background-color: #ccc;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 12pt;
+    font-weight: bold;
     border: none;
 }
 
-.boss_content .boss_maincat,
-.boss_content_featured .boss_maincat {
-    float: left;
-    margin: 20px;
+#boss_content article > h1 a:hover,
+#boss_content article > h3 a:hover {
+    color: #000;
 }
 
-/* Заголовок категории */
-.boss_content > h3 {
-    font-size: 11pt;
-    font-weight: bold;
-    margin: 0 -30px 20px -30px;
-    padding: 10px;
-    background-color: #e0e6d1;
-    width: auto;
+#boss_content .boss_cat {
 }
 
-/* Заголовок категории */
-.boss_content_featured > h3 {
-    font-size: 11pt;
-    font-weight: bold;
-    margin: 0 -30px 20px -30px;
-    padding: 10px;
-    background-color: #ffffff;
-    width: auto;
-}
-
-.boss_content .boss_cat,
-.boss_content .boss_cat a,
-.boss_content_featured .boss_cat,
-.boss_content_featured .boss_cat a {
-    font-size: 9pt;
+#boss_content .boss_cat,
+#boss_content .boss_cat a {
+    vertical-align: bottom;
     font-weight: normal;
-    color: #666666;
+    font-size: 9pt;
+    color: #666;
 }
 
-.boss_content .content_list img,
-.boss_content_featured .content_list img {
+#boss_content article div.boss_subcats {
+    line-height: 35px;
+    width: auto;
+    text-align: left;
+    display: table;
+}
+
+#boss_content article div.boss_subcats a {
+    font-size: 10pt;
+    color: #000;
+    margin: 0 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    padding: 5px 10px;
+}
+
+#boss_content article div.boss_subcats a:hover,
+#boss_content article div.boss_subcats a#active_menu {
+    color: #f00;
+    text-decoration: none;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    padding: 5px 10px 5px 9px;
+}
+
+#boss_content article > div {
+    margin: 3px 15px;
+}
+
+#boss_content .boss_vote {
+    margin: 10px 0 10px 15px;
+}
+
+#boss_content .boss_date {
+    padding: 5px 10px;
+    color: #f00;
+    vertical-align: bottom;
+    position: absolute;
+    top: -10px;
+    right: -3px;
+    font-style: italic;
+    /*box-shadow: 2px 2px 3px rgba(122, 122, 122, 0.5);*/
+    /*border-radius: 15px;*/
+    background-color: #f4f2f2;
+    border: 1px solid #aaa;
+}
+
+#boss_content .boss_content {
+    display: table;
+}
+
+#boss_content .boss_content img {
     padding: 2px;
-    border: #aaaaaa solid 1px;
-    margin: 3px;
+    margin: 0 10px 7px 0;
+    box-shadow: 0 0 5px rgba(122, 122, 122, 0.5);
 }
 
-.boss_content .comments,
-.boss_content_featured .comments {
+#boss_content .comments {
     font-size: 8pt;
-    color: #666666;
-    margin: 2px 0;
+    color: #999;
+    font-style: italic;
+    padding: 3px 0;
 }
 
-.boss_content .edit,
-.boss_content_featured .edit {
-    margin: 7px 0;
+#boss_content .edit > div {
+    border-top: 1px solid #900;
+    margin: 10px 0;
+    padding: 5px 0;
 }
 
-.boss_content .edit a,
-.boss_content_featured .edit a {
-    color: #990000;
-    font-weight: bold;
-    font-size: 9pt;
+/**************** Комментариии */
+#boss_content .boss_comments > h2 {
+    color: #999;
+    margin: 0 0 10px 0;
 }
 
-/* комментарии */
-.dotteddiv {
-    padding: 10px;
-    margin: 15px 0;
-    border: #eeeeee solid 1px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 3px 3px 3px rgba(122, 122, 122, 0.5);
+#boss_content .boss_comments .dotteddiv {
+
 }
 
-.dotteddiv h3 {
-    color: #990000;
+#boss_content .boss_comments .dotteddiv > h3 {
     font-weight: normal;
-    display: block;
-    border-bottom: #999999 solid 1px;
+    margin-bottom: 5px;
 }
 
-.boss_content .addcomment td {
+#boss_content .boss_comments .dotteddiv > h3:after {
+    content: ':';
+}
+
+#boss_content .boss_comments .dotteddiv > h3:first-letter {
+    color: #f00;
+}
+
+#boss_content .boss_comments .dotteddiv .text {
+    box-shadow: 2px 2px 3px rgba(122, 122, 122, 0.5);
+    border-radius: 0 0 15px 0;
+    background-color: #f9f9f9;
+    border: 1px solid #aaa;
+    padding: 5px 10px;
+    margin: 10px 0;
+}
+
+#boss_content .boss_comments .dotteddiv .user {
+    color: #999;
+    font-style: italic;
+    text-align: right;
+}
+
+#boss_content .boss_comments .addcomment td {
+    padding: 0 10px;
+}
+
+#boss_content .boss_comments .addcomment .button input {
+    font-size: 10pt;
+    color: #000;
+    margin: 10px 15px;
+    text-decoration: none;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+}
+
+#boss_content .boss_comments .addcomment .button input:hover {
+    color: #f00;
+    text-decoration: none;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    padding: 5px 10px 5px 9px;
+}
+
+#boss_content .boss_pathway {
     padding: 5px;
 }
 
-/**************************************************** [ коррекция стиля ] */
-.cf:after {
-    display: block;
-    clear: both;
-    height: 0;
-    visibility: hidden;
-    content: ' ';
-    font-size: 0;
+#writecontent_header1 {
+    color: #f00;
 }
 
-.cf {
-    *zoom: 1;
+#writecontent_header2 {
+    color: #090;
 }
 
-.boss_pathway {
-    margin: 5px;
-    font-size: 11pt;
+/* форма отправки сообщения
+****************************************************************/
+#boss_fieldset {
+    border: 1px #ccc solid;
+    margin: 10px;
+    position: relative;
+    background-color: #fff;
+    padding: 40px 10px 10px 10px;
+}
+
+#boss_fieldset table td {
+    padding: 5px;
+}
+
+#boss_fieldset table td:nth-child(odd) {
+    text-align: right;
+}
+
+#boss_fieldset > legend {
+    background-color: #ccc;
+    padding: 5px 20px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 12pt;
     font-weight: bold;
-    color: #990000;
+    border: none;
+    display: block;
+    margin: -40px 0 0 -10px;
+    position: absolute;
+}
+
+/*
+****************************************************************/
+
+#boss_content div.alphaindex {
+    border: 1px solid #aaa;
+    padding: 5px;
+    width: 450px;
+    text-align: center;
+}
+
+#boss_content a.alphaindex {
+    color: #f00;
+    font-weight: 700;
+}
+
+#boss_content article div.boss_tpl_search span a {
+    text-decoration: none;
+    border: none;
+}
+
+#boss_content div.back_button {
+    margin: 10px;
+}
+
+#boss_content .boss_categories {
+    text-align: center;
+}
+
+#boss_content .boss_categories .boss_maincat {
+    float: left;
+    margin: 10px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#boss_content .boss_categories .boss_maincat:hover {
+    background-color: #ffc;
+}
+
+#boss_content .boss_categories .boss_maincat > a {
+    border: none;
+    text-decoration: none;
+}
+
+#boss_content .boss_categories .boss_maincat .boss_maincat_title a {
+    font-size: 10pt;
+    color: #000;
+    margin: 0 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    padding: 5px 10px;
+}
+
+#boss_content .boss_categories .boss_maincat .boss_maincat_title a:hover {
+    color: #f00;
+    text-decoration: none;
 }

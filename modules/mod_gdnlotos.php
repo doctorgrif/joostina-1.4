@@ -1,10 +1,11 @@
-<?php
+<?php defined('_JLINDEX') or die();
+
 /**
- * @package GDNLotos - Главные новости
- * @copyright Авторские права (C) 2000-2011 Gold Dragon.
- * @license http://www.gnu.org/licenses/gpl.htm GNU/GPL
- * GDNLotos - Главные новости - модуль позволяет выводить основные материалы по определённым критериям для Joostina 1.4.0.x
- * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл view/copyright.php.
+ * @package     GDNLotos
+ * @copyright   Авторские права (C) 2000-2013 Gold Dragon.
+ * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
+ * @description Модуль позволяет выводить основные материалы по определённым критериям для Joostina 1.4.3.x
+ * @see         http://wiki.joostina-cms.ru/index.php/GDNLotos
  */
 
 // запрет прямого доступа

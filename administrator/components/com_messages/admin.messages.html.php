@@ -166,8 +166,7 @@ class HTML_messages{
 	}
 
 	public static function newMessage($option, $recipientslist, $subject){
-		$mainframe = mosMainFrame::getInstance();
-		$my = $mainframe->getUser();
+        $my = JCore::getUser();
 		?>
 	<script language="javascript" type="text/javascript">
 		function submitbutton(pressbutton) {

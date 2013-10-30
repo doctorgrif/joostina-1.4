@@ -10,11 +10,12 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
 
 $cid = josGetArrayInts('cid');
-
+$task = JSef::getTask();
 switch($task){
 	case 'view':
 		viewMessage($cid[0], $option);
@@ -50,8 +51,7 @@ switch($task){
 }
 
 function editConfig($option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$query = "SELECT cfg_name, cfg_value FROM #__messages_cfg WHERE user_id = " . (int)$my->id;
@@ -59,12 +59,15 @@ function editConfig($option){
 	$data = $database->loadObjectList('cfg_name');
 
 	// initialize values if they do not exist
+    $data['lock'] = new stdClass();
 	if(!isset($data['lock']->cfg_value)){
 		$data['lock']->cfg_value = 0;
 	}
+    $data['mail_on_new'] = new stdClass();
 	if(!isset($data['mail_on_new']->cfg_value)){
 		$data['mail_on_new']->cfg_value = 0;
 	}
+    $data['auto_purge'] = new stdClass();
 	if(!isset($data['auto_purge']->cfg_value)){
 		$data['auto_purge']->cfg_value = 7;
 	}
@@ -80,8 +83,7 @@ function editConfig($option){
 
 function saveConfig($option){
 	josSpoofCheck();
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$query = "DELETE FROM #__messages_cfg WHERE user_id = " . (int)$my->id;
@@ -90,10 +92,6 @@ function saveConfig($option){
 
 	$vars = mosGetParam($_POST, 'vars', array());
 	foreach($vars as $k => $v){
-		if(get_magic_quotes_gpc()){
-			$k = stripslashes($k);
-			$v = stripslashes($v);
-		}
 		$query = "INSERT INTO #__messages_cfg ( user_id, cfg_name, cfg_value ) VALUES ( " . (int)$my->id . ", " . $database->Quote($k) . ", " . $database->Quote($v) . " )";
 		$database->setQuery($query);
 		$database->query();
@@ -102,7 +100,7 @@ function saveConfig($option){
 }
 
 function newMessage($option){
-	$acl = &gacl::getInstance();
+	$acl = gacl::getInstance();
 
 	$database = database::getInstance();
 
@@ -151,15 +149,12 @@ function saveMessage($option){
 
 function showMessages($option){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$limit = $mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit'));
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart", 'limitstart', 0);
 	$search = $mainframe->getUserStateFromRequest("search{$option}", 'search', '');
-	if(get_magic_quotes_gpc()){
-		$search = stripslashes($search);
-	}
 
 	$wheres = array();
 	$wheres[] = " a.user_id_to = " . (int)$my->id;

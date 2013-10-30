@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_JLINDEX') or die();
 
+$mainframe = mosMainFrame::getInstance();
+
 // ensure user has access to this function
 if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'all') | $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_banners'))){
 	mosRedirect('index2.php', _NOT_AUTH);
@@ -28,7 +30,8 @@ $cid = josGetArrayInts('cid');
 if(intval($cid[0]) == 0){
 	$cid[0] = intval(mosGetParam($_REQUEST, 'cid', 0));
 }
-
+$task = JSef::getTask();
+$option = JSef::getOption();
 switch($task){
 	// OTHER EVENTS
 
@@ -293,9 +296,9 @@ function viewBanners($option){
 
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}bannerslimitstart", 'limitstart', 0));
 	$catid = intval($mainframe->getUserStateFromRequest("category{$option}id", 'catid', 0));
 	$cliid = intval($mainframe->getUserStateFromRequest("client{$option}id", 'cliid', 0));
@@ -368,8 +371,7 @@ function viewBanners($option){
 }
 
 function editBanner($bannerid, $option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$banner = new mosArtBanner($database);
@@ -415,14 +417,14 @@ function editBanner($bannerid, $option){
 	// Imagelist
 	// get list of images
 	$dimension = array();
-	$imgFiles = mosReadDirectory(JPATH_BASE . "/images/show");
+	$imgFiles = mosReadDirectory(_JLPATH_ROOT . "/images/show");
 	$images = array();
 	$images[] = mosHTML::makeOption('', _ABP_PSANIMG);
 	foreach($imgFiles as $file){
 		if(preg_match("/(\.bmp|\.gif|\.jpg|\.jpeg|\.png|\.swf)$/i", $file)){
 			$images[] = mosHTML::makeOption($file);
 			// get image info
-			$image_info = @getimagesize(JPATH_BASE . "/images/show/" . $file);
+			$image_info = @getimagesize(_JLPATH_ROOT . "/images/show/" . $file);
 			$dimension[$file]['w'] = $image_info[0];
 			$dimension[$file]['h'] = $image_info[1];
 		}
@@ -589,9 +591,8 @@ function saveBanner($option, $task){
 		$client = new mosArtBannerClient($database);
 		$client->load($banner->cid);
 
-		global $mosConfig_mailfrom, $mosConfig_fromname;
-		$link = JPATH_SITE . '/index.php?option=com_banners&task=statistics&id=' . $banner->id . '&password=' . mosHash($banner->password);
-		$result = mosMail($mosConfig_mailfrom, $mosConfig_fromname, $client->email, _ABP_SUBJECT_MAIL, _ABP_BODY_MAIL . $link);
+		$link = _JLPATH_SITE . '/index.php?option=com_banners&task=statistics&id=' . $banner->id . '&password=' . mosHash($banner->password);
+		$result = mosMail(JCore::getCfg('mailfrom'), JCore::getCfg('fromname'), $client->email, _ABP_SUBJECT_MAIL, _ABP_BODY_MAIL . $link);
 
 		if($result === false)
 			$msg .= ' ' . _ABP_ERROR_SEND_MAIL;
@@ -627,8 +628,7 @@ function cancelEditBanner($option){
 }
 
 function publishBanner($cid, $publish = 1, $option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0){
@@ -662,8 +662,7 @@ function publishBanner($cid, $publish = 1, $option){
 }
 
 function removeBanner($cid, $option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0){
@@ -702,9 +701,9 @@ function removeBanner($cid, $option){
 function viewBannerClients($option){
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}clientslimitstart", 'limitstart', 0));
 	$published = $mainframe->getUserStateFromRequest("published{$option}", 'published', -1);
 
@@ -782,8 +781,7 @@ function viewBannerClients($option){
 }
 
 function editBannerClient($clientid, $option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$client = new mosArtBannerClient($database);
@@ -832,8 +830,7 @@ function saveBannerClient($option){
 }
 
 function publishClient($cid = null, $publish = 1){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0){
@@ -869,8 +866,6 @@ function cancelEditClient($option){
 }
 
 function removeBannerClients($cid, $option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
 	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0){
@@ -927,10 +922,10 @@ function removeBannerClients($cid, $option){
  */
 function viewCategories($option){
 	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
-	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
+	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', JCore::getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}categorieslimitstart", 'limitstart', 0));
 	$published = $mainframe->getUserStateFromRequest("published{$option}", 'published', -1);
 
@@ -977,8 +972,7 @@ function viewCategories($option){
  * @param string The name of the current user
  */
 function editCategory($cid, $option){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	$category = new mosArtCategory($database);
@@ -1084,8 +1078,7 @@ function removeCategories($cid, $option){
  * @param integer 0 if unpublishing, 1 if publishing
  */
 function publishCategories($cid = null, $publish = 1){
-	$mainframe = mosMainFrame::getInstance();
-	$my = $mainframe->getUser();
+    $my = JCore::getUser();
 	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0){
@@ -1209,7 +1202,7 @@ function getTextNode($node, $tag, $default = ''){
 function doRestore($option){
 	$database = database::getInstance();
 
-	$media_path = JPATH_BASE . '/media/';
+	$media_path = _JLPATH_ROOT . '/media/';
 
 	$userfile2 = (isset($_FILES['userfile']['tmp_name']) ? $_FILES['userfile']['tmp_name'] : "");
 	$userfile_name = (isset($_FILES['userfile']['name']) ? $_FILES['userfile']['name'] : "");
@@ -1239,7 +1232,7 @@ function doRestore($option){
 		}
 	}
 
-	require_once (JPATH_BASE . '/includes/domit/xml_domit_include.php');
+	require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_include.php');
 
 	//instantiate a new DOMIT! document
 	$xmldoc = new DOMIT_Document();
@@ -1419,8 +1412,6 @@ function doRestore($option){
 }
 
 function doBackup(){
-	global $mosConfig_db, $mosConfig_sitename;
-
 	$database = database::getInstance();
 
 	$UserAgent = $_SERVER['HTTP_USER_AGENT'];
@@ -1454,7 +1445,7 @@ function doBackup(){
 		}
 	}
 
-	require_once (JPATH_BASE . '/includes/domit/xml_domit_include.php');
+	require_once (_JLPATH_ROOT . '/includes/domit/xml_domit_include.php');
 
 	//instantiate a new DOMIT! document
 	$xmldoc = new DOMIT_Document();

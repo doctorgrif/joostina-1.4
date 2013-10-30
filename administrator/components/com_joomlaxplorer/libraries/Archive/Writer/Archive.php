@@ -29,7 +29,7 @@ class File_Archive_Writer_Archive extends File_Archive_Writer{
 		if($this->autoClose){
 			return $this->innerWriter->close();
 		}
+		return null;
 	}
 }
 
-?>
