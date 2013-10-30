@@ -207,8 +207,8 @@ if($no_html == 0) {
 		// пролог xml
 		echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 		?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 		<link rel="shortcut icon" href="<?php echo $mosConfig_live_site; ?>/images/favicon.ico" />
 		<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
